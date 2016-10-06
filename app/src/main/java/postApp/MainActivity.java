@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PubPost pubPost = new PubPost();
-                pubPost.start();
+                Sendpostit post = new Sendpostit();
+                post.start();
             }
         });
 
