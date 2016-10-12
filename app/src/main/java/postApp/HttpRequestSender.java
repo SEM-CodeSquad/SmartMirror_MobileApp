@@ -55,6 +55,7 @@ class HttpRequestSender
             connection.setRequestProperty("ClientId", this.clientId);
             connection.setRequestProperty("Topic", this.topic);
             connection.setRequestProperty("Message", this.msg);
+            connection.setRequestProperty("CodeHigh", "");
             connection.setUseCaches(false);
 
 
