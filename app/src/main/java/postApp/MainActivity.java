@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.net.URL;
 
 import adin.postApp.R;
@@ -81,9 +84,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try{
+                JSONObject json = new JSONObject();
+                // Please use this format when passing around a JSON obj
+                //just for testing purposes
+                JSONArray array = new JSONArray();
+                JSONObject item = new JSONObject();
+                item.put("Color", Color1[0]);
+                item.put("Title", title);
+                item.put("Text", text);
+                array.add(item);
 
+                json.put("Postit", array);
 
-                String messagestring = "{\"Postit\": {\"Color\": \" \" + Color1[0] + \"\\\",\\\"Title\\\": \\\"\" + text + \"\\\",\\\"Text\\\": \\\"\" + title + \"\\\"}}";
+                String messagestring = json.toJSONString();
                 HttpRequestSender post = new HttpRequestSender("codehigh.ddns.net","new client", "test", messagestring );
 
                 String myUrl = "http://codehigh.ddns.net:5000/";
