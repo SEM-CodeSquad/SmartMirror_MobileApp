@@ -1,16 +1,14 @@
 package postApp;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Class responsible for establishing http connection with web server and send data to it.
  */
-public class HttpRequestSender
+class HttpRequestSender
 {
 
     private String brokerHostname;
@@ -26,7 +24,7 @@ public class HttpRequestSender
      * @param topic String topic to be published on the broker
      * @param msg String message to be published in the broker
      */
-    public HttpRequestSender(String brokerHostname, String clientId, String topic, String msg)
+    HttpRequestSender(String brokerHostname, String clientId, String topic, String msg)
     {
         this.brokerHostname = brokerHostname;
         this.clientId = clientId;
@@ -39,18 +37,9 @@ public class HttpRequestSender
      * "http://codehigh.ddns.net:5000/"
      * @param targetURL String containing the url and port to the web server
      */
-    public void executePost(String targetURL)
+    void executePost(String targetURL)
     {
-        String data  = "Hostname: " + this.brokerHostname + " ClientId: " + this.clientId + " Topic: " +
-                this.topic + " Message: " + this.msg + " end";
-        byte[] postData       = new byte[0];
-        /*
-        On java teh next if statement is not necessary so need to check if still ok on android
-         */
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            postData = data.getBytes( StandardCharsets.UTF_8 );
-        }
-        int    postDataLength = postData.length;
+
         HttpURLConnection connection = null;
 
         try {
@@ -62,12 +51,12 @@ public class HttpRequestSender
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "Application/SmartMirror");
             connection.setRequestProperty("Content-Language", "utf-8");
-            connection.setRequestProperty( "Content-Length", Integer.toString( postDataLength ));
+            connection.setRequestProperty("Broker", this.brokerHostname);
+            connection.setRequestProperty("ClientId", this.clientId);
+            connection.setRequestProperty("Topic", this.topic);
+            connection.setRequestProperty("Message", this.msg);
             connection.setUseCaches(false);
 
-            //send data
-            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-            wr.write( postData );
 
             //Get Response
             BufferedReader in = new BufferedReader(
@@ -103,6 +92,5 @@ public class HttpRequestSender
     {
         return httpResponse;
     }
-
 }
 
