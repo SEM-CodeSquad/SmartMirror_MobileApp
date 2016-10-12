@@ -41,14 +41,14 @@ public class HttpRequestSender
      */
     private void executePost(String targetURL)
     {
-        String urlParameters  = "Hostname: " + this.brokerHostname + " ClientId: " + this.clientId + " Topic: " +
+        String data  = "Hostname: " + this.brokerHostname + " ClientId: " + this.clientId + " Topic: " +
                 this.topic + " Message: " + this.msg + " end";
         byte[] postData       = new byte[0];
         /*
         On java teh next if statement is not necessary so need to check if still ok on android
          */
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+            postData = data.getBytes( StandardCharsets.UTF_8 );
         }
         int    postDataLength = postData.length;
         HttpURLConnection connection = null;
