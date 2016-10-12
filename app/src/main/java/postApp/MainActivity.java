@@ -81,20 +81,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try{
-                System.out.println(text);
-                System.out.println(Color1[0]);
-                System.out.println(title);
-                String yellow = "yellow";
 
 
-                String messagestring = "{\"Postit\": {\"Color\": \" \" + yellow + \"\\\",\\\"Title\\\": \\\"\" + text + \"\\\",\\\"Text\\\": \\\"\" + title + \"\\\"}}";
+                String messagestring = "{\"Postit\": {\"Color\": \" \" + Color1[0] + \"\\\",\\\"Title\\\": \\\"\" + text + \"\\\",\\\"Text\\\": \\\"\" + title + \"\\\"}}";
                 HttpRequestSender post = new HttpRequestSender("codehigh.ddns.net","new client", "test", messagestring );
 
                 String myUrl = "http://codehigh.ddns.net:5000/";
                 //String myUrl = "http://localhost:5600/";
 
                 post.executePost(myUrl);
-                return("hi");
+                return post.getHttpResponse();
 
             }
             catch(Exception e)
