@@ -26,7 +26,7 @@ public class HttpRequestSender
      * @param topic String topic to be published on the broker
      * @param msg String message to be published in the broker
      */
-    private HttpRequestSender(String brokerHostname, String clientId, String topic, String msg)
+    public HttpRequestSender(String brokerHostname, String clientId, String topic, String msg)
     {
         this.brokerHostname = brokerHostname;
         this.clientId = clientId;
@@ -39,7 +39,7 @@ public class HttpRequestSender
      * "http://codehigh.ddns.net:5000/"
      * @param targetURL String containing the url and port to the web server
      */
-    private void executePost(String targetURL)
+    public void executePost(String targetURL)
     {
         String data  = "Hostname: " + this.brokerHostname + " ClientId: " + this.clientId + " Topic: " +
                 this.topic + " Message: " + this.msg + " end";
@@ -99,7 +99,7 @@ public class HttpRequestSender
      *  Method to get the String containing the response from the web server.
      * @return String web server response
      */
-    private String getHttpResponse()
+    public String getHttpResponse()
     {
         return httpResponse;
     }

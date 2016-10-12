@@ -1,5 +1,6 @@
 package postApp;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -10,36 +11,42 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.net.URL;
+
 import adin.postApp.R;
 
 public class MainActivity extends AppCompatActivity {
+
+    EditText titletext;
+    EditText typedtext;
+    ImageButton checkmark;
+    String text;
+    String title;
+    final String[] Color1 = new String[1];
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ImageButton checkmark = (ImageButton) findViewById(R.id.checkmark);
-        Button colorblue = (Button) findViewById(R.id.buttonblue);
-        Button coloryellow = (Button) findViewById(R.id.buttonyellow);
-        Button colorgreen = (Button)findViewById(R.id.buttongreen);
-        final EditText titletext = (EditText)findViewById(R.id.titletext);
-        final EditText typedtext = (EditText)findViewById(R.id.typedText);
+        titletext = (EditText)findViewById(R.id.titletext);
+        typedtext = (EditText)findViewById(R.id.typedText);
+        final Button colorblue = (Button) findViewById(R.id.buttonblue);
+        final Button coloryellow = (Button) findViewById(R.id.buttonyellow);
+        final Button colorgreen = (Button)findViewById(R.id.buttongreen);
+        final ImageButton checkmark = (ImageButton)findViewById(R.id.checkmark);
         final ImageView PostitImage = (ImageView)findViewById(R.id.ImageView);
-        final String[] Color = new String[1];
 
         assert checkmark != null;
         checkmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sendpostit post = new Sendpostit();
-                String text = typedtext.getText().toString();
-                String title = titletext.getText().toString();
-                String urlParameters = "Hostname: codehigh ClientId: new client Topic:New topic Body: {\"Postit\": {\"Color\": \" " + Color[0] + "\",\"Title\": \"" + titletext + "\",\"Text\": \"" + typedtext + "\"}} end";
-                String myUrl = "http://codehigh.ddns.net:5000/";
-                //String myUrl = "http://localhost:5600/";
+                System.out.println("hi");
+                text = typedtext.getText().toString();
+                title = titletext.getText().toString();
 
-                post.executePost(myUrl, urlParameters);
+                new Retrievedata().execute();
             }
         });
 
@@ -47,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         colorblue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Color[0] = "Blue";
+                Color1[0] = "Blue";
                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.bluepost));
             }
         });
@@ -55,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         coloryellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Color[0] = "Yellow";
+                Color1[0] = "Yellow";
                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.yellowpost));
             }
         });
@@ -63,11 +70,38 @@ public class MainActivity extends AppCompatActivity {
         colorgreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Color[0] = "Green";
+                Color1[0] = "Green";
                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.greenpost));
             }
         });
 
+    }
+
+    class Retrievedata extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            try{
+                System.out.println(text);
+                System.out.println(Color1[0]);
+                System.out.println(title);
+                String yellow = "yellow";
+
+
+                String messagestring = "{\"Postit\": {\"Color\": \" \" + yellow + \"\\\",\\\"Title\\\": \\\"\" + text + \"\\\",\\\"Text\\\": \\\"\" + title + \"\\\"}}";
+                HttpRequestSender post = new HttpRequestSender("codehigh.ddns.net","new client", "test", messagestring );
+
+                String myUrl = "http://codehigh.ddns.net:5000/";
+                //String myUrl = "http://localhost:5600/";
+
+                post.executePost(myUrl);
+                return("hi");
+
+            }
+            catch(Exception e)
+            {
+                return "bye";
+            }
+        }
     }
 
 
