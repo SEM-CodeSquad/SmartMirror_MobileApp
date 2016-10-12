@@ -1,4 +1,4 @@
-package adin.postApp;
+package myapplication;
 
 import org.junit.Test;
 
