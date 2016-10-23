@@ -97,12 +97,13 @@ public class MainActivity extends AppCompatActivity {
                 json.put("Postit", array);
 
                 String messagestring = json.toJSONString();
-                HttpRequestSender post = new HttpRequestSender("codehigh.ddns.net","new client", "test", messagestring );
+                HttpRequestSender post = new HttpRequestSender("codehigh.ddns.me","new client", "test", messagestring );
 
-                String myUrl = "http://codehigh.ddns.net:5000/";
+                String myUrl = "http://codehigh.ddns.me:5000/";
                 //String myUrl = "http://localhost:5600/";
 
                 post.executePost(myUrl);
+                System.out.println(post.getHttpResponse());
                 return post.getHttpResponse();
 
             }
