@@ -1,124 +1,63 @@
 package postApp;
-
-import android.os.AsyncTask;
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import java.net.URL;
 
 import adin.postApp.R;
+import postApp.Controllers.About;
+import postApp.Controllers.Contact;
+import postApp.Controllers.MirrorPostit;
+import postApp.Controllers.Postit;
+import postApp.Controllers.RemovePostit;
 
-public class MainActivity extends AppCompatActivity {
-
-    EditText titletext;
-    EditText typedtext;
-    ImageButton checkmark;
-    String text;
-    String title;
-    final String[] Color1 = new String[1];
-
-
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        titletext = (EditText)findViewById(R.id.titletext);
-        typedtext = (EditText)findViewById(R.id.typedText);
-        final Button colorblue = (Button) findViewById(R.id.buttonblue);
-        final Button coloryellow = (Button) findViewById(R.id.buttonyellow);
-        final Button colorgreen = (Button)findViewById(R.id.buttongreen);
-        final ImageButton checkmark = (ImageButton)findViewById(R.id.checkmark);
-        final ImageView PostitImage = (ImageView)findViewById(R.id.ImageView);
-
-        assert checkmark != null;
-        checkmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("hi");
-                text = typedtext.getText().toString();
-                title = titletext.getText().toString();
-
-                new Retrievedata().execute();
-            }
-        });
-
-
-        colorblue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Color1[0] = "Blue";
-                PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.bluepost));
-            }
-        });
-
-        coloryellow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Color1[0] = "Yellow";
-                PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.yellowpost));
-            }
-        });
-
-        colorgreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Color1[0] = "Green";
-                PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.greenpost));
-            }
-        });
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Publish PostIt");
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
+        if(savedInstanceState == null) {
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.content_frame, new Postit()).commit();
+        }
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
-    class Retrievedata extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            try{
-                JSONObject json = new JSONObject();
-                // Please use this format when passing around a JSON obj
-                //just for testing purposes
-                JSONArray array = new JSONArray();
-                JSONObject item = new JSONObject();
-                item.put("Color", Color1[0]);
-                item.put("Title", title);
-                item.put("Text", text);
-                array.add(item);
-
-                json.put("Postit", array);
-
-                String messagestring = json.toJSONString();
-                HttpRequestSender post = new HttpRequestSender("codehigh.ddns.me","new client", "test", messagestring );
-
-                String myUrl = "http://codehigh.ddns.me:5000/";
-                //String myUrl = "http://localhost:5600/";
-
-                post.executePost(myUrl);
-                System.out.println(post.getHttpResponse());
-                return post.getHttpResponse();
-
-            }
-            catch(Exception e)
-            {
-                return "bye";
-            }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -126,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -137,4 +75,34 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        FragmentManager fragment = getFragmentManager();
+        if (id == R.id.nav_postit){
+            fragment.beginTransaction().replace(R.id.content_frame, new Postit()).commit();
+            getSupportActionBar().setTitle("Publish PostIt");
+        } else if (id == R.id.nav_mirror) {
+            fragment.beginTransaction().replace(R.id.content_frame, new MirrorPostit()).commit();
+            getSupportActionBar().setTitle("Mirror");
+        } else if (id == R.id.nav_remove) {
+            fragment.beginTransaction().replace(R.id.content_frame, new RemovePostit()).commit();
+            getSupportActionBar().setTitle("Remove PostIt");
+        } else if (id == R.id.nav_contact) {
+            fragment.beginTransaction().replace(R.id.content_frame, new Contact()).commit();
+            getSupportActionBar().setTitle("Contact Us");
+        } else if (id == R.id.nav_about) {
+            fragment.beginTransaction().replace(R.id.content_frame, new About()).commit();
+            getSupportActionBar().setTitle("About");
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
 }

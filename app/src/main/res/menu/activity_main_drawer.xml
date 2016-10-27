@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Functions">
+            <menu>
+        <item
+            android:id="@+id/nav_postit"
+            android:title="PostIt"
+            android:icon="@mipmap/bluepost"/>
+        <item
+            android:id="@+id/nav_mirror"
+            android:title="Display Mirror"
+            android:icon="@drawable/mirror" />
+        <item
+            android:id="@+id/nav_remove"
+            android:title="Remove Postit" />
+            </menu>
+        </item>
+    </group>
+
+    <item android:title="Connectivity"
+        >
+    <menu>
+        <item
+            android:id="@+id/brokerstatus"
+            android:title="Broker status"
+            android:icon="@mipmap/cloud2"
+            />
+        <item
+            android:id="@+id/mirrorstatus"
+            android:title="Mirror Status" />
+    </menu>
+    </item>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_contact"
+                android:title="Contact us"
+                android:icon="@mipmap/email"/>
+            <item
+                android:id="@+id/nav_about"
+                android:title="About"
+                android:icon="@mipmap/about"/>
+        </menu>
+    </item>
+
+</menu>
