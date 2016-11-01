@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:clickable="true"
-    android:focusableInTouchMode="true" >
+    android:focusableInTouchMode="true"
+ >
 
     <ImageView
         android:id="@+id/ImageView"
@@ -13,7 +14,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="false"
         android:scaleType="fitXY"
-        android:src="@mipmap/bluepost"
+        android:src="@mipmap/post_it_yellow"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="25dp" />
@@ -22,40 +23,21 @@
         android:id="@+id/typedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/titletext"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
         android:background="@null"
         android:ems="13"
         android:inputType="textMultiLine|textNoSuggestions"
         android:maxLength="250"
         android:text="Write your tasks here"
         android:textStyle="normal"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="120dp" />
-
-    <EditText
-        android:id="@+id/titletext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ImageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp"
-        android:background="@null"
-        android:ems="10"
-        android:inputType="textMultiLine|textNoSuggestions"
-        android:maxLength="16"
-        android:text="Task Name"
-        android:textAlignment="center"
-        android:textSize="22sp"
-        android:textStyle="normal" />
+        android:layout_below="@+id/colorbutton"
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:id="@+id/checkmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@mipmap/checkmark"
+        android:src="@drawable/checkmark"
         android:layout_marginBottom="49dp"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/colorbutton"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ffffff">
 
     <group android:checkableBehavior="single">
         <item android:title="Functions">
@@ -7,14 +8,15 @@
         <item
             android:id="@+id/nav_postit"
             android:title="PostIt"
-            android:icon="@mipmap/bluepost"/>
+            android:icon="@mipmap/post_it_"/>
         <item
             android:id="@+id/nav_mirror"
             android:title="Display Mirror"
             android:icon="@drawable/mirror" />
         <item
             android:id="@+id/nav_remove"
-            android:title="Remove Postit" />
+            android:title="Remove Postit"
+            android:icon="@drawable/delpost"/>
             </menu>
         </item>
     </group>
@@ -25,7 +27,7 @@
         <item
             android:id="@+id/brokerstatus"
             android:title="Broker status"
-            android:icon="@mipmap/cloud2"
+            android:icon="@drawable/cstorage"
             />
         <item
             android:id="@+id/mirrorstatus"
@@ -36,13 +38,17 @@
     <item android:title="Other">
         <menu>
             <item
+                android:id="@+id/nav_preferences"
+                android:title="Preferences"
+                android:icon="@drawable/rem"/>
+            <item
                 android:id="@+id/nav_contact"
                 android:title="Contact us"
-                android:icon="@mipmap/email"/>
+                android:icon="@drawable/email"/>
             <item
                 android:id="@+id/nav_about"
                 android:title="About"
-                android:icon="@mipmap/about"/>
+                android:icon="@drawable/info"/>
         </menu>
     </item>
 
