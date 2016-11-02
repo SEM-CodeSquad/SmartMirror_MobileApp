@@ -26,7 +26,7 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
 
             json.put("Postit", array);
 
-            topic = args[2] + "/" + args[3];
+            topic = "/SmartMirror" + args[2] + "/" + args[3];
             System.out.println(topic);
 
             String messagestring = json.toJSONString();

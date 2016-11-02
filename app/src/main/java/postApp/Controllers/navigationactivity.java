@@ -24,13 +24,13 @@ import postApp.Controllers.Fragments.Settings;
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawer;
-    ActionBarDrawerToggle toggle;
+    public ActionBarDrawerToggle toggle;
     Toolbar toolbar;
     String mirrorID = "No mirror chosen";
     String newsID = "No news chosen";
     String busID = "No bus or tram stop chosen";
     String weatherID = "No city chosen";
-    private View.OnClickListener mOriginalListener;
+    View.OnClickListener mOriginalListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,10 +87,8 @@ public class NavigationActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
 
         if (id == R.id.action_settings) {
-            mOriginalListener = toggle.getToolbarNavigationClickListener();
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new Settings()).commit();
             getSupportActionBar().setTitle("Settings");
-            toggleDrawerUse(false);
         }
 
         return super.onOptionsItemSelected(item);
@@ -108,7 +106,7 @@ public class NavigationActivity extends AppCompatActivity
         toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.beginTransaction().replace(R.id.content_frame, new Postit()).commit();
+                fragment.beginTransaction().replace(R.id.content_frame, new Settings()).commit();
                 toggleDrawerUse(true);
 
             }

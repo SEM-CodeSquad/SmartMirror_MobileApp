@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 
@@ -23,12 +24,14 @@ public class Settings extends Fragment {
     View myView;
     QrCode newQr;
     public EditText UUID;
+    private View.OnClickListener mOriginalListener;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         myView = inflater.inflate(R.layout.settings, container, false);
-        EditText QrCodebtn = (EditText)myView.findViewById(R.id.mirrorbtn);
+        Button QrCodebtn = (Button)myView.findViewById(R.id.mirrorbtn);
         EditText edit = (EditText)myView.findViewById(R.id.mirrortext);
         edit.setText(((NavigationActivity) getActivity()).getMirror());
 
@@ -36,6 +39,8 @@ public class Settings extends Fragment {
             @Override
             public void onClick(View v) {
                 newQr = new QrCode();
+                mOriginalListener = ((NavigationActivity) getActivity()).toggle.getToolbarNavigationClickListener();
+                ((NavigationActivity) getActivity()).toggleDrawerUse(false);
                 getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, newQr).commit();
             }
         });

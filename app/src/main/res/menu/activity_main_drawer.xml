@@ -31,7 +31,8 @@
             />
         <item
             android:id="@+id/mirrorstatus"
-            android:title="Mirror Status" />
+            android:title="Raspberry Status"
+            android:icon="@drawable/rpi"/>
     </menu>
     </item>
 
