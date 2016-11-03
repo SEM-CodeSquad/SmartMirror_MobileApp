@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 
+import java.util.UUID;
+
 import adin.postApp.R;
 import postApp.Controllers.Fragments.About;
 import postApp.Controllers.Fragments.Contact;
@@ -21,6 +23,9 @@ import postApp.Controllers.Fragments.Preferences;
 import postApp.Controllers.Fragments.RemovePostit;
 import postApp.Controllers.Fragments.Settings;
 
+/*
+Oncreate method for navigationactivity, starts a navigation drawer and sets the toolbar, functionality etc.
+ */
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawer;
@@ -30,6 +35,7 @@ public class NavigationActivity extends AppCompatActivity
     String newsID = "No news chosen";
     String busID = "No bus or tram stop chosen";
     String weatherID = "No city chosen";
+    UUID idOne = UUID.randomUUID();
     View.OnClickListener mOriginalListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +64,9 @@ public class NavigationActivity extends AppCompatActivity
 
 
     }
-
+/*
+Back pressed obv, not implemented that well yet
+ */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -93,6 +101,9 @@ public class NavigationActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+    /*
+    Used for changing from the Drawer functionality to a back button functionality
+     */
     public void toggleDrawerUse(boolean useDrawer) {
         // Enable/Disable the icon being used by the drawer
         toggle.setDrawerIndicatorEnabled(useDrawer);
@@ -107,12 +118,17 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 fragment.beginTransaction().replace(R.id.content_frame, new Settings()).commit();
+                getSupportActionBar().setTitle("Settings");
                 toggleDrawerUse(true);
 
             }
         });
     }
 
+
+    /*
+    This is the navigationbar items switching fragments when clicked
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -147,7 +163,10 @@ public class NavigationActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+/*
+Getters and setter for all the current string that will be used to passing data
+Having these to access the same from all fragments
+ */
     public String getMirror(){
         return mirrorID;
     }
@@ -171,6 +190,9 @@ public class NavigationActivity extends AppCompatActivity
     }
     public void setNews(String N){
         newsID = N ;
+    }
+    public String getUUID(){
+        return idOne.toString();
     }
 
 }

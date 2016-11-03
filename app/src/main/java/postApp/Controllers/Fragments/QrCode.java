@@ -20,7 +20,9 @@ import adin.postApp.R;
 import postApp.Controllers.NavigationActivity;
 import postApp.MainActivity;
 
-
+/*
+Simple qrcode scanner that implements the ZXING Scanner library.
+ */
 public class QrCode extends Fragment implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
     @Nullable
@@ -40,16 +42,17 @@ public class QrCode extends Fragment implements ZXingScannerView.ResultHandler {
         mScannerView.stopCamera();           // Stop camera on pause
     }
 
+    /*
+    When we get result we handle it here, and set the mirror id with SetMirror, to the Id we get.
+    Then we switch back fragment when done.
+
+     */
     @Override
     public void handleResult(Result rawResult) {
         // Do something with the result here
 
-        Log.e("handler", rawResult.getText()); // Prints scan results
-        Log.e("handler", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode)
-
-        // show the scanner result into dialog box.
         ((NavigationActivity) getActivity()).setMirror(rawResult.getText());
-        System.out.println(((NavigationActivity) getActivity()).getMirror());
+       ((NavigationActivity) getActivity()).toggleDrawerUse(true);
 
         getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new Settings()).commit();
 

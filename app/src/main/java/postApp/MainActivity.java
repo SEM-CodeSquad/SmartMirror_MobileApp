@@ -12,7 +12,9 @@ import java.util.Objects;
 
 import adin.postApp.R;
 import postApp.Controllers.NavigationActivity;
-
+/*
+Startup for the login screen, currently fixed values till a db gets implemented
+ */
 public class MainActivity extends AppCompatActivity {
 
     String password = "Adin";
@@ -46,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
+/*
+Switches to navigationactivity
+ */
     public void OnLogin(String User, String Pass){
         if(username.equals(User) && password.equals(Pass)){
             Intent intent = new Intent(this, NavigationActivity.class);

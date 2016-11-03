@@ -12,35 +12,48 @@ import org.json.simple.JSONObject;
 public class Retrievedata extends AsyncTask<String, Void, String> {
     String Returnthis;
     String topic;
+    HttpRequestSender post;
+    String myUrl = "http://codehigh.ddns.me:5000/";
     @Override
     protected String doInBackground(String... args) {
         try{
-            JSONObject json = new JSONObject();
             // Please use this format when passing around a JSON obj
-            //just for testing purposes
-            JSONArray array = new JSONArray();
-            JSONObject item = new JSONObject();
-            item.put("Color", args[0]);
-            item.put("Text", args[1]);
-            array.add(item);
+            // 2 diffrent outcomes if its a postit we publish to a diffrent topic if its a config we publish to a dif topic with a dif jsonobj
+            if(args[1] == "postit") {
+                JSONObject item = new JSONObject();
+                item.put("Color", args[2]);
+                item.put("Text", args[3]);
+                item.put("UUID", args[4]);
 
-            json.put("Postit", array);
 
-            topic = "/SmartMirror" + args[2] + "/" + args[3];
-            System.out.println(topic);
+                topic = "SmartMirror/" + args[0] + "/" + args[1];
+                System.out.println(topic);
 
-            String messagestring = json.toJSONString();
-            HttpRequestSender post = new HttpRequestSender("codehigh.ddns.me","new client", topic, messagestring );
+                String messagestring = item.toJSONString();
+                System.out.println(messagestring);
+                post = new HttpRequestSender("codehigh.ddns.me", "new client", topic, messagestring);
+            }
+            else if(args[1] == "config"){
+                JSONObject item = new JSONObject();
+                item.put("Bus", args[2]);
+                item.put("News", args[3]);
+                item.put("Weather", args[4]);
+                item.put("UUID", args[5]);
 
-            String myUrl = "http://codehigh.ddns.me:5000/";
-            //String myUrl = "http://localhost:5600/";
 
+                topic = "SmartMirror/" + args[0] + "/" + args[1];
+                System.out.println(topic);
+                String messagestring = item.toJSONString();
+                System.out.println(messagestring);
+                post = new HttpRequestSender("codehigh.ddns.me", "new client", topic, messagestring);
+
+            }
             post.executePost(myUrl);
             System.out.println(post.getHttpResponse());
-            Returnthis = post.getHttpResponse();
+            Returnthis = post.getHttpResponse(); //execute a post http request with httprequestsenderclass
             return post.getHttpResponse();
 
-        }
+        }// catches exceptions
         catch(Exception e)
         {
             return "Warning: did not publish";

@@ -40,7 +40,7 @@
         <menu>
             <item
                 android:id="@+id/nav_preferences"
-                android:title="Preferences"
+                android:title="Mirror Preferences"
                 android:icon="@drawable/rem"/>
             <item
                 android:id="@+id/nav_contact"

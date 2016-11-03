@@ -27,42 +27,39 @@ import postApp.MqTTHandler.Retrievedata;
 
 /**
  * Created by adinH on 2016-10-26.
+ * used for posting postits
  */
 public class Postit extends Fragment {
 
 
     EditText typedtext;
     String topic;
-
+    String uuid;
     String text;
     final String[] Color1 = new String[1];
     View myView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        Color1[0] = "post_it_yellow";
         myView = inflater.inflate(R.layout.postit, container, false);
         final ImageButton colorbutton = (ImageButton)myView.findViewById(R.id.colorbutton);
         final ImageButton checkmark = (ImageButton)myView.findViewById(R.id.checkmark);
         final ImageView PostitImage = (ImageView)myView.findViewById(R.id.ImageView);
         typedtext = (EditText)myView.findViewById(R.id.typedText);
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //builders are dialog that pop up with option, each option outcome is in the switch()
         builder.setTitle("Chose color");
         builder.setItems(new CharSequence[]
                         {"Blue", "Green", "Yellow", "Orange", "Purple", "Pink"},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        System.out.println(Color1[0]);
 
                         // The 'which' argument contains the index position
                         // of the selected item
                         switch (which) {
                             case 0:
                                 Color1[0] = "post-it-blue";
-                                Drawable myIcon = getResources().getDrawable(R.mipmap.post_it_blue);
-                                myIcon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
-                                PostitImage.setImageDrawable(myIcon); //The color u want
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_blue));
                                 Toast.makeText(getActivity(), "Chose Blue", Toast.LENGTH_SHORT).show();
                                 break;
@@ -107,20 +104,23 @@ public class Postit extends Fragment {
             public void onClick(View v) {
                builder.show();
             }
-        });
+        }); //when colorbutton is pressed in the UI we show the color builder.
 
+        /*
+        This is used for posting a postit with starting the Retrieve data class with all the args we need.
+         */
         assert checkmark != null;
         checkmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 text = typedtext.getText().toString();
-
+                uuid = ((NavigationActivity) getActivity()).getUUID();
                 topic = ((NavigationActivity) getActivity()).getMirror();
                 Retrievedata R = new Retrievedata();
                 String S = null;
                 if (topic != "No mirror chosen") {
                     try {
-                        S = R.execute(Color1[0], text, topic, "Postit").get();
+                        S = R.execute(topic, "postit", Color1[0], text, uuid).get();
                     } catch (InterruptedException e) {
                         S = "Did not publish";
                         e.printStackTrace();
@@ -135,6 +135,9 @@ public class Postit extends Fragment {
             }
         });
 
+        /*
+        Remove focus from textview when clicked on a diffrent place
+         */
         typedtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -147,7 +150,9 @@ public class Postit extends Fragment {
         return myView;
     }
 
-
+    /*
+    Hides keyboard
+     */
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
