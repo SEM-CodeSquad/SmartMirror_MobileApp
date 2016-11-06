@@ -1,22 +1,14 @@
-package postApp.Controllers.logic.vasttrafik;
+package postApp.logic.vasttrafik;
 
 import android.os.AsyncTask;
-
-import android.os.AsyncTask;
-import android.util.Log;
-
-import com.github.scribejava.core.model.HttpClient;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.net.URI;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * Created by adinH on 2016-11-02.

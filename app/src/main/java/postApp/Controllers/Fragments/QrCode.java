@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
 import postApp.Controllers.NavigationActivity;
-import postApp.Controllers.logic.MqTTHandler.Retrievedata;
+import postApp.logic.MqTTHandler.Retrievedata;
 
 /*
 Simple qrcode scanner that implements the ZXING Scanner library.
