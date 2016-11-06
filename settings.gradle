@@ -1,1 +1,2 @@
 include ':app'
+project(':app').projectDir = new File('.idea/modules/app')
