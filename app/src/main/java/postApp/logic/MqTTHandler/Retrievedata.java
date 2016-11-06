@@ -1,4 +1,4 @@
-package postApp.Controllers.logic.MqTTHandler;
+package postApp.logic.MqTTHandler;
 
 import android.os.AsyncTask;
 

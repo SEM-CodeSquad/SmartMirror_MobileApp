@@ -1,6 +1,4 @@
-package postApp.Controllers.logic.vasttrafik;
-
-import android.os.AsyncTask;
+package postApp.logic.vasttrafik;
 
 import java.io.BufferedReader;
 import java.io.IOException;
