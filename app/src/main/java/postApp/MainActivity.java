@@ -17,8 +17,8 @@ Startup for the login screen, currently fixed values till a db gets implemented
  */
 public class MainActivity extends AppCompatActivity {
 
-    String password = "Adin";
-    String username = "Adin";
+    String password = "Rafa";
+    String username = "Rafa";
     EditText usrname;
     TextView passwrd;
     @Override
@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
 Switches to navigationactivity
  */
     public void OnLogin(String User, String Pass){
-        if(username.equals(User) && password.equals(Pass)){
+        //if(username.equals(User) && password.equals(Pass)){
             Intent intent = new Intent(this, NavigationActivity.class);
             startActivity(intent);
-        }
+        //}
     }
 }

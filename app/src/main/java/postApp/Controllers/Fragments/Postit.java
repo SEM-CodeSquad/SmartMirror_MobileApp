@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -17,13 +14,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
 import postApp.Controllers.NavigationActivity;
-import postApp.MqTTHandler.Retrievedata;
+import postApp.Controllers.logic.MqTTHandler.Retrievedata;
 
 /**
  * Created by adinH on 2016-10-26.
@@ -36,17 +36,22 @@ public class Postit extends Fragment {
     String topic;
     String uuid;
     String text;
+    Switch important;
+    String time;
     final String[] Color1 = new String[1];
     View myView;
+    String idOne;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Color1[0] = "post_it_yellow";
+        idOne = UUID.randomUUID().toString();
+        Color1[0] = "post-it-yellow";
         myView = inflater.inflate(R.layout.postit, container, false);
         final ImageButton colorbutton = (ImageButton)myView.findViewById(R.id.colorbutton);
         final ImageButton checkmark = (ImageButton)myView.findViewById(R.id.checkmark);
         final ImageView PostitImage = (ImageView)myView.findViewById(R.id.ImageView);
         typedtext = (EditText)myView.findViewById(R.id.typedText);
+        important = ((Switch)myView.findViewById(R.id.postitswitch));
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //builders are dialog that pop up with option, each option outcome is in the switch()
         builder.setTitle("Chose color");
@@ -70,25 +75,21 @@ public class Postit extends Fragment {
                                 break;
                             case 2:
                                 Color1[0] = "post-it-yellow";
-                                System.out.println(Color1[0]);
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_yellow));
                                 Toast.makeText(getActivity(), "Chose Yellow", Toast.LENGTH_SHORT).show();
                                 break;
                             case 3:
                                 Color1[0] = "post-it-orange";
-                                System.out.println(Color1[0]);
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_orange));
                                 Toast.makeText(getActivity(), "Chose Orange", Toast.LENGTH_SHORT).show();
                                 break;
                             case 4:
                                 Color1[0] = "post-it-purple";
-                                System.out.println(Color1[0]);
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_purple));
                                 Toast.makeText(getActivity(), "Chose Purple", Toast.LENGTH_SHORT).show();
                                 break;
                             case 5:
                                 Color1[0] = "post-it-pink";
-                                System.out.println(Color1[0]);
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_pink));
                                 Toast.makeText(getActivity(), "Chose Pink", Toast.LENGTH_SHORT).show();
                                 break;
@@ -113,14 +114,25 @@ public class Postit extends Fragment {
         checkmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 text = typedtext.getText().toString();
                 uuid = ((NavigationActivity) getActivity()).getUUID();
                 topic = ((NavigationActivity) getActivity()).getMirror();
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.DATE, 7);
+                idOne = UUID.randomUUID().toString();
+                ((NavigationActivity) getActivity()).setpostit(idOne);
+
+                String date = c.getTime().toString();
+                if(important.isChecked() == true){
+                    date = "none";
+                }
+                String importantstring = String.valueOf(important.isChecked());
                 Retrievedata R = new Retrievedata();
                 String S = null;
                 if (topic != "No mirror chosen") {
                     try {
-                        S = R.execute(topic, "postit", Color1[0], text, uuid).get();
+                        S = R.execute(topic, "postit", text, Color1[0], importantstring, date, idOne).get();
                     } catch (InterruptedException e) {
                         S = "Did not publish";
                         e.printStackTrace();

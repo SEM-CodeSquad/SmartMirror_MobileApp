@@ -114,10 +114,11 @@
         android:clickable="true"
         android:inputType="textNoSuggestions"
         android:focusable="false"
-        android:layout_alignRight="@+id/usrbtn"
-        android:layout_alignEnd="@+id/usrbtn"
         android:layout_alignLeft="@+id/busbtn"
-        android:layout_alignStart="@+id/busbtn" />
+        android:layout_alignStart="@+id/busbtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -131,8 +132,9 @@
         android:layout_below="@+id/bustext"
         android:layout_toRightOf="@+id/busimage"
         android:layout_marginLeft="5dp"
-        android:layout_alignRight="@+id/usrbtn"
-        android:layout_alignEnd="@+id/usrbtn" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -146,8 +148,9 @@
         android:focusable="false"
         android:layout_toRightOf="@+id/imageView2"
         android:layout_marginLeft="5dp"
-        android:layout_alignRight="@+id/busbtn"
-        android:layout_alignEnd="@+id/busbtn" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -191,7 +194,10 @@
         android:layout_below="@+id/imageView13"
         android:layout_alignLeft="@+id/mirrorbtn"
         android:layout_alignStart="@+id/mirrorbtn"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="12dp"
+        android:layout_alignRight="@+id/newsbtn"
+        android:layout_alignEnd="@+id/newsbtn" />
 
     <Button
         android:layout_width="wrap_content"
@@ -206,8 +212,9 @@
         android:layout_below="@+id/imageView"
         android:layout_toRightOf="@+id/imageView"
         android:layout_marginLeft="10dp"
-        android:layout_alignRight="@+id/newsbtn"
-        android:layout_alignEnd="@+id/newsbtn" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp" />
 
     <ImageView
         android:layout_width="100dp"
@@ -271,16 +278,6 @@
         android:layout_alignRight="@+id/imageView12"
         android:layout_alignEnd="@+id/imageView12"
         android:layout_marginTop="7dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
-        android:layout_alignRight="@+id/imageView14"
-        android:layout_alignEnd="@+id/imageView14"
-        android:visibility="invisible"
-        android:layout_alignTop="@+id/imageView15" />
 
     <ImageView
         android:layout_width="30dp"

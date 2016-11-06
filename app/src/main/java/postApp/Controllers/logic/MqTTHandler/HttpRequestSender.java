@@ -1,4 +1,4 @@
-package postApp.MqTTHandler;
+package postApp.Controllers.logic.MqTTHandler;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,7 +8,7 @@ import java.net.URL;
 /**
  * Class responsible for establishing http connection with web server and send data to it.
  */
-class HttpRequestSender
+public class HttpRequestSender
 {
 
     private String brokerHostname;

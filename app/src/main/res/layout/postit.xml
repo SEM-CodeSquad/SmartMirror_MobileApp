@@ -15,22 +15,24 @@
         android:layout_alignParentStart="false"
         android:scaleType="fitXY"
         android:src="@mipmap/post_it_yellow"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp" />
 
     <EditText
         android:id="@+id/typedText"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@null"
         android:ems="13"
         android:inputType="textMultiLine|textNoSuggestions"
-        android:maxLength="250"
+        android:maxLength="80"
         android:text="Write your tasks here"
         android:textStyle="normal"
         android:layout_below="@+id/colorbutton"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp" />
 
     <ImageButton
         android:id="@+id/checkmark"
@@ -38,11 +40,11 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:src="@drawable/checkmark"
-        android:layout_marginBottom="49dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/colorbutton"
-        android:layout_alignStart="@+id/colorbutton"
-        android:layout_marginLeft="25dp" />
+        android:layout_alignBottom="@+id/ImageView"
+        android:layout_toRightOf="@+id/pickpostit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="22dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -67,5 +69,17 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="15dp"
         android:textColor="#030303" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Important"
+        android:id="@+id/postitswitch"
+        android:checked="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="9dp" />
 
 </RelativeLayout>

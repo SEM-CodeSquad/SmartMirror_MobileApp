@@ -20,6 +20,7 @@ import postApp.Controllers.Fragments.Contact;
 import postApp.Controllers.Fragments.MirrorPostit;
 import postApp.Controllers.Fragments.Postit;
 import postApp.Controllers.Fragments.Preferences;
+import postApp.Controllers.Fragments.QrCode;
 import postApp.Controllers.Fragments.RemovePostit;
 import postApp.Controllers.Fragments.Settings;
 
@@ -97,6 +98,12 @@ Back pressed obv, not implemented that well yet
         if (id == R.id.action_settings) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new Settings()).commit();
             getSupportActionBar().setTitle("Settings");
+        }
+        if (id == R.id.pairmirror) {
+            mOriginalListener = toggle.getToolbarNavigationClickListener();
+            toggleDrawerUse(false);
+            getSupportActionBar().setTitle("Mirror ID");
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCode()).commit();
         }
 
         return super.onOptionsItemSelected(item);
@@ -195,4 +202,64 @@ Having these to access the same from all fragments
         return idOne.toString();
     }
 
+    public int counter = 1;
+    public String id1 = null;
+    public String id2 = null;
+    public String id3 = null;
+    public String id4 = null;
+    public String id5 = null;
+    public String id6 = null;
+    public String id7 = null;
+    public String id8 = null;
+    public String id9 = null;
+    public String id10 = null;
+
+
+    public void setpostit(String id) {
+
+        switch (counter) {
+            case 1:
+                id1 = id;
+                counter++;
+                break;
+            case 2:
+                id2 = id;
+                counter++;
+                break;
+            case 3:
+                id3 = id;
+                counter++;
+                break;
+            case 4:
+                id4 = id;
+                counter++;
+                break;
+            case 5:
+                id5 = id;
+                counter++;
+                break;
+            case 6:
+                id6 = id;
+                counter++;
+                break;
+            case 7:
+                id7 = id;
+                counter++;
+                break;
+            case 8:
+                id8 = id;
+                counter++;
+                break;
+            case 9:
+                id9 = id;
+                counter++;
+                break;
+            case 10:
+                id10 = id;
+                counter++;
+                break;
+
+
+        }
+    }
 }
