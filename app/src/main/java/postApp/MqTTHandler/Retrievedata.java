@@ -2,7 +2,6 @@ package postApp.MqTTHandler;
 
 import android.os.AsyncTask;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 
@@ -37,7 +36,7 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 JSONObject item = new JSONObject();
                 item.put("Bus", args[2]);
                 item.put("News", args[3]);
-                item.put("Weather", args[4]);
+                item.put("weather", args[4]);
                 item.put("UUID", args[5]);
 
 
