@@ -11,14 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-import android.util.Log;
-
 import com.google.zxing.Result;
 
 
+import java.util.concurrent.ExecutionException;
+
 import adin.postApp.R;
 import postApp.Controllers.NavigationActivity;
-import postApp.MainActivity;
+import postApp.Controllers.logic.MqTTHandler.Retrievedata;
 
 /*
 Simple qrcode scanner that implements the ZXING Scanner library.
@@ -52,7 +52,18 @@ public class QrCode extends Fragment implements ZXingScannerView.ResultHandler {
         // Do something with the result here
 
         ((NavigationActivity) getActivity()).setMirror(rawResult.getText());
-       ((NavigationActivity) getActivity()).toggleDrawerUse(true);
+        Retrievedata Ret = new Retrievedata();
+        String topic = ((NavigationActivity) getActivity()).getMirror();
+        String S = "";
+        try {
+            S = Ret.execute(topic, "pairing", "new client").get();
+        } catch (InterruptedException e) {
+            S = "Did not publish";
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            S = "Warning: Did Not Publish";
+        }
 
         getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new Settings()).commit();
 
