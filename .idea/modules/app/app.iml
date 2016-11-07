@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <module external.linked.project.id=":app" external.linked.project.path="$MODULE_DIR$/../../../app" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="Term 2 Project" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+=======
+<module external.linked.project.id=":app" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="Term 2 Project" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+>>>>>>> origin/Adin
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
@@ -27,6 +31,7 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
+<<<<<<< HEAD
     <output url="file://$MODULE_DIR$/../../../app/build/intermediates/classes/debug" />
     <output-test url="file://$MODULE_DIR$/../../../app/build/intermediates/classes/androidTest/debug" />
     <exclude-output />
@@ -95,6 +100,14 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../app/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/../../../app/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/../../../app/build/tmp" />
+=======
+    <output url="file://$MODULE_DIR$/build" />
+    <output-test url="file://$MODULE_DIR$/build" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
+>>>>>>> origin/Adin
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

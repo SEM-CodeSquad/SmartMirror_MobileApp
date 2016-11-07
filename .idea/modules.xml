@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Term 2 Project.iml" filepath="$PROJECT_DIR$/Term 2 Project.iml" />
+<<<<<<< HEAD
+=======
+      <module fileurl="file://$PROJECT_DIR$/Term 2 Project.iml" filepath="$PROJECT_DIR$/Term 2 Project.iml" />
+>>>>>>> origin/Adin
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" />
     </modules>
   </component>
