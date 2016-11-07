@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
 import postApp.Controllers.NavigationActivity;
-import postApp.Controllers.logic.MqTTHandler.Retrievedata;
+import postApp.logic.MqTTHandler.Retrievedata;
 
 /**
  * Created by adinH on 2016-10-26.
@@ -121,7 +121,6 @@ public class Postit extends Fragment {
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DATE, 7);
                 idOne = UUID.randomUUID().toString();
-                ((NavigationActivity) getActivity()).setpostit(idOne);
 
                 String date = c.getTime().toString();
                 if(important.isChecked() == true){

@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -37,10 +36,9 @@ import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
 
 import postApp.Controllers.NavigationActivity;
-import postApp.Controllers.logic.MqTTHandler.Retrievedata;
-import postApp.Controllers.logic.vasttrafik.GenerateAccessCode;
-import postApp.Controllers.logic.vasttrafik.TravelByLoc;
-import postApp.Controllers.logic.vasttrafik.TravelBySearch;
+import postApp.logic.MqTTHandler.Retrievedata;
+import postApp.logic.vasttrafik.GenerateAccessCode;
+import postApp.logic.vasttrafik.TravelByLoc;
 
 
 public class Settings extends Fragment {
@@ -109,7 +107,7 @@ public class Settings extends Fragment {
                             @Override
                             public void onLocationUpdated(Location location) {
                                 String city = weathercity(location.getLatitude(), location.getLongitude());
-                                ((NavigationActivity) getActivity()).setBus(city);
+                                ((NavigationActivity) getActivity()).setWeather(city);
                                 weathertext.setText(city);
                             }
                         });
