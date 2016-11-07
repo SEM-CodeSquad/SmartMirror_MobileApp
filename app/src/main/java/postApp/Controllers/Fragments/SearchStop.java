@@ -24,8 +24,8 @@ import java.util.Collections;
 import java.util.List;
 
 import adin.postApp.R;
-import postApp.logic.vasttrafik.GenerateAccessCode;
-import postApp.logic.vasttrafik.TravelBySearch;
+import postApp.Network.vasttrafik.GenerateAccessCode;
+import postApp.Network.vasttrafik.TravelBySearch;
 import postApp.Controllers.NavigationActivity;
 
 /**

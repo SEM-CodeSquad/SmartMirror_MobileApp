@@ -36,9 +36,9 @@ import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
 
 import postApp.Controllers.NavigationActivity;
-import postApp.logic.MqTTHandler.Retrievedata;
-import postApp.logic.vasttrafik.GenerateAccessCode;
-import postApp.logic.vasttrafik.TravelByLoc;
+import postApp.Network.MqTTHandler.Retrievedata;
+import postApp.Network.vasttrafik.GenerateAccessCode;
+import postApp.Network.vasttrafik.TravelByLoc;
 
 
 public class Settings extends Fragment {

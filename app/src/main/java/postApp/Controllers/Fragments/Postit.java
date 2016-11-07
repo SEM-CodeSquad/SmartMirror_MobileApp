@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
 import postApp.Controllers.NavigationActivity;
-import postApp.logic.MqTTHandler.Retrievedata;
+import postApp.Network.MqTTHandler.Retrievedata;
 
 /**
  * Created by adinH on 2016-10-26.
