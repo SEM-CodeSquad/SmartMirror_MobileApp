@@ -11,50 +11,49 @@ import java.sql.ResultSet;
 public class Settings {
     private DBConnection conn;
     Connection c;
-    private String Setting;
-    private String Change;
-    private String User;
-    private boolean Updated;
+    private String setting;
+    private String change;
+    private String user;
+    private boolean updated;
     private String[] settings = new String[3];
 
 
-    public Settings(String Setting, String Change, String User){
-        this.Setting = Setting;
-        this.Change = Change;
+    public Settings(String setting, String change, String user){
+        this.setting = setting;
+        this.change = change;
 
 
     }
 
-    public boolean UpdateSettings(){
+    public boolean updateSettings(){
         try {
-            String query = "rand "; //update this later update table where "Setting"
-            PreparedStatement pstlogin = (PreparedStatement) c.prepareStatement(query);
-            pstlogin.setString(1, Change);
+            String settings = "update Users set " + setting +"=? where User.UserID= '" + user + "' ";
+            PreparedStatement pstUpdate = c.prepareStatement(settings);
+            pstUpdate.setString(1, change);
 
-            ResultSet rs = pstlogin.executeQuery();
+            ResultSet rs = pstUpdate.executeQuery();
 
             int count = 0;
             while (rs.next()) {
                 count++;
             }
             if (count == 1) {
-               this.Updated = true;
+               this.updated = true;
             } else {
-                this.Updated = false;
+                this.updated = false;
             }
         } catch (Exception e) {
             e.printStackTrace();
 
         }
-        return this.Updated;
+        return this.updated;
     }
 
     public String[] getSettings(){
         try {
-            String query = "rand "; //update this later retrieve "Settings"
-            PreparedStatement pstlogin = (PreparedStatement) c.prepareStatement(query);
-            pstlogin.setString(1, Change);
-
+            String query = "select BusConfig, WeatherConfig, NewsFeedConfig from Users where UserID=?";
+            PreparedStatement pstlogin = c.prepareStatement(query);
+            pstlogin.setString(1, user);
             ResultSet rs = pstlogin.executeQuery();
 
             int count = 0;

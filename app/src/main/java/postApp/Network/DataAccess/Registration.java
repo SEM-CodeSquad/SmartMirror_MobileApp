@@ -7,49 +7,46 @@ import java.sql.SQLException;
 
 public class Registration {
     private DBConnection conn;
-    Connection c;
-    private String User;
-    private String Password;
-    private String Answer;
-    private boolean InUse;
+    private Connection c;
+    private String user;
+    private String password;
+    private String answer;
+    private boolean inUse;
+    private String userID;
 
 
-public Registration (String User, String Password, String Answer) {
+
+    public Registration (String user, String password, String answer) {
         this.conn = new DBConnection();
         this.c = conn.getConn();
-        this.User = User;
-        this.Password = Password;
-        Register();
+        this.user = user;
+        this.password = password;
+        register();
+
     }
 
-    private void Register(){
-
+    private void register(){
         try {
-            String query = "select from User where name=?";
-            PreparedStatement pstlogin = (PreparedStatement) c.prepareStatement(query);
-            pstlogin.setString(1, User);
-            pstlogin.setString(2, Password);
-            ResultSet rs = pstlogin.executeQuery();
+                String query = "select UserID from Users where UserID=?";
+                PreparedStatement pstReg = c.prepareStatement(query);
+                pstReg.setString(1, user);
+                ResultSet rs = pstReg.executeQuery();
 
-            int count = 0;
-            while (rs.next()) {
-                count++;
-            }
-            if (count == 0) {
-                this.InUse= true;
-            } else {
-                this.InUse = false;
-                String resetPass = null; // "update User set password=? where User.answer= '" + answer + "' and User.name= '" + name + "' "
-                PreparedStatement ps = (PreparedStatement) c.prepareStatement(resetPass);
-                ps.setString(1, User);
-                ps.setString(2, Password);
-                ps.setString(3, Answer);
-                ps.executeUpdate();
+                while (rs.next()) {
+                    userID = rs.getString("UserID");
+                }
+                if (userID == user) {
+                    this.inUse = true;
 
-                // close the connection
-                ps.close();
-                c.commit();
-            };
+                }else{
+
+                    String register = "insert into Users (UserID, Password, Answer)" + "VALUES('" + user
+                            + "', '" + password + "', '" + answer + "');";
+                    PreparedStatement ps =  c.prepareStatement(register);
+                    ps.executeUpdate();
+                    ps.close();
+                    c.commit();
+                }
 
         }
         catch (SQLException e) {
@@ -57,8 +54,7 @@ public Registration (String User, String Password, String Answer) {
         }
     }
 
-    public boolean getRegistrationStatus(){
-        return this.InUse;
+    public boolean getInUse(){
+        return this.inUse;
     }
-
 }

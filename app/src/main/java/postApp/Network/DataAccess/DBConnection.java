@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class DBConnection {
 
-    private static final String URL = "jdbc:mysql://sql2.freesqldatabase.com:3306/sql294335";
+    private static final String URL = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7143433";
 
     /**
      * Constructor.
@@ -30,8 +30,8 @@ public class DBConnection {
         Connection conn = null;
 
         try {
-            String Username = null; //TODO add username for DB here
-            String Password = null; //TODO add password for DB here
+            String Username = "sql7143433";
+            String Password = "CSqnX957Xb";
             conn = DriverManager.getConnection(URL, Username, Password);
             System.err.println("Connected!");
         } catch (SQLException e) {
