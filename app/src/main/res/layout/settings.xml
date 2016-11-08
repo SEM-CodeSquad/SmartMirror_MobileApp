@@ -279,16 +279,6 @@
         android:layout_alignEnd="@+id/imageView12"
         android:layout_marginTop="7dp" />
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView15"
-        android:src="@drawable/checkuserdet"
-        android:background="@android:color/transparent"
-        android:layout_below="@+id/imageView14"
-        android:layout_alignLeft="@+id/imageView14"
-        android:layout_alignStart="@+id/imageView14"
-        android:layout_marginTop="10dp" />
 
 </RelativeLayout>
 </ScrollView>
