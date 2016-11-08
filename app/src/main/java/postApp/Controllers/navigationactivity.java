@@ -22,7 +22,7 @@ import postApp.Controllers.Fragments.Postit;
 import postApp.Controllers.Fragments.Preferences;
 import postApp.Controllers.Fragments.QrCode;
 import postApp.Controllers.Fragments.RemovePostit;
-import postApp.Controllers.Fragments.Settings;
+import postApp.Controllers.Fragments.SettingsFrag;
 
 /*
 Oncreate method for navigationactivity, starts a navigation drawer and sets the toolbar, functionality etc.
@@ -36,6 +36,7 @@ public class NavigationActivity extends AppCompatActivity
     String newsID = "No news chosen";
     String busID = "No bus or tram stop chosen";
     String weatherID = "No city chosen";
+    String user;
     UUID idOne = UUID.randomUUID();
     View.OnClickListener mOriginalListener;
     @Override
@@ -54,6 +55,11 @@ public class NavigationActivity extends AppCompatActivity
         if(savedInstanceState == null) {
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.content_frame, new Postit()).commit();
+        }
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            user = extras.getString("user");
+            //The key argument here must match that used in the other activity
         }
 
         mOriginalListener = toggle.getToolbarNavigationClickListener();
@@ -96,8 +102,8 @@ Back pressed obv, not implemented that well yet
         //noinspection SimplifiableIfStatement
 
         if (id == R.id.action_settings) {
-            getFragmentManager().beginTransaction().replace(R.id.content_frame, new Settings()).commit();
-            getSupportActionBar().setTitle("Settings");
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
+            getSupportActionBar().setTitle("SettingsFrag");
         }
         if (id == R.id.pairmirror) {
             mOriginalListener = toggle.getToolbarNavigationClickListener();
@@ -124,7 +130,7 @@ Back pressed obv, not implemented that well yet
         toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.beginTransaction().replace(R.id.content_frame, new Settings()).commit();
+                fragment.beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
                 getSupportActionBar().setTitle("Settings");
                 toggleDrawerUse(true);
 
@@ -199,6 +205,9 @@ Having these to access the same from all fragments
     }
     public String getUUID(){
         return idOne.toString();
+    }
+    public String getUser(){
+        return user;
     }
 
 

@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         Login log = new Login(User, Pass);
         if(log.getStatus() == true){
             Intent intent = new Intent(this, NavigationActivity.class);
+            intent.putExtra("user", User);
             startActivity(intent);
 
         }

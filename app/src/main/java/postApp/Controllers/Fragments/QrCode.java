@@ -65,7 +65,7 @@ public class QrCode extends Fragment implements ZXingScannerView.ResultHandler {
             S = "Warning: Did Not Publish";
         }
 
-        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new Settings()).commit();
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
 
         // If you would like to resume scanning, call this method below:
         // mScannerView.resumeCameraPreview(this);

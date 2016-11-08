@@ -26,6 +26,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
@@ -36,17 +37,19 @@ import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
 
 import postApp.Controllers.NavigationActivity;
+import postApp.Network.DataAccess.Settings;
 import postApp.logic.MqTTHandler.Retrievedata;
 import postApp.logic.vasttrafik.GenerateAccessCode;
 import postApp.logic.vasttrafik.TravelByLoc;
 
 
-public class Settings extends Fragment {
+public class SettingsFrag extends Fragment {
     View myView;
     QrCode newQr;
     SearchStop newSearch;
     public EditText UUID;
     String auth;
+    String user;
     private View.OnClickListener mOriginalListener;
     AlertDialog.Builder newsbuilt;
     AlertDialog.Builder busbuilt;
@@ -68,6 +71,9 @@ public class Settings extends Fragment {
         bustext = (EditText) myView.findViewById(R.id.bustext);
         newstext = (EditText) myView.findViewById(R.id.newstext);
         weathertext = (EditText) myView.findViewById(R.id.citytext);
+        user =  (((NavigationActivity) getActivity()).getUser());
+        Settings set = new Settings(user);
+        System.out.println(Arrays.toString(set.getSettings()));
 
         Buildnews();
         Buildstop();

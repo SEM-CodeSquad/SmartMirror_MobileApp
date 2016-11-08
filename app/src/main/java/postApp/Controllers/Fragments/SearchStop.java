@@ -97,7 +97,7 @@ public class SearchStop extends Fragment {
                 selectedfromlist = (listView.getItemAtPosition(i).toString());
                 publishBus();
                 ((NavigationActivity) getActivity()).setBus(selectedfromlist);
-                getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new Settings()).commit();
+                getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
             }
         });
 
