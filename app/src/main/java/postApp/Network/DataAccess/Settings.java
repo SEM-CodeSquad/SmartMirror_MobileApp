@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -16,7 +15,7 @@ public class Settings {
     private DBConnection conn;
     Connection c;
     private String user;
-    private List settings;
+    private String[] settings;
 
 
     public Settings(String User) {
@@ -30,10 +29,11 @@ public class Settings {
         }
     }
 
-    private class fetchSettings extends AsyncTask<Void, Void, List> {
-        private List settingsList;
+    private class fetchSettings extends AsyncTask<Void, Void, String[]> {
 
-        protected List doInBackground(Void... arg0) {
+
+        protected String[] doInBackground(Void... arg0) {
+            String[] settings = new String[3];
             try {
                 String query = "select BusConfig, WeatherConfig, NewsFeedConfig from Users where UserID=?";
                 PreparedStatement pstSettings = c.prepareStatement(query);
@@ -43,22 +43,23 @@ public class Settings {
 
                 while (rs.next()) {
                     String bus = rs.getString("BusConfig");
-                    settingsList.add(bus);
-                    String news = rs.getString("NewsFeedConfig");
-                    settingsList.add(news);
+                    settings[0] = bus;
                     String weather = rs.getString("WeatherConfig");
-                    settingsList.add(weather);
+                    settings[1] = weather;
+                    String news = rs.getString("NewsFeedConfig");
+                    settings[2] = news;
+
 
                 }
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
-            return settingsList;
+            return settings;
         }
     }
 
-    public List getSettings(){
+    public String[] getSettings(){
         fetchSettings set;
         try {
             set = new fetchSettings();

@@ -51,8 +51,8 @@ public class Registration {
 
                 } else {
 
-                    String register = "insert into Users (UserID, Password, Answer)" + "VALUES('" + user
-                            + "', '" + password + "', '" + answer + "');";
+                    String register = "insert into Users (UserID, Password, Answer, BusConfig, WeatherConfig, NewsFeedConfig)" + "VALUES('" + user
+                            + "', '" + password + "', '" + answer + "', 'No bus stop selected', 'No city selected', 'No feed selected');";
                     PreparedStatement ps = c.prepareStatement(register);
                     ps.executeUpdate();
                     ps.close();
