@@ -26,7 +26,7 @@ public class SecretQActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registeracc);
+        setContentView(R.layout.secretq);
         Button confirm = (Button)findViewById(R.id.confsecretq);
         Button cancel = (Button)findViewById(R.id.cancelsecretq);
         usrname = (EditText)findViewById(R.id.usernamesecret);

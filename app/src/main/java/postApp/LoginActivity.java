@@ -47,6 +47,12 @@ public class LoginActivity extends AppCompatActivity {
                 OnLogin(usrname.getText().toString(), passwrd.getText().toString());
             }
         });
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onForgotten();
+            }
+        });
     }
 
     @Override
@@ -87,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void onForgotten(){
-
+        Intent intent = new Intent(this, SecretQActivity.class);
+        startActivity(intent);
     }
 }

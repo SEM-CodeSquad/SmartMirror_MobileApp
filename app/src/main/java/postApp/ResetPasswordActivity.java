@@ -32,7 +32,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             user = extras.getString("user");
             //The key argument here must match that used in the other activity
         }
-        setContentView(R.layout.registeracc);
+        setContentView(R.layout.resetpass);
         Button reset = (Button)findViewById(R.id.confresetbtn);
         Button cancel = (Button)findViewById(R.id.regclc);
         passwrd = (EditText)findViewById(R.id.newpassrest);
