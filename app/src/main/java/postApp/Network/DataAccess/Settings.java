@@ -27,12 +27,10 @@ public class Settings {
         } catch (Exception v) {
             System.out.println(v);
         }
-
-
     }
 
     private class fetchSettings extends AsyncTask<Void, Void, String[]> {
-        private String[] settings = new String[3];
+        private String[] settingsArray = new String[3];
 
         protected String[] doInBackground(Void... arg0) {
             try {
@@ -43,14 +41,14 @@ public class Settings {
 
                 int count = 0;
                 while (rs.next()) {
-                    this.settings[count] = rs.toString();
+                    this.settingsArray[count] = rs.toString();
                     count++;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
-            return settings;
+            return settingsArray;
         }
     }
 
@@ -65,6 +63,6 @@ public class Settings {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        return settings;
+        return this.settings;
     }
 }
