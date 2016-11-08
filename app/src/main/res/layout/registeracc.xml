@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#383838"
+    android:weightSum="1">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="textPersonName"
+        android:background="@drawable/textfieldboxes"
+
+        android:ems="10"
+        android:id="@+id/reguser"
+        android:layout_marginTop="125dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/textfieldboxes"
+        android:ems="10"
+        android:id="@+id/regsecret"
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/regbtn"
+        android:layout_alignStart="@+id/regbtn"
+        android:layout_alignRight="@+id/regclc"
+        android:layout_alignEnd="@+id/regclc" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:background="@drawable/textfieldboxes"
+        android:ems="10"
+        android:id="@+id/regpass"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_alignRight="@+id/reguser"
+        android:layout_alignEnd="@+id/reguser" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/regclc"
+        android:layout_gravity="right"
+        android:layout_alignTop="@+id/regbtn"
+        android:layout_alignRight="@+id/reguser"
+        android:layout_alignEnd="@+id/reguser"
+        android:layout_toRightOf="@+id/regbtn"
+        android:layout_toEndOf="@+id/regbtn" />
+
+    <Button
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/regbtn"
+        android:layout_below="@+id/regsecret"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="What was your first childhood nickname?"
+        android:id="@+id/textView2"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/regpass"
+        android:layout_alignLeft="@+id/regpass"
+        android:layout_alignStart="@+id/regpass"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Password"
+        android:id="@+id/textView3"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/reguser"
+        android:layout_alignLeft="@+id/reguser"
+        android:layout_alignStart="@+id/reguser"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Username"
+        android:id="@+id/textView4"
+        android:textColor="#ffffff"
+        android:layout_above="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="53dp"
+        android:layout_marginLeft="16dp" />
+
+</RelativeLayout>

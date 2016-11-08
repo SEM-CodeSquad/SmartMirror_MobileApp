@@ -27,30 +27,30 @@ public class Registration {
 
     private void register(){
         try {
-                String query = "select UserID from Users where UserID=?";
-                PreparedStatement pstReg = c.prepareStatement(query);
-                pstReg.setString(1, user);
-                ResultSet rs = pstReg.executeQuery();
+            String query = "select UserID from Users where UserID=?";
+            PreparedStatement pstReg = c.prepareStatement(query);
+            pstReg.setString(1, user);
+            ResultSet rs = pstReg.executeQuery();
 
-                while (rs.next()) {
-                    userID = rs.getString("UserID");
-                }
-                if (userID == user) {
-                    this.inUse = true;
+            while (rs.next()) {
+                userID = rs.getString("UserID");
+            }
+            if (userID == user) {
+                this.inUse = true;
 
-                }else{
+            }else{
 
-                    String register = "insert into Users (UserID, Password, Answer)" + "VALUES('" + user
-                            + "', '" + password + "', '" + answer + "');";
-                    PreparedStatement ps =  c.prepareStatement(register);
-                    ps.executeUpdate();
-                    ps.close();
-                    c.commit();
-                }
+                String register = "insert into Users (UserID, Password, Answer)" + "VALUES('" + user
+                        + "', '" + password + "', '" + answer + "');";
+                PreparedStatement ps =  c.prepareStatement(register);
+                ps.executeUpdate();
+                ps.close();
+                c.commit();
+            }
 
         }
         catch (SQLException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
 

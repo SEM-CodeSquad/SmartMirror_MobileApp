@@ -1,23 +1,29 @@
 package postApp.Network.DataAccess;
+import android.os.AsyncTask;
+
 import java.sql.*;
 
-public class DBConnection {
+public class DBConnection extends AsyncTask<String, Void, Connection> {
 
-    private static final String URL = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7143433";
+    String URL = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7143433";
 
     /**
      * Constructor.
      */
-    public DBConnection() {
+    protected Connection doInBackground(String... args) {
         try {
             System.err.println("Loading driver...");
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             System.err.println("Driver loaded...");
         } catch (ClassNotFoundException ex) {
             System.err.println("\n" + "Could not load driver..." + "\n");
             System.err.println(ex);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
-
+            return getConn();
     }
 
     /**
@@ -30,6 +36,7 @@ public class DBConnection {
         Connection conn = null;
 
         try {
+
             String Username = "sql7143433";
             String Password = "CSqnX957Xb";
             conn = DriverManager.getConnection(URL, Username, Password);

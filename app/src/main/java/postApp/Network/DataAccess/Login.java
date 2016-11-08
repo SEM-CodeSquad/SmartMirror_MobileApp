@@ -1,8 +1,13 @@
 package postApp.Network.DataAccess;
 
+import android.os.AsyncTask;
+
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
 
 public class Login {
     private DBConnection conn;
@@ -15,36 +20,48 @@ public class Login {
 
 
     public Login(String User, String Password) {
-        this.conn = new DBConnection();
-        this.c = conn.getConn();
-        this.user = User;
-        this.password = Password;
+        try {
+            conn = new DBConnection();
+            conn.execute();
+            c = conn.get();
+            this.user = User;
+            this.password = Password;
+        } catch (Exception v) {
+            System.out.println(v);
+        }
+
     }
 
-    public void authenticate() {
-        try {
-            String query = "select UserID, Password from Users where UserID=? and Password=? ";
-            PreparedStatement psLogin = c.prepareStatement(query);
-            psLogin.setString(1, user);
-            psLogin.setString(2, password);
-            ResultSet rs = psLogin.executeQuery();
+    private class authenticate extends AsyncTask<Void, Void, Boolean> {
 
-            int count = 0;
-            while (rs.next()) {
-                count++;
+        protected Boolean doInBackground(Void... arg0)
+        {
+            try {
+                String query = "select UserID, Password from Users where UserID=? and Password=? ";
+                PreparedStatement psLogin = c.prepareStatement(query);
+                psLogin.setString(1, user);
+                psLogin.setString(2, password);
+                ResultSet rs = psLogin.executeQuery();
+
+                int count = 0;
+                while (rs.next()) {
+                    count++;
+                }
+                if (count == 1) {
+                    logedIn = true;
+
+                } else {
+                    logedIn = false;
+                }
+
+                psLogin.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+
             }
-            if (count == 1) {
-                logedIn = true;
-            } else {
-                logedIn = false;
-            }
-
-            psLogin.close();
-            c.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-
+            return logedIn;
         }
+
     }
     public void matchAnswer(String answer){
         try {
@@ -84,7 +101,16 @@ public class Login {
 
 
     public boolean getStatus(){
-        return this.logedIn;
+        try {
+            authenticate au = new authenticate();
+            au.execute();
+            return au.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean getMatch(){
