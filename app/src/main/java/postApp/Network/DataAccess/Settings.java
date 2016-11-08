@@ -41,7 +41,7 @@ public class Settings {
 
                 int count = 0;
                 while (rs.next()) {
-                    this.settingsArray[count] = rs.getS;
+                    this.settingsArray[count] = rs.toString();
                     count++;
                 }
             } catch (Exception e) {
