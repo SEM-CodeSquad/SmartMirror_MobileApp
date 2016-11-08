@@ -29,7 +29,7 @@ public class Postits {
     }
 
     private class fetchPostits extends AsyncTask<Void, Void, List> {
-        private List postitsList= null;
+        private List postitsList;
 
         protected List doInBackground(Void... arg0) {
             try {

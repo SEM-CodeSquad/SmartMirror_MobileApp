@@ -42,10 +42,11 @@ public class Registration {
                 pstReg.setString(1, user);
                 ResultSet rs = pstReg.executeQuery();
 
+                int count = 0;
                 while (rs.next()) {
-                    userID = rs.getString("UserID");
+                    count++;
                 }
-                if (userID.equals(user)) {
+                if (count == 1) {
                     return true;
 
                 } else {
