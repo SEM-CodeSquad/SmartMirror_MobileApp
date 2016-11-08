@@ -34,7 +34,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         }
         setContentView(R.layout.resetpass);
         Button reset = (Button)findViewById(R.id.confresetbtn);
-        Button cancel = (Button)findViewById(R.id.regclc);
+        Button cancel = (Button)findViewById(R.id.cancelresetbtn);
         passwrd = (EditText)findViewById(R.id.newpassrest);
         confpass = (EditText)findViewById(R.id.confirmreset);
 
@@ -85,7 +85,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private void OnReset(String User, String Pass){
         ResetPassword reg = new ResetPassword(User, Pass);
         if(reg.getPasswordResetStatus()){
-            System.out.println("here");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }

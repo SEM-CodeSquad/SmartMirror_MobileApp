@@ -34,13 +34,12 @@ public class ResetPassword {
 
         protected Boolean doInBackground(Void... arg0) {
             try {
-                String resetPass = "update Users set Password=? where User.UserID= '" + user + "' ";
+                String resetPass = "update Users set Password=? where UserID= '" + user + "' ";
                 PreparedStatement psReset = c.prepareStatement(resetPass);
                 psReset.setString(1, password);
                 psReset.executeUpdate();
                 reseted = true;
                 psReset.close();
-                c.commit();
             } catch (Exception e) {
                 reseted = false;
                 e.printStackTrace();

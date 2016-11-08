@@ -64,7 +64,7 @@ public class SecretQActivity extends AppCompatActivity {
         MatchAnswer reg = new MatchAnswer(User, Secret);
         if(reg.getAnswerMatch()){
             Intent intent = new Intent(this, ResetPasswordActivity.class);
-            intent.putExtra("user",usrname.getText());
+            intent.putExtra("user", usrname.getText().toString());
             startActivity(intent);
         }
         else{
