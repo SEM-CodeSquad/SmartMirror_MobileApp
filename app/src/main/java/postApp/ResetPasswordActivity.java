@@ -68,7 +68,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     private void checkpasses(String user, String pass, String confpass){
         if(pass.equals(confpass)){
-            OnReset(pass, user);
+            OnReset(user, pass);
         }
         else{
             new AlertDialog.Builder(this)
