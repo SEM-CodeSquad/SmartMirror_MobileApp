@@ -7,19 +7,19 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:inputType="textPersonName"
         android:background="@drawable/textfieldboxes"
 
         android:ems="10"
         android:id="@+id/reguser"
         android:layout_marginTop="125dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_height="40dp" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:inputType="textEmailAddress"
         android:background="@drawable/textfieldboxes"
         android:ems="10"
@@ -32,7 +32,6 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:inputType="textPassword"
         android:background="@drawable/textfieldboxes"
         android:ems="10"
@@ -41,7 +40,8 @@
         android:layout_alignLeft="@+id/textView3"
         android:layout_alignStart="@+id/textView3"
         android:layout_alignRight="@+id/reguser"
-        android:layout_alignEnd="@+id/reguser" />
+        android:layout_alignEnd="@+id/reguser"
+        android:layout_height="40dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
         android:layout_above="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="53dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="50dp" />
 
 </RelativeLayout>

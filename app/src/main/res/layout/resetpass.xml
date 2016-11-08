@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#383838"
+    android:weightSum="1">
+
+    <EditText
+        android:layout_height="30dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/newpassrest"
+        android:background="@drawable/textfieldboxes"
+        android:layout_below="@+id/textView17"
+        android:layout_alignLeft="@+id/textView17"
+        android:layout_alignStart="@+id/textView17"
+        android:layout_marginTop="14dp"
+        android:layout_width="290dp" />
+
+    <TextView
+        android:text="New password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView17"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="135dp" />
+
+    <TextView
+        android:text="Confirm Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView12"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:layout_below="@+id/newpassrest"
+        android:layout_alignLeft="@+id/newpassrest"
+        android:layout_alignStart="@+id/newpassrest" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_marginTop="12dp"
+        android:id="@+id/confirmreset"
+        android:background="@drawable/textfieldboxes"
+        android:layout_below="@+id/textView12"
+        android:layout_alignLeft="@+id/textView12"
+        android:layout_alignStart="@+id/textView12"
+        android:layout_alignRight="@+id/cancelresetbtn"
+        android:layout_alignEnd="@+id/cancelresetbtn" />
+
+    <Button
+        android:text="Confirm"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:id="@+id/confresetbtn"
+        android:layout_width="140dp"
+        android:layout_below="@+id/confirmreset"
+        android:layout_alignLeft="@+id/confirmreset"
+        android:layout_alignStart="@+id/confirmreset" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancelresetbtn"
+        android:layout_alignBaseline="@+id/confresetbtn"
+        android:layout_alignBottom="@+id/confresetbtn"
+        android:layout_alignRight="@+id/newpassrest"
+        android:layout_alignEnd="@+id/newpassrest" />
+</RelativeLayout>
