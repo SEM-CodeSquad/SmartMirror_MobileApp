@@ -11,9 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-/**
- * Created by adinH on 2016-10-27.
- */
+
 public class Retrievedata extends AsyncTask<String, Void, String> {
     String Returnthis;
     String topic;
@@ -34,7 +32,7 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
 
             // Please use this format when passing around a JSON obj
             // 2 diffrent outcomes if its a postit we publish to a diffrent topic if its a config we publish to a dif topic with a dif jsonobj
-            if(args[1] == "postit") {
+            if(args[1].equals("postit")) {
                 JSONObject item = new JSONObject();
                 sendthis.put("contentType", "post-it");
                 item.put("postItID", args[6]);
@@ -47,14 +45,10 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 sendthis.put("content", jArray);
                 String messagestring = sendthis.toJSONString();
-                System.out.println(messagestring);
                 post = new HttpRequestSender("codehigh.ddns.me", "new client", topic, messagestring);
             }
-            else if(args[1] == "config"){
+            else if(args[1].equals("config")){
                 sendthis.put("contentType", "settings");
-
-                //item.put("News", args[3]);
-                //item.put("Weather", args[4]);
 
                 topic = "dit029/SmartMirror/" + args[0] + "/settings";
                 JSONArray jArray = new JSONArray();
@@ -78,7 +72,7 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 post = new HttpRequestSender("codehigh.ddns.me", "new client", topic, message);
 
             }
-            else if(args[1] == "pairing")
+            else if(args[1].equals("pairing"))
             {
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 sendthis.put("contentType", "pairing");
@@ -93,7 +87,7 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 System.out.println("message");
                 post = new HttpRequestSender("codehigh.ddns.me", "new client", topic, message);
             }
-            else if(args[1] == "postIt action")
+            else if(args[1].equals("postIt action"))
             {
                 topic = "dit029/SmartMirror/" + args[0] + "/postit"   ;
                 sendthis.put("contentType", args[1]);

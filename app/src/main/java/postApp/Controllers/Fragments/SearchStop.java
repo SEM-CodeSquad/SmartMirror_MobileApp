@@ -31,9 +31,7 @@ import postApp.logic.vasttrafik.GenerateAccessCode;
 import postApp.logic.vasttrafik.TravelBySearch;
 import postApp.Controllers.NavigationActivity;
 
-/**
- * Created by adinH on 2016-11-06.
- */
+
 public class SearchStop extends Fragment {
     View myView;
     String auth;
@@ -74,7 +72,7 @@ public class SearchStop extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 String emptylist[] = new String[0];
-                if(s.toString() == ""){
+                if(s.toString().equals("")){
 
                 }
                 else if (s.length() <= 2) {
@@ -110,7 +108,7 @@ public class SearchStop extends Fragment {
 
     public void publishBus(){
         Retrievedata R = new Retrievedata();
-        String S = null;
+        String S;
         String topic = ((NavigationActivity) getActivity()).getMirror();
         if (topic != "No mirror chosen") {
             try {
