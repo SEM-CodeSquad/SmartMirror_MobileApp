@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void OnRegister(String User, String Pass, String Secret){
         Registration reg = new Registration(User, Pass, Secret);
-        if(reg.getInUse()){
+        if(reg.getInUse() == false){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }

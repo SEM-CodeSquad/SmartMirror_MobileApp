@@ -45,8 +45,8 @@ public class Registration {
                 while (rs.next()) {
                     userID = rs.getString("UserID");
                 }
-                if (userID == user) {
-                    inUse = true;
+                if (userID.equals(user)) {
+                    return true;
 
                 } else {
 
@@ -58,10 +58,9 @@ public class Registration {
                 }
 
             } catch (SQLException e) {
-                inUse = false;
-                e.printStackTrace();
+                    e.printStackTrace();
             }
-            return inUse;
+            return false;
         }
     }
 
