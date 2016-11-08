@@ -1,8 +1,11 @@
 package postApp.Network.DataAccess;
 
+import android.os.AsyncTask;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Emanuel on 07/11/2016.
@@ -11,63 +14,57 @@ import java.sql.ResultSet;
 public class Settings {
     private DBConnection conn;
     Connection c;
-    private String setting;
-    private String change;
     private String user;
-    private boolean updated;
-    private String[] settings = new String[3];
+    private String[] settings;
 
 
-    public Settings(String setting, String change, String user){
-        this.setting = setting;
-        this.change = change;
+    public Settings(String User) {
+        try {
+            conn = new DBConnection();
+            conn.execute();
+            c = conn.get();
+            this.user = User;
+        } catch (Exception v) {
+            System.out.println(v);
+        }
 
 
     }
 
-    public boolean updateSettings(){
-        try {
-            String settings = "update Users set " + setting +"=? where User.UserID= '" + user + "' ";
-            PreparedStatement pstUpdate = c.prepareStatement(settings);
-            pstUpdate.setString(1, change);
+    private class fetchSettings extends AsyncTask<Void, Void, String[]> {
+        private String[] settings = new String[3];
 
-            ResultSet rs = pstUpdate.executeQuery();
+        protected String[] doInBackground(Void... arg0) {
+            try {
+                String query = "select BusConfig, WeatherConfig, NewsFeedConfig from Users where UserID=?";
+                PreparedStatement pstSettings = c.prepareStatement(query);
+                pstSettings.setString(1, user);
+                ResultSet rs = pstSettings.executeQuery();
 
-            int count = 0;
-            while (rs.next()) {
-                count++;
+                int count = 0;
+                while (rs.next()) {
+                    this.settings[count] = rs.toString();
+                    count++;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+
             }
-            if (count == 1) {
-               this.updated = true;
-            } else {
-                this.updated = false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
+            return settings;
         }
-        return this.updated;
     }
 
     public String[] getSettings(){
+        fetchSettings set;
         try {
-            String query = "select BusConfig, WeatherConfig, NewsFeedConfig from Users where UserID=?";
-            PreparedStatement pstlogin = c.prepareStatement(query);
-            pstlogin.setString(1, user);
-            ResultSet rs = pstlogin.executeQuery();
-
-            int count = 0;
-            while (rs.next()) {
-                this.settings[count] = rs.toString();
-                count++;
-            }
-        } catch (Exception e) {
+            set = new fetchSettings();
+            set.execute();
+            this.settings = set.get();
+        } catch (InterruptedException e) {
             e.printStackTrace();
-
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
         return settings;
     }
-
-
-
 }
