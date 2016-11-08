@@ -290,21 +290,5 @@
         android:layout_alignStart="@+id/imageView14"
         android:layout_marginTop="10dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/confirmbtn"
-        android:text="Confirm Changes"
-        android:editable="false"
-        android:clickable="true"
-        android:inputType="textNoSuggestions"
-        android:focusable="false"
-        android:layout_alignTop="@+id/imageView15"
-        android:layout_alignLeft="@+id/weatherchange"
-        android:layout_alignStart="@+id/weatherchange"
-        android:layout_alignRight="@+id/weatherchange"
-        android:layout_alignEnd="@+id/weatherchange" />
-
-
 </RelativeLayout>
 </ScrollView>

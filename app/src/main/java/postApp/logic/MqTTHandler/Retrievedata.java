@@ -59,8 +59,16 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 topic = "dit029/SmartMirror/" + args[0] + "/settings";
                 JSONArray jArray = new JSONArray();
                 JSONObject test = new JSONObject();
+                if(args[3].equals("busstop")) {
+                    test.put("busStop", args[2]);
+                }
+                else if (args[3].equals("newschange")){
+                    test.put("news", args[2]);
+                }
+                else{
+                    test.put("weather", args[2]);
+                }
 
-                test.put("busStop", args[2]);
                 jArray.add(test);
                 sendthis.put("content", jArray);
 
@@ -79,7 +87,6 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 JSONObject test = new JSONObject();
                 test.put("ClientID", args[2]);
                 jArray.add(test);
-                //String results = jArray.toJSONString().replaceAll("\\\\", "");
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();

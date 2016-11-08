@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,8 +23,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
+import postApp.logic.MqTTHandler.Retrievedata;
 import postApp.logic.vasttrafik.GenerateAccessCode;
 import postApp.logic.vasttrafik.TravelBySearch;
 import postApp.Controllers.NavigationActivity;
@@ -39,6 +42,7 @@ public class SearchStop extends Fragment {
     ArrayAdapter<String> adapter;
     ListView listView;
     EditText editText;
+    String selectedfromlist;
 
     @Nullable
     @Override
@@ -92,8 +96,9 @@ public class SearchStop extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View view, int i, long l) {
-                String selectedFromList = (listView.getItemAtPosition(i).toString());
-                ((NavigationActivity) getActivity()).setBus(selectedFromList);
+                selectedfromlist = (listView.getItemAtPosition(i).toString());
+                publishBus();
+                ((NavigationActivity) getActivity()).setBus(selectedfromlist);
                 getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new Settings()).commit();
             }
         });
@@ -101,6 +106,26 @@ public class SearchStop extends Fragment {
 
         return myView;
 
+    }
+
+    public void publishBus(){
+        Retrievedata R = new Retrievedata();
+        String S = null;
+        String topic = ((NavigationActivity) getActivity()).getMirror();
+        if (topic != "No mirror chosen") {
+            try {
+                S = R.execute(topic, "config", selectedfromlist, "buschange").get();
+            } catch (InterruptedException e) {
+                S = "Did not publish";
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+                S = "Warning: Did Not Publish";
+            }
+            Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public String[] parsejson(String json, String search) throws ParseException {

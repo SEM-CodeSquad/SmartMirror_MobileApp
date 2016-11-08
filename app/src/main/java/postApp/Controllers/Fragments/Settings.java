@@ -48,13 +48,12 @@ public class Settings extends Fragment {
     public EditText UUID;
     String auth;
     private View.OnClickListener mOriginalListener;
-    Thread one;
-    AlertDialog.Builder build1;
-    AlertDialog.Builder build2;
+    AlertDialog.Builder newsbuilt;
+    AlertDialog.Builder busbuilt;
     EditText bustext;
     EditText newstext;
     EditText weathertext;
-    private String m_Text = "";
+
 
     @Nullable
     @Override
@@ -65,8 +64,10 @@ public class Settings extends Fragment {
         Button busbutton = (Button) myView.findViewById(R.id.busbtn);
         Button newsbutton = (Button) myView.findViewById(R.id.newsbtn);
         Button weatherbutton = (Button) myView.findViewById(R.id.weatherchange);
-        Button confirmbutton = (Button) myView.findViewById(R.id.confirmbtn);
-
+        UUID = (EditText) myView.findViewById(R.id.mirrortext);
+        bustext = (EditText) myView.findViewById(R.id.bustext);
+        newstext = (EditText) myView.findViewById(R.id.newstext);
+        weathertext = (EditText) myView.findViewById(R.id.citytext);
 
         Buildnews();
         Buildstop();
@@ -85,7 +86,7 @@ public class Settings extends Fragment {
         newsbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                build1.show();
+                newsbuilt.show();
             }
         });
 
@@ -93,7 +94,7 @@ public class Settings extends Fragment {
             @Override
             public void onClick(View v) {
 
-                build2.show();
+                busbuilt.show();
 
             }
         });
@@ -101,6 +102,7 @@ public class Settings extends Fragment {
         weatherbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 SmartLocation.with(getActivity()).location()
                         .oneFix()
                         .start(new OnLocationUpdatedListener() {
@@ -109,79 +111,79 @@ public class Settings extends Fragment {
                                 String city = weathercity(location.getLatitude(), location.getLongitude());
                                 ((NavigationActivity) getActivity()).setWeather(city);
                                 weathertext.setText(city);
+                                Retrievedata R = new Retrievedata();
+                                String S;
+                                String topic = ((NavigationActivity) getActivity()).getMirror();
+                                if (topic != "No mirror chosen") {
+                                    try {
+                                        S = R.execute(topic, "config", city, "weatherchange").get();
+                                    } catch (InterruptedException e) {
+                                        S = "Did not publish";
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                        S = "Warning: Did Not Publish";
+                                    }
+                                    Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
             }
         });
 
-
-
-
-        confirmbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String topic = ((NavigationActivity) getActivity()).getMirror();
-                String bus = ((NavigationActivity) getActivity()).getBus();
-                String news = ((NavigationActivity) getActivity()).getNews();
-                String weather = ((NavigationActivity) getActivity()).getWeather();;
-                Retrievedata R = new Retrievedata();
-                String S = null;
-                if (topic != "No mirror chosen") {
-                    try {
-                        S = R.execute(topic, "config", bus, news, weather).get();
-                    } catch (InterruptedException e) {
-                        S = "Did not publish";
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                        S = "Warning: Did Not Publish";
-                    }
-                    Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-        UUID = (EditText) myView.findViewById(R.id.mirrortext);
-        bustext = (EditText) myView.findViewById(R.id.bustext);
-        newstext = (EditText) myView.findViewById(R.id.newstext);
-        weathertext = (EditText) myView.findViewById(R.id.citytext);
         UUID.setText(((NavigationActivity) getActivity()).getMirror());
         bustext.setText(((NavigationActivity) getActivity()).getBus());
         newstext.setText(((NavigationActivity) getActivity()).getNews());
         weathertext.setText(((NavigationActivity) getActivity()).getWeather());
+
+
         return myView;
     }
 
     private void Buildnews() {
-        build1 = new AlertDialog.Builder(getActivity());
-        build1.setTitle("Choose News");
-        build1.setItems(new CharSequence[]
+        newsbuilt = new AlertDialog.Builder(getActivity());
+        newsbuilt.setTitle("Choose News");
+        newsbuilt.setItems(new CharSequence[]
                         {"CNN", "BBC", "Daily Mail"},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                System.out.println("case0");
                                 ((NavigationActivity) getActivity()).setNews("CNN");
                                 newstext.setText(((NavigationActivity) getActivity()).getNews());
                                 break;
                             case 1:
-                                System.out.println("case1");
                                 ((NavigationActivity) getActivity()).setNews("BBC");
                                 newstext.setText(((NavigationActivity) getActivity()).getNews());
                                 break;
                             case 2:
-                                System.out.println("case1");
                                 ((NavigationActivity) getActivity()).setNews("Daily Mail");
                                 newstext.setText(((NavigationActivity) getActivity()).getNews());
                                 break;
 
                         }
+                        Retrievedata R = new Retrievedata();
+                        String S;
+                        String topic = ((NavigationActivity) getActivity()).getMirror();
+                        if (topic != "No mirror chosen") {
+                            try {
+                                S = R.execute(topic, "config", ((NavigationActivity) getActivity()).getNews(), "newschange").get();
+                            } catch (InterruptedException e) {
+                                S = "Did not publish";
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                                S = "Warning: Did Not Publish";
+                            }
+                            Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
-        build1.create();
+        newsbuilt.create();
 
 
     }
@@ -189,9 +191,9 @@ public class Settings extends Fragment {
     private void Buildstop() {
         GenerateAccessCode gen = new GenerateAccessCode();
         auth = gen.getAccess();
-        build2 = new AlertDialog.Builder(getActivity());
+        busbuilt = new AlertDialog.Builder(getActivity());
 
-        build2.setMessage("Choose One Option")
+        busbuilt.setMessage("Choose One Option")
                 .setPositiveButton("By Location", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
@@ -208,6 +210,23 @@ public class Settings extends Fragment {
                                             String stop = parsejson(trav.get());
                                             ((NavigationActivity) getActivity()).setBus(stop);
                                             bustext.setText(stop);
+                                            Retrievedata R = new Retrievedata();
+                                            String S = null;
+                                            String topic = ((NavigationActivity) getActivity()).getMirror();
+                                            if (topic != "No mirror chosen") {
+                                                try {
+                                                    S = R.execute(topic, "config", bustext.toString(), "buschange").get();
+                                                } catch (InterruptedException e) {
+                                                    S = "Did not publish";
+                                                    e.printStackTrace();
+                                                } catch (ExecutionException e) {
+                                                    e.printStackTrace();
+                                                    S = "Warning: Did Not Publish";
+                                                }
+                                                Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+                                            }
                                         } catch (Exception v) {
                                             System.out.println(v);
                                         }
@@ -227,7 +246,7 @@ public class Settings extends Fragment {
                     }
                 });
 
-        build2.create();
+        busbuilt.create();
     }
 
     public String parsejson(String json) throws ParseException {

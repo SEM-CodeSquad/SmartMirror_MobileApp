@@ -146,7 +146,6 @@ Back pressed obv, not implemented that well yet
         if (id == R.id.nav_postit){
             fragment.beginTransaction().replace(R.id.content_frame, new Postit()).commit();
             getSupportActionBar().setTitle("Publish PostIt");
-            //getSupportActionBar().setIcon();
         } else if (id == R.id.nav_mirror) {
             fragment.beginTransaction().replace(R.id.content_frame, new MirrorPostit()).commit();
             getSupportActionBar().setTitle("Mirror");
