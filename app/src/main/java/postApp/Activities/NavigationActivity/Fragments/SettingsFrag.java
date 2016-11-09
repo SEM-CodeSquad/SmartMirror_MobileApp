@@ -40,6 +40,7 @@ import postApp.DataHandlers.Network.DataBase.Settings;
 import postApp.DataHandlers.Network.MqTTHandler.Retrievedata;
 import postApp.DataHandlers.Network.VastTrafik.GenerateAccessCode;
 import postApp.DataHandlers.Network.VastTrafik.TravelByLoc;
+import postApp.DataHandlers.ParseJson;
 
 
 public class SettingsFrag extends Fragment {
@@ -98,7 +99,16 @@ This is created when the fragment is started.
         newsbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newsbuilt.show();
+
+                String topic = ((NavigationActivity) getActivity()).getMirror();
+                if (topic != "No mirror chosen") {
+                    newsbuilt.show();
+                }
+                else
+                {
+                    // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
+                    Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -106,9 +116,15 @@ This is created when the fragment is started.
         busbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String topic = ((NavigationActivity) getActivity()).getMirror();
+                if (topic != "No mirror chosen") {
                 busbuilt.show();
-
+                }
+            else
+            {
+                // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
+                Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+            }
             }
         });
 
@@ -116,51 +132,60 @@ This is created when the fragment is started.
         weatherbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //using lib smartlocation
-                SmartLocation.with(getActivity()).location()
-                        //used for getting location just ones
-                        .oneFix()
-                        .start(new OnLocationUpdatedListener() {
-                            @Override
-                            public void onLocationUpdated(Location location) {
-                                //we get the city after lat and long
-                                String city = weathercity(location.getLatitude(), location.getLongitude());
-                                //set the weather to the city
-                                ((NavigationActivity) getActivity()).setWeather(city);
-                                //set text to city
-                                weathertext.setText(city);
-                                //then we start a retrieve data that publishes the new weather as a config.
-                                Retrievedata R = new Retrievedata();
-                                String S;
-                                String topic = ((NavigationActivity) getActivity()).getMirror();
-                                if (topic != "No mirror chosen") {
-                                    try {
-                                        S = R.execute(topic, "config", city, "weatherchange").get();
-                                    } catch (InterruptedException e) {
-                                        S = "Did not publish";
-                                        e.printStackTrace();
-                                    } catch (ExecutionException e) {
-                                        e.printStackTrace();
-                                        S = "Warning: Did Not Publish";
+                String topic = ((NavigationActivity) getActivity()).getMirror();
+                if (topic != "No mirror chosen") {
+
+                    //using lib smartlocation
+                    SmartLocation.with(getActivity()).location()
+                            //used for getting location just ones
+                            .oneFix()
+                            .start(new OnLocationUpdatedListener() {
+                                @Override
+                                public void onLocationUpdated(Location location) {
+                                    //we get the city after lat and long
+                                    String city = weathercity(location.getLatitude(), location.getLongitude());
+                                    //set the weather to the city
+                                    ((NavigationActivity) getActivity()).setWeather(city);
+                                    //set text to city
+                                    weathertext.setText(city);
+                                    //then we start a retrieve data that publishes the new weather as a config.
+                                    Retrievedata R = new Retrievedata();
+                                    String S;
+                                    String topic = ((NavigationActivity) getActivity()).getMirror();
+                                    if (topic != "No mirror chosen") {
+                                        try {
+                                            S = R.execute(topic, "config", city, "weatherchange").get();
+                                        } catch (InterruptedException e) {
+                                            S = "Did not publish";
+                                            e.printStackTrace();
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                            S = "Warning: Did Not Publish";
+                                        }
+                                        //displays if it was succesful or not
+                                        Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
+                                        Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
                                     }
-                                    //displays if it was succesful or not
-                                    Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
-                                    Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                        });
+                            });
+                }
+                else
+                {
+                    // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
+                    Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
 
         //Connecting to our database and getting the settings for this user, then we set the bus, weather and news to the users chosen settings from before.
-        Settings set = new Settings(user);
+        /*Settings set = new Settings(user);
         String[] db = set.getSettings();
         ((NavigationActivity) getActivity()).setBus(db[0]);
         ((NavigationActivity) getActivity()).setWeather(db[1]);
-        ((NavigationActivity) getActivity()).setNews(db[2]);
+        ((NavigationActivity) getActivity()).setNews(db[2]);*/
 
         // Here we finish off the onCreate with setting the UUID, bus, news,weather to the one in our activity.
         UUID.setText(((NavigationActivity) getActivity()).getMirror());
@@ -250,7 +275,8 @@ This is created when the fragment is started.
                                             TravelByLoc trav = new TravelByLoc();
                                             trav.execute(auth, String.valueOf(Latitude), String.valueOf(Longitude));
                                             //our stop the is what we get() from the travelbyloc
-                                            String stop = parsejson(trav.get());
+                                            ParseJson js = new ParseJson();
+                                            String stop = js.parseLoc(trav.get());
                                             //we set the activities stop
                                             ((NavigationActivity) getActivity()).setBus(stop);
                                             //and the we set the bustext in the app to stop
@@ -302,15 +328,7 @@ This is created when the fragment is started.
         busbuilt.create();
     }
 
-    //parses json for the closest stop location return a string with a name of a stop
-    public String parsejson(String json) throws ParseException {
-        JSONParser parser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) parser.parse(json);
-        JSONObject obj = (JSONObject) jsonObject.get("LocationList");
-        JSONObject obj2 = (JSONObject) obj.get("StopLocation");
-        Object name = obj2.get("name");
-        return name.toString();
-    }
+
 
     //here we just get the city for the weather
     public String weathercity(double Lat, double Long){

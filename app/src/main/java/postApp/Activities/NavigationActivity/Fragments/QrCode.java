@@ -49,23 +49,25 @@ public class QrCode extends Fragment implements ZXingScannerView.ResultHandler {
      */
     @Override
     public void handleResult(Result rawResult) {
-        // Do something with the result here
 
+        //set new mirror
         ((NavigationActivity) getActivity()).setMirror(rawResult.getText());
+        //Use retrieve data class to execute the pairing publishing
         Retrievedata Ret = new Retrievedata();
         String topic = ((NavigationActivity) getActivity()).getMirror();
-        String S = "";
         try {
-            S = Ret.execute(topic, "pairing", "new client").get();
+           Ret.execute(topic, "pairing", "new client").get();
         } catch (InterruptedException e) {
-            S = "Did not publish";
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-            S = "Warning: Did Not Publish";
-        }
 
+        }
+       //swithc back to drawer from backbutton
+        ((NavigationActivity) getActivity()).toggleDrawerUse(true);
+        // swithc activity back to settings
         getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
+
 
         // If you would like to resume scanning, call this method below:
         // mScannerView.resumeCameraPreview(this);

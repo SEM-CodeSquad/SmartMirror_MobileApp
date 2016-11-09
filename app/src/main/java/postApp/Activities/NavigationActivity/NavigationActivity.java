@@ -32,6 +32,9 @@ public class NavigationActivity extends AppCompatActivity
     DrawerLayout drawer;
     public ActionBarDrawerToggle toggle;
     Toolbar toolbar;
+
+    //since we have 1 activity shared by several fragments we have the variables accesible by all fragments since they
+    //share activity
     String mirrorID = "No mirror chosen";
     String newsID = "No news chosen";
     String busID = "No bus or tram stop chosen";
@@ -42,27 +45,34 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set the layout
         setContentView(R.layout.activity_main);
+        //initilize the toolbar and then set it and then set title.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Publish PostIt");
+        //initilize the drawer and a toggle which opens and closes the drawer and then add it as a drawerlistener
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
+        //if its not a saved instancestate we set the iniatial frame as a postit
         if(savedInstanceState == null) {
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.content_frame, new Postit()).commit();
         }
+        //here we just get the user that logged in from before using a bundle
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             user = extras.getString("user");
             //The key argument here must match that used in the other activity
         }
-
+        //saving the originallistnere which is a drawer when we switch to a back button later
         mOriginalListener = toggle.getToolbarNavigationClickListener();
+        // check if the DrawerLayout is open or closed after the instance state of the DrawerLayout has been restored.
         toggle.syncState();
 
 
@@ -72,7 +82,7 @@ public class NavigationActivity extends AppCompatActivity
 
     }
 /*
-Back pressed obv, not implemented that well yet
+Back pressed on phone, closes the drawer if its open
  */
     @Override
     public void onBackPressed() {
@@ -80,7 +90,7 @@ Back pressed obv, not implemented that well yet
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
         }
     }
 
@@ -98,17 +108,19 @@ Back pressed obv, not implemented that well yet
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
+        //if settings is pressed we opens the settings fragment and set title to settings
         if (id == R.id.action_settings) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
             getSupportActionBar().setTitle("Settings");
         }
         if (id == R.id.pairmirror) {
+            //since pairmirror uses a back button we save the original listener which is a drawer
             mOriginalListener = toggle.getToolbarNavigationClickListener();
+            //turn of the drawer to a backbutton
             toggleDrawerUse(false);
+            //set the title
             getSupportActionBar().setTitle("Mirror ID");
+            //switch screen to QrCode frame
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCode()).commit();
         }
 
@@ -126,13 +138,13 @@ Back pressed obv, not implemented that well yet
             toggle.setToolbarNavigationClickListener(mOriginalListener);
         }
         else
-            toggle.setHomeAsUpIndicator(R.drawable.back);
-        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            toggle.setHomeAsUpIndicator(R.drawable.back); //set the icon to a back button
+            toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //listeners that goes back to settings whne pressed
                 fragment.beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
-                getSupportActionBar().setTitle("Settings");
-                toggleDrawerUse(true);
+                getSupportActionBar().setTitle("Settings"); //sets the title to settings
+                toggleDrawerUse(true);//activates the drawer again
 
             }
         });
@@ -148,7 +160,9 @@ Back pressed obv, not implemented that well yet
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fragment = getFragmentManager();
-
+        //when a diffrent navigation item is clicked we do a specific thing, eg when nav_postit(postit icon) is clicked
+        //we switch fragment to postit and set title of actionbar to publish posit.
+        //same thing for all navigationitems
         if (id == R.id.nav_postit){
             fragment.beginTransaction().replace(R.id.content_frame, new Postit()).commit();
             getSupportActionBar().setTitle("Publish PostIt");

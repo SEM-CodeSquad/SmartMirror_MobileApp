@@ -45,16 +45,21 @@ public class Postit extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         idOne = UUID.randomUUID().toString();
+        //set the original post it color to yellow
         Color1[0] = "post-it-yellow";
         myView = inflater.inflate(R.layout.postit, container, false);
+        //instantiate the views
         final ImageButton colorbutton = (ImageButton)myView.findViewById(R.id.colorbutton);
         final ImageButton checkmark = (ImageButton)myView.findViewById(R.id.checkmark);
         final ImageView PostitImage = (ImageView)myView.findViewById(R.id.ImageView);
         typedtext = (EditText)myView.findViewById(R.id.typedText);
         important = ((Switch)myView.findViewById(R.id.postitswitch));
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //builders are dialog that pop up with option, each option outcome is in the switch()
+        //builders are dialog that pop up with option, each option outcome is in the switch()
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //Set the title to chose color
         builder.setTitle("Chose color");
+        //Building the alertdialog with 6 options
         builder.setItems(new CharSequence[]
                         {"Blue", "Green", "Yellow", "Orange", "Purple", "Pink"},
                 new DialogInterface.OnClickListener() {
@@ -64,32 +69,44 @@ public class Postit extends Fragment {
                         // of the selected item
                         switch (which) {
                             case 0:
+                                //we change post it color when publishing to broker
                                 Color1[0] = "post-it-blue";
+                                //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_blue));
                                 Toast.makeText(getActivity(), "Chose Blue", Toast.LENGTH_SHORT).show();
                                 break;
                             case 1:
+                                //we change variable color1[0] when publishing to broker
                                 Color1[0] = "post-it-green";
+                                //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_green));
                                 Toast.makeText(getActivity(), "Chose Green", Toast.LENGTH_SHORT).show();
                                 break;
                             case 2:
+                                //we change variable color1[0] when publishing to broker
                                 Color1[0] = "post-it-yellow";
+                                //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_yellow));
                                 Toast.makeText(getActivity(), "Chose Yellow", Toast.LENGTH_SHORT).show();
                                 break;
                             case 3:
+                                //we change variable color1[0] when publishing to broker
                                 Color1[0] = "post-it-orange";
+                                //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_orange));
                                 Toast.makeText(getActivity(), "Chose Orange", Toast.LENGTH_SHORT).show();
                                 break;
                             case 4:
+                                //we change variable color1[0] when publishing to broker
                                 Color1[0] = "post-it-purple";
+                                //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_purple));
                                 Toast.makeText(getActivity(), "Chose Purple", Toast.LENGTH_SHORT).show();
                                 break;
                             case 5:
+                                //we change variable color1[0] when publishing to broker
                                 Color1[0] = "post-it-pink";
+                                //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_pink));
                                 Toast.makeText(getActivity(), "Chose Pink", Toast.LENGTH_SHORT).show();
                                 break;
@@ -99,22 +116,21 @@ public class Postit extends Fragment {
 
 
         builder.create();
-
+        //when colorbutton is pressed in the UI we show the color builder.
         colorbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                builder.show();
             }
-        }); //when colorbutton is pressed in the UI we show the color builder.
+        });
 
         /*
         This is used for posting a postit with starting the Retrieve data class with all the args we need.
          */
-        assert checkmark != null;
         checkmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //we get text, uuid, topic, and set a time here for the postit
                 text = typedtext.getText().toString();
                 uuid = ((NavigationActivity) getActivity()).getUUID();
                 topic = ((NavigationActivity) getActivity()).getMirror();
@@ -147,7 +163,7 @@ public class Postit extends Fragment {
         });
 
         /*
-        Remove focus from textview when clicked on a diffrent place
+        Remove focus from typedtext when clicked on a diffrent place meaning we will hide keyboard when not typing
          */
         typedtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

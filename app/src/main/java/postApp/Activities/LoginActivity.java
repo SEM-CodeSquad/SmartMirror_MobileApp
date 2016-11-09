@@ -28,12 +28,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginscreen);
+        //initilize the views
         Button login = (Button)findViewById(R.id.login);
         usrname = (EditText)findViewById(R.id.loginuser);
         passwrd = (TextView)findViewById(R.id.loginpassword);
         forgot = (TextView)findViewById(R.id.fgtpass);
         regi = (TextView)findViewById(R.id.regibtn);
 
+        //set a onclicklistener to the register button that calls OnRegister
         regi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,12 +43,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //set a onclicklistener to the login button that calls OnLogin with the username and password typed by the user
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OnLogin(usrname.getText().toString(), passwrd.getText().toString());
             }
         });
+        //set a onclicklistener to the forgot pass button that calls onForgotten
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,17 +71,19 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
     /*
-    Switches to navigationactivity
+    Switches to navigationactivity if a user correctly logs in
      */
     public void OnLogin(String User, String Pass){
         Login log = new Login(User, Pass);
         if(log.getStatus() == true){
+            //if we log in we swithc to navigationActivity
             Intent intent = new Intent(this, NavigationActivity.class);
+            //we add in a fetchable user when we start the activity
             intent.putExtra("user", User);
             startActivity(intent);
-
         }
         else{
+            //if user types wrong login we show a alertdialog some text
             new AlertDialog.Builder(this)
                     .setTitle("Access denied")
                     .setMessage("Wrong username or password")
@@ -89,10 +95,12 @@ public class LoginActivity extends AppCompatActivity {
                     .show();
         }
     }
+    //starts the register intent
     private void onRegister(){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
+    //starts the forgotten pass intent
     private void onForgotten(){
         Intent intent = new Intent(this, SecretQActivity.class);
         startActivity(intent);

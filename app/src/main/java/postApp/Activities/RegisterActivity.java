@@ -14,9 +14,6 @@ import android.widget.TextView;
 import adin.postApp.R;
 import postApp.DataHandlers.Network.DataBase.Registration;
 
-/**
- * Created by adinH on 2016-11-07.
- */
 public class RegisterActivity extends AppCompatActivity {
 
     EditText usrname;
@@ -26,20 +23,22 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registeracc);
-        Button login = (Button)findViewById(R.id.regbtn);
+        //initilize the views
+        Button reg = (Button)findViewById(R.id.regbtn);
         Button cancel = (Button)findViewById(R.id.regclc);
         usrname = (EditText)findViewById(R.id.reguser);
         passwrd = (EditText)findViewById(R.id.regpass);
         secret = (EditText)findViewById(R.id.regsecret);
 
 
-
-        login.setOnClickListener(new View.OnClickListener() {
+        //on click Listener for the register button that calls OnRegister()
+        reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OnRegister(usrname.getText().toString(), passwrd.getText().toString(), secret.getText().toString());
             }
         });
+        //on click Listener for the register button that calls OnCancel()
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,12 +59,15 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
+    //on register that takes a user, pass and a secret answer
     private void OnRegister(String User, String Pass, String Secret){
         Registration reg = new Registration(User, Pass, Secret);
+        //if we return that the username is not in use we switch to login class since we know the account making was succesfull
         if(reg.getInUse() == false){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+        //a alertdialog displaying it is already chosen
         else{
             new AlertDialog.Builder(this)
                     .setMessage("Username already chosen")
@@ -78,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
     }
+    //canceling should switchback to loginactivity
     private void OnCancel(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
