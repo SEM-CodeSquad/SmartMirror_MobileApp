@@ -22,27 +22,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="postApp.Controllers.NavigationActivity"
+            android:name="postApp.Activities.NavigationActivity.NavigationActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="postApp.LoginActivity"
+            android:name="postApp.Activities.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="postApp.RegisterActivity"
+            android:name="postApp.Activities.RegisterActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="postApp.ResetPasswordActivity"
+            android:name="postApp.Activities.ResetPasswordActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="postApp.SecretQActivity"
+            android:name="postApp.Activities.SecretQActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
