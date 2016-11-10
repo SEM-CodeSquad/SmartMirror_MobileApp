@@ -1,5 +1,6 @@
 package postApp.Activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -41,6 +43,23 @@ public class SecretQActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OnCancel();
+            }
+        });
+        usrname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        //if the passwrd has no focus hide it!
+        secret.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
             }
         });
     }
@@ -79,5 +98,9 @@ public class SecretQActivity extends AppCompatActivity {
     private void OnCancel(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);;
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

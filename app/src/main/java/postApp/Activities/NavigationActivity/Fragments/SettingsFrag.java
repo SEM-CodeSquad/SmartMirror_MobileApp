@@ -180,12 +180,7 @@ This is created when the fragment is started.
         });
 
 
-        //Connecting to our database and getting the settings for this user, then we set the bus, weather and news to the users chosen settings from before.
-        /*Settings set = new Settings(user);
-        String[] db = set.getSettings();
-        ((NavigationActivity) getActivity()).setBus(db[0]);
-        ((NavigationActivity) getActivity()).setWeather(db[1]);
-        ((NavigationActivity) getActivity()).setNews(db[2]);*/
+
 
         // Here we finish off the onCreate with setting the UUID, bus, news,weather to the one in our activity.
         UUID.setText(((NavigationActivity) getActivity()).getMirror());
@@ -335,7 +330,8 @@ This is created when the fragment is started.
         //will be final adress
         String finalAddress = "";
         //android lib geocoder that gets the current location
-        Geocoder geoCoder = new Geocoder(getActivity(), Locale.getDefault());
+        Locale loc = new Locale("en");
+        Geocoder geoCoder = new Geocoder(getActivity(), loc);
         try {
             // addresses with city, country, street etc in a list
             List<Address> address = geoCoder.getFromLocation(Lat, Long, 1);

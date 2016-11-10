@@ -10,7 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+
+import org.w3c.dom.Text;
 
 import java.util.UUID;
 
@@ -23,6 +26,7 @@ import postApp.Activities.NavigationActivity.Fragments.Preferences;
 import postApp.Activities.NavigationActivity.Fragments.QrCode;
 import postApp.Activities.NavigationActivity.Fragments.RemovePostit;
 import postApp.Activities.NavigationActivity.Fragments.SettingsFrag;
+import postApp.DataHandlers.Network.DataBase.Settings;
 
 /*
 Oncreate method for navigationactivity, starts a navigation drawer and sets the toolbar, functionality etc.
@@ -68,12 +72,19 @@ public class NavigationActivity extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             user = extras.getString("user");
-            //The key argument here must match that used in the other activity
+            // /The key argument here must match that used in the other activity
         }
         //saving the originallistnere which is a drawer when we switch to a back button later
         mOriginalListener = toggle.getToolbarNavigationClickListener();
         // check if the DrawerLayout is open or closed after the instance state of the DrawerLayout has been restored.
         toggle.syncState();
+
+        //Connecting to our database and getting the settings for this user, then we set the bus, weather and news to the users chosen settings from before.
+        Settings set = new Settings(user);
+        String[] db = set.getSettings();
+        setBus(db[0]);
+        setWeather(db[1]);
+        setNews(db[2]);
 
 
 
@@ -98,7 +109,8 @@ Back pressed on phone, closes the drawer if its open
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
+        TextView usrnamenav = (TextView)findViewById(R.id.usernavdraw);
+        usrnamenav.setText(user);
         return true;
     }
 

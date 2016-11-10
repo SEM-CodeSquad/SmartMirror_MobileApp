@@ -26,8 +26,7 @@ import postApp.Activities.NavigationActivity.NavigationActivity;
 import postApp.DataHandlers.Network.MqTTHandler.Retrievedata;
 
 /**
- * Created by adinH on 2016-10-26.
- * used for posting postits
+ used for posting postits
  */
 public class Postit extends Fragment {
 
@@ -41,12 +40,16 @@ public class Postit extends Fragment {
     final String[] Color1 = new String[1];
     View myView;
     String idOne;
+
+    /*
+    When we change to this fragment OnCreateView is started which gets buttons, builds alertdialogs and everything required for this view.
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         idOne = UUID.randomUUID().toString();
         //set the original post it color to yellow
-        Color1[0] = "post-it-yellow";
+        Color1[0] = "yellow";
         myView = inflater.inflate(R.layout.postit, container, false);
         //instantiate the views
         final ImageButton colorbutton = (ImageButton)myView.findViewById(R.id.colorbutton);
@@ -70,21 +73,21 @@ public class Postit extends Fragment {
                         switch (which) {
                             case 0:
                                 //we change post it color when publishing to broker
-                                Color1[0] = "post-it-blue";
+                                Color1[0] = "blue";
                                 //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_blue));
                                 Toast.makeText(getActivity(), "Chose Blue", Toast.LENGTH_SHORT).show();
                                 break;
                             case 1:
                                 //we change variable color1[0] when publishing to broker
-                                Color1[0] = "post-it-green";
+                                Color1[0] = "green";
                                 //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_green));
                                 Toast.makeText(getActivity(), "Chose Green", Toast.LENGTH_SHORT).show();
                                 break;
                             case 2:
                                 //we change variable color1[0] when publishing to broker
-                                Color1[0] = "post-it-yellow";
+                                Color1[0] = "yellow";
                                 //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_yellow));
                                 Toast.makeText(getActivity(), "Chose Yellow", Toast.LENGTH_SHORT).show();
@@ -98,14 +101,14 @@ public class Postit extends Fragment {
                                 break;
                             case 4:
                                 //we change variable color1[0] when publishing to broker
-                                Color1[0] = "post-it-purple";
+                                Color1[0] = "purple";
                                 //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_purple));
                                 Toast.makeText(getActivity(), "Chose Purple", Toast.LENGTH_SHORT).show();
                                 break;
                             case 5:
                                 //we change variable color1[0] when publishing to broker
-                                Color1[0] = "post-it-pink";
+                                Color1[0] = "pink";
                                 //Change the picture color to match the switch chosen
                                 PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_pink));
                                 Toast.makeText(getActivity(), "Chose Pink", Toast.LENGTH_SHORT).show();
@@ -144,7 +147,7 @@ public class Postit extends Fragment {
                 }
                 String importantstring = String.valueOf(important.isChecked());
                 Retrievedata R = new Retrievedata();
-                String S = null;
+                String S;
                 if (topic != "No mirror chosen") {
                     try {
                         S = R.execute(topic, "postit", text, Color1[0], importantstring, date, idOne).get();
@@ -179,6 +182,7 @@ public class Postit extends Fragment {
 
     /*
     Hides keyboard
+    @param view The view passed to hide keyboard
      */
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);;
