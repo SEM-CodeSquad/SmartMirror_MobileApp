@@ -3,13 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#383838"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <EditText
         android:layout_width="match_parent"
         android:inputType="textPersonName"
         android:background="@drawable/textfieldboxes"
-
         android:ems="10"
         android:id="@+id/reguser"
         android:layout_marginTop="125dp"
@@ -47,22 +48,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
+        style="@style/BtnCustomHolo"
         android:id="@+id/regclc"
         android:layout_gravity="right"
         android:layout_alignTop="@+id/regbtn"
-        android:layout_alignRight="@+id/reguser"
-        android:layout_alignEnd="@+id/reguser"
         android:layout_toRightOf="@+id/regbtn"
-        android:layout_toEndOf="@+id/regbtn" />
+        android:layout_alignRight="@+id/regpass"
+        android:layout_alignEnd="@+id/regpass" />
 
     <Button
-        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/regbtn"
+        style="@style/BtnCustomHolo"
         android:layout_below="@+id/regsecret"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_alignStart="@+id/textView2"
+        android:layout_width="160dp" />
 
     <TextView
         android:layout_width="wrap_content"

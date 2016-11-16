@@ -46,7 +46,7 @@
         android:clickable="true" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
+        style="@style/BtnCustomHolo"
         android:layout_width="216dp"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -56,7 +56,8 @@
         android:layout_alignRight="@+id/loginpassword"
         android:layout_alignEnd="@+id/loginpassword"
         android:layout_alignLeft="@+id/loginpassword"
-        android:layout_alignStart="@+id/loginpassword" />
+        android:layout_alignStart="@+id/loginpassword"
+        />
 
     <TextView
         android:layout_width="206dp"

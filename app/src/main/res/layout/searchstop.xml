@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"
         android:hint="Search"
         style="@style/EditTextCustomHolo"
-
         android:maxLines="1"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"

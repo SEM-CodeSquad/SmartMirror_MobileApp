@@ -19,4 +19,7 @@
     <style name="EditTextCustomHolo" parent="android:Widget.EditText">
         <item name="android:background">@drawable/apptheme_edit_text_holo_light</item>
     </style>
+    <style name="BtnCustomHolo" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_light</item>
+    </style>
 </resources>
