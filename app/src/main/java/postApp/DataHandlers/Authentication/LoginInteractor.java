@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import postApp.Activities.NavigationActivity.NavigationActivity;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.ActivitiesView.AuthenticationView.RegisterActivity;
 import postApp.ActivitiesView.AuthenticationView.SecretQActivity;
 import postApp.ActivitiesView.AuthenticationView.LoginActivity;

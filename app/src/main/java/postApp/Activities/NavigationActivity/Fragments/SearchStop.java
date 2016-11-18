@@ -23,7 +23,7 @@ import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.Authentication.VastTrafik.GenerateAccessCode;
 import postApp.DataHandlers.Authentication.VastTrafik.TravelBySearch;
-import postApp.Activities.NavigationActivity.NavigationActivity;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.JsonHandler.ParseJson;
 
 /*

@@ -1,4 +1,4 @@
-package postApp.DataHandlers.FragmentHandlers.Preferences;
+package postApp.DataHandlers.MenuHandlers.FragmentHandlers.Preferences;
 
 /**
  * Created by Emanuel on 19/11/2016.

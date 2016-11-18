@@ -33,7 +33,7 @@ import io.nlopez.smartlocation.SmartLocation;
 
 import postApp.Activities.NavigationActivity.Fragments.QrCode;
 import postApp.Activities.NavigationActivity.Fragments.SearchStop;
-import postApp.Activities.NavigationActivity.NavigationActivity;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.Authentication.VastTrafik.GenerateAccessCode;
 import postApp.DataHandlers.Authentication.VastTrafik.TravelByLoc;

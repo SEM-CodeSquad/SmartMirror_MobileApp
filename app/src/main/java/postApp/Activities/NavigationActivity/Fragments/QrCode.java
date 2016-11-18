@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag;
-import postApp.Activities.NavigationActivity.NavigationActivity;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 
 /*

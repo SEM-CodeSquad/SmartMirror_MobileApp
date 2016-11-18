@@ -1,4 +1,4 @@
-package postApp.ActivitiesView.FragmentViews.PreferencesView;
+package postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView;
 
 /**
  * Created by Emanuel on 19/11/2016.

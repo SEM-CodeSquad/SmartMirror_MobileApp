@@ -1,4 +1,4 @@
-package postApp.Activities.NavigationActivity;
+package postApp.ActivitiesView.MenuView;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,6 +13,7 @@ import android.view.View;
 
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.Fragments.Postit;
+import postApp.Presenters.MenuPresenters.NavigationPresenter;
 import postApp.DataHandlers.Settings.Settings;
 
 /*

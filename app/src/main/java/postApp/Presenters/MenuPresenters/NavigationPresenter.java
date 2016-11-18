@@ -1,7 +1,10 @@
-package postApp.Activities.NavigationActivity;
+package postApp.Presenters.MenuPresenters;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import postApp.ActivitiesView.MenuView.NavigationActivity;
+import postApp.DataHandlers.MenuHandlers.NavigationInteractor;
 
 /**
  * Created by adinH on 2016-11-18.
@@ -9,7 +12,7 @@ import android.view.MenuItem;
 
 public class NavigationPresenter {
 
-    private NavigationInteractor NavigationInteractor;
+    private postApp.DataHandlers.MenuHandlers.NavigationInteractor NavigationInteractor;
 
     public NavigationPresenter(NavigationActivity NavigationActivity) {
         this.NavigationInteractor = new NavigationInteractor(NavigationActivity);

@@ -1,4 +1,4 @@
-package postApp.Activities.NavigationActivity;
+package postApp.DataHandlers.MenuHandlers;
 
 import android.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +19,7 @@ import postApp.Activities.NavigationActivity.Fragments.Preferences;
 import postApp.Activities.NavigationActivity.Fragments.QrCode;
 import postApp.Activities.NavigationActivity.Fragments.RemovePostit;
 import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 /**
  * Created by adinH on 2016-11-18.
@@ -34,7 +35,7 @@ public class NavigationInteractor {
     UUID idOne = UUID.randomUUID();
     View.OnClickListener mOriginalListener;
 
-    NavigationActivity NavigationActivity;
+    postApp.ActivitiesView.MenuView.NavigationActivity NavigationActivity;
 
 
     public NavigationInteractor(NavigationActivity NavigationActivity){
