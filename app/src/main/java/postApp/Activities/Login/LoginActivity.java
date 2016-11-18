@@ -1,4 +1,4 @@
-package postApp.Activities;
+package postApp.Activities.Login;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.NavigationActivity;
+import postApp.Activities.RegisterActivity;
+import postApp.Activities.SecretQActivity;
 import postApp.DataHandlers.Network.DataBase.Login;
 
 /**
@@ -26,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView passwrd;
     TextView regi;
     TextView forgot;
+    private LoginPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +40,14 @@ public class LoginActivity extends AppCompatActivity {
         passwrd = (TextView)findViewById(R.id.loginpassword);
         forgot = (TextView)findViewById(R.id.fgtpass);
         regi = (TextView)findViewById(R.id.regibtn);
+        presenter = new LoginPresenter(this);
+
 
         //set a onclicklistener to the register button that calls OnRegister
         regi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onRegister();
+                presenter.onRegister();
             }
         });
 
@@ -49,14 +55,14 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnLogin(usrname.getText().toString(), passwrd.getText().toString());
+                presenter.OnLogin(usrname.getText().toString(), passwrd.getText().toString());
             }
         });
         //set a onclicklistener to the forgot pass button that calls onForgotten
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onForgotten();
+                presenter.onForgotten();
             }
         });
 
@@ -64,9 +70,9 @@ public class LoginActivity extends AppCompatActivity {
         usrname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
+                if (!hasFocus){
+                presenter.hideKeyboard(v);
+            }
             }
         });
         //if the passwrd has no focus hide it!
@@ -74,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    hideKeyboard(v);
+                    presenter.hideKeyboard(v);
                 }
             }
         });
@@ -84,51 +90,9 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-
         return true;
     }
-    /*
-    Switches to navigationactivity if a user correctly logs in
-     */
-    public void OnLogin(String User, String Pass){
-        Login log = new Login(User, Pass);
-        if(log.getStatus() == true){
-            //if we log in we swithc to navigationActivity
-            Intent intent = new Intent(this, NavigationActivity.class);
-            //we add in a fetchable user when we start the activity
-            intent.putExtra("user", User);
-            startActivity(intent);
-        }
-        else{
-            //if user types wrong login we show a alertdialog some text
-            new AlertDialog.Builder(this)
-                    .setTitle("Access denied")
-                    .setMessage("Wrong username or password")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                        }
-                    })
-                    .show();
-        }
-    }
-    //starts the register intent
-    private void onRegister(){
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-    //starts the forgotten pass intent
-    private void onForgotten(){
-        Intent intent = new Intent(this, SecretQActivity.class);
-        startActivity(intent);
-    }
 
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);;
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
 }

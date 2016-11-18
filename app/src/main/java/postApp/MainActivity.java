@@ -3,7 +3,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import postApp.Activities.LoginActivity;
+import postApp.Activities.Login.LoginActivity;
 
 /*
 Startup for the login screen, currently fixed values till a db gets implemented

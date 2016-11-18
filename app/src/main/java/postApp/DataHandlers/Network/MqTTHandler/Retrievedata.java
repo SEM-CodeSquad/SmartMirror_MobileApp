@@ -45,7 +45,7 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 sendthis.put("content", jArray);
                 String messagestring = sendthis.toJSONString();
-                post = new HttpRequestSender("codehigh.ddns.me", "new client", topic, messagestring);
+                post = new HttpRequestSender("codehigh.ddns.me", topic, messagestring);
             }
             else if(args[1].equals("config")){
                 sendthis.put("contentType", "settings");
@@ -69,7 +69,7 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
                 System.out.println(message);
                 System.out.println(topic);
-                post = new HttpRequestSender("codehigh.ddns.me", "new client", topic, message);
+                post = new HttpRequestSender("codehigh.ddns.me",  topic, message);
 
             }
             else if(args[1].equals("pairing"))
@@ -85,7 +85,7 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
 
                 String message = sendthis.toJSONString();
                 System.out.println("message");
-                post = new HttpRequestSender("codehigh.ddns.me", "new client", topic, message);
+                post = new HttpRequestSender("codehigh.ddns.me", topic, message);
             }
             else if(args[1].equals("postIt action"))
             {
@@ -103,7 +103,7 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
                 System.out.println(message);
                 System.out.println(topic);
-                post = new HttpRequestSender("codehigh.ddns.me", "new client", topic, message);
+                post = new HttpRequestSender("codehigh.ddns.me", topic, message);
             }
             post.executePost(myUrl);
             System.out.println(post.getHttpResponse());

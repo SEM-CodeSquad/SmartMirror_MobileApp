@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import adin.postApp.R;
+import postApp.Activities.Login.LoginActivity;
 import postApp.DataHandlers.Network.DataBase.Registration;
 
 public class RegisterActivity extends AppCompatActivity {
