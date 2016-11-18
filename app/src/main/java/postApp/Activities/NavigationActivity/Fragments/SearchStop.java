@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import adin.postApp.R;
+import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag;
 import postApp.DataHandlers.Network.MqTTHandler.Retrievedata;
 import postApp.DataHandlers.Network.VastTrafik.GenerateAccessCode;
 import postApp.DataHandlers.Network.VastTrafik.TravelBySearch;

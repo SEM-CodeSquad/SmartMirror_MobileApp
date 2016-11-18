@@ -23,6 +23,7 @@ public class LoginInteractor {
     public LoginInteractor(LoginActivity LoginActivity){
         this.LoginActivity = LoginActivity;
     }
+
     public void OnLogin(String User, String Pass){
         Login log = new Login(User, Pass);
         if(log.getStatus() == true){

@@ -1,4 +1,4 @@
-package postApp.Activities.NavigationActivity.Fragments;
+package postApp.Activities.NavigationActivity.Fragments.SettingsFrag;
 
 /**
  * Created by adinH on 2016-10-27.
@@ -35,6 +35,8 @@ import adin.postApp.R;
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
 
+import postApp.Activities.NavigationActivity.Fragments.QrCode;
+import postApp.Activities.NavigationActivity.Fragments.SearchStop;
 import postApp.Activities.NavigationActivity.NavigationActivity;
 import postApp.DataHandlers.Network.DataBase.Settings;
 import postApp.DataHandlers.Network.MqTTHandler.Retrievedata;

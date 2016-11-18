@@ -84,7 +84,8 @@ public class Retrievedata extends AsyncTask<String, Void, String> {
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
-                System.out.println("message");
+                System.out.println(topic);
+                System.out.println(message);
                 post = new HttpRequestSender("codehigh.ddns.me", topic, message);
             }
             else if(args[1].equals("postIt action"))
