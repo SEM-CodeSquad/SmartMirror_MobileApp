@@ -28,12 +28,7 @@ public class NavigationActivity extends AppCompatActivity
 
     //since we have 1 activity shared by several fragments we have the variables accesible by all fragments since they
     //share activity
-    String mirrorID = "No mirror chosen";
-    String newsID = "No news chosen";
-    String busID = "No bus or tram stop chosen";
-    String weatherID = "No city chosen";
     String user;
-    UUID idOne = UUID.randomUUID();
     private NavigationPresenter presenter;
     View.OnClickListener mOriginalListener;
     @Override
