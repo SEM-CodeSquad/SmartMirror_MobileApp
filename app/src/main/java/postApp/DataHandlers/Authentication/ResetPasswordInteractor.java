@@ -7,9 +7,8 @@ import android.content.Intent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import postApp.ActivitiesView.LoginActivity;
-import postApp.ActivitiesView.ResetPasswordActivity;
-import postApp.DataHandlers.Authentication.ResetPassword;
+import postApp.ActivitiesView.AuthenticationView.LoginActivity;
+import postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity;
 
 /**
  * Created by adinH on 2016-11-18.
@@ -18,7 +17,7 @@ import postApp.DataHandlers.Authentication.ResetPassword;
 public class ResetPasswordInteractor {
 
 
-    postApp.ActivitiesView.ResetPasswordActivity ResetPasswordActivity;
+    postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity ResetPasswordActivity;
 
 
     public ResetPasswordInteractor(ResetPasswordActivity ResetPasswordActivity){

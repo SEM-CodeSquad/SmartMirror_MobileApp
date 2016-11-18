@@ -1,9 +1,9 @@
-package postApp.Presenters;
+package postApp.Presenters.AuthenticationPresenters;
 
 import android.view.View;
 
 import postApp.DataHandlers.Authentication.LoginInteractor;
-import postApp.ActivitiesView.LoginActivity;
+import postApp.ActivitiesView.AuthenticationView.LoginActivity;
 
 /**
  * Created by adinH on 2016-11-18.

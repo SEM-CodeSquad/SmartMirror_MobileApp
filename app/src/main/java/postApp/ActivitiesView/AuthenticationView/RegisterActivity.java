@@ -1,4 +1,4 @@
-package postApp.ActivitiesView;
+package postApp.ActivitiesView.AuthenticationView;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import adin.postApp.R;
-import postApp.Presenters.RegisterPresenter;
+import postApp.Presenters.AuthenticationPresenters.RegisterPresenter;
 
 public class RegisterActivity extends AppCompatActivity {
 

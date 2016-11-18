@@ -1,4 +1,4 @@
-package postApp.ActivitiesView;
+package postApp.ActivitiesView.AuthenticationView;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import adin.postApp.R;
-import postApp.Presenters.ResetPasswordPresenter;
+import postApp.Presenters.AuthenticationPresenters.ResetPasswordPresenter;
 
 /**
  * Created by adinH on 2016-11-07.

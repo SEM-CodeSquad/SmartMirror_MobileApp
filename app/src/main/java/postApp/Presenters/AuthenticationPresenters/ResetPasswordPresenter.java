@@ -1,9 +1,9 @@
-package postApp.Presenters;
+package postApp.Presenters.AuthenticationPresenters;
 
 import android.view.View;
 
 import postApp.DataHandlers.Authentication.ResetPasswordInteractor;
-import postApp.ActivitiesView.ResetPasswordActivity;
+import postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity;
 
 /**
  * Created by adinH on 2016-11-18.

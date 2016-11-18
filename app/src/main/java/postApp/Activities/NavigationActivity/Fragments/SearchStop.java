@@ -20,11 +20,11 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag;
-import postApp.DataHandlers.MqTTHandler.Retrievedata;
+import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.Authentication.VastTrafik.GenerateAccessCode;
 import postApp.DataHandlers.Authentication.VastTrafik.TravelBySearch;
 import postApp.Activities.NavigationActivity.NavigationActivity;
-import postApp.DataHandlers.JsonParser.ParseJson;
+import postApp.DataHandlers.JsonHandler.ParseJson;
 
 /*
     Class for searching a stop using västtrafiks api
@@ -130,7 +130,7 @@ public class SearchStop extends Fragment {
     }
     //pusblish the bus using class retrievedata
     public void publishBus(){
-        Retrievedata R = new Retrievedata();
+        JsonBuilder R = new JsonBuilder();
         //we make a toast of this string later on
         String S;
         //set the publishing broker topic

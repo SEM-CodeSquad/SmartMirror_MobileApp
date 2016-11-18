@@ -34,10 +34,10 @@ import io.nlopez.smartlocation.SmartLocation;
 import postApp.Activities.NavigationActivity.Fragments.QrCode;
 import postApp.Activities.NavigationActivity.Fragments.SearchStop;
 import postApp.Activities.NavigationActivity.NavigationActivity;
-import postApp.DataHandlers.MqTTHandler.Retrievedata;
+import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.Authentication.VastTrafik.GenerateAccessCode;
 import postApp.DataHandlers.Authentication.VastTrafik.TravelByLoc;
-import postApp.DataHandlers.JsonParser.ParseJson;
+import postApp.DataHandlers.JsonHandler.ParseJson;
 
 
 public class SettingsFrag extends Fragment {
@@ -146,7 +146,7 @@ This is created when the fragment is started.
                                     //set text to city
                                     weathertext.setText(city);
                                     //then we start a retrieve data that publishes the new weather as a config.
-                                    Retrievedata R = new Retrievedata();
+                                    JsonBuilder R = new JsonBuilder();
                                     String S;
                                     String topic = ((NavigationActivity) getActivity()).getMirror();
                                     if (topic != "No mirror chosen") {
@@ -216,7 +216,7 @@ This is created when the fragment is started.
 
                         }
                         //Publish this chosen news to the broker.
-                        Retrievedata R = new Retrievedata();
+                        JsonBuilder R = new JsonBuilder();
                         String S;
                         String topic = ((NavigationActivity) getActivity()).getMirror();
                         if (topic != "No mirror chosen") {
@@ -274,7 +274,7 @@ This is created when the fragment is started.
                                             //and the we set the bustext in the app to stop
                                             bustext.setText(stop);
                                             //after this we publish to the smartmirror the buschange
-                                            Retrievedata R = new Retrievedata();
+                                            JsonBuilder R = new JsonBuilder();
                                             String S;
                                             String topic = ((NavigationActivity) getActivity()).getMirror();
                                             if (topic != "No mirror chosen") {

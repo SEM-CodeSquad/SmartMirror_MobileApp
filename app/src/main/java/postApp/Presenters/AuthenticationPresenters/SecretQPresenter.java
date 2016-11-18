@@ -1,17 +1,17 @@
-package postApp.Presenters;
+package postApp.Presenters.AuthenticationPresenters;
 
 import android.view.View;
 
-import postApp.DataHandlers.Authentication.SecretQInteractor;
-import postApp.ActivitiesView.SecretQActivity;
+import postApp.DataHandlers.Pairing.SecretQInteractor;
+import postApp.ActivitiesView.AuthenticationView.SecretQActivity;
 
 /**
  * Created by adinH on 2016-11-18.
  */
 
 public class SecretQPresenter {
-    private postApp.ActivitiesView.SecretQActivity SecretQActivity;
-    private postApp.DataHandlers.Authentication.SecretQInteractor SecretQInteractor;
+    private postApp.ActivitiesView.AuthenticationView.SecretQActivity SecretQActivity;
+    private postApp.DataHandlers.Pairing.SecretQInteractor SecretQInteractor;
 
     public SecretQPresenter(SecretQActivity SecretQActivity) {
         this.SecretQActivity = SecretQActivity;

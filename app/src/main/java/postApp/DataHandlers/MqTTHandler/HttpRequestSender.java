@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 /**
  * Class responsible for establishing http connection with web server and send data to it.
  */
-class HttpRequestSender
+public class HttpRequestSender
 {
 
     private String brokerHostname;
@@ -24,7 +24,7 @@ class HttpRequestSender
      * @param topic String topic to be published on the broker
      * @param msg String message to be published in the broker
      */
-    HttpRequestSender(String brokerHostname, String topic, String msg)
+    public HttpRequestSender(String brokerHostname, String topic, String msg)
     {
         this.brokerHostname = brokerHostname;
         this.topic = topic;
@@ -36,7 +36,7 @@ class HttpRequestSender
      * the necessary parameters otherwise the web server will not accept it.
      * @param targetURL String containing the url and port to the web server
      */
-    void executePost(String targetURL)
+    public void executePost(String targetURL)
     {
 
         HttpURLConnection connection = null;
@@ -86,7 +86,7 @@ class HttpRequestSender
      *  Method to get the String containing the response from the web server.
      * @return String web server response
      */
-    String getHttpResponse()
+    public String getHttpResponse()
     {
         return httpResponse;
     }

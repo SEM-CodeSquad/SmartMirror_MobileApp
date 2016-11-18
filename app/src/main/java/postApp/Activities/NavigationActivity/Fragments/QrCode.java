@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag;
 import postApp.Activities.NavigationActivity.NavigationActivity;
-import postApp.DataHandlers.MqTTHandler.Retrievedata;
+import postApp.DataHandlers.JsonHandler.JsonBuilder;
 
 /*
 Simple qrcode scanner that implements the ZXING Scanner library.
@@ -54,7 +54,7 @@ public class QrCode extends Fragment implements ZXingScannerView.ResultHandler {
         //set new mirror
         ((NavigationActivity) getActivity()).setMirror(rawResult.getText());
         //Use retrieve data class to execute the pairing publishing
-        Retrievedata Ret = new Retrievedata();
+        JsonBuilder Ret = new JsonBuilder();
         String topic = ((NavigationActivity) getActivity()).getMirror();
         try {
            Ret.execute(topic, "pairing", "new client").get();

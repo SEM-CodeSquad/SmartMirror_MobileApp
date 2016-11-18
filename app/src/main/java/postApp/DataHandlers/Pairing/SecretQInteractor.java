@@ -1,4 +1,4 @@
-package postApp.DataHandlers.Authentication;
+package postApp.DataHandlers.Pairing;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import postApp.ActivitiesView.LoginActivity;
-import postApp.ActivitiesView.ResetPasswordActivity;
-import postApp.ActivitiesView.SecretQActivity;
+import postApp.ActivitiesView.AuthenticationView.LoginActivity;
+import postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity;
+import postApp.ActivitiesView.AuthenticationView.SecretQActivity;
 import postApp.DataHandlers.Authentication.MatchAnswer;
 
 /**
@@ -18,7 +18,7 @@ import postApp.DataHandlers.Authentication.MatchAnswer;
 
 public class SecretQInteractor {
 
-    postApp.ActivitiesView.SecretQActivity SecretQActivity;
+    postApp.ActivitiesView.AuthenticationView.SecretQActivity SecretQActivity;
 
 
     public SecretQInteractor(SecretQActivity SecretQActivity){

@@ -1,4 +1,4 @@
-package postApp.DataHandlers.MqTTHandler;
+package postApp.DataHandlers.JsonHandler;
 
 import android.os.AsyncTask;
 
@@ -10,9 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import postApp.DataHandlers.MqTTHandler.HttpRequestSender;
 
 
-public class Retrievedata extends AsyncTask<String, Void, String> {
+public class JsonBuilder extends AsyncTask<String, Void, String> {
     String Returnthis;
     String topic;
     HttpRequestSender post;

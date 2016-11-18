@@ -7,9 +7,8 @@ import android.content.Intent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import postApp.ActivitiesView.LoginActivity;
-import postApp.ActivitiesView.RegisterActivity;
-import postApp.DataHandlers.Authentication.Registration;
+import postApp.ActivitiesView.AuthenticationView.LoginActivity;
+import postApp.ActivitiesView.AuthenticationView.RegisterActivity;
 
 /**
  * Created by adinH on 2016-11-18.
@@ -17,7 +16,7 @@ import postApp.DataHandlers.Authentication.Registration;
 
 public class RegisterInteractor {
 
-    postApp.ActivitiesView.RegisterActivity RegisterActivity;
+    postApp.ActivitiesView.AuthenticationView.RegisterActivity RegisterActivity;
 
 
     public RegisterInteractor(RegisterActivity RegisterActivity){

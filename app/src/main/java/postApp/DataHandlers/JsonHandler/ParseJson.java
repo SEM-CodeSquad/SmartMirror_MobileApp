@@ -1,4 +1,4 @@
-package postApp.DataHandlers.JsonParser;
+package postApp.DataHandlers.JsonHandler;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

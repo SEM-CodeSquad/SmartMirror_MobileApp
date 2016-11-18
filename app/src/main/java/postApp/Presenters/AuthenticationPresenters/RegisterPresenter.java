@@ -1,16 +1,16 @@
-package postApp.Presenters;
+package postApp.Presenters.AuthenticationPresenters;
 
 import android.view.View;
 
 import postApp.DataHandlers.Authentication.RegisterInteractor;
-import postApp.ActivitiesView.RegisterActivity;
+import postApp.ActivitiesView.AuthenticationView.RegisterActivity;
 
 /**
  * Created by adinH on 2016-11-18.
  */
 
 public class RegisterPresenter {
-    private postApp.ActivitiesView.RegisterActivity RegisterActivity;
+    private postApp.ActivitiesView.AuthenticationView.RegisterActivity RegisterActivity;
     private postApp.DataHandlers.Authentication.RegisterInteractor RegisterInteractor;
 
     public RegisterPresenter(RegisterActivity RegisterActivity) {

@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.NavigationActivity;
-import postApp.DataHandlers.MqTTHandler.Retrievedata;
+import postApp.DataHandlers.JsonHandler.JsonBuilder;
 
 /**
  used for posting postits
@@ -146,7 +146,7 @@ public class Postit extends Fragment {
                     date = "none";
                 }
                 String importantstring = String.valueOf(important.isChecked());
-                Retrievedata R = new Retrievedata();
+                JsonBuilder R = new JsonBuilder();
                 String S;
                 if (topic != "No mirror chosen") {
                     try {

@@ -8,17 +8,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import postApp.Activities.NavigationActivity.NavigationActivity;
-import postApp.ActivitiesView.RegisterActivity;
-import postApp.ActivitiesView.SecretQActivity;
-import postApp.ActivitiesView.LoginActivity;
-import postApp.DataHandlers.Authentication.Login;
+import postApp.ActivitiesView.AuthenticationView.RegisterActivity;
+import postApp.ActivitiesView.AuthenticationView.SecretQActivity;
+import postApp.ActivitiesView.AuthenticationView.LoginActivity;
 
 /**
  * Created by adinH on 2016-11-18.
  */
 
 public class LoginInteractor {
-    postApp.ActivitiesView.LoginActivity LoginActivity;
+    postApp.ActivitiesView.AuthenticationView.LoginActivity LoginActivity;
 
 
     public LoginInteractor(LoginActivity LoginActivity){

@@ -1,4 +1,4 @@
-package postApp.DataHandlers.Authentication;
+package postApp.DataHandlers.Settings;
 
 import android.os.AsyncTask;
 
@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.ExecutionException;
+
+import postApp.DataHandlers.Authentication.DBConnection;
 
 /**
  * Created by Emanuel on 07/11/2016.

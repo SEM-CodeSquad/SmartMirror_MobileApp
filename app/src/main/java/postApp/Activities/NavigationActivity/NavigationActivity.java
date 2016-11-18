@@ -13,7 +13,7 @@ import android.view.View;
 
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.Fragments.Postit;
-import postApp.DataHandlers.Authentication.Settings;
+import postApp.DataHandlers.Settings.Settings;
 
 /*
 Oncreate method for navigationactivity, starts a navigation drawer and sets the toolbar, functionality etc.
