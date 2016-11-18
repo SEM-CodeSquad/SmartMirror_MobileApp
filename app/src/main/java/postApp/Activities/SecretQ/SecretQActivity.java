@@ -1,4 +1,4 @@
-package postApp.Activities;
+package postApp.Activities.SecretQ;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import adin.postApp.R;
 import postApp.Activities.Login.LoginActivity;
+import postApp.Activities.ResetPassword.ResetPasswordActivity;
 import postApp.DataHandlers.Network.DataBase.MatchAnswer;
 
 /**
@@ -21,8 +22,9 @@ import postApp.DataHandlers.Network.DataBase.MatchAnswer;
  */
 public class SecretQActivity extends AppCompatActivity {
 
-    EditText usrname;
-    EditText secret;
+    private EditText usrname;
+    private EditText secret;
+    private SecretQPresenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,25 +34,26 @@ public class SecretQActivity extends AppCompatActivity {
         usrname = (EditText)findViewById(R.id.usernamesecret);
         secret = (EditText)findViewById(R.id.secretqanswer);
 
+        presenter = new SecretQPresenter(this);
 
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnSecret(usrname.getText().toString(), secret.getText().toString());
+                presenter.OnSecret(usrname.getText().toString(), secret.getText().toString());
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnCancel();
+                presenter.OnCancel();
             }
         });
         usrname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    hideKeyboard(v);
+                    presenter.hideKeyboard(v);
                 }
             }
         });
@@ -59,7 +62,7 @@ public class SecretQActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    hideKeyboard(v);
+                    presenter.hideKeyboard(v);
                 }
             }
         });
@@ -78,31 +81,4 @@ public class SecretQActivity extends AppCompatActivity {
         return true;
     }
 
-    private void OnSecret(String User, String Secret){
-        MatchAnswer reg = new MatchAnswer(User, Secret);
-        if(reg.getAnswerMatch()){
-            Intent intent = new Intent(this, ResetPasswordActivity.class);
-            intent.putExtra("user", usrname.getText().toString());
-            startActivity(intent);
-        }
-        else{
-            new AlertDialog.Builder(this)
-                    .setMessage("Wrong Username or Question Answer")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                        }
-                    })
-                    .show();
-
-        }
-    }
-    private void OnCancel(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);;
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
 }

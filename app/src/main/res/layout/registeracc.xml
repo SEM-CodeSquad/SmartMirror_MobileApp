@@ -54,7 +54,8 @@
         android:layout_alignTop="@+id/regbtn"
         android:layout_toRightOf="@+id/regbtn"
         android:layout_alignRight="@+id/regpass"
-        android:layout_alignEnd="@+id/regpass" />
+        android:layout_alignEnd="@+id/regpass"
+        android:focusableInTouchMode="false"/>
 
     <Button
         android:layout_height="wrap_content"
@@ -64,7 +65,8 @@
         android:layout_below="@+id/regsecret"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2"
-        android:layout_width="160dp" />
+        android:layout_width="160dp"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"

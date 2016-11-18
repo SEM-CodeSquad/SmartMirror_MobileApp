@@ -1,4 +1,4 @@
-package postApp.Activities;
+package postApp.Activities.Register;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,6 +22,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText usrname;
     TextView passwrd;
     EditText secret;
+    private RegisterPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,20 +34,21 @@ public class RegisterActivity extends AppCompatActivity {
         usrname = (EditText)findViewById(R.id.reguser);
         passwrd = (EditText)findViewById(R.id.regpass);
         secret = (EditText)findViewById(R.id.regsecret);
+        presenter = new RegisterPresenter(this);
 
 
         //on click Listener for the register button that calls OnRegister()
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnRegister(usrname.getText().toString(), passwrd.getText().toString(), secret.getText().toString());
+                presenter.OnRegister(usrname.getText().toString(), passwrd.getText().toString(), secret.getText().toString());
             }
         });
         //on click Listener for the register button that calls OnCancel()
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnCancel();
+                presenter.OnCancel();
             }
         });
         //if the usrname has no focus hide it!
@@ -53,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    hideKeyboard(v);
+                   presenter.hideKeyboard(v);
                 }
             }
         });
@@ -62,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    hideKeyboard(v);
+                    presenter.hideKeyboard(v);
                 }
             }
         });
@@ -71,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    hideKeyboard(v);
+                    presenter.hideKeyboard(v);
                 }
             }
         });
@@ -89,34 +92,4 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    //on register that takes a user, pass and a secret answer
-    private void OnRegister(String User, String Pass, String Secret){
-        Registration reg = new Registration(User, Pass, Secret);
-        //if we return that the username is not in use we switch to login class since we know the account making was succesfull
-        if(reg.getInUse() == false){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-        //a alertdialog displaying it is already chosen
-        else{
-            new AlertDialog.Builder(this)
-                    .setMessage("Username already chosen")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                        }
-                    })
-                    .show();
-
-        }
-    }
-    //canceling should switchback to loginactivity
-    private void OnCancel(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);;
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
 }

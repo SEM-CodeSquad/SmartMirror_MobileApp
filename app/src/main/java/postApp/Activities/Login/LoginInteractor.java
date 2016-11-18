@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import postApp.Activities.NavigationActivity.NavigationActivity;
-import postApp.Activities.RegisterActivity;
-import postApp.Activities.SecretQActivity;
+import postApp.Activities.Register.RegisterActivity;
+import postApp.Activities.SecretQ.SecretQActivity;
 import postApp.DataHandlers.Network.DataBase.Login;
 
 /**

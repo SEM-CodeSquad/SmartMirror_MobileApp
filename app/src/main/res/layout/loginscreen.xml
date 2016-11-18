@@ -57,6 +57,7 @@
         android:layout_alignEnd="@+id/loginpassword"
         android:layout_alignLeft="@+id/loginpassword"
         android:layout_alignStart="@+id/loginpassword"
+        android:focusableInTouchMode="false"
         />
 
     <TextView

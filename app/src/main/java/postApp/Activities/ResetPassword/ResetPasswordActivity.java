@@ -1,4 +1,4 @@
-package postApp.Activities;
+package postApp.Activities.ResetPassword;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,6 +24,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
     EditText passwrd;
     EditText confpass;
     String user;
+    private ResetPasswordPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,24 +34,26 @@ public class ResetPasswordActivity extends AppCompatActivity {
             user = extras.getString("user");
             //The key argument here must match that used in the other activity
         }
+
         setContentView(R.layout.resetpass);
         Button reset = (Button)findViewById(R.id.confresetbtn);
         Button cancel = (Button)findViewById(R.id.cancelresetbtn);
         passwrd = (EditText)findViewById(R.id.newpassrest);
         confpass = (EditText)findViewById(R.id.confirmreset);
+        presenter = new ResetPasswordPresenter(this);
 
 
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    checkpasses(user, passwrd.getText().toString(), confpass.getText().toString());
+                    presenter.CheckPasswords(user, passwrd.getText().toString(), confpass.getText().toString());
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnCancel();
+                presenter.OnCancel();
             }
         });
         //if the usrname has no focus hide it!
@@ -57,7 +61,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    hideKeyboard(v);
+                    presenter.hideKeyboard(v);
                 }
             }
         });
@@ -66,7 +70,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    hideKeyboard(v);
+                    presenter.hideKeyboard(v);
                 }
             }
         });
@@ -82,48 +86,5 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
 
         return true;
-    }
-
-    private void checkpasses(String user, String pass, String confpass){
-        if(pass.equals(confpass)){
-            OnReset(user, pass);
-        }
-        else{
-            new AlertDialog.Builder(this)
-                    .setTitle("Passwords not matching")
-                    .setMessage("Please type again the passwords")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                        }
-                    })
-                    .show();
-        }
-    }
-    private void OnReset(String User, String Pass){
-        ResetPassword reg = new ResetPassword(User, Pass);
-        if(reg.getPasswordResetStatus()){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-        else{
-            new AlertDialog.Builder(this)
-                    .setMessage("Some error")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                        }
-                    })
-                    .show();
-
-        }
-    }
-    private void OnCancel(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);;
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
