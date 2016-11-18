@@ -20,11 +20,11 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag;
-import postApp.DataHandlers.Network.MqTTHandler.Retrievedata;
-import postApp.DataHandlers.Network.VastTrafik.GenerateAccessCode;
-import postApp.DataHandlers.Network.VastTrafik.TravelBySearch;
+import postApp.DataHandlers.MqTTHandler.Retrievedata;
+import postApp.DataHandlers.Authentication.VastTrafik.GenerateAccessCode;
+import postApp.DataHandlers.Authentication.VastTrafik.TravelBySearch;
 import postApp.Activities.NavigationActivity.NavigationActivity;
-import postApp.DataHandlers.ParseJson;
+import postApp.DataHandlers.JsonParser.ParseJson;
 
 /*
     Class for searching a stop using västtrafiks api

@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.NavigationActivity;
-import postApp.DataHandlers.Network.MqTTHandler.Retrievedata;
+import postApp.DataHandlers.MqTTHandler.Retrievedata;
 
 /**
  used for posting postits

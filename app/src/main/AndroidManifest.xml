@@ -27,22 +27,22 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="postApp.Activities.Login.LoginActivity"
+            android:name="postApp.ActivitiesView.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="postApp.Activities.Register.RegisterActivity"
+            android:name="postApp.ActivitiesView.RegisterActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="postApp.Activities.ResetPassword.ResetPasswordActivity"
+            android:name="postApp.ActivitiesView.ResetPasswordActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="postApp.Activities.SecretQ.SecretQActivity"
+            android:name="postApp.ActivitiesView.SecretQActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

@@ -21,10 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -38,11 +34,10 @@ import io.nlopez.smartlocation.SmartLocation;
 import postApp.Activities.NavigationActivity.Fragments.QrCode;
 import postApp.Activities.NavigationActivity.Fragments.SearchStop;
 import postApp.Activities.NavigationActivity.NavigationActivity;
-import postApp.DataHandlers.Network.DataBase.Settings;
-import postApp.DataHandlers.Network.MqTTHandler.Retrievedata;
-import postApp.DataHandlers.Network.VastTrafik.GenerateAccessCode;
-import postApp.DataHandlers.Network.VastTrafik.TravelByLoc;
-import postApp.DataHandlers.ParseJson;
+import postApp.DataHandlers.MqTTHandler.Retrievedata;
+import postApp.DataHandlers.Authentication.VastTrafik.GenerateAccessCode;
+import postApp.DataHandlers.Authentication.VastTrafik.TravelByLoc;
+import postApp.DataHandlers.JsonParser.ParseJson;
 
 
 public class SettingsFrag extends Fragment {

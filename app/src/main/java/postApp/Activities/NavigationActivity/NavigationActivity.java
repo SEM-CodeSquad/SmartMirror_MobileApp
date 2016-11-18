@@ -11,11 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-import java.util.UUID;
-
 import adin.postApp.R;
 import postApp.Activities.NavigationActivity.Fragments.Postit;
-import postApp.DataHandlers.Network.DataBase.Settings;
+import postApp.DataHandlers.Authentication.Settings;
 
 /*
 Oncreate method for navigationactivity, starts a navigation drawer and sets the toolbar, functionality etc.
