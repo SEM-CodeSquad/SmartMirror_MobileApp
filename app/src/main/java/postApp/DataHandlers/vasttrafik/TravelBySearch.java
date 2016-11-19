@@ -1,4 +1,4 @@
-package postApp.DataHandlers.Authentication.VastTrafik;
+package postApp.DataHandlers.Vasttrafik;
 
 import android.os.AsyncTask;
 
