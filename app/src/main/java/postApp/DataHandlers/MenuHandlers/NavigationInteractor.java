@@ -1,23 +1,11 @@
 package postApp.DataHandlers.MenuHandlers;
 
 import android.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.UUID;
 
 import adin.postApp.R;
-import postApp.Activities.NavigationActivity.Fragments.About;
-import postApp.Activities.NavigationActivity.Fragments.Contact;
-import postApp.Activities.NavigationActivity.Fragments.MirrorPostit;
-import postApp.Activities.NavigationActivity.Fragments.Postit;
-import postApp.Activities.NavigationActivity.Fragments.Preferences;
-import postApp.Activities.NavigationActivity.Fragments.QrCode;
-import postApp.Activities.NavigationActivity.Fragments.RemovePostit;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.Settings.Settings;

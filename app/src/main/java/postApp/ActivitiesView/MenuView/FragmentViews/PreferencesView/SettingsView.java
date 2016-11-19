@@ -9,7 +9,6 @@ This is the settings fragments managing all the controlling when pressing the se
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,18 +19,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-import java.util.concurrent.ExecutionException;
-
 import adin.postApp.R;
 
-import io.nlopez.smartlocation.OnLocationUpdatedListener;
-import io.nlopez.smartlocation.SmartLocation;
-import postApp.Activities.NavigationActivity.Fragments.QrCode;
+import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
 import postApp.Activities.NavigationActivity.Fragments.SearchStop;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
-import postApp.DataHandlers.JsonHandler.ParseJson;
 import postApp.DataHandlers.Vasttrafik.GenerateAccessCode;
-import postApp.DataHandlers.Vasttrafik.TravelByLoc;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.SettingsPresenter;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 
@@ -73,7 +65,7 @@ public class SettingsView extends Fragment {
 
         presenter = new SettingsPresenter(this);
 
-        //A QrCode button that has a onclicklistener that changes fragments to the qr fragment, and then change title on the toolbar.
+        //A QrCodeView2 button that has a onclicklistener that changes fragments to the qr fragment, and then change title on the toolbar.
         // the toggleDrawerUse switches from a drawer to a backbutton.
         QrCodebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +119,7 @@ public class SettingsView extends Fragment {
         mOriginalListener = ((NavigationActivity) getActivity()).toggle.getToolbarNavigationClickListener();
         ((NavigationActivity) getActivity()).toggleDrawerUse(false);
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Mirror ID");
-        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCode()).commit();
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView()).commit();
     }
     public void ShowBus(){
             busbuilt.show();

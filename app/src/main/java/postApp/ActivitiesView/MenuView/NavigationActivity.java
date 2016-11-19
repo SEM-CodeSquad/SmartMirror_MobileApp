@@ -19,11 +19,10 @@ import postApp.Activities.NavigationActivity.Fragments.Contact;
 import postApp.Activities.NavigationActivity.Fragments.MirrorPostit;
 import postApp.Activities.NavigationActivity.Fragments.Postit;
 import postApp.Activities.NavigationActivity.Fragments.Preferences;
-import postApp.Activities.NavigationActivity.Fragments.QrCode;
+import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
 import postApp.Activities.NavigationActivity.Fragments.RemovePostit;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.Presenters.MenuPresenters.NavigationPresenter;
-import postApp.DataHandlers.Settings.Settings;
 
 /*
 Oncreate method for navigationactivity, starts a navigation drawer and sets the toolbar, functionality etc.
@@ -116,8 +115,8 @@ public class NavigationActivity extends AppCompatActivity
             toggleDrawerUse(false);
             //set the title
             getSupportActionBar().setTitle("Mirror ID");
-            //switch screen to QrCode frame
-            getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCode()).commit();
+            //switch screen to QrCodeView2 frame
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView()).commit();
         }
 
         return super.onOptionsItemSelected(item);

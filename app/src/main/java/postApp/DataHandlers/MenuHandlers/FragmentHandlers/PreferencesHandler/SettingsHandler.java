@@ -1,23 +1,16 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PreferencesHandler;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.view.View;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-import adin.postApp.R;
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
-import postApp.Activities.NavigationActivity.Fragments.QrCode;
-import postApp.Activities.NavigationActivity.Fragments.SearchStop;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
