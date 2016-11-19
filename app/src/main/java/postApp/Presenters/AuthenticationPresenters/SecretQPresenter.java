@@ -2,7 +2,7 @@ package postApp.Presenters.AuthenticationPresenters;
 
 import android.view.View;
 
-import postApp.DataHandlers.Pairing.SecretQInteractor;
+import postApp.DataHandlers.Authentication.SecretQInteractor;
 import postApp.ActivitiesView.AuthenticationView.SecretQActivity;
 
 /**
@@ -11,20 +11,25 @@ import postApp.ActivitiesView.AuthenticationView.SecretQActivity;
 
 public class SecretQPresenter {
     private postApp.ActivitiesView.AuthenticationView.SecretQActivity SecretQActivity;
-    private postApp.DataHandlers.Pairing.SecretQInteractor SecretQInteractor;
+    private postApp.DataHandlers.Authentication.SecretQInteractor SecretQInteractor;
 
     public SecretQPresenter(SecretQActivity SecretQActivity) {
         this.SecretQActivity = SecretQActivity;
-        this.SecretQInteractor = new SecretQInteractor(SecretQActivity);
+        this.SecretQInteractor = new SecretQInteractor(this);
     }
-
     public void OnSecret(String User, String Secret){
         SecretQInteractor.OnSecret(User,Secret);
     }
     public void OnCancel(){
-        SecretQInteractor.OnCancel();
+        SecretQActivity.OnCancel();
     }
     public void hideKeyboard(View view) {
-        SecretQInteractor.hideKeyboard(view);
+        SecretQActivity.HideKeyboard(view);
+    }
+    public void CorrectCredentials(String User){
+        SecretQActivity.CorrectCredentials(User);
+    }
+    public void WrongCredentials(){
+        SecretQActivity.WrongCredentials();
     }
 }

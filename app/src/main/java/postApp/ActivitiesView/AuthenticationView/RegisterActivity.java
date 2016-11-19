@@ -1,14 +1,20 @@
 package postApp.ActivitiesView.AuthenticationView;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import adin.postApp.R;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.AuthenticationPresenters.RegisterPresenter;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -86,4 +92,30 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
+    public void onCancel() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void HideKeyboard(View view){
+        InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void SuccessfulRegister(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void UnsuccessfulRegister(){
+        new AlertDialog.Builder(this)
+                .setMessage("Username already chosen")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .show();
+
+    }
 }

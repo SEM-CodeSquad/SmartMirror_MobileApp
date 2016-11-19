@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import adin.postApp.R;
-import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag;
+import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.Vasttrafik.GenerateAccessCode;
 import postApp.DataHandlers.Vasttrafik.TravelBySearch;
@@ -110,7 +110,7 @@ public class SearchStop extends Fragment {
                 //set it back to a drawer instead of backbutton
                 ((NavigationActivity) getActivity()).toggleDrawerUse(true);
                 //switch back to settings
-                getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
+                getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
             }
         });
 

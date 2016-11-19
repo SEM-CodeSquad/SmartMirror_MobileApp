@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import postApp.ActivitiesView.AuthenticationView.LoginActivity;
 import postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity;
+import postApp.Presenters.AuthenticationPresenters.ResetPasswordPresenter;
 
 /**
  * Created by adinH on 2016-11-18.
@@ -17,11 +18,11 @@ import postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity;
 public class ResetPasswordInteractor {
 
 
-    postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity ResetPasswordActivity;
+    ResetPasswordPresenter ResetPasswordPresenter;
 
 
-    public ResetPasswordInteractor(ResetPasswordActivity ResetPasswordActivity){
-        this.ResetPasswordActivity = ResetPasswordActivity;
+    public ResetPasswordInteractor(ResetPasswordPresenter ResetPasswordPresenter){
+        this.ResetPasswordPresenter = ResetPasswordPresenter;
     }
 
     public void CheckPasswords(String user, String pass, String confpass){
@@ -29,41 +30,16 @@ public class ResetPasswordInteractor {
             OnReset(user, pass);
         }
         else{
-            new AlertDialog.Builder(ResetPasswordActivity)
-                    .setTitle("Passwords not matching")
-                    .setMessage("Please type again the passwords")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                        }
-                    })
-                    .show();
+            ResetPasswordPresenter.PasswordNoMatch();
         }
     }
     public void OnReset(String User, String Pass){
         ResetPassword reg = new ResetPassword(User, Pass);
         if(reg.getPasswordResetStatus()){
-            Intent intent = new Intent(ResetPasswordActivity, LoginActivity.class);
-            ResetPasswordActivity.startActivity(intent);
+            ResetPasswordPresenter.PasswordReset();
         }
         else{
-            new AlertDialog.Builder(ResetPasswordActivity)
-                    .setMessage("Some error")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                        }
-                    })
-                    .show();
 
         }
-    }
-    public void OnCancel(){
-        Intent intent = new Intent(ResetPasswordActivity, LoginActivity.class);
-        ResetPasswordActivity.startActivity(intent);
-    }
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)ResetPasswordActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);;
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

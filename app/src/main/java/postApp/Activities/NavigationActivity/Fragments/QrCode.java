@@ -17,7 +17,7 @@ import com.google.zxing.Result;
 import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
-import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag;
+import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 
@@ -67,7 +67,7 @@ public class QrCode extends Fragment implements ZXingScannerView.ResultHandler {
        //swithc back to drawer from backbutton
         ((NavigationActivity) getActivity()).toggleDrawerUse(true);
         // swithc activity back to settings
-        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
 
 
         // If you would like to resume scanning, call this method below:

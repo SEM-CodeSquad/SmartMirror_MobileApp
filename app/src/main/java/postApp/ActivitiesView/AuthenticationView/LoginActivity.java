@@ -1,14 +1,20 @@
 package postApp.ActivitiesView.AuthenticationView;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import adin.postApp.R;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.AuthenticationPresenters.LoginPresenter;
 
 /**
@@ -87,4 +93,38 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
+    public void onForgotten() {
+        Intent intent = new Intent(this, SecretQActivity.class);
+        startActivity(intent);
+    }
+
+    public void OnRegister() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void HideKeyboard(View view){
+        InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void SuccessfulLogin(String User){
+        //if we log in we swithc to navigationActivity
+        Intent intent = new Intent(this, NavigationActivity.class);
+        //we add in a fetchable user when we start the activity
+        intent.putExtra("user", User);
+        startActivity(intent);
+    }
+
+    public void UnsuccessfulLogin(){
+        //if user types wrong login we show a alertdialog some text
+        new AlertDialog.Builder(this)
+                .setTitle("Access denied")
+                .setMessage("Wrong username or password")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+    }
 }

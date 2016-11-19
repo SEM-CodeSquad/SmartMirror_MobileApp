@@ -18,7 +18,7 @@ import postApp.Activities.NavigationActivity.Fragments.Postit;
 import postApp.Activities.NavigationActivity.Fragments.Preferences;
 import postApp.Activities.NavigationActivity.Fragments.QrCode;
 import postApp.Activities.NavigationActivity.Fragments.RemovePostit;
-import postApp.Activities.NavigationActivity.Fragments.SettingsFrag.SettingsFrag;
+import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 /**
@@ -68,7 +68,7 @@ public class NavigationInteractor {
         int id = item.getItemId();
         //if settings is pressed we opens the settings fragment and set title to settings
         if (id == R.id.action_settings) {
-            NavigationActivity.getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
+            NavigationActivity.getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
             NavigationActivity.getSupportActionBar().setTitle("Settings");
         }
         if (id == R.id.pairmirror) {
@@ -100,7 +100,7 @@ public class NavigationInteractor {
         NavigationActivity.toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //listeners that goes back to settings whne pressed
-                fragment.beginTransaction().replace(R.id.content_frame, new SettingsFrag()).commit();
+                fragment.beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
                 NavigationActivity.getSupportActionBar().setTitle("Settings"); //sets the title to settings
                 toggleDrawerUse(true);//activates the drawer again
 

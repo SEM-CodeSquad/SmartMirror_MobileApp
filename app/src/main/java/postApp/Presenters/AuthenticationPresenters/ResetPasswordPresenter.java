@@ -11,22 +11,26 @@ import postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity;
 
 public class ResetPasswordPresenter {
 
-    private postApp.DataHandlers.Authentication.ResetPasswordInteractor ResetPasswordInteractor;
-
+    ResetPasswordInteractor ResetPasswordInteractor;
+    ResetPasswordActivity ResetPasswordActivity;
     public ResetPasswordPresenter(ResetPasswordActivity ResetPasswordActivity) {
-        this.ResetPasswordInteractor = new ResetPasswordInteractor(ResetPasswordActivity);
+        this.ResetPasswordActivity = ResetPasswordActivity;
+        this.ResetPasswordInteractor = new ResetPasswordInteractor(this);
     }
 
     public void CheckPasswords(String user, String pass, String confpass){
         ResetPasswordInteractor.CheckPasswords(user, pass, confpass);
     }
-    protected void OnReset(String User, String Pass){
-        ResetPasswordInteractor.OnReset(User,Pass);
+    public void PasswordReset(){
+        ResetPasswordActivity.PasswordReset();
+    }
+    public void PasswordNoMatch() {
+        ResetPasswordActivity.PasswordNoMatch();
     }
     public void OnCancel(){
-        ResetPasswordInteractor.OnCancel();
+        ResetPasswordActivity.OnCancel();
     }
     public void hideKeyboard(View view) {
-        ResetPasswordInteractor.hideKeyboard(view);
+        ResetPasswordActivity.HideKeyboard(view);
     }
 }

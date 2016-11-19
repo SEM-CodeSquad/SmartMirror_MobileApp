@@ -1,9 +1,14 @@
 package postApp.ActivitiesView.AuthenticationView;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -80,5 +85,32 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
 
         return true;
+    }
+    public void PasswordReset() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void PasswordNoMatch(){
+        new AlertDialog.Builder(this)
+                .setTitle("Passwords not matching")
+                .setMessage("Please type again the passwords")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .show();
+    }
+
+    public void HideKeyboard(View view){
+        InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void OnCancel(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
     }
 }
