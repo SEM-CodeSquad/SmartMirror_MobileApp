@@ -82,8 +82,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-
         return true;
     }
     public void PasswordReset() {

@@ -6,7 +6,10 @@ package postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView;
 /*
 This is the settings fragments managing all the controlling when pressing the settings buttons.
  */
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,23 +17,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+
+import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
 
+import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.SmartLocation;
+import postApp.Activities.NavigationActivity.Fragments.QrCode;
+import postApp.Activities.NavigationActivity.Fragments.SearchStop;
+import postApp.DataHandlers.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.JsonHandler.ParseJson;
+import postApp.DataHandlers.Vasttrafik.GenerateAccessCode;
+import postApp.DataHandlers.Vasttrafik.TravelByLoc;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.SettingsPresenter;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 
 public class SettingsView extends Fragment {
     View myView;
-
+    SearchStop newSearch;
+    AlertDialog.Builder newsbuilt;
+    AlertDialog.Builder busbuilt;
+    String auth;
     public EditText UUID;
     public String user;
     private SettingsPresenter presenter;
     public EditText bustext;
     public EditText newstext;
     public EditText weathertext;
+    private View.OnClickListener mOriginalListener;
 
     /*
     This is created when the fragment is started.
@@ -55,6 +73,11 @@ public class SettingsView extends Fragment {
 
         presenter = new SettingsPresenter(this);
 
+        presenter.SetUUID();
+        presenter.SetWeather();
+        presenter.SetBus();
+        presenter.SetTextNews();
+
         //we build here our builders for news and the stop
         presenter.BuildNews();
         presenter.BuildStop();
@@ -64,7 +87,7 @@ public class SettingsView extends Fragment {
         QrCodebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.ChangeToQr();
+                presenter.ChangeToQR();
             }
         });
 
@@ -89,18 +112,115 @@ public class SettingsView extends Fragment {
             @Override
             public void onClick(View v) {
                 presenter.WeatherOnLoc();
+                presenter.SetWeather();
             }
         });
-
-
-        // Here we finish off the onCreate with setting the UUID, bus, news,weather to the one in our activity.
-        UUID.setText(((NavigationActivity) getActivity()).getMirror());
-        bustext.setText(((NavigationActivity) getActivity()).getBus());
-        newstext.setText(((NavigationActivity) getActivity()).getNews());
-        weathertext.setText(((NavigationActivity) getActivity()).getWeather());
-
 
         return myView;
     }
 
+    public void SetNews(){
+        newstext.setText(((NavigationActivity) getActivity()).getNews());
+
+    }
+    public void SetUUID(){
+        UUID.setText(((NavigationActivity) getActivity()).getMirror());
+
+    }
+    public void SetBus(){
+        bustext.setText(((NavigationActivity) getActivity()).getBus());
+
+    }
+    public void SetWeather(){
+        weathertext.setText(((NavigationActivity) getActivity()).getWeather());
+    }
+    public void ChangeToQR(){
+        mOriginalListener = ((NavigationActivity) getActivity()).toggle.getToolbarNavigationClickListener();
+        ((NavigationActivity) getActivity()).toggleDrawerUse(false);
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Mirror ID");
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCode()).commit();
+    }
+    public void ShowBus(){
+            busbuilt.show();
+    }
+    public void ShowNews(){
+        newsbuilt.show();
+    }
+
+    public void displaySuccPub(String S){
+        Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
+
+    }
+    public void NoMirrorChosen(){
+        // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
+        Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+    }
+    public void ChangeToSearch(){
+        //here we save the toolbarnavigationlistener because we want a back button now instead of a drawer.
+        mOriginalListener = ((NavigationActivity) getActivity()).toggle.getToolbarNavigationClickListener();
+        //we set the drawer to false and it becomes a back button
+        ((NavigationActivity) getActivity()).toggleDrawerUse(false);
+        //sets title
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Search for your stop");
+        //switches fragment
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SearchStop()).commit();
+    }
+
+    // this is used to build a AlertDialog that displays newsoptions.
+    public void Buildnews() {
+        newsbuilt = new AlertDialog.Builder(getActivity());
+        //set the title
+        newsbuilt.setTitle("Choose News");
+        //three options
+        newsbuilt.setItems(new CharSequence[]
+                        {"CNN", "BBC", "Daily Mail"},
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // A switch with a onlick that sets text in activity based on what you choose
+                        switch (which) {
+                            case 0:
+                                presenter.SetNewsCNN();
+                                presenter.SetTextNews();
+                                break;
+                            case 1:
+                                presenter.SetNewsBBC();
+                                presenter.SetTextNews();
+                                break;
+                            case 2:
+                                presenter.SetNewsDailyMail();
+                                presenter.SetTextNews();
+                                break;
+
+                        }
+                        presenter.PublishNews(((NavigationActivity) getActivity()).getNews(), ((NavigationActivity) getActivity()).getMirror());
+                    }
+                });
+        //and we create it with all the above options.
+        newsbuilt.create();
+    }
+    public void Buildstop() {
+        //the first two lines generete a authorization key for the Västtrafik API.
+        GenerateAccessCode gen = new GenerateAccessCode();
+        auth = gen.getAccess();
+
+        //we build our bus alertdialog
+        busbuilt = new AlertDialog.Builder(getActivity());
+        //We give the usser two options by location or by search.
+        busbuilt.setMessage("Choose One Option")
+                .setPositiveButton("By Location", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if by location is chosen we use the SmartLocation lib once again to get the fixed location
+                        presenter.BusByLoc();
+                        presenter.PublishBus(((NavigationActivity) getActivity()).getBus(), ((NavigationActivity) getActivity()).getMirror());
+                    }
+                })
+                .setNegativeButton("By Search", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        presenter.ChangeToSearch();
+
+                    }
+                });
+        //creates builder
+        busbuilt.create();
+    }
 }

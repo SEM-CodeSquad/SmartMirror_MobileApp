@@ -17,39 +17,14 @@ public class NavigationPresenter {
     public NavigationPresenter(NavigationActivity NavigationActivity) {
         this.NavigationInteractor = new NavigationInteractor(NavigationActivity);
     }
-    /*
-    Back pressed on phone, closes the drawer if its open
-     */
-
-    public void onBackPressed() {
-       NavigationInteractor.onBackPressed();
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return NavigationInteractor.onCreateOptionsMenu(menu);
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return NavigationInteractor.onOptionsItemSelected(item);
-    }
-    /*
-    Used for changing from the Drawer functionality to a back button functionality
-     */
 
     public void toggleDrawerUse(boolean useDrawer) {
         NavigationInteractor.toggleDrawerUse(useDrawer);
     }
-    /*
-    This is the navigationbar items switching fragments when clicked
-     */
 
-    public boolean onNavigationItemSelected(MenuItem item) {
-        return NavigationInteractor.onNavigationItemSelected(item);
+    public void UpdateSettings(){
+        NavigationInteractor.UpdateSettings();
     }
-    /*
-    Getters and setter for all the current string that will be used to passing data
-    Having these to access the same from all fragments
-     */
     public String getMirror(){
         return NavigationInteractor.getMirror();
     }
@@ -70,13 +45,15 @@ public class NavigationPresenter {
     }
     public String getNews(){
         return NavigationInteractor.getNews();
-
     }
     public void setNews(String N){
         NavigationInteractor.setNews(N) ;
     }
     public String getUUID(){
         return NavigationInteractor.getUUID();
+    }
+    public void setUser(String user) {
+        NavigationInteractor.SetUser(user);
     }
     public String getUser(){
         return NavigationInteractor.getUser();
