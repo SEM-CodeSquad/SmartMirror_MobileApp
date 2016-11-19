@@ -73,15 +73,6 @@ public class SettingsView extends Fragment {
 
         presenter = new SettingsPresenter(this);
 
-        presenter.SetUUID();
-        presenter.SetWeather();
-        presenter.SetBus();
-        presenter.SetTextNews();
-
-        //we build here our builders for news and the stop
-        presenter.BuildNews();
-        presenter.BuildStop();
-
         //A QrCode button that has a onclicklistener that changes fragments to the qr fragment, and then change title on the toolbar.
         // the toggleDrawerUse switches from a drawer to a backbutton.
         QrCodebtn.setOnClickListener(new View.OnClickListener() {
@@ -119,20 +110,18 @@ public class SettingsView extends Fragment {
         return myView;
     }
 
-    public void SetNews(){
-        newstext.setText(((NavigationActivity) getActivity()).getNews());
+    public void SetNews(String news){
+        newstext.setText(news);
+    }
+    public void SetUUID(String id){
+        UUID.setText(id);
+    }
+    public void SetBus(String bus){
+        bustext.setText(bus);
 
     }
-    public void SetUUID(){
-        UUID.setText(((NavigationActivity) getActivity()).getMirror());
-
-    }
-    public void SetBus(){
-        bustext.setText(((NavigationActivity) getActivity()).getBus());
-
-    }
-    public void SetWeather(){
-        weathertext.setText(((NavigationActivity) getActivity()).getWeather());
+    public void SetWeather(String weather){
+        weathertext.setText(weather);
     }
     public void ChangeToQR(){
         mOriginalListener = ((NavigationActivity) getActivity()).toggle.getToolbarNavigationClickListener();

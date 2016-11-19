@@ -18,6 +18,33 @@ public class SettingsPresenter {
     public SettingsPresenter(SettingsView SettingsView) {
         this.SettingsView = SettingsView;
         this.SettingsHandler = new SettingsHandler(this, SettingsView);
+        startup();
+    }
+
+    private void startup(){
+        this.SetUUID();
+        this.SetWeather();
+        this.SetBus();
+        this.SetTextNews();
+        this.BuildNews();
+        this.BuildStop();
+
+    }
+
+    public void SetTextNews() {
+        SettingsView.SetNews((((NavigationActivity) SettingsView.getActivity()).getNews()));
+    }
+
+    public void SetUUID() {
+        SettingsView.SetUUID((((NavigationActivity) SettingsView.getActivity()).getMirror()));
+    }
+
+    public void SetBus() {
+        SettingsView.SetBus((((NavigationActivity) SettingsView.getActivity()).getBus()));
+    }
+
+    public void SetWeather() {
+        SettingsView.SetWeather(((NavigationActivity) SettingsView.getActivity()).getWeather());
     }
 
     public void BuildNews() {
@@ -86,25 +113,10 @@ public class SettingsPresenter {
         ((NavigationActivity) SettingsView.getActivity()).setNews("DailyMail");
     }
 
-    public void SetTextNews() {
-        SettingsView.SetNews();
-    }
 
     public void BusByLoc() {
         SettingsHandler.SetLocalStop();
     }
 
-    public void SetUUID() {
-        SettingsView.SetUUID();
-
-    }
-
-    public void SetBus() {
-        SettingsView.SetBus();
-    }
-
-    public void SetWeather() {
-        SettingsView.SetWeather();
-    }
 }
 
