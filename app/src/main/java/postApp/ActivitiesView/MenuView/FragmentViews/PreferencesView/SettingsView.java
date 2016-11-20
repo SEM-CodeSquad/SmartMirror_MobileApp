@@ -22,7 +22,6 @@ import android.widget.Toast;
 import adin.postApp.R;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
-import postApp.Activities.NavigationActivity.Fragments.SearchStop;
 import postApp.DataHandlers.Vasttrafik.GenerateAccessCode;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.SettingsPresenter;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
@@ -30,7 +29,7 @@ import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 public class SettingsView extends Fragment {
     View myView;
-    SearchStop newSearch;
+    BusStopSearcherView newSearch;
     AlertDialog.Builder newsbuilt;
     AlertDialog.Builder busbuilt;
     String auth;
@@ -144,7 +143,7 @@ public class SettingsView extends Fragment {
         //sets title
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Search for your stop");
         //switches fragment
-        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SearchStop()).commit();
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new BusStopSearcherView()).commit();
     }
 
     // this is used to build a AlertDialog that displays newsoptions.

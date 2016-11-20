@@ -14,13 +14,13 @@ import android.widget.TextView;
 
 
 import adin.postApp.R;
-import postApp.Activities.NavigationActivity.Fragments.About;
-import postApp.Activities.NavigationActivity.Fragments.Contact;
-import postApp.Activities.NavigationActivity.Fragments.MirrorPostit;
-import postApp.Activities.NavigationActivity.Fragments.Postit;
-import postApp.Activities.NavigationActivity.Fragments.Preferences;
+import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.AboutView;
+import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.ContactView;
+import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostitsView;
+import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
+import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.PreferencesView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
-import postApp.Activities.NavigationActivity.Fragments.RemovePostit;
+import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.RemovePostitView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.Presenters.MenuPresenters.NavigationPresenter;
 
@@ -55,7 +55,7 @@ public class NavigationActivity extends AppCompatActivity
         //if its not a saved instancestate we set the iniatial frame as a postit
         if(savedInstanceState == null) {
             FragmentManager manager = getFragmentManager();
-            manager.beginTransaction().replace(R.id.content_frame, new Postit()).commit();
+            manager.beginTransaction().replace(R.id.content_frame, new PostitView()).commit();
         }
 
         //saving the originallistnere which is a drawer when we switch to a back button later
@@ -134,24 +134,24 @@ public class NavigationActivity extends AppCompatActivity
         //we switch fragment to postit and set title of actionbar to publish posit.
         //same thing for all navigationitems
         if (id == R.id.nav_postit){
-            fragment.beginTransaction().replace(R.id.content_frame, new Postit()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new PostitView()).commit();
             getSupportActionBar().setTitle("Publish PostIt");
         } else if (id == R.id.nav_mirror) {
-            fragment.beginTransaction().replace(R.id.content_frame, new MirrorPostit()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new ManagePostitsView()).commit();
             getSupportActionBar().setTitle("Mirror");
         } else if (id == R.id.nav_remove) {
-            fragment.beginTransaction().replace(R.id.content_frame, new RemovePostit()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new RemovePostitView()).commit();
             getSupportActionBar().setTitle("Remove PostIt");
         } else if (id == R.id.nav_contact) {
-            fragment.beginTransaction().replace(R.id.content_frame, new Contact()).commit();
-            getSupportActionBar().setTitle("Contact Us");
+            fragment.beginTransaction().replace(R.id.content_frame, new ContactView()).commit();
+            getSupportActionBar().setTitle("ContactView Us");
         } else if (id == R.id.nav_about) {
-            fragment.beginTransaction().replace(R.id.content_frame, new About()).commit();
-            getSupportActionBar().setTitle("About");
+            fragment.beginTransaction().replace(R.id.content_frame, new AboutView()).commit();
+            getSupportActionBar().setTitle("AboutView");
         }
         else if (id == R.id.nav_preferences) {
-            fragment.beginTransaction().replace(R.id.content_frame, new Preferences()).commit();
-            getSupportActionBar().setTitle("Preferences");
+            fragment.beginTransaction().replace(R.id.content_frame, new PreferencesView()).commit();
+            getSupportActionBar().setTitle("PreferencesView");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

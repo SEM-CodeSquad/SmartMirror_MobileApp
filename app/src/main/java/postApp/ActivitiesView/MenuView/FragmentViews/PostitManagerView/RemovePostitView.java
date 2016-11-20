@@ -1,4 +1,4 @@
-package postApp.Activities.NavigationActivity.Fragments;
+package postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -9,15 +9,16 @@ import android.view.ViewGroup;
 
 import adin.postApp.R;
 
+
 /**
  * Created by adinH on 2016-10-26.
  */
-public class MirrorPostit extends Fragment {
+public class RemovePostitView extends Fragment {
     View myView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.mirror_postit, container, false);
+        myView = inflater.inflate(R.layout.remove_post, container, false);
         return myView;
     }
 }

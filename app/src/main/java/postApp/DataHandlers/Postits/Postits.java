@@ -35,14 +35,14 @@ public class Postits {
 
         protected List doInBackground(Void... arg0) {
             try {
-                String query = "select Postit from Postits where UserID=?";
+                String query = "select PostitView from Postits where UserID=?";
                 PreparedStatement pstlogin = c.prepareStatement(query);
                 pstlogin.setString(1, user);
 
                 ResultSet rs = pstlogin.executeQuery();
 
                 while (rs.next()) {
-                    String postit = rs.getString("Postit");
+                    String postit = rs.getString("PostitView");
 
                     postitsList.add(postit);
                 }
