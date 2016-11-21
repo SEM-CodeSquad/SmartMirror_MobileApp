@@ -11,7 +11,7 @@ import postApp.DataHandlers.Authentication.LoginInteractor;
 import postApp.ActivitiesView.AuthenticationView.LoginActivity;
 
 /**
- * Created by adinH on 2016-11-18.
+ * @author adinH on 2016-11-18.
  */
 
 public class LoginPresenter {

@@ -16,6 +16,7 @@ import java.util.List;
 
 public class ParseJson {
 
+
     public String[] parseSearch(String json, String search) throws ParseException {
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         String newlist[] = new String[20];
@@ -51,5 +52,6 @@ public class ParseJson {
         list.removeAll(Collections.singleton(null));
         return list.toArray(new String[list.size()]);
     }
+
 
 }

@@ -7,7 +7,7 @@ import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.MenuHandlers.NavigationInteractor;
 
 /**
- * Created by adinH on 2016-11-18.
+w * @author adinH on 2016-11-18.
  */
 
 public class NavigationPresenter {

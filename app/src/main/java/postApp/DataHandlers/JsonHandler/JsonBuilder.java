@@ -14,13 +14,15 @@ import postApp.DataHandlers.MqTTHandler.HttpRequestSender;
 
 
 public class JsonBuilder extends AsyncTask<String, Void, String> {
-    String Returnthis;
-    String topic;
-    HttpRequestSender post;
-    String myUrl = "http://codehigh.ddns.me:5000/";
+    private String Returnthis;
+    private String topic;
+    private HttpRequestSender post;
+    private String myUrl = "http://codehigh.ddns.me:5000/";
+    private String clientID;
     @Override
     protected String doInBackground(String... args) {
         try{
+            this.clientID = args[0];
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Calendar c = Calendar.getInstance();
             c.setTime(new Date()); // Now use today date.
@@ -46,7 +48,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 sendthis.put("content", jArray);
                 String messagestring = sendthis.toJSONString();
-                post = new HttpRequestSender("codehigh.ddns.me", topic, messagestring);
+                post = new HttpRequestSender("codehigh.ddns.me", topic, messagestring, clientID);
             }
             else if(args[1].equals("config")){
                 sendthis.put("contentType", "settings");
@@ -70,7 +72,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
                 System.out.println(message);
                 System.out.println(topic);
-                post = new HttpRequestSender("codehigh.ddns.me",  topic, message);
+                post = new HttpRequestSender("codehigh.ddns.me",  topic, message, clientID);
 
             }
             else if(args[1].equals("pairing"))
@@ -87,7 +89,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
                 System.out.println(topic);
                 System.out.println(message);
-                post = new HttpRequestSender("codehigh.ddns.me", topic, message);
+                post = new HttpRequestSender("codehigh.ddns.me", topic, message, clientID);
             }
             else if(args[1].equals("postIt action"))
             {
@@ -105,7 +107,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
                 System.out.println(message);
                 System.out.println(topic);
-                post = new HttpRequestSender("codehigh.ddns.me", topic, message);
+                post = new HttpRequestSender("codehigh.ddns.me", topic, message, clientID);
             }
             post.executePost(myUrl);
             System.out.println(post.getHttpResponse());

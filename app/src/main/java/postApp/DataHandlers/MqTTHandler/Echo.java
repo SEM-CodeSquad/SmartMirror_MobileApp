@@ -1,0 +1,45 @@
+package postApp.DataHandlers.MqTTHandler;
+
+
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import java.util.Observable;
+import java.util.Observer;
+
+import postApp.DataHandlers.Postits.StorePostits;
+
+/**
+ In progress will finish asap
+ */
+public class Echo implements Observer
+{
+    private MQTTClient client;
+    private String echoTopic;
+    private MQTTSub subscriber;
+    private StorePostits storePostit;
+
+    public Echo(String clientID)
+    {
+        this.echoTopic = "dit029/" + clientID + "/echo";
+        client = new MQTTClient("tcp://codehigh.ddns.me", clientID);  //change this to prata broker later
+        subscriber = new MQTTSub(client, echoTopic);
+        subscriber.addObserver(this);
+        // we can use observer to notify the classes waiting for the echo to arrive, which uses the update observe
+        // method inside subscriber
+    }
+
+
+
+
+    @Override
+    public void update(Observable o, Object data) {
+        if(data instanceof MqttMessage){
+            storePostit = new StorePostits();
+        }
+
+    }
+}

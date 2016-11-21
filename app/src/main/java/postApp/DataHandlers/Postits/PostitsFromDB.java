@@ -10,14 +10,14 @@ import java.util.concurrent.ExecutionException;
 
 import postApp.DataHandlers.Authentication.DBConnection;
 
-public class Postits {
+public class PostitsFromDB {
     private DBConnection conn;
     private Connection c;
     private String user;
     private List postits;
 
 
-    public Postits(String User) {
+    public PostitsFromDB(String User) {
         try {
             conn = new DBConnection();
             conn.execute();
@@ -35,7 +35,7 @@ public class Postits {
 
         protected List doInBackground(Void... arg0) {
             try {
-                String query = "select PostitView from Postits where UserID=?";
+                String query = "select PostitView from PostitsFromDB where UserID=?";
                 PreparedStatement pstlogin = c.prepareStatement(query);
                 pstlogin.setString(1, user);
 
