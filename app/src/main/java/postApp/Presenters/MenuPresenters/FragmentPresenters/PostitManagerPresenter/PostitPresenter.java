@@ -26,8 +26,8 @@ public class PostitPresenter {
     public void NoMirror(){
         PostitView.NoMirror();
     }
-    public void PublishPostit(String topic, String text, String Color){
-        PostitHandler.PublishPostit(topic,text);
+    public void PublishPostit(String text, String topic){
+        PostitHandler.PublishPostit(text,topic);
     }
     public void BlueClick(){
         PostitView.ColorBlue();
@@ -55,6 +55,9 @@ public class PostitPresenter {
     }
     public void HideKeyboard(View V){
         PostitView.hideKeyboard(V);
+    }
+    public void NoEcho(){
+        PostitView.NoEcho();
     }
 
 }

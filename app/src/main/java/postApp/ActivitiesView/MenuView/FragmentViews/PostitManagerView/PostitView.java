@@ -66,7 +66,7 @@ public class PostitView extends Fragment {
         checkmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.PublishPostit(typedtext.getText().toString(), ((NavigationActivity) getActivity()).getUUID(), ((NavigationActivity) getActivity()).getMirror());
+                presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror());
 
             }
         });
@@ -170,6 +170,10 @@ public class PostitView extends Fragment {
         Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
 
     }
+    public void NoEcho(){
+        Toast.makeText(getActivity(), "Publishing failed.", Toast.LENGTH_SHORT).show();
+    }
+
     public void ShowColors(){
         builder.show();
     }

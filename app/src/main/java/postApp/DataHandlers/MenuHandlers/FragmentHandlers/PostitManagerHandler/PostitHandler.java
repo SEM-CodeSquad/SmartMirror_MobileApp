@@ -25,7 +25,7 @@ public class PostitHandler implements Observer{
     private long start;
     private long end;
     StorePostits storePostits;
-
+    private String topic;
 
     public PostitHandler(PostitView PostitView, PostitPresenter PostitPresenter){
         this.PostitView = PostitView;
@@ -38,9 +38,10 @@ public class PostitHandler implements Observer{
         this.color = color;
     }
 
-    public void PublishPostit(String topic, String text) {
+    public void PublishPostit(String text, String topic) {
 
         this.text = text;
+        this.topic = topic;
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, 7);
         this.idOne = UUID.randomUUID().toString();
@@ -52,16 +53,7 @@ public class PostitHandler implements Observer{
         if (topic != "No mirror chosen") {
             try {
                 S = R.execute(topic, "postit", text, color, "importantstring", date, idOne).get();
-
-                echo = new Echo(topic.substring(0, topic.length() - 6) + "echo");
-                echo.addObserver(this);
-                start = System.currentTimeMillis();
-                end = start + 3*1000; // 3 seconds * 1000 ms/sec
-                while (System.currentTimeMillis() < end)
-                {
-                    // run
-                }
-
+                AwaitEcho();
             } catch (InterruptedException e) {
                 S = "Did not publish";
                 e.printStackTrace();
@@ -76,8 +68,29 @@ public class PostitHandler implements Observer{
     }
 
 
+    public void AwaitEcho(){
+        System.out.println(topic);
+        echo = new Echo(topic.substring(0, topic.length() - 6) + "echo");
+        echo.addObserver(this);
+        start = System.currentTimeMillis();
+        end = start + 3*1000; // 3 seconds * 1000 ms/sec
+        while (System.currentTimeMillis() < end)
+        {
+            // run
+        }
+        if (System.currentTimeMillis() > end){
+            PostitView.NoEcho();
+        }
+
+    }
+    public void StorePost(){
+        storePostits = new StorePostits(PostitView.getActivity().getApplicationContext(), color, text, idOne);
+    }
+
     @Override
     public void update(Observable observable, Object data) {
-        storePostits = new StorePostits(PostitView.getActivity().getApplicationContext(), color, text, idOne);
+        if(System.currentTimeMillis() < end) {
+            StorePost();
+        }
     }
 }
