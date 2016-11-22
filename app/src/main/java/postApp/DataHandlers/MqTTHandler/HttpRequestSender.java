@@ -17,8 +17,7 @@ public class HttpRequestSender
     private String topic;
     private String msg;
     private String httpResponse;
-    private String clientID;
-    private Echo echo;
+
 
     /**
      * Constructor for the http sender.
@@ -31,7 +30,6 @@ public class HttpRequestSender
         this.brokerHostname = brokerHostname;
         this.topic = topic;
         this.msg = msg;
-        this.clientID = clientID;
     }
 
     /**
@@ -78,10 +76,6 @@ public class HttpRequestSender
 
         } finally
         {
-            if (topic.equals("postit")) {
-                echo = new Echo(clientID);
-            }
-
             if (connection != null) {
                 connection.disconnect();
             }

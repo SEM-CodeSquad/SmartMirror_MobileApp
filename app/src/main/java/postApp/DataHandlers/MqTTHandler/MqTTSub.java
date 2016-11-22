@@ -1,65 +1,56 @@
 package postApp.DataHandlers.MqTTHandler;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-/*
-In progress will finish asap
+import java.util.Observable;
+
+/**
+ * @author Emanuel on 21/11/2016.
  */
-public class MqTTSub
+
+public class MQTTSub extends Observable implements MqttCallback
 {
-    private MqttConnectOptions options;
-    private MqttClient client;
-    private long unixTime;
+    /**
+     *
+     */
+    private MQTTClient client;
 
-    public MqTTSub(String url, String id)
-    {
-
-    }
-
-    public void disconnect(String clientId)
+    public MQTTSub(MQTTClient client, String topic)
     {
         System.out.println("Disconnecting...");
         try
         {
-            String topic = "dit029/SmartMirror/" + clientId;
-            byte[] emptyArray = new byte[0];
-            this.client.publish(topic, emptyArray, 1, true);
-
-            client.disconnect();
+            this.client = client;
+            client.getClient().setCallback(this);
+            client.getClient().subscribe(topic);
         }
         catch (MqttException e)
         {
             e.printStackTrace();
         }
+
     }
 
-    void reconnect()
-    {
-        if (!client.isConnected())
-        {
-            try
-            {
-                client.connect(options);
-            }
-            catch (MqttException e)
-            {
-                e.printStackTrace();
-            }
-        }
+    @Override
+    public void connectionLost(Throwable cause) {
+        cause.printStackTrace();
     }
 
-
-    MqttClient getClient()
-    {
-        return client;
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        setChanged();
+        notifyObservers();
     }
 
-    public long getUnixTime()
-    {
-        return this.unixTime;
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+
     }
 
 

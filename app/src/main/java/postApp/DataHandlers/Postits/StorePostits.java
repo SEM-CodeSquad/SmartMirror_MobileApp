@@ -1,34 +1,46 @@
 package postApp.DataHandlers.Postits;
 
-
-import android.util.Log;
-
+import android.content.Context;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 
-import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.PostitHandler;
 
 /**
  * @author Emanuel on 21/11/2016.
  */
 
 public class StorePostits {
+
+    private Context appContext;
+    private String text;
+    private String color;
+    private String id;
+    private String file = "SavedPostits.txt";
     private String postit;
 
-    public void StorePostits(){
-        postit= PostitHandler.getPostitInfo();
-        store();
+    public StorePostits(Context applicationContext, String text, String color, String id) {
+        this.appContext = applicationContext;
+        this.text = text;
+        this.color = color;
+        this.id = id;
+        this.postit = color + "/" + id + "/" + text;
+        Store();
     }
 
-    private void store(){
-//        try {
-//            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("psotits.txt", Context.MODE_PRIVATE));
-//            outputStreamWriter.write(postit);
-//            outputStreamWriter.close();
-//        }
-//        catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
+    private void Store(){
+        try {
+            FileOutputStream fos;
+            fos = appContext.openFileOutput(file, Context.MODE_APPEND);
+            fos.write(postit.getBytes());
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
 
 }

@@ -15,21 +15,19 @@ import postApp.DataHandlers.Postits.StorePostits;
 /**
  In progress will finish asap
  */
-public class Echo implements Observer
+public class Echo extends  Observable implements Observer
 {
     private MQTTClient client;
     private String echoTopic;
     private MQTTSub subscriber;
-    private StorePostits storePostit;
 
-    public Echo(String clientID)
+    public Echo(String topic)
     {
-        this.echoTopic = "dit029/" + clientID + "/echo";
-        client = new MQTTClient("tcp://codehigh.ddns.me", clientID);  //change this to prata broker later
+        this.echoTopic = topic;
+        String ClientID = topic.substring(19, topic.length() - 7);
+        client = new MQTTClient("tcp://codehigh.ddns.me", ClientID );  //change this to prata broker later
         subscriber = new MQTTSub(client, echoTopic);
         subscriber.addObserver(this);
-        // we can use observer to notify the classes waiting for the echo to arrive, which uses the update observe
-        // method inside subscriber
     }
 
 
@@ -38,7 +36,8 @@ public class Echo implements Observer
     @Override
     public void update(Observable o, Object data) {
         if(data instanceof MqttMessage){
-            storePostit = new StorePostits();
+            setChanged();
+            notifyObservers();
         }
 
     }
