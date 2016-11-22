@@ -11,20 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
+
 import adin.postApp.R;
-import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
-import postApp.DataHandlers.Vasttrafik.GenerateAccessCode;
-import postApp.DataHandlers.Vasttrafik.TravelBySearch;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.DataHandlers.JsonHandler.ParseJson;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.BusStopSearcherPresenter;
 
 /*

@@ -1,7 +1,6 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PreferencesHandler;
 
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
