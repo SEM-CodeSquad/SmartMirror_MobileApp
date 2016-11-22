@@ -67,6 +67,8 @@ public class PostitView extends Fragment {
             @Override
             public void onClick(View v) {
                 presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror());
+                presenter.AwaitEcho();
+
 
             }
         });

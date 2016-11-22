@@ -59,5 +59,9 @@ public class PostitPresenter {
     public void NoEcho(){
         PostitView.NoEcho();
     }
+    public void AwaitEcho(){
+        PostitHandler.AwaitEcho();
+    }
+
 
 }

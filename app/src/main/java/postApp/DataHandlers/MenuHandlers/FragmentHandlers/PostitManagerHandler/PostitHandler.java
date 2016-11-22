@@ -53,7 +53,6 @@ public class PostitHandler implements Observer{
         if (topic != "No mirror chosen") {
             try {
                 S = R.execute(topic, "postit", text, color, "importantstring", date, idOne).get();
-                AwaitEcho();
             } catch (InterruptedException e) {
                 S = "Did not publish";
                 e.printStackTrace();
