@@ -53,20 +53,13 @@ public class ReadPostits {
         postArray = new String[count];
 
         String postLine;
-        int Place = 0;
-        for(int i = 0; i<postArray.length; i++) {
-            if(postArray[i] == null)
-            {
-                Place = i;
-                break;
-            }
-        }
+        int i = 0;
         try
         {
             while((postLine=br.readLine())!=null)
             {
-                this.postArray[Place] = postLine;
-                Place++;
+                this.postArray[i] = postLine;
+                i++;
             }
         }
         catch (IOException e) {e.printStackTrace();}
