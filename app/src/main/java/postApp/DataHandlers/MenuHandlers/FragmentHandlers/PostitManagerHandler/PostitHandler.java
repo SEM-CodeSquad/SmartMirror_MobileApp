@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutionException;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.MqTTHandler.Echo;
+import postApp.DataHandlers.Postits.ReadPostits;
 import postApp.DataHandlers.Postits.StorePostits;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.PostitPresenter;
 
@@ -68,15 +69,11 @@ public class PostitHandler implements Observer{
 
 
     public void AwaitEcho(){
-        topic = "dit029/SmartMirror/" +topic + "/";
-        echo = new Echo(topic.substring(0, topic.length() - 6) + "echo");
+        String topic123 = "dit029/SmartMirror/" +topic + "/echo";
+        echo = new Echo(topic123, topic);
         echo.addObserver(this);
         start = System.currentTimeMillis();
         end = start + 3*1000; // 3 seconds * 1000 ms/sec
-        while (System.currentTimeMillis() < end)
-        {
-            // run
-        }
         if (System.currentTimeMillis() > end){
             PostitView.NoEcho();
         }
@@ -88,8 +85,8 @@ public class PostitHandler implements Observer{
 
     @Override
     public void update(Observable observable, Object data) {
-        if(System.currentTimeMillis() < end) {
+        System.out.println("here");
             StorePost();
-        }
+
     }
 }

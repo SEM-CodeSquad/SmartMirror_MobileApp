@@ -53,13 +53,20 @@ public class ReadPostits {
         postArray = new String[count];
 
         String postLine;
-        int i = 0;
+        int Place = 0;
+        for(int i = 0; i<postArray.length; i++) {
+            if(postArray[i] == null)
+            {
+                Place = i;
+                break;
+            }
+        }
         try
         {
             while((postLine=br.readLine())!=null)
             {
-                this.postArray[i] = postLine;
-                i++;
+                this.postArray[Place] = postLine;
+                Place++;
             }
         }
         catch (IOException e) {e.printStackTrace();}
@@ -67,6 +74,8 @@ public class ReadPostits {
     }
 
     public String[] getPostitArray(){
+
+        ReadFile(file);
         return postArray;
     }
 

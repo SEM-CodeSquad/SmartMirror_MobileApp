@@ -6,9 +6,11 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.UUID;
 
 import postApp.DataHandlers.Postits.StorePostits;
 
@@ -21,11 +23,12 @@ public class Echo extends  Observable implements Observer
     private String echoTopic;
     private MQTTSub subscriber;
 
-    public Echo(String topic)
+    public Echo(String topic, String ClientID)
     {
         this.echoTopic = topic;
-        String ClientID = topic.substring(19, topic.length() - 7);
-        client = new MQTTClient("tcp://codehigh.ddns.me", ClientID );  //change this to prata broker later
+        MemoryPersistence persistence = new MemoryPersistence();
+        String Uuid = UUID.randomUUID().toString();
+        client = new MQTTClient("tcp://codehigh.ddns.me", ClientID + Uuid, persistence);  //change this to prata broker later
         subscriber = new MQTTSub(client, echoTopic);
         subscriber.addObserver(this);
     }
@@ -35,10 +38,11 @@ public class Echo extends  Observable implements Observer
 
     @Override
     public void update(Observable o, Object data) {
-        if(data instanceof MqttMessage){
+        //Doesnt work if(data instanceof MqttMessage){
+
             setChanged();
             notifyObservers();
-        }
+        //}
 
     }
 }

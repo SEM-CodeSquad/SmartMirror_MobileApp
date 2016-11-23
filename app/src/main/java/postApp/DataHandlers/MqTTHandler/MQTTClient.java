@@ -3,6 +3,7 @@ package postApp.DataHandlers.MqTTHandler;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 /**
  * @author Emanuel on 22/11/2016.
@@ -13,14 +14,14 @@ public class MQTTClient {
     private MqttClient client;
     private long unixTime;
 
-    public MQTTClient(String url, String id)
+    public MQTTClient(String url, String id, MemoryPersistence persistence)
     {
         try
         {
             options = new MqttConnectOptions();
             options.setCleanSession(false);
             options.setKeepAliveInterval(20);
-            client = new MqttClient(url, id);
+            client = new MqttClient(url, id, persistence);
             client.connect(options);
 
             this.unixTime = System.currentTimeMillis() / 1000L;

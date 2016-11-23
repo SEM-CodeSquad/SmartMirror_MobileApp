@@ -26,6 +26,7 @@ public class MQTTSub extends Observable implements MqttCallback
         System.out.println("Disconnecting...");
         try
         {
+            System.out.println(topic);
             this.client = client;
             client.getClient().setCallback(this);
             client.getClient().subscribe(topic);
