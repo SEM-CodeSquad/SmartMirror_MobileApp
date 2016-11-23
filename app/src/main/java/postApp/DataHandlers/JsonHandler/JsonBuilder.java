@@ -41,7 +41,6 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 item.put("postItID", args[6]);
                 item.put("body", args[2]);
                 item.put("senderStyle", args[3]);
-                item.put("important", args[4]);
                 item.put("expiresAt", "12");
                 JSONArray jArray = new JSONArray();
                 jArray.add(0, item);

@@ -10,20 +10,27 @@ import android.view.ViewGroup;
 import java.util.Arrays;
 
 import adin.postApp.R;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.Postits.ReadPostits;
+import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostitsPresenter;
 
 /**
  * Created by adinH on 2016-10-26.
  */
 public class ManagePostitsView extends Fragment {
     View myView;
+    ManagePostitsPresenter presenter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.mirror_postit, container, false);
-      //  ReadPostits r = new ReadPostits(getActivity().getApplicationContext());
-     //   String[] Aa = r.getPostitArray();
-      //  System.out.println(Arrays.toString(Aa));
+        presenter = new ManagePostitsPresenter(this);
+        FetchPost();
+        presenter.DeletePost("33b77ede-006c-4bd9-a38a-ff565b47513f");
         return myView;
+    }
+
+    public void FetchPost(){
+        presenter.FetchPost(((NavigationActivity) getActivity()).getUser());
     }
 }

@@ -10,10 +10,9 @@ import java.util.concurrent.ExecutionException;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.MqTTHandler.Echo;
-import postApp.DataHandlers.Postits.DeletePostit;
-import postApp.DataHandlers.Postits.ReadPostits;
+
 import postApp.DataHandlers.Postits.StorePostits;
-import postApp.DataHandlers.Postits.EditPostit;
+
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.PostitPresenter;
 
 
@@ -27,9 +26,7 @@ public class PostitHandler implements Observer{
     private long start;
     private long end;
     private StorePostits storePostits;
-    private ReadPostits readPostits;
-    private DeletePostit deletpostit;
-    private EditPostit editPostit;
+
     private String topic;
     private String user;
 
@@ -86,20 +83,10 @@ public class PostitHandler implements Observer{
     }
     public void StorePost(){
         storePostits = new StorePostits(user,idOne, color, text);
-        storePostits.getStoreStatus();   //returns boolean saved, if saved postit or not
+
+        System.out.println(storePostits.getStoreStatus());   //returns boolean saved, if saved postit or not
     }
-    public void ReadPost(){
-        readPostits = new ReadPostits(user);
-        readPostits.getPostitArray();
-    }
-    public void DeletePost(){
-        deletpostit = new DeletePostit(idOne);
-        deletpostit.getDeletedStatus();
-    }
-    public void EditPost(){
-        editPostit = new EditPostit(text, idOne);
-        editPostit.getEditedStatus();
-    }
+
 
     @Override
     public void update(Observable observable, Object data) {

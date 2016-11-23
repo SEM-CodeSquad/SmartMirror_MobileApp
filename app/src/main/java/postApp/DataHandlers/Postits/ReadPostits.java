@@ -71,9 +71,9 @@ public class ReadPostits {
     }
 
     public JSONArray getPostitArray(){
-        ReadPostits.fetchPostits fetch;
+        fetchPostits fetch;
         try {
-            fetch = new ReadPostits.fetchPostits();
+            fetch = new fetchPostits();
             fetch.execute();
             this.postArray = fetch.get();
         } catch (InterruptedException e) {
@@ -81,6 +81,7 @@ public class ReadPostits {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        System.out.println("here");
         return postArray;
     }
 

@@ -42,7 +42,7 @@ public class StorePostits {
         {
             try{
                 String query = "insert into Postits (UserID, PostID, Color, Postit)" + "VALUES('" + user
-                        + "', '" + iD + "', '" + color + "', '" + postit +");";
+                        + "', '" + iD + "', '" + color + "', '" + postit +"');";
                 PreparedStatement psPost = c.prepareStatement(query);
                 psPost.executeUpdate();
                 psPost.close();
