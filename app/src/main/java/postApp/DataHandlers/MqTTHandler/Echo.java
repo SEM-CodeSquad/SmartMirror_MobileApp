@@ -24,9 +24,7 @@ public class Echo extends  Observable implements Observer
     public Echo(String topic)
     {
         this.echoTopic = topic;
-        String ClientID = "dit029/SmartMirror/" +topic + "/"  + echoTopic;
-        System.out.println("hiqweqweqwe");
-        System.out.println(ClientID);
+        String ClientID = topic.substring(19, topic.length() - 7);
         client = new MQTTClient("tcp://codehigh.ddns.me", ClientID );  //change this to prata broker later
         subscriber = new MQTTSub(client, echoTopic);
         subscriber.addObserver(this);

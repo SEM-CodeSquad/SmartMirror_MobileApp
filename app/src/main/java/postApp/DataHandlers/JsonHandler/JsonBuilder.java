@@ -17,7 +17,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
     private String Returnthis;
     private String topic;
     private HttpRequestSender post;
-    private String myUrl = "http://codehigh.ddns.me:5000/";
+    private String myUrl = "http://codehigh.ddns.me:8080/";
     private String clientID;
     @Override
     protected String doInBackground(String... args) {

@@ -47,7 +47,7 @@ public class PostitHandler implements Observer{
         this.idOne = UUID.randomUUID().toString();
 
         String date = c.getTime().toString();
-
+        AwaitEcho();
         JsonBuilder R = new JsonBuilder();
         String S;
         if (topic != "No mirror chosen") {
@@ -68,7 +68,7 @@ public class PostitHandler implements Observer{
 
 
     public void AwaitEcho(){
-        System.out.println(topic);
+        topic = "dit029/SmartMirror/" +topic + "/";
         echo = new Echo(topic.substring(0, topic.length() - 6) + "echo");
         echo.addObserver(this);
         start = System.currentTimeMillis();
