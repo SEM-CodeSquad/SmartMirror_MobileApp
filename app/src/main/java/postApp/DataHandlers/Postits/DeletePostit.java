@@ -1,70 +1,61 @@
 package postApp.DataHandlers.Postits;
+
 import android.os.AsyncTask;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.concurrent.ExecutionException;
+
 import postApp.DataHandlers.Authentication.DBConnection;
 
-
 /**
- * @author Emanuel on 21/11/2016.
+ * @author Emanuel on 23/11/2016.
  */
 
-public class StorePostits {
+public class DeletePostit {
     private DBConnection conn;
     private Connection c;
-    private String user;
-    private String postit;
     private String iD;
-    private Boolean stored;
-    private String color;
+    private Boolean deleted;
 
-    public StorePostits(String user,String idOne, String color, String text) {
+
+    public DeletePostit(String iD){
         try {
             conn = new DBConnection();
             conn.execute();
             c = conn.get();
-            this.user = user;
-            this.iD = idOne;
-            this.color = color;
-            this.postit = text;
-
-
+            this.iD = iD;
         } catch (Exception v) {
             System.out.println(v);
         }
     }
 
-    private class SavePostits extends AsyncTask<Void, Void, Boolean> {
+    private class DeletePost extends AsyncTask<Void, Void, Boolean> {
 
         protected Boolean doInBackground(Void... arg0)
         {
             try{
-                String query = "insert into Postits (UserID, PostID, Color, Postit)" + "VALUES('" + user
-                        + "', '" + iD + "', '" + color + "', '" + postit +");";
+                String query = "delete from Postits where PostID= '" + iD + "' ";
                 PreparedStatement psPost = c.prepareStatement(query);
                 psPost.executeUpdate();
                 psPost.close();
-
-                stored = true;
+                deleted = true;
             } catch (Exception e) {
                 e.printStackTrace();
-                stored = false;
-
+                deleted = false;
             }
 
-            return stored;
+            return deleted;
         }
 
     }
 
-    public Boolean getStoreStatus(){
-        StorePostits.SavePostits psS;
+    public Boolean getDeletedStatus(){
+        DeletePostit.DeletePost deletePost;
         try {
-            psS = new StorePostits.SavePostits();
-            psS.execute();
-            return psS.get();
+            deletePost = new DeletePostit.DeletePost();
+            deletePost.execute();
+            return deletePost.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

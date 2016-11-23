@@ -21,9 +21,9 @@ public class ManagePostitsView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.mirror_postit, container, false);
-        ReadPostits r = new ReadPostits(getActivity().getApplicationContext());
-        String[] Aa = r.getPostitArray();
-        System.out.println(Arrays.toString(Aa));
+      //  ReadPostits r = new ReadPostits(getActivity().getApplicationContext());
+     //   String[] Aa = r.getPostitArray();
+      //  System.out.println(Arrays.toString(Aa));
         return myView;
     }
 }

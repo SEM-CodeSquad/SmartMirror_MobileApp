@@ -66,7 +66,7 @@ public class PostitView extends Fragment {
         checkmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror());
+                presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser());
                 presenter.AwaitEcho();
 
 

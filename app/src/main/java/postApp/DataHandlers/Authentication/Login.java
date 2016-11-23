@@ -13,8 +13,7 @@ public class Login {
     private String password;
     private boolean logedIn;
     private Connection c;
-    private String answerMatch;
-    private boolean match;
+
 
 
     public Login(String User, String Password) {

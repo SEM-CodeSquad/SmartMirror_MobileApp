@@ -38,11 +38,7 @@ public class Echo extends  Observable implements Observer
 
     @Override
     public void update(Observable o, Object data) {
-        //Doesnt work if(data instanceof MqttMessage){
-
             setChanged();
             notifyObservers();
-        //}
-
     }
 }

@@ -1,6 +1,5 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
 
-import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Observable;
@@ -11,8 +10,10 @@ import java.util.concurrent.ExecutionException;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.MqTTHandler.Echo;
+import postApp.DataHandlers.Postits.DeletePostit;
 import postApp.DataHandlers.Postits.ReadPostits;
 import postApp.DataHandlers.Postits.StorePostits;
+import postApp.DataHandlers.Postits.EditPostit;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.PostitPresenter;
 
 
@@ -25,8 +26,12 @@ public class PostitHandler implements Observer{
     private Echo echo;
     private long start;
     private long end;
-    StorePostits storePostits;
+    private StorePostits storePostits;
+    private ReadPostits readPostits;
+    private DeletePostit deletpostit;
+    private EditPostit editPostit;
     private String topic;
+    private String user;
 
     public PostitHandler(PostitView PostitView, PostitPresenter PostitPresenter){
         this.PostitView = PostitView;
@@ -39,8 +44,8 @@ public class PostitHandler implements Observer{
         this.color = color;
     }
 
-    public void PublishPostit(String text, String topic) {
-
+    public void PublishPostit(String text, String topic, String user) {
+        this.user = user;
         this.text = text;
         this.topic = topic;
         Calendar c = Calendar.getInstance();
@@ -80,13 +85,25 @@ public class PostitHandler implements Observer{
 
     }
     public void StorePost(){
-        storePostits = new StorePostits(PostitView.getActivity().getApplicationContext(), color, text, idOne);
+        storePostits = new StorePostits(user,idOne, color, text);
+        storePostits.getStoreStatus();   //returns boolean saved, if saved postit or not
+    }
+    public void ReadPost(){
+        readPostits = new ReadPostits(user);
+        readPostits.getPostitArray();
+    }
+    public void DeletePost(){
+        deletpostit = new DeletePostit(idOne);
+        deletpostit.getDeletedStatus();
+    }
+    public void EditPost(){
+        editPostit = new EditPostit(text, idOne);
+        editPostit.getEditedStatus();
     }
 
     @Override
     public void update(Observable observable, Object data) {
         System.out.println("here");
             StorePost();
-
     }
 }
