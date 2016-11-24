@@ -21,7 +21,9 @@ public class NavigationInteractor {
     String busID = "No bus or tram stop chosen";
     String weatherID = "No city chosen";
     String user;
+    String busIDVäst = "no väst";
     UUID idOne = UUID.randomUUID();
+    String BusID;
     View.OnClickListener mOriginalListener;
 
     postApp.ActivitiesView.MenuView.NavigationActivity NavigationActivity;
@@ -95,6 +97,10 @@ public class NavigationInteractor {
     }
     public String getUser(){
         return user;
+    }
+    public void SetBusID(String busID){this.busIDVäst = busID;}
+    public String GetBusID(){
+        return busIDVäst;
     }
 
 }

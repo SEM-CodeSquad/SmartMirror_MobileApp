@@ -94,7 +94,9 @@ public class SettingsView extends Fragment {
             @Override
             public void onClick(View v) {
                 presenter.WeatherOnLoc();
+                System.out.println("HI");
                 presenter.SetWeather();
+                System.out.println("HI");
             }
         });
 
@@ -153,7 +155,7 @@ public class SettingsView extends Fragment {
         newsbuilt.setTitle("Choose News");
         //three options
         newsbuilt.setItems(new CharSequence[]
-                        {"CNN", "BBC", "Daily Mail"},
+                        {"CNN", "GOOGLE", "DN", "SVT", "EXPRESSEN"},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // A switch with a onlick that sets text in activity based on what you choose
@@ -163,16 +165,21 @@ public class SettingsView extends Fragment {
                                 presenter.SetTextNews();
                                 break;
                             case 1:
-                                presenter.SetNewsBBC();
+                                presenter.SetNewsGoogle();
                                 presenter.SetTextNews();
                                 break;
                             case 2:
-                                presenter.SetNewsDailyMail();
+                                presenter.SetNewsDN();
                                 presenter.SetTextNews();
                                 break;
-
+                            case 3:
+                                presenter.SetNewsSVT();
+                                presenter.SetTextNews();
+                            case 4:
+                                presenter.SetNewsExpressen();
+                                presenter.SetTextNews();
                         }
-                        presenter.PublishNews(((NavigationActivity) getActivity()).getNews(), ((NavigationActivity) getActivity()).getMirror());
+                        presenter.PublishNews(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getNews());
                     }
                 });
         //and we create it with all the above options.
@@ -191,7 +198,6 @@ public class SettingsView extends Fragment {
                     public void onClick(DialogInterface dialog, int id) {
                         // if by location is chosen we use the SmartLocation lib once again to get the fixed location
                         presenter.BusByLoc();
-                        presenter.PublishBus(((NavigationActivity) getActivity()).getBus(), ((NavigationActivity) getActivity()).getMirror());
                     }
                 })
                 .setNegativeButton("By Search", new DialogInterface.OnClickListener() {

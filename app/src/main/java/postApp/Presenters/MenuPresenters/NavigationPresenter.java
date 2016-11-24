@@ -58,4 +58,10 @@ public class NavigationPresenter {
     public String getUser(){
         return NavigationInteractor.getUser();
     }
+    public void SetBusID(String busID){
+        NavigationInteractor.SetBusID(busID);
+    }
+    public String GetBusID(){
+        return NavigationInteractor.GetBusID();
+    }
 }

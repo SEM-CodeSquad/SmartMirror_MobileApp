@@ -48,6 +48,7 @@ public class PostitHandler implements Observer{
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, 7);
         this.idOne = UUID.randomUUID().toString();
+        System.out.println("HI");
 
         String date = c.getTime().toString();
         AwaitEcho();
@@ -55,12 +56,14 @@ public class PostitHandler implements Observer{
         String S;
         if (topic != "No mirror chosen") {
             try {
-                S = R.execute(topic, "postit", text, color, "importantstring", date, idOne).get();
+                S = R.execute(topic, "postit", text, color, date, idOne).get();
             } catch (InterruptedException e) {
                 S = "Did not publish";
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
+                System.out.println("HI");
+                System.out.println(e);
                 S = "Warning: Did Not Publish";
             }
             PostitPresenter.ShowMessage(S);

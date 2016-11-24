@@ -27,7 +27,6 @@ public class SettingsHandler {
     String auth;
     SettingsPresenter SettingsPresenter;
     SettingsView SettingsView;
-
     public SettingsHandler(SettingsPresenter SettingsPresenter, SettingsView SettingsView) {
         this.SettingsPresenter = SettingsPresenter;
         this.SettingsView = SettingsView;
@@ -122,9 +121,10 @@ public class SettingsHandler {
         }
     }
 
-    public void PublishBus(String Topic, String Bus) {
+    public void PublishBus(String Bus, String Topic) {
         JsonBuilder R = new JsonBuilder();
         String S;
+        System.out.println(((NavigationActivity) SettingsView.getActivity()).GetBusID());
         if (Topic != "No mirror chosen") {
             try {
                 S = R.execute(Topic, "config", Bus, "buschange").get();
@@ -162,11 +162,15 @@ public class SettingsHandler {
                             trav.execute(auth, String.valueOf(Latitude), String.valueOf(Longitude));
                             //our stop the is what we get() from the travelbyloc
                             ParseJson js = new ParseJson();
-                            String stop = js.parseLoc(trav.get());
+                            js.parseLoc(trav.get());
+
                             //we set the activities stop
-                            ((NavigationActivity) SettingsView.getActivity()).setBus(stop);
+                            ((NavigationActivity) SettingsView.getActivity()).SetBusID(js.getID());
+                            ((NavigationActivity) SettingsView.getActivity()).setBus(js.getName());
                             //and the we set the bustext in the app to stop
+                            System.out.println(js.getName());
                             SettingsPresenter.SetBus();
+                            PublishBus(js.getID(), ((NavigationActivity) SettingsView.getActivity()).getMirror() );
                             //after this we publish to the smartmirror the buschange
 
                         } catch (Exception v) {

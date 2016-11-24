@@ -15,8 +15,6 @@ import java.net.URL;
  */
 public class TravelByLoc extends AsyncTask<String, Void, String> {
 
-    String loc;
-
     protected String doInBackground(String... args) {
 
         StringBuilder result = new StringBuilder();
@@ -42,9 +40,9 @@ public class TravelByLoc extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
-        System.out.println(result.toString());
         return result.toString();
 
     }
+
 
 }

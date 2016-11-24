@@ -105,12 +105,18 @@ public class SettingsPresenter {
         ((NavigationActivity) SettingsView.getActivity()).setNews("CNN");
     }
 
-    public void SetNewsBBC() {
-        ((NavigationActivity) SettingsView.getActivity()).setNews("BBC");
+    public void SetNewsGoogle() {
+        ((NavigationActivity) SettingsView.getActivity()).setNews("GOOGLE");
     }
 
-    public void SetNewsDailyMail() {
-        ((NavigationActivity) SettingsView.getActivity()).setNews("DailyMail");
+    public void SetNewsDN() {
+        ((NavigationActivity) SettingsView.getActivity()).setNews("DN");
+    }
+    public void SetNewsSVT() {
+        ((NavigationActivity) SettingsView.getActivity()).setNews("SVT");
+    }
+    public void SetNewsExpressen() {
+        ((NavigationActivity) SettingsView.getActivity()).setNews("EXPRESSEN");
     }
 
 

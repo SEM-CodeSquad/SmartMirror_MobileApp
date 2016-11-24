@@ -23,6 +23,7 @@ public class BusStopSearcherHandler {
     ArrayAdapter<String> adapter;
     BusStopSearcherView BusStopSearcherView;
     String emptylist[] = new String[0];
+    ParseJson js;
     BusStopSearcherPresenter BusStopSearcherPresenter;
     public BusStopSearcherHandler(BusStopSearcherView BusStopSearcherView, BusStopSearcherPresenter BusStopSearcherPresenter){
         this.BusStopSearcherView = BusStopSearcherView;
@@ -40,12 +41,15 @@ public class BusStopSearcherHandler {
             //we execute the async task
             trav.execute(auth, s.toString());
             //json parser for search
-            ParseJson js = new ParseJson();
+            js = new ParseJson();
             //we parse the json data with the data we get from vässtrafik and the string that was searched for
             initList(js.parseSearch(trav.get(), s.toString()));
         } catch (Exception v) {
             System.out.println(v);
         }
+    }
+    public String SetStopID(String S){
+        return js.getBusIDfromSearch(S);
     }
 
     public void EmptyList(){
@@ -63,6 +67,7 @@ public class BusStopSearcherHandler {
         JsonBuilder R = new JsonBuilder();
         //we make a toast of this string later on
         String S;
+        String busID = SetStopID(BusStop);
         //set it to the busstation
         ((NavigationActivity) BusStopSearcherView.getActivity()).setBus(BusStop);
         //set the publishing broker topic
@@ -70,7 +75,7 @@ public class BusStopSearcherHandler {
         //if there is a topic we try to publish
         if (topic != "No mirror chosen") {
             try {
-                S = R.execute(topic, "config", BusStop, "buschange").get();
+                S = R.execute(topic, "config", busID, "buschange").get();
             } catch (InterruptedException e) {
                 S = "Did not publish";
                 e.printStackTrace();

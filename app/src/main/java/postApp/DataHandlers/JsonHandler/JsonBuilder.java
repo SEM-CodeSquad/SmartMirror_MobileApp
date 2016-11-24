@@ -38,7 +38,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             if(args[1].equals("postit")) {
                 JSONObject item = new JSONObject();
                 sendthis.put("contentType", "post-it");
-                item.put("postItID", args[6]);
+                item.put("postItID", args[5]);
                 item.put("body", args[2]);
                 item.put("senderStyle", args[3]);
                 item.put("expiresAt", "12");
@@ -54,23 +54,22 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
                 topic = "dit029/SmartMirror/" + args[0] + "/settings";
                 JSONArray jArray = new JSONArray();
-                JSONObject test = new JSONObject();
-                if(args[3].equals("busstop")) {
-                    test.put("busStop", args[2]);
+                JSONObject jOBJ = new JSONObject();
+                if(args[3].equals("buschange")) {
+                    jOBJ.put("busStop", args[2]);
                 }
                 else if (args[3].equals("newschange")){
-                    test.put("news", args[2]);
+                    jOBJ.put("news", args[2]);
                 }
                 else{
-                    test.put("weather", args[2]);
+                    jOBJ.put("weather", args[2]);
                 }
 
-                jArray.add(test);
+                jArray.add(jOBJ);
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
                 System.out.println(message);
-                System.out.println(topic);
                 post = new HttpRequestSender("codehigh.ddns.me",  topic, message, clientID);
 
             }
@@ -92,7 +91,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             }
             else if(args[1].equals("postIt action"))
             {
-                topic = "dit029/SmartMirror/" + args[0] + "/postit"   ;
+                topic = "dit029/SmartMirror/" + args[0] + "/postit";
                 sendthis.put("contentType", args[1]);
 
                 JSONArray jArray = new JSONArray();

@@ -192,6 +192,13 @@ public String getMirror(){
     public String getUser(){
         return presenter.getUser();
     }
+    public void SetBusID(String busID){
+        presenter.SetBusID(busID);
+    }
+    public String GetBusID(){
+        return presenter.GetBusID();
+    }
+
 
     /*
     Used for changing from the Drawer functionality to a back button functionality
