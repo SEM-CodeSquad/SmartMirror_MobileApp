@@ -194,7 +194,7 @@ public class SettingsHandler {
             //extract adress from list
             Address myadd = address.get(0);
             //we get locality which is city only
-            finalAddress = myadd.getLocality() + ", " + myadd.getCountryName();
+            finalAddress = myadd.getLocality() + "," + myadd.getCountryName();
         } catch (IOException e) {}
         //returns final adress
         ((NavigationActivity) SettingsView.getActivity()).setWeather(finalAddress);
