@@ -44,6 +44,9 @@ public class QrCodeView extends Fragment  {
         super.onPause();
         mScannerView.stopCamera();           // Stop camera on pause
     }
+    public void onBackPressed() {
+        ((NavigationActivity) getActivity()).toggleDrawerUse(true);
+    }
     @Override
     public void onResume(){
         super.onResume();
@@ -53,9 +56,4 @@ public class QrCodeView extends Fragment  {
     public ZXingScannerView getScannerView(){
         return this.mScannerView;
     }
-
-
-
-
-
 }

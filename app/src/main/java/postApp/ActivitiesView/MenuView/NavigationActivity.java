@@ -67,7 +67,7 @@ public class NavigationActivity extends AppCompatActivity
         // check if the DrawerLayout is open or closed after the instance state of the DrawerLayout has been restored.
         toggle.syncState();
         presenter = new NavigationPresenter(this);
-        
+
         if(presenter.getMirror() == "No mirror chosen") {
             UnsuccessfulRegister();
         }
@@ -89,12 +89,20 @@ public class NavigationActivity extends AppCompatActivity
     }
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (getFragmentManager().findFragmentByTag("QRFRAG") != null && getFragmentManager().findFragmentByTag("QRFRAG").isVisible()) {
+            toggleDrawerUse(true);
+        }
+        else if (getFragmentManager().findFragmentByTag("BUSFRAG") != null && getFragmentManager().findFragmentByTag("BUSFRAG").isVisible()) {
+            toggleDrawerUse(true);
+        }
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-        if(getFragmentManager().getBackStackEntryCount() > 0) {
+        else if(getFragmentManager().getBackStackEntryCount() > 0) {
+
             getFragmentManager().popBackStack();
         }
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,7 +132,7 @@ public class NavigationActivity extends AppCompatActivity
             //set the title
             getSupportActionBar().setTitle("Mirror ID");
             //switch screen to QrCodeView2 frame
-            getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView()).addToBackStack(null).commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView(), "QRFRAG").addToBackStack(null).commit();
         }
 
         return super.onOptionsItemSelected(item);

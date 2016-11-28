@@ -104,6 +104,11 @@ public class SettingsView extends Fragment {
 
         return myView;
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Settings");
+    }
 
     public void SetNews(String news){
         newstext.setText(news);
@@ -122,12 +127,11 @@ public class SettingsView extends Fragment {
         mOriginalListener = ((NavigationActivity) getActivity()).toggle.getToolbarNavigationClickListener();
         ((NavigationActivity) getActivity()).toggleDrawerUse(false);
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Mirror ID");
-        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView()).commit();
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView(), "QRFRAG").addToBackStack(null).commit();
     }
     public void ShowBus(){
             busbuilt.show();
     }
-
     public void ShowNews(){
         newsbuilt.show();
     }
@@ -148,7 +152,7 @@ public class SettingsView extends Fragment {
         //sets title
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Search for your stop");
         //switches fragment
-        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new BusStopSearcherView()).commit();
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new BusStopSearcherView(), "BUSFRAG").addToBackStack(null).commit();
     }
 
     // this is used to build a AlertDialog that displays newsoptions.
