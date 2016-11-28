@@ -27,10 +27,16 @@ public class LoginPresenter {
 Switches to navigationactivity if a user correctly logs in
  */
     public void OnLogin(String User, String Pass){
-
+        Loading();
         loginInteractor.OnLogin(User,Pass);
     }
 
+    public void DoneLoading(){
+        LoginActivity.DoneLoading();
+    }
+    public void Loading(){
+        LoginActivity.Loading();
+    }
     //starts the register intent
     public void onRegister(){
         LoginActivity.OnRegister();

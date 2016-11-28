@@ -4,7 +4,7 @@ import org.json.simple.JSONArray;
 
 import java.util.Observable;
 import java.util.Observer;
-
+import android.os.Handler;
 import postApp.DataHandlers.Postits.DeletePostit;
 import postApp.DataHandlers.Postits.EditPostit;
 import postApp.DataHandlers.Postits.ReadPostits;
@@ -41,8 +41,13 @@ public class ManagePostitsHandler implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-        System.out.println("HI");
-        ManagePostitsPresenter.DoneLoading();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                ManagePostitsPresenter.DoneLoading();
+            }
+        }, 2000); // 3000 milliseconds delay
+
         System.out.println(readPostits.getPostitArray());
     }
 

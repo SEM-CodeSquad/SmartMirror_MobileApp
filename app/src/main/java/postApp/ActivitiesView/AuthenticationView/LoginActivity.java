@@ -2,6 +2,7 @@ package postApp.ActivitiesView.AuthenticationView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,11 +28,13 @@ public class LoginActivity extends AppCompatActivity {
     TextView regi;
     TextView forgot;
     private LoginPresenter presenter;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginscreen);
+        progress = new ProgressDialog(this);
         //initilize the views
         Button login = (Button)findViewById(R.id.login);
         usrname = (EditText)findViewById(R.id.loginuser);
@@ -106,6 +109,16 @@ public class LoginActivity extends AppCompatActivity {
     public void HideKeyboard(View view){
         InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void Loading(){
+        progress.setMessage("Loading Postits");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.show();
+    }
+    public void DoneLoading(){
+        progress.dismiss();
     }
 
     public void SuccessfulLogin(String User, String bus, String weather, String news){

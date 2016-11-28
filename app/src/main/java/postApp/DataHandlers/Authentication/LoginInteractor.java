@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -50,7 +51,13 @@ public class LoginInteractor implements Observer {
                 Bus = (db[0]);
                 News = (db[1]);
                 Weather = (db[2]);
-                LoginPresenter.SuccessfulLogin(User, Bus, Weather, News);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        LoginPresenter.DoneLoading();
+                        LoginPresenter.SuccessfulLogin(User, Bus, Weather, News);
+                    }
+                }, 2000); // 3000 milliseconds delay
             }
             else{
                 sett = true;
@@ -59,6 +66,7 @@ public class LoginInteractor implements Observer {
         }
         else{
             LoginPresenter.UnsuccessfulLogin();
+            LoginPresenter.DoneLoading();
         }
     }
 
