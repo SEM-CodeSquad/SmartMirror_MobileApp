@@ -1,5 +1,7 @@
 package postApp.ActivitiesView.MenuView;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -51,6 +53,7 @@ public class NavigationActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         //if its not a saved instancestate we set the iniatial frame as a postit
@@ -64,7 +67,10 @@ public class NavigationActivity extends AppCompatActivity
         // check if the DrawerLayout is open or closed after the instance state of the DrawerLayout has been restored.
         toggle.syncState();
         presenter = new NavigationPresenter(this);
-
+        
+        if(presenter.getMirror() == "No mirror chosen") {
+            UnsuccessfulRegister();
+        }
         //here we just get the user that logged in from before using a bundle
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -122,6 +128,24 @@ public class NavigationActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void UnsuccessfulRegister(){
+        new AlertDialog.Builder(this)
+                .setMessage("Mirror is not paired, would you like to pair now?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        getSupportActionBar().setTitle("Mirror ID");
+                        //switch screen to QrCodeView2 frame
+                        getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView()).addToBackStack(null).commit();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+
     }
 
     /*
