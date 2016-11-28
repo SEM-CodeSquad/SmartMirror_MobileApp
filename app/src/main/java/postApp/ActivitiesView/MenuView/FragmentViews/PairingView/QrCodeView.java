@@ -44,6 +44,11 @@ public class QrCodeView extends Fragment  {
         super.onPause();
         mScannerView.stopCamera();           // Stop camera on pause
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Mirror ID");
+    }
 
     public ZXingScannerView getScannerView(){
         return this.mScannerView;

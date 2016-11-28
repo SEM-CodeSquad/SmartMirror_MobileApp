@@ -88,6 +88,11 @@ public class PostitView extends Fragment {
         return myView;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Publish Postit");
+    }
     public void BuildColorChoice(){
 
         //Set the title to chose color

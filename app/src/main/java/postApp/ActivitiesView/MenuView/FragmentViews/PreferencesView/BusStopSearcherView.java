@@ -94,6 +94,11 @@ public class BusStopSearcherView extends Fragment {
 
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Search for Bustops");
+    }
     public void OnBusClick(){
         //set it back to a drawer instead of backbutton
         ((NavigationActivity) getActivity()).toggleDrawerUse(true);

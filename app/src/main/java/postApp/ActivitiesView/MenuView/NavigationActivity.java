@@ -33,7 +33,7 @@ public class NavigationActivity extends AppCompatActivity
     DrawerLayout drawer;
     public ActionBarDrawerToggle toggle;
     Toolbar toolbar;
-
+    FragmentManager fragment;
     private NavigationPresenter presenter;
     View.OnClickListener mOriginalListener;
     @Override
@@ -86,6 +86,9 @@ public class NavigationActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
+        if(getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,7 +107,7 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
         //if settings is pressed we opens the settings fragment and set title to settings
         if (id == R.id.action_settings) {
-            getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Settings");
         }
         if (id == R.id.pairmirror) {
@@ -115,7 +118,7 @@ public class NavigationActivity extends AppCompatActivity
             //set the title
             getSupportActionBar().setTitle("Mirror ID");
             //switch screen to QrCodeView2 frame
-            getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView()).addToBackStack(null).commit();
         }
 
         return super.onOptionsItemSelected(item);
@@ -128,32 +131,32 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragment = getFragmentManager();
+        fragment = getFragmentManager();
         //when a diffrent navigation item is clicked we do a specific thing, eg when nav_postit(postit icon) is clicked
         //we switch fragment to postit and set title of actionbar to publish posit.
         //same thing for all navigationitems
         if (id == R.id.nav_postit){
-            fragment.beginTransaction().replace(R.id.content_frame, new PostitView()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new PostitView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Publish PostIt");
         } else if (id == R.id.nav_mirror) {
-            fragment.beginTransaction().replace(R.id.content_frame, new ManagePostitsView()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new ManagePostitsView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Mirror");
         } else if (id == R.id.nav_remove) {
-            fragment.beginTransaction().replace(R.id.content_frame, new RemovePostitView()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new RemovePostitView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Remove PostIt");
         } else if (id == R.id.nav_contact) {
-            fragment.beginTransaction().replace(R.id.content_frame, new ContactView()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new ContactView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("ContactView Us");
         } else if (id == R.id.nav_about) {
-            fragment.beginTransaction().replace(R.id.content_frame, new AboutView()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new AboutView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("AboutView");
         }
         else if (id == R.id.nav_preferences) {
-            fragment.beginTransaction().replace(R.id.content_frame, new PreferencesView()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new PreferencesView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("PreferencesView");
         }
         else if (id == R.id.nav_shoppinglist) {
-            fragment.beginTransaction().replace(R.id.content_frame, new ShoppingView()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new ShoppingView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Shopping List");
         }
 

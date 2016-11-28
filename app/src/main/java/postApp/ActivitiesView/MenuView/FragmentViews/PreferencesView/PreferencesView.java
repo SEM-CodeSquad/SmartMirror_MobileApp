@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import adin.postApp.R;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 
 public class PreferencesView extends Fragment {
@@ -21,4 +22,9 @@ public class PreferencesView extends Fragment {
         myView = inflater.inflate(R.layout.preferences, container, false);
         return myView;
         }
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Preferences");
+    }
 }

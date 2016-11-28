@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import adin.postApp.R;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 /**
  * Created by adinH on 2016-10-26.
@@ -19,5 +20,10 @@ public class ContactView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.contact, container, false);
         return myView;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Contact Us");
     }
 }

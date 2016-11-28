@@ -113,11 +113,11 @@ public class SettingsView extends Fragment {
     }
     public void SetBus(String bus){
         bustext.setText(bus);
-
     }
     public void SetWeather(String weather){
         weathertext.setText(weather);
     }
+
     public void ChangeToQR(){
         mOriginalListener = ((NavigationActivity) getActivity()).toggle.getToolbarNavigationClickListener();
         ((NavigationActivity) getActivity()).toggleDrawerUse(false);
@@ -127,6 +127,7 @@ public class SettingsView extends Fragment {
     public void ShowBus(){
             busbuilt.show();
     }
+
     public void ShowNews(){
         newsbuilt.show();
     }

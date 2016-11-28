@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import adin.postApp.R;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
 
 
@@ -21,5 +22,10 @@ public class ShoppingView extends Fragment {
 
         presenter = new ShoppingPresenter(this);
         return myView;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Shopping List");
     }
 }

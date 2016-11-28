@@ -33,4 +33,9 @@ public class ManagePostitsView extends Fragment {
     public void FetchPost(){
         presenter.FetchPost(((NavigationActivity) getActivity()).getUser());
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Manage Mirror Postits");
+    }
 }
