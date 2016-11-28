@@ -53,14 +53,7 @@ public class NavigationInteractor {
             }
         });
     }
-    public void UpdateSettings(){
-        Settings set = new Settings(user);
-        String[] db = set.getSettings();
-        setBus(db[0]);
-        setWeather(db[1]);
-        setNews(db[2]);
-        System.out.println(db.toString());
-    }
+
     /*
     Getters and setter for all the current string that will be used to passing data
     Having these to access the same from all fragments

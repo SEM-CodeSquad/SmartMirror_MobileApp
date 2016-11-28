@@ -12,7 +12,8 @@ public class ManagePostitsPresenter {
     ManagePostitsHandler ManagePostitsHandler;
     public ManagePostitsPresenter(ManagePostitsView ManagePostitsView){
         this.ManagePostitsView = ManagePostitsView;
-        this.ManagePostitsHandler = new ManagePostitsHandler();
+        this.ManagePostitsHandler = new ManagePostitsHandler(this);
+        Loading();
     }
     public void FetchPost(String User){
         ManagePostitsHandler.ReadPost(User);
@@ -22,5 +23,11 @@ public class ManagePostitsPresenter {
     }
     public void DeletePost(String id){
         ManagePostitsHandler.DeletePost(id);
+    }
+    public void DoneLoading(){
+        ManagePostitsView.DoneLoading();
+    }
+    public void Loading(){
+        ManagePostitsView.Loading();
     }
 }

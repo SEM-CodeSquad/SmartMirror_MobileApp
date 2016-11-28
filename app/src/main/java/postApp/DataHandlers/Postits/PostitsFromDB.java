@@ -6,11 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
 import postApp.DataHandlers.Authentication.DBConnection;
 
-public class PostitsFromDB {
+public class PostitsFromDB  extends Observable implements Observer {
     private DBConnection conn;
     private Connection c;
     private String user;
@@ -20,13 +22,17 @@ public class PostitsFromDB {
     public PostitsFromDB(String User) {
         try {
             conn = new DBConnection();
-            conn.execute();
-            c = conn.get();
+            conn.addObserver(this);
             this.user = User;
         } catch (Exception v) {
             System.out.println(v);
         }
 
+
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
 
     }
 

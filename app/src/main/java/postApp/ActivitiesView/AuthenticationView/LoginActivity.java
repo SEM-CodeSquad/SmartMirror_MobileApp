@@ -108,11 +108,15 @@ public class LoginActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public void SuccessfulLogin(String User){
+    public void SuccessfulLogin(String User, String bus, String weather, String news){
         //if we log in we swithc to navigationActivity
         Intent intent = new Intent(this, NavigationActivity.class);
         //we add in a fetchable user when we start the activity
         intent.putExtra("user", User);
+        intent.putExtra("bus", bus);
+        intent.putExtra("weather", weather);
+        intent.putExtra("user", news);
+        System.out.println(news);
         startActivity(intent);
     }
 

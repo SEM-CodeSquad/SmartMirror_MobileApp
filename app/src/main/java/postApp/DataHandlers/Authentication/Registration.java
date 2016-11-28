@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
-public class Registration {
+public class Registration extends Observable implements Observer {
     private DBConnection conn;
     private Connection c;
     private String user;
@@ -22,8 +24,7 @@ public class Registration {
     public Registration (String user, String password, String answer) {
         try {
             conn = new DBConnection();
-            conn.execute();
-            c = conn.get();
+            conn.addObserver(this);
             this.user = user;
             this.password = password;
             this.answer = answer;
@@ -33,9 +34,15 @@ public class Registration {
 
     }
 
-    private class RegisterAcc extends AsyncTask<Void, Void, Boolean> {
+    @Override
+    public void update(Observable observable, Object o) {
+        RegisterAcc register = new RegisterAcc();
+        register.execute();
+    }
 
-        protected Boolean doInBackground(Void... arg0) {
+    private class RegisterAcc extends AsyncTask<Void, Void, Void> {
+
+        protected Void doInBackground(Void... arg0) {
             try {
                 String query = "select UserID from Users where UserID=?";
                 PreparedStatement pstReg = c.prepareStatement(query);
@@ -47,7 +54,7 @@ public class Registration {
                     count++;
                 }
                 if (count == 1) {
-                    return true;
+                    inUse = true;
 
                 } else {
 
@@ -61,20 +68,21 @@ public class Registration {
             } catch (SQLException e) {
                     e.printStackTrace();
             }
-            return false;
+            inUse = false;
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void unused) {
+            NotObserver();
         }
     }
 
+    public void NotObserver(){
+        setChanged();
+        notifyObservers();
+    }
+
     public boolean getInUse(){
-        try {
-            RegisterAcc register = new RegisterAcc();
-            register.execute();
-            return register.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return inUse;
     }
 }

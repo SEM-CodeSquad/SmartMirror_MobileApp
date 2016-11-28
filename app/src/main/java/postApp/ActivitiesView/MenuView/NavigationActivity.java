@@ -74,15 +74,10 @@ public class NavigationActivity extends AppCompatActivity
         //here we just get the user that logged in from before using a bundle
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            presenter.setUser(extras.getString("user"));
+            presenter.UpdateSettings(extras.getString("bus"), extras.getString("news"), extras.getString("weather"), extras.getString("user"));
             // /The key argument here must match that used in the other activity
         }
-        //Connecting to our database and getting the settings for this user, then we set the bus, weather and news to the users chosen settings from before.
-        presenter.UpdateSettings();
 
-        System.out.println(getBus());
-
-        System.out.println(getNews());
         navigationView.setNavigationItemSelectedListener(this);
 
 

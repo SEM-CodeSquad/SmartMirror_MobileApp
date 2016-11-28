@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
 import postApp.DataHandlers.Authentication.DBConnection;
@@ -12,7 +14,7 @@ import postApp.DataHandlers.Authentication.DBConnection;
  * @author Emanuel on 23/11/2016.
  */
 
-public class EditPostit {
+public class EditPostit extends Observable implements Observer {
     private DBConnection conn;
     private Connection c;
     private String iD;
@@ -22,14 +24,20 @@ public class EditPostit {
 
     public EditPostit(String text, String iD){
         try {
-            conn = new DBConnection();
-            conn.execute();
-            c = conn.get();
             this.text = text;
             this.iD = iD;
+            conn = new DBConnection();
+            conn.addObserver(this);
         } catch (Exception v) {
             System.out.println(v);
         }
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        EditPost editPost;
+        editPost = new EditPostit.EditPost();
+        editPost.execute();
     }
 
     private class EditPost extends AsyncTask<Void, Void, Boolean> {
@@ -54,17 +62,7 @@ public class EditPostit {
     }
 
     public Boolean getEditedStatus(){
-        EditPostit.EditPost editPost;
-        try {
-            editPost = new EditPostit.EditPost();
-            editPost.execute();
-            return editPost.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return edited;
     }
 
 }

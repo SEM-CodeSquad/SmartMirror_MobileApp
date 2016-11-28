@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
 import postApp.DataHandlers.Authentication.DBConnection;
@@ -13,7 +15,7 @@ import postApp.DataHandlers.Authentication.DBConnection;
  * Created by Emanuel on 07/11/2016.
  */
 
-public class Settings {
+public class Settings  extends Observable implements Observer {
     private DBConnection conn;
     Connection c;
     private String user;
@@ -23,19 +25,25 @@ public class Settings {
     public Settings(String User) {
         try {
             conn = new DBConnection();
-            conn.execute();
-            c = conn.get();
+            conn.addObserver(this);
             this.user = User;
         } catch (Exception v) {
             System.out.println(v);
         }
     }
 
-    private class fetchSettings extends AsyncTask<Void, Void, String[]> {
+    @Override
+    public void update(Observable observable, Object o) {
+        fetchSettings set;
+        set = new fetchSettings();
+        set.execute();
+    }
+
+    private class fetchSettings extends AsyncTask<Void, Void, Void> {
 
 
-        protected String[] doInBackground(Void... arg0) {
-            String[] settings = new String[3];
+        protected Void doInBackground(Void... arg0) {
+            settings = new String[3];
             try {
                 String query = "select BusConfig, WeatherConfig, NewsFeedConfig from Users where UserID=?";
                 PreparedStatement pstSettings = c.prepareStatement(query);
@@ -57,21 +65,19 @@ public class Settings {
                 e.printStackTrace();
 
             }
-            return settings;
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void unused) {
+            NotObserver();
         }
     }
 
+    public void NotObserver(){
+        setChanged();
+        notifyObservers();
+    }
     public String[] getSettings(){
-        fetchSettings set;
-        try {
-            set = new fetchSettings();
-            set.execute();
-            this.settings = set.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return this.settings;
+        return settings;
     }
 }

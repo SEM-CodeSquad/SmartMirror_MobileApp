@@ -22,8 +22,11 @@ public class NavigationPresenter {
         NavigationInteractor.toggleDrawerUse(useDrawer);
     }
 
-    public void UpdateSettings(){
-        NavigationInteractor.UpdateSettings();
+    public void UpdateSettings(String bus, String news, String weather, String user){
+        setBus(bus);
+        setNews(news);
+        setWeather(weather);
+        setUser(user);
     }
     public String getMirror(){
         return NavigationInteractor.getMirror();

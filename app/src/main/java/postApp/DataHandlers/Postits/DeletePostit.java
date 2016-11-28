@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
 import postApp.DataHandlers.Authentication.DBConnection;
@@ -12,7 +14,7 @@ import postApp.DataHandlers.Authentication.DBConnection;
  * @author Emanuel on 23/11/2016.
  */
 
-public class DeletePostit {
+public class DeletePostit extends Observable implements Observer {
     private DBConnection conn;
     private Connection c;
     private String iD;
@@ -21,18 +23,21 @@ public class DeletePostit {
 
     public DeletePostit(String iD){
         try {
-            conn = new DBConnection();
-            conn.execute();
-            c = conn.get();
             this.iD = iD;
+            conn = new DBConnection();
         } catch (Exception v) {
             System.out.println(v);
         }
     }
+    @Override
+    public void update(Observable observable, Object o) {
+        DeletePostit.DeletePost deletePost;
+        deletePost = new DeletePostit.DeletePost();
+        deletePost.execute();
+    }
+    private class DeletePost extends AsyncTask<Void, Void, Void> {
 
-    private class DeletePost extends AsyncTask<Void, Void, Boolean> {
-
-        protected Boolean doInBackground(Void... arg0)
+        protected Void doInBackground(Void... arg0)
         {
             try{
                 String query = "delete from Postits where PostID= '" + iD + "' ";
@@ -44,25 +49,19 @@ public class DeletePostit {
                 e.printStackTrace();
                 deleted = false;
             }
-
-            return deleted;
+            return null;
         }
-
+        @Override
+        protected void onPostExecute(Void unused) {
+            System.out.println("HI");
+            NotObserver();
+        }
     }
-
+    public void NotObserver(){
+        setChanged();
+        notifyObservers();
+    }
     public Boolean getDeletedStatus(){
-        DeletePostit.DeletePost deletePost;
-        try {
-            deletePost = new DeletePostit.DeletePost();
-            deletePost.execute();
-            return deletePost.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return deleted;
     }
-
-
 }

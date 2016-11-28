@@ -44,8 +44,8 @@ Switches to navigationactivity if a user correctly logs in
         LoginActivity.HideKeyboard(view);
     }
 
-    public void SuccessfulLogin(String User){
-        LoginActivity.SuccessfulLogin(User);
+    public void SuccessfulLogin(String User, String bus, String weather, String news){
+        LoginActivity.SuccessfulLogin(User, bus, weather , news);
     }
 
     public void UnsuccessfulLogin(){

@@ -4,13 +4,15 @@ import android.os.AsyncTask;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Emanuel on 08/11/2016.
  */
 
-public class ResetPassword {
+public class ResetPassword extends Observable implements Observer {
     private DBConnection conn;
     private Connection c;
     private String user;
@@ -20,8 +22,7 @@ public class ResetPassword {
     public ResetPassword(String User, String Password){
         try {
             conn = new DBConnection();
-            conn.execute();
-            c = conn.get();
+            conn.addObserver(this);
             this.user = User;
             this.password = Password;
         } catch (Exception v) {
@@ -29,10 +30,16 @@ public class ResetPassword {
         }
     }
 
+    @Override
+    public void update(Observable observable, Object o) {
+        resetPass rp = new resetPass();
+        rp.execute();
+    }
 
-    private class resetPass extends AsyncTask<Void, Void, Boolean> {
 
-        protected Boolean doInBackground(Void... arg0) {
+    private class resetPass extends AsyncTask<Void, Void, Void> {
+
+        protected Void doInBackground(Void... arg0) {
             try {
                 String resetPass = "update Users set Password=? where UserID= '" + user + "' ";
                 PreparedStatement psReset = c.prepareStatement(resetPass);
@@ -45,24 +52,21 @@ public class ResetPassword {
                 e.printStackTrace();
             }
 
-            return reseted;
+            return null;
         }
+        @Override
+        protected void onPostExecute(Void unused) {
+            NotObserver();
+        }
+    }
+
+    public void NotObserver(){
+        setChanged();
+        notifyObservers();
     }
 
     public boolean getPasswordResetStatus(){
-        try {
-            resetPass rp = new resetPass();
-            rp.execute();
-            return rp.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
+            return reseted;
     }
-
-
-
 }
 

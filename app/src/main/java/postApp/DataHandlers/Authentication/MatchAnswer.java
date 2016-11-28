@@ -5,13 +5,15 @@ import android.os.AsyncTask;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Emanuel on 08/11/2016.
  */
 
-public class MatchAnswer {
+public class MatchAnswer extends Observable implements Observer {
     private DBConnection conn;
     private String user;
     private String answer;
@@ -22,8 +24,7 @@ public class MatchAnswer {
     public MatchAnswer(String User, String Answer) {
         try {
             conn = new DBConnection();
-            conn.execute();
-            c = conn.get();
+            conn.addObserver(this);
             this.user = User;
             this.answer = Answer;
         } catch (Exception v) {
@@ -32,9 +33,15 @@ public class MatchAnswer {
 
     }
 
-    private class matchAnswer extends AsyncTask<Void, Void, Boolean> {
+    @Override
+    public void update(Observable observable, Object o) {
+        matchAnswer ma = new matchAnswer();
+        ma.execute();
+    }
 
-        protected Boolean doInBackground(Void... arg0)
+    private class matchAnswer extends AsyncTask<Void, Void, Void> {
+
+        protected Void doInBackground(Void... arg0)
         {
             try {
                 String answerQuery = "select UserID, Answer from Users where Answer=? and Answer=? ";
@@ -59,24 +66,20 @@ public class MatchAnswer {
                 e.printStackTrace();
 
             }
-            return match;
+            return null;
         }
-
+        @Override
+        protected void onPostExecute(Void unused) {
+            NotObserver();
+        }
     }
 
+    public void NotObserver(){
+        setChanged();
+        notifyObservers();
+    }
 
     public boolean getAnswerMatch(){
-        try {
-            matchAnswer ma = new matchAnswer();
-            ma.execute();
-            return ma.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return match;
     }
-
-
 }

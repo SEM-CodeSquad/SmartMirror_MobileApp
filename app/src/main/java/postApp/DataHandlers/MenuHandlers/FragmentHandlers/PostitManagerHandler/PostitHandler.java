@@ -48,7 +48,6 @@ public class PostitHandler implements Observer{
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, 7);
         this.idOne = UUID.randomUUID().toString();
-        System.out.println("HI");
 
         String date = c.getTime().toString();
         AwaitEcho();
