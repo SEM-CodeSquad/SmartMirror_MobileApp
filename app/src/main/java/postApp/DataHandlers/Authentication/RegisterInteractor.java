@@ -26,7 +26,7 @@ public class RegisterInteractor {
     //on register that takes a user, pass and a secret answer
     public void OnRegister(String User, String Pass, String Secret){
         if(isEmailValid(User)) {
-            Registration reg = new Registration(User, Pass, Secret);
+            Registration reg = new Registration(User.toLowerCase(), Pass, Secret);
             //if we return that the username is not in use we switch to login class since we know the account making was succesfull
             if (reg.getInUse() == false) {
                 RegisterPresenter.SuccessfulRegister();
