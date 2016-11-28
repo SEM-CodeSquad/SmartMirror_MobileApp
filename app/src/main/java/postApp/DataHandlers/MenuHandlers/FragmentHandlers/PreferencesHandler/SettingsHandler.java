@@ -167,9 +167,8 @@ public class SettingsHandler {
                             //we set the activities stop
                             ((NavigationActivity) SettingsView.getActivity()).SetBusID(js.getID());
                             ((NavigationActivity) SettingsView.getActivity()).setBus(js.getName());
-                            //and the we set the bustext in the app to stop
-                            System.out.println(js.getName());
                             SettingsPresenter.SetBus();
+                            //and the we set the bustext in the app to stop
                             PublishBus(js.getID(), ((NavigationActivity) SettingsView.getActivity()).getMirror() );
                             //after this we publish to the smartmirror the buschange
 

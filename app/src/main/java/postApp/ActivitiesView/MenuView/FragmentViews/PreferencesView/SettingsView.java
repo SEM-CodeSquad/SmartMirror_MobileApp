@@ -155,7 +155,7 @@ public class SettingsView extends Fragment {
         newsbuilt.setTitle("Choose News");
         //three options
         newsbuilt.setItems(new CharSequence[]
-                        {"CNN", "GOOGLE", "DN", "SVT", "EXPRESSEN"},
+                        {"CNN", "GOOGLE", "DN", "SVT", "EXPRESSEN", "ABC"},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // A switch with a onlick that sets text in activity based on what you choose
@@ -175,11 +175,19 @@ public class SettingsView extends Fragment {
                             case 3:
                                 presenter.SetNewsSVT();
                                 presenter.SetTextNews();
+                                break;
                             case 4:
                                 presenter.SetNewsExpressen();
                                 presenter.SetTextNews();
+                                break;
+                            case 5:
+                                presenter.SetNewsABC();
+                                presenter.SetTextNews();
+                                break;
+
                         }
                         presenter.PublishNews(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getNews());
+
                     }
                 });
         //and we create it with all the above options.

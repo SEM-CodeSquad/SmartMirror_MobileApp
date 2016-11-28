@@ -4,20 +4,22 @@ repositories {
     mavenCentral()
 }
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "adin.myapplication"
-        minSdkVersion 15
-        targetSdkVersion 20
+        minSdkVersion 22
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
     }
 }
@@ -27,8 +29,8 @@ dependencies {
     compile 'com.github.scribejava:scribejava-apis:3.2.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:design:25.0.0'
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
     compile files('libs/json-simple-1.1.1.jar')
     compile 'me.dm7.barcodescanner:zxing:1.8.4'

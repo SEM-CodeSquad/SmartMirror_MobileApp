@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import adin.postApp.R;
+import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.AboutView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.ContactView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostitsView;
@@ -152,6 +153,10 @@ public class NavigationActivity extends AppCompatActivity
         else if (id == R.id.nav_preferences) {
             fragment.beginTransaction().replace(R.id.content_frame, new PreferencesView()).commit();
             getSupportActionBar().setTitle("PreferencesView");
+        }
+        else if (id == R.id.nav_shoppinglist) {
+            fragment.beginTransaction().replace(R.id.content_frame, new ShoppingView()).commit();
+            getSupportActionBar().setTitle("Shopping List");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

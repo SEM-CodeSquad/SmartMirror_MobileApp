@@ -118,6 +118,9 @@ public class SettingsPresenter {
     public void SetNewsExpressen() {
         ((NavigationActivity) SettingsView.getActivity()).setNews("EXPRESSEN");
     }
+    public void SetNewsABC() {
+        ((NavigationActivity) SettingsView.getActivity()).setNews("ABC");
+    }
 
 
     public void BusByLoc() {

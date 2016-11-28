@@ -21,6 +21,17 @@
         </item>
     </group>
 
+    <item android:title="Shopping"
+        >
+        <menu>
+            <item
+                android:id="@+id/nav_shoppinglist"
+                android:title="Shopping List"
+                android:icon="@drawable/shoppingcart"
+                />
+        </menu>
+    </item>
+
     <item android:title="Connectivity"
         >
     <menu>
