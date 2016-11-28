@@ -106,11 +106,22 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+    public void NotEmail(){
+        new AlertDialog.Builder(this)
+                .setMessage("Username must be a valid Email")
+                .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .show();
+
+    }
 
     public void UnsuccessfulRegister(){
         new AlertDialog.Builder(this)
                 .setMessage("Username already chosen")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                     }

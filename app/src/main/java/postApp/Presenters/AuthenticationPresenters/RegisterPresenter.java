@@ -40,4 +40,7 @@ Switches to navigationactivity if a user correctly logs in
     public void hideKeyboard(View view) {
         RegisterActivity.HideKeyboard(view);
     }
+    public void NotEmail(){
+        RegisterActivity.NotEmail();
+    }
 }
