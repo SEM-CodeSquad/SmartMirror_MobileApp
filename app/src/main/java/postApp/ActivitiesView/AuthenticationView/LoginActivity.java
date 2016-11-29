@@ -30,6 +30,11 @@ public class LoginActivity extends AppCompatActivity {
     private LoginPresenter presenter;
     ProgressDialog progress;
 
+    /**
+     * This method is ran when activity is created. We set onclicklisteners
+     * Initialize the views
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,36 +96,70 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
+    /**
+     *
+     * @param menu
+     * Creates option menu when the activity is created
+     * @return
+     * True that it's created
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
 
+    /**
+     * Method that start the secretQ activity and switches screen
+     */
     public void onForgotten() {
         Intent intent = new Intent(this, SecretQActivity.class);
         startActivity(intent);
     }
 
+    /**
+     *  Method that start the Register activity and switches screen
+     */
     public void OnRegister() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Method that hides keyboard when textfied not in focus
+     * @param view
+     * view its hiding keyboard from
+     */
     public void HideKeyboard(View view){
         InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    /**
+     * Loading method that shows a progressdialog
+     */
     public void Loading(){
         progress.setMessage("Loading Postits");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
         progress.show();
     }
+
+    /**
+     * method that dismisses the progressbar
+     */
     public void DoneLoading(){
         progress.dismiss();
     }
 
+    /**
+     * Method that switches activity to NavigationActivity
+     *
+     * @param User Puts in the intent user which is the User String
+     * @param bus Puts in the intent bus which is the Bus String
+     * @param weather Puts in the intent weather which is the weather String
+     * @param news Puts in the intent news which is the news String
+     */
     public void SuccessfulLogin(String User, String bus, String weather, String news){
         //if we log in we swithc to navigationActivity
         Intent intent = new Intent(this, NavigationActivity.class);
@@ -129,10 +168,12 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("bus", bus);
         intent.putExtra("weather", weather);
         intent.putExtra("user", news);
-        System.out.println(news);
         startActivity(intent);
     }
 
+    /**
+     * Method that shows a alertdialog that says wrong username or password.
+     */
     public void UnsuccessfulLogin(){
         //if user types wrong login we show a alertdialog some text
         new AlertDialog.Builder(this)

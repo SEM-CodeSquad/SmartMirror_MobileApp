@@ -32,10 +32,19 @@ public class LoginInteractor implements Observer {
     Boolean sett = false;
     Settings set;
 
+    /**
+     * Constructor for the interactor
+     * @param LoginPresenter Presenter it calls methods from
+     */
     public LoginInteractor(LoginPresenter LoginPresenter){
         this.LoginPresenter = LoginPresenter;
     }
 
+    /**
+     * Calls the Login db class
+     * @param User User that wants to log in
+     * @param Pass Password typed
+     */
     public void OnLogin(String User, String Pass){
         this.User = User;
         log = new Login(User, Pass);
@@ -57,7 +66,7 @@ public class LoginInteractor implements Observer {
                         LoginPresenter.DoneLoading();
                         LoginPresenter.SuccessfulLogin(User, Bus, Weather, News);
                     }
-                }, 2000); // 3000 milliseconds delay
+                }, 1000); // 3000 milliseconds delay
             }
             else{
                 sett = true;
@@ -70,6 +79,10 @@ public class LoginInteractor implements Observer {
         }
     }
 
+    /**
+     * Calls settings db class to get the new settings with a observer
+     * to know when the async task is doen
+     */
     public void UpdateSettings(){
         set = new Settings(User);
         set.addObserver(this);

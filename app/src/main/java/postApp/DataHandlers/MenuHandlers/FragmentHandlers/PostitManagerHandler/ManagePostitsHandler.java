@@ -27,7 +27,6 @@ public class ManagePostitsHandler implements Observer {
     public void ReadPost(String user){
         readPostits = new ReadPostits(user);
         readPostits.addObserver(this);
-        System.out.println("HI");
     }
     public void DeletePost(String idOne){
         deletpostit = new DeletePostit(idOne);
@@ -46,7 +45,7 @@ public class ManagePostitsHandler implements Observer {
             public void run() {
                 ManagePostitsPresenter.DoneLoading();
             }
-        }, 2000); // 3000 milliseconds delay
+        }, 1000); // 3000 milliseconds delay
 
         System.out.println(readPostits.getPostitArray());
     }
