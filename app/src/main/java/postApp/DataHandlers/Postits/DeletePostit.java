@@ -25,14 +25,16 @@ public class DeletePostit extends Observable implements Observer {
         try {
             this.iD = iD;
             conn = new DBConnection();
+            conn.addObserver(this);
         } catch (Exception v) {
             System.out.println(v);
         }
     }
     @Override
     public void update(Observable observable, Object o) {
-        DeletePostit.DeletePost deletePost;
-        deletePost = new DeletePostit.DeletePost();
+        c = conn.getConn();
+        DeletePost deletePost;
+        deletePost = new DeletePost();
         deletePost.execute();
     }
     private class DeletePost extends AsyncTask<Void, Void, Void> {
@@ -40,6 +42,7 @@ public class DeletePostit extends Observable implements Observer {
         protected Void doInBackground(Void... arg0)
         {
             try{
+                System.out.println(iD);
                 String query = "delete from Postits where PostID= '" + iD + "' ";
                 PreparedStatement psPost = c.prepareStatement(query);
                 psPost.executeUpdate();
@@ -53,7 +56,6 @@ public class DeletePostit extends Observable implements Observer {
         }
         @Override
         protected void onPostExecute(Void unused) {
-            System.out.println("HI");
             NotObserver();
         }
     }

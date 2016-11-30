@@ -29,6 +29,7 @@ public class StorePostits extends Observable implements Observer {
             this.color = color;
             this.postit = text;
             conn = new DBConnection();
+            conn.addObserver(this);
         } catch (Exception v) {
             System.out.println(v);
         }
@@ -36,6 +37,7 @@ public class StorePostits extends Observable implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+            c = conn.getConn();
             SavePostits psS;
             psS = new SavePostits();
             psS.execute();
@@ -46,6 +48,7 @@ public class StorePostits extends Observable implements Observer {
         protected Void doInBackground(Void... arg0)
         {
             try{
+
                 String query = "insert into Postits (UserID, PostID, Color, Postit)" + "VALUES('" + user
                         + "', '" + iD + "', '" + color + "', '" + postit +"');";
                 PreparedStatement psPost = c.prepareStatement(query);
@@ -53,6 +56,7 @@ public class StorePostits extends Observable implements Observer {
                 psPost.close();
 
                 stored = true;
+
             } catch (Exception e) {
                 e.printStackTrace();
                 stored = false;

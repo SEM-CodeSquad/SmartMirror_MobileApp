@@ -1,6 +1,4 @@
-package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
-
-import org.json.simple.JSONArray;
+package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.ManagePostits;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -8,7 +6,7 @@ import android.os.Handler;
 import postApp.DataHandlers.Postits.DeletePostit;
 import postApp.DataHandlers.Postits.EditPostit;
 import postApp.DataHandlers.Postits.ReadPostits;
-import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostitsPresenter;
+import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits.ManagePostitsPresenter;
 
 /**
  * Created by Emanuel on 19/11/2016.
@@ -46,8 +44,7 @@ public class ManagePostitsHandler implements Observer {
                 ManagePostitsPresenter.DoneLoading();
             }
         }, 1000); // 3000 milliseconds delay
-
-        System.out.println(readPostits.getPostitArray());
+        ManagePostitsPresenter.StartLoadingPost(readPostits.getPostitArray());
     }
 
 }

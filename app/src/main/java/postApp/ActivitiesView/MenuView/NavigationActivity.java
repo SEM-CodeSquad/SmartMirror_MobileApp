@@ -19,7 +19,7 @@ import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.AboutView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.ContactView;
-import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostitsView;
+import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostits.ManagePostitsView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.PreferencesView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;

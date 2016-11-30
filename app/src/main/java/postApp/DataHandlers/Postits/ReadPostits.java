@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.RequiresPermission;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
 import java.sql.Connection;
@@ -39,6 +39,7 @@ public class ReadPostits extends Observable implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+        c = conn.getConn();
         fetchPostits fetch;
         fetch = new fetchPostits();
         fetch.execute();

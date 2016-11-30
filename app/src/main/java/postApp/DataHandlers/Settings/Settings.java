@@ -34,6 +34,7 @@ public class Settings  extends Observable implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+        c = conn.getConn();
         fetchSettings set;
         set = new fetchSettings();
         set.execute();

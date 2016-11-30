@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
+import postApp.DataHandlers.Authentication.DBConnection;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.MqTTHandler.Echo;
 
@@ -26,13 +27,14 @@ public class PostitHandler implements Observer{
     private long start;
     private long end;
     private StorePostits storePostits;
-
+    private DBConnection conn;
     private String topic;
     private String user;
 
     public PostitHandler(PostitView PostitView, PostitPresenter PostitPresenter){
         this.PostitView = PostitView;
         this.PostitPresenter = PostitPresenter;
+        conn = new DBConnection();
     }
 
 
@@ -92,7 +94,6 @@ public class PostitHandler implements Observer{
 
     @Override
     public void update(Observable observable, Object data) {
-        System.out.println("here");
             StorePost();
     }
 }

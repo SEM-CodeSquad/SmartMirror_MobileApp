@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    >
+    <ImageView
+        android:id="@+id/manageImageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="false"
+        android:scaleType="fitXY"
+        android:src="@mipmap/post_it_yellow"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Pick Postit color"
+        android:id="@+id/pickmanagepostitcolor"
+        android:textColor="#030303"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/editcheckmark"
+        android:layout_marginTop="14dp" />
+
+    <EditText
+        android:id="@+id/editTypedtext"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:ems="13"
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:maxLength="80"
+        android:text="Write your tasks here"
+        android:textStyle="normal"
+        android:textSize="30dp"
+        android:layout_below="@+id/managepostitcolonbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
+
+    <ImageButton
+        android:id="@+id/editcheckmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/checkmark"
+        android:layout_marginBottom="29dp"
+        android:layout_alignBottom="@+id/manageImageview"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="22dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/managepostitcolonbutton"
+        android:src="@mipmap/pickcolor"
+        android:background="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/editcheckmark" />
+
+
+</RelativeLayout>

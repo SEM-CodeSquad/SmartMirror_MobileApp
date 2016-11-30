@@ -36,4 +36,5 @@ dependencies {
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'io.nlopez.smartlocation:library:3.2.9'
     compile files('libs/mysql-connector-java-3.1.14-bin.jar')
+    compile 'com.android.support:support-v13:+'
 }

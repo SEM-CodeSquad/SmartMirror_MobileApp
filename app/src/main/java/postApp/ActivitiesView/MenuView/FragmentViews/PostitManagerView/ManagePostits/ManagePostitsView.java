@@ -1,19 +1,19 @@
-package postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView;
+package postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostits;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Arrays;
+import org.json.simple.JSONArray;
 
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.DataHandlers.Postits.ReadPostits;
-import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostitsPresenter;
+import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits.ManagePostitsPresenter;
 
 /**
  * Created by adinH on 2016-10-26.
@@ -21,6 +21,7 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresent
 public class ManagePostitsView extends Fragment {
     View myView;
     ManagePostitsPresenter presenter;
+    ViewPager viewPager;
     ProgressDialog progress;
     @Nullable
     @Override
@@ -28,10 +29,15 @@ public class ManagePostitsView extends Fragment {
         myView = inflater.inflate(R.layout.mirror_postit, container, false);
         progress = new ProgressDialog(getActivity());
         presenter = new ManagePostitsPresenter(this);
+        viewPager = (ViewPager) myView.findViewById(R.id.view_pager);
         FetchPost();
         return myView;
     }
 
+    public void UpdateGuiPost(JSONArray PostIts){
+        ManageSwiperAdapter ManageSwiperAdapter = new ManageSwiperAdapter(getChildFragmentManager(), PostIts);
+        viewPager.setAdapter(ManageSwiperAdapter);
+    }
     public void FetchPost(){
         presenter.FetchPost(((NavigationActivity) getActivity()).getUser());
     }

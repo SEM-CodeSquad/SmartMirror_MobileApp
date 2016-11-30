@@ -1,7 +1,9 @@
-package postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter;
+package postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits;
 
-import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostitsView;
-import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.ManagePostitsHandler;
+import org.json.simple.JSONArray;
+
+import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostits.ManagePostitsView;
+import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.ManagePostits.ManagePostitsHandler;
 
 /**
  * Created by Emanuel on 19/11/2016.
@@ -29,5 +31,8 @@ public class ManagePostitsPresenter {
     }
     public void Loading(){
         ManagePostitsView.Loading();
+    }
+    public void StartLoadingPost(JSONArray PostIts){
+        ManagePostitsView.UpdateGuiPost(PostIts);
     }
 }
