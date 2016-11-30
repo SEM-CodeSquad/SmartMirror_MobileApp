@@ -117,7 +117,7 @@ public class NavigationActivity extends AppCompatActivity
         //if settings is pressed we opens the settings fragment and set title to settings
         if (id == R.id.action_settings) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).addToBackStack(null).commit();
-            getSupportActionBar().setTitle("Settings");
+            getSupportActionBar().setTitle("FetchSettings");
         }
         if (id == R.id.pairmirror) {
             //since pairmirror uses a back button we save the original listener which is a drawer

@@ -287,6 +287,15 @@
         android:layout_alignEnd="@+id/imageView12"
         android:layout_marginTop="7dp" />
 
+    <Button
+        android:text="Store IN DB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView14"
+        android:layout_alignStart="@+id/weatherchange"
+        android:layout_marginTop="17dp"
+        android:id="@+id/storeindb" />
+
 
 </RelativeLayout>
 </ScrollView>

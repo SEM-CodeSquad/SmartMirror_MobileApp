@@ -15,6 +15,7 @@ import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsVie
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.JsonHandler.ParseJson;
+import postApp.DataHandlers.Settings.StoreSettings;
 import postApp.DataHandlers.Vasttrafik.GenerateAccessCode;
 import postApp.DataHandlers.Vasttrafik.TravelByLoc;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.SettingsPresenter;
@@ -198,6 +199,12 @@ public class SettingsHandler {
         //returns final adress
         ((NavigationActivity) SettingsView.getActivity()).setWeather(finalAddress);
         return finalAddress;
+    }
+
+    public void StoreSettings(String user, String News, String Weather, String Bus){
+        StoreSettings set = new StoreSettings(user, News, Bus, Weather);
+        SettingsPresenter.UpdateScreen();
+        System.out.println(set.getSettings());
     }
 
 }

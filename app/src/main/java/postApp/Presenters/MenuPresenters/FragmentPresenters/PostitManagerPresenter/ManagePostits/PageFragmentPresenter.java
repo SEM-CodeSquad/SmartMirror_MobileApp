@@ -51,6 +51,7 @@ public class PageFragmentPresenter {
     }
     public void SetColor(String S){
         PageFragmentHandler.SetColor(S);
+
     }
     public void HideKeyboard(View V){
         PageFragment.hideKeyboard(V);
@@ -60,5 +61,8 @@ public class PageFragmentPresenter {
     }
     public void AwaitEcho(){
         PageFragmentHandler.AwaitEcho();
+    }
+    public void ReloadScreen(){
+        PageFragment.ReloadScreen();
     }
 }

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import adin.postApp.R;
 
+import io.nlopez.smartlocation.common.Store;
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
 import postApp.DataHandlers.Vasttrafik.GenerateAccessCode;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.SettingsPresenter;
@@ -56,7 +57,7 @@ public class SettingsView extends Fragment {
         Button busbutton = (Button) myView.findViewById(R.id.busbtn);
         Button newsbutton = (Button) myView.findViewById(R.id.newsbtn);
         Button weatherbutton = (Button) myView.findViewById(R.id.weatherchange);
-
+        final Button StoreButton = (Button) myView.findViewById(R.id.storeindb);
         //These four line below just locate the edittext for the mirror, bus, news and weather so we don't get null pointer later when working.
         UUID = (EditText) myView.findViewById(R.id.mirrortext);
         bustext = (EditText) myView.findViewById(R.id.bustext);
@@ -91,14 +92,20 @@ public class SettingsView extends Fragment {
             }
         });
 
+        //when we press storebutton
+        StoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.StoreSettings(((NavigationActivity) getActivity()).getUser(), ((NavigationActivity) getActivity()).getNews(),
+                        ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).getBus());
+            }
+        });
         // a onclick listener that uses the library nlopez smartlocation lib that gets the current location one time only.
         weatherbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.WeatherOnLoc();
-                System.out.println("HI");
                 presenter.SetWeather();
-                System.out.println("HI");
             }
         });
 
@@ -107,7 +114,7 @@ public class SettingsView extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Settings");
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("FetchSettings");
     }
 
     public void SetNews(String news){
@@ -200,6 +207,11 @@ public class SettingsView extends Fragment {
         //and we create it with all the above options.
         newsbuilt.create();
     }
+
+    public void UpdateScreen(){
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).addToBackStack(null).commit();
+    }
+
     public void Buildstop() {
         //the first two lines generete a authorization key for the Västtrafik API.
         GenerateAccessCode gen = new GenerateAccessCode();

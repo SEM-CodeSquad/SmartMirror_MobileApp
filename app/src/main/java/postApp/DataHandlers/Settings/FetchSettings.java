@@ -15,14 +15,14 @@ import postApp.DataHandlers.Authentication.DBConnection;
  * Created by Emanuel on 07/11/2016.
  */
 
-public class Settings  extends Observable implements Observer {
+public class FetchSettings extends Observable implements Observer {
     private DBConnection conn;
     Connection c;
     private String user;
     private String[] settings;
 
 
-    public Settings(String User) {
+    public FetchSettings(String User) {
         try {
             conn = new DBConnection();
             conn.addObserver(this);

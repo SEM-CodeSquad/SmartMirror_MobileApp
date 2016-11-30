@@ -34,7 +34,6 @@ public class PostitHandler implements Observer{
     public PostitHandler(PostitView PostitView, PostitPresenter PostitPresenter){
         this.PostitView = PostitView;
         this.PostitPresenter = PostitPresenter;
-        conn = new DBConnection();
     }
 
 
@@ -52,7 +51,7 @@ public class PostitHandler implements Observer{
         this.idOne = UUID.randomUUID().toString();
 
         String date = c.getTime().toString();
-        AwaitEcho();
+        StorePost();
         JsonBuilder R = new JsonBuilder();
         String S;
         if (topic != "No mirror chosen") {
@@ -94,6 +93,6 @@ public class PostitHandler implements Observer{
 
     @Override
     public void update(Observable observable, Object data) {
-            StorePost();
+
     }
 }

@@ -27,7 +27,6 @@ public class PageFragmentHandler implements Observer {
         private long start;
         private long end;
         private String topic;
-        private String user;
         DeletePostit RemovePost;
 
 
@@ -40,6 +39,25 @@ public class PageFragmentHandler implements Observer {
 
         public void SetColor(String color){
             this.color = color;
+
+            if(color.equals("yellow")){
+                PageFragmentPresenter.YellowClick();
+            }
+            else if(color.equals("purple")){
+                PageFragmentPresenter.PurpleClick();
+            }
+            else if(color.equals("pink")){
+                PageFragmentPresenter.PinkClick();
+            }
+            else if(color.equals("blue")){
+                PageFragmentPresenter.BlueClick();
+            }
+            else if(color.equals("green")){
+                PageFragmentPresenter.GreenClick();
+            }
+            else if(color.equals("orange")){
+                PageFragmentPresenter.OrangeClick();
+            }
         }
 
         public void DeletePostit(String topic, String UUID) {
@@ -85,6 +103,6 @@ public class PageFragmentHandler implements Observer {
 
         @Override
         public void update(Observable observable, Object data) {
-            System.out.println(RemovePost.getDeletedStatus());   //returns boolean saved, if saved postit or not
+            PageFragmentPresenter.ReloadScreen();  //returns boolean saved, if saved postit or not
         }
 }

@@ -135,32 +135,26 @@ public class PageFragment extends Fragment {
     public void ColorBlue(){
         //Change the picture color to match the switch chosen
         imageView.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_blue));
-        Toast.makeText(getActivity(), "Chose Blue", Toast.LENGTH_SHORT).show();
     }
     public void ColorPink(){
         //Change the picture color to match the switch chosen
         imageView.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_pink));
-        Toast.makeText(getActivity(), "Chose Pink", Toast.LENGTH_SHORT).show();
     }
     public void ColorPurple(){
         //Change the picture color to match the switch chosen
         imageView.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_purple));
-        Toast.makeText(getActivity(), "Chose Purple", Toast.LENGTH_SHORT).show();
     }
     public void ColorGreen(){
         //Change the picture color to match the switch chosen
         imageView.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_green));
-        Toast.makeText(getActivity(), "Chose Green", Toast.LENGTH_SHORT).show();
     }
     public void ColorOrange(){
         //Change the picture color to match the switch chosen
         imageView.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_orange));
-        Toast.makeText(getActivity(), "Chose Orange", Toast.LENGTH_SHORT).show();
     }
     public void ColorYellow(){
         //Change the picture color to match the switch chosen
         imageView.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_yellow));
-        Toast.makeText(getActivity(), "Chose Yellow", Toast.LENGTH_SHORT).show();
     }
     public void ShowMessage(String S){
         Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
@@ -175,6 +169,9 @@ public class PageFragment extends Fragment {
 
     public void ShowColors(){
         builder.show();
+    }
+    public void ReloadScreen(){
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new ManagePostitsView()).addToBackStack(null).commit();
     }
     /*
     Hides keyboard

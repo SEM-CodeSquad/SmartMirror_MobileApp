@@ -1,21 +1,11 @@
 package postApp.DataHandlers.Authentication;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Handler;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.ActivitiesView.AuthenticationView.RegisterActivity;
-import postApp.ActivitiesView.AuthenticationView.SecretQActivity;
-import postApp.ActivitiesView.AuthenticationView.LoginActivity;
-import postApp.DataHandlers.Settings.Settings;
+import postApp.DataHandlers.Settings.FetchSettings;
 import postApp.Presenters.AuthenticationPresenters.LoginPresenter;
 
 /**
@@ -30,7 +20,7 @@ public class LoginInteractor implements Observer {
     String News;
     String Weather;
     Boolean sett = false;
-    Settings set;
+    FetchSettings set;
 
     /**
      * Constructor for the interactor
@@ -84,7 +74,7 @@ public class LoginInteractor implements Observer {
      * to know when the async task is doen
      */
     public void UpdateSettings(){
-        set = new Settings(User);
+        set = new FetchSettings(User);
         set.addObserver(this);
     }
 }

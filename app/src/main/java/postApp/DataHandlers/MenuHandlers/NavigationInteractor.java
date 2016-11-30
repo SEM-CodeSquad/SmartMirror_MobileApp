@@ -8,7 +8,6 @@ import java.util.UUID;
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.DataHandlers.Settings.Settings;
 
 /**
  * Created by adinH on 2016-11-18.
@@ -47,7 +46,7 @@ public class NavigationInteractor {
             @Override
             public void onClick(View v) { //listeners that goes back to settings whne pressed
                 fragment.beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
-                NavigationActivity.getSupportActionBar().setTitle("Settings"); //sets the title to settings
+                NavigationActivity.getSupportActionBar().setTitle("FetchSettings"); //sets the title to settings
                 toggleDrawerUse(true);//activates the drawer again
 
             }

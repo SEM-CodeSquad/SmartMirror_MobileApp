@@ -27,7 +27,6 @@ public class ManageSwiperAdapter extends FragmentStatePagerAdapter {
 
         Fragment fragment = new PageFragment();
         Bundle bundle = new Bundle();
-        System.out.println(finalobj.toString());
         bundle.putString("ID", finalobj.get("PostitID").toString());
         bundle.putString("Text", finalobj.get("Text").toString());
         bundle.putString("Color", finalobj.get("Color").toString());

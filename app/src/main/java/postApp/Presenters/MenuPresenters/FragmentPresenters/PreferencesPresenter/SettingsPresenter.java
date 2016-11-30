@@ -1,11 +1,8 @@
 package postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter;
 
-import android.widget.Toast;
-
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PreferencesHandler.SettingsHandler;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
-import postApp.DataHandlers.Settings.Settings;
 
 /**
  * Created by adinH on 2016-11-18.
@@ -69,6 +66,9 @@ public class SettingsPresenter {
 
     }
 
+    public void StoreSettings(String user, String News, String Weather, String Bus){
+        SettingsHandler.StoreSettings(user, News, Weather, Bus);
+    }
     public void ShowBus() {
         SettingsView.ShowBus();
     }
@@ -122,6 +122,9 @@ public class SettingsPresenter {
         ((NavigationActivity) SettingsView.getActivity()).setNews("ABC");
     }
 
+    public void UpdateScreen(){
+        SettingsView.UpdateScreen();
+    }
 
     public void BusByLoc() {
         SettingsHandler.SetLocalStop();

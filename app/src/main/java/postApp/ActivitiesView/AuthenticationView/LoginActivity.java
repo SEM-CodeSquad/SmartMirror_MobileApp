@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param menu
      * Creates option menu when the activity is created
      * @return
-     * True that it's created
+     * true that it's created
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
      * Loading method that shows a progressdialog
      */
     public void Loading(){
-        progress.setMessage("Loading Postits");
+        progress.setMessage("Logging In");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
         progress.show();
