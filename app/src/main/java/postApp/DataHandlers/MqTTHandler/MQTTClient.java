@@ -67,7 +67,7 @@ public class MQTTClient {
     }
 
 
-    MqttClient getClient()
+    public MqttClient getClient()
     {
         return client;
     }

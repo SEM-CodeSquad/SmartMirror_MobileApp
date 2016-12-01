@@ -10,9 +10,12 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.Shop
 public class ShoppingHandler {
     ShoppingPresenter ShoppingPresenter;
     ShoppingView ShoppingView;
-    public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter){
+
+    public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter) {
         this.ShoppingView = ShoppingView;
         this.ShoppingPresenter = ShoppingPresenter;
 
     }
+
+
 }
