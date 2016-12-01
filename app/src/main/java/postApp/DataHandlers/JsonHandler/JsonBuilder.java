@@ -47,7 +47,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 sendthis.put("content", jArray);
                 String messagestring = sendthis.toJSONString();
-                post = new HttpRequestSender("codehigh.ddns.me", topic, messagestring, clientID);
+                post = new HttpRequestSender("codehigh.ddns.me", topic, messagestring, "0", "false");
             }
             else if(args[1].equals("config")){
                 sendthis.put("contentType", "settings");
@@ -69,8 +69,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
-                System.out.println(message);
-                post = new HttpRequestSender("codehigh.ddns.me",  topic, message, clientID);
+                post = new HttpRequestSender("codehigh.ddns.me",  topic, message, "0", "false");
 
             }
             else if(args[1].equals("pairing"))
@@ -87,7 +86,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
                 System.out.println(topic);
                 System.out.println(message);
-                post = new HttpRequestSender("codehigh.ddns.me", topic, message, clientID);
+                post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
             }
             else if(args[1].equals("postIt action"))
             {
@@ -104,7 +103,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
                 String message = sendthis.toJSONString();
 
-                post = new HttpRequestSender("codehigh.ddns.me", topic, message, clientID);
+                post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
             }
             post.executePost(myUrl);
             System.out.println(post.getHttpResponse());
