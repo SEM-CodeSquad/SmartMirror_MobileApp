@@ -11,14 +11,14 @@ import java.util.Observable;
  * @author Emanuel on 21/11/2016.
  */
 
-public class TEMPNAMEMQTTSub extends Observable implements MqttCallback
+public class MQTTSub extends Observable implements MqttCallback
 {
     /**
      *
      */
     private MQTTClient client;
 
-    public TEMPNAMEMQTTSub(MQTTClient client, String topic)
+    public MQTTSub(MQTTClient client, String topic)
     {
         System.out.println("Disconnecting...");
         try

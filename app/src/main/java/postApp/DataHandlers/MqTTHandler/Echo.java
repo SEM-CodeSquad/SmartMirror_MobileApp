@@ -14,7 +14,7 @@ public class Echo extends  Observable implements Observer
 {
     private MQTTClient client;
     private String echoTopic;
-    private TEMPNAMEMQTTSub subscriber;
+    private MQTTSub subscriber;
 
     public Echo(String topic, String ClientID)
     {
@@ -22,7 +22,7 @@ public class Echo extends  Observable implements Observer
         MemoryPersistence persistence = new MemoryPersistence();
         String Uuid = UUID.randomUUID().toString();
         client = new MQTTClient("tcp://codehigh.ddns.me", ClientID + Uuid, persistence);  //change this to prata broker later
-        subscriber = new TEMPNAMEMQTTSub(client, echoTopic);
+        subscriber = new MQTTSub(client, echoTopic);
         subscriber.addObserver(this);
     }
 
