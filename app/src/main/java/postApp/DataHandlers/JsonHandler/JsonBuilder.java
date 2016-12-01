@@ -103,8 +103,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
-                System.out.println(message);
-                System.out.println(topic);
+
                 post = new HttpRequestSender("codehigh.ddns.me", topic, message, clientID);
             }
             post.executePost(myUrl);
