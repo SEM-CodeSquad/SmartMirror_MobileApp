@@ -34,7 +34,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             sendthis.put("timestamp", "12");
 
             // Please use this format when passing around a JSON obj
-            // 2 diffrent outcomes if its a postit we publish to a diffrent topic if its a config we publish to a dif topic with a dif jsonobj
+            // 2 different outcomes if its a postit we publish to a different topic if its a config we publish to a dif topic with a dif jsonobj
             if(args[1].equals("postit")) {
                 JSONObject item = new JSONObject();
                 sendthis.put("contentType", "post-it");

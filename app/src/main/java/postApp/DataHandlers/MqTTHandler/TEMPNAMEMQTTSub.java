@@ -2,10 +2,7 @@ package postApp.DataHandlers.MqTTHandler;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
-
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.Observable;
@@ -14,14 +11,14 @@ import java.util.Observable;
  * @author Emanuel on 21/11/2016.
  */
 
-public class MQTTSub extends Observable implements MqttCallback
+public class TEMPNAMEMQTTSub extends Observable implements MqttCallback
 {
     /**
      *
      */
     private MQTTClient client;
 
-    public MQTTSub(MQTTClient client, String topic)
+    public TEMPNAMEMQTTSub(MQTTClient client, String topic)
     {
         System.out.println("Disconnecting...");
         try
