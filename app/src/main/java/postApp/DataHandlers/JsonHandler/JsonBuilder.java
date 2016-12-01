@@ -98,8 +98,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
 
                 post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
-            }
-            if(args[1].equals("shoppinglist")) {
+            } else if (args[1].equals("shoppinglist")) {
                 JSONObject item = new JSONObject();
                 sendthis.put("client-id", args[1]);
                 item.put("list", args[2]);
@@ -107,11 +106,11 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 item.put("data", args[4]);
                 JSONArray jArray = new JSONArray();
                 jArray.add(0, item);
-                topic = "dit029/SmartMirror/" + args[1];
+                topic = "Gro/" + args[1];
                 sendthis.put("content", jArray);
-                String messagestring = sendthis.toJSONString();
+                String messageString = sendthis.toJSONString();
                 //TODO the following part, codehigh.ddns.me needs to be changed
-                post = new HttpRequestSender("codehigh.ddns.me", topic, messagestring, "1", "false");
+                post = new HttpRequestSender("codehigh.ddns.me", topic, messageString, "1", "false");
             }
             post.executePost(myUrl);
             System.out.println(post.getHttpResponse());
