@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Disable all"
-        android:id="@+id/disablebutton"
+        android:id="@+id/disableswitch"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
@@ -23,12 +24,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Weather"
-        android:id="@+id/weatherbutton"
+        android:id="@+id/weatherswitch"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_below="@+id/disablebutton"
+        android:layout_below="@+id/disableswitch"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textStyle="bold"
@@ -39,8 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bus timetable"
-        android:id="@+id/busbutton"
-        android:layout_below="@+id/weatherbutton"
+        android:id="@+id/busswitch"
+        android:layout_below="@+id/weatherswitch"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
@@ -55,8 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Post It"
-        android:id="@+id/postbutton"
-        android:layout_below="@+id/busbutton"
+        android:id="@+id/postswitch"
+        android:layout_below="@+id/busswitch"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="60dp"
@@ -72,39 +73,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Clock"
-        android:id="@+id/clockbutton"
-        android:layout_alignLeft="@+id/postbutton"
-        android:layout_alignStart="@+id/postbutton"
-        android:layout_below="@+id/postbutton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:id="@+id/clockswitch"
+        android:layout_alignLeft="@+id/postswitch"
+        android:layout_alignStart="@+id/postswitch"
+        android:layout_below="@+id/postswitch"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true" />
 
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Calender"
-        android:id="@+id/calenderbutton"
+        android:id="@+id/calenderswitch"
         android:layout_marginTop="36dp"
-        android:layout_below="@+id/clockbutton"
-        android:layout_alignLeft="@+id/clockbutton"
-        android:layout_alignStart="@+id/clockbutton"
-        android:layout_alignRight="@+id/clockbutton"
-        android:layout_alignEnd="@+id/clockbutton"
-        android:textStyle="bold"/>
+        android:layout_below="@+id/clockswitch"
+        android:layout_alignLeft="@+id/clockswitch"
+        android:layout_alignStart="@+id/clockswitch"
+        android:textStyle="bold"
+        android:layout_alignEnd="@+id/clockswitch" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView3"
-        android:layout_above="@+id/weatherbutton"
+        android:layout_above="@+id/weatherswitch"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/clockbutton"
-        android:layout_toStartOf="@+id/clockbutton" />
+        android:layout_toLeftOf="@+id/clockswitch"
+        android:layout_toStartOf="@+id/clockswitch" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -115,8 +114,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/weather"
-        android:layout_alignTop="@+id/weatherbutton"
-        android:layout_alignBottom="@+id/weatherbutton" />
+        android:layout_alignTop="@+id/weatherswitch"
+        android:layout_alignBottom="@+id/weatherswitch" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -125,8 +124,8 @@
         android:src="@drawable/bus"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/busbutton"
-        android:layout_alignTop="@+id/busbutton" />
+        android:layout_alignBottom="@+id/busswitch"
+        android:layout_alignTop="@+id/busswitch" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -137,30 +136,71 @@
         android:layout_alignEnd="@+id/imageView6"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/postbutton"
-        android:layout_alignBottom="@+id/postbutton" />
+        android:layout_alignTop="@+id/postswitch"
+        android:layout_alignBottom="@+id/postswitch" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView8"
-        android:layout_toLeftOf="@+id/clockbutton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/calenderbutton"
+        android:layout_above="@+id/calenderswitch"
         android:src="@drawable/clock"
-        android:layout_alignTop="@+id/clockbutton" />
+        android:layout_alignTop="@+id/clockswitch"
+        android:layout_alignEnd="@+id/imageView7" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView9"
-        android:layout_toLeftOf="@+id/calenderbutton"
-        android:layout_alignTop="@+id/calenderbutton"
+        android:layout_alignTop="@+id/calenderswitch"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/calenderbutton"
-        android:src="@drawable/calender"/>
+        android:layout_alignBottom="@+id/calenderswitch"
+        android:src="@drawable/calender"
+        android:layout_alignEnd="@+id/imageView8" />
+
+    <Switch
+        android:text="Switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:id="@+id/switch4"
+        android:layout_below="@+id/calenderswitch"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/imageView9"
+        android:layout_marginRight="20dp"
+        android:layout_alignStart="@+id/calenderswitch" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/clock"
+        android:id="@+id/imageView18"
+        android:layout_alignBottom="@+id/switch4"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/switch4"
+        android:layout_alignEnd="@+id/imageView9" />
+
+    <Switch
+        android:text="Switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/switch4"
+        android:layout_marginBottom="19dp"
+        android:id="@+id/switch5"
+        android:layout_alignEnd="@+id/switch4" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/clock"
+        android:layout_alignBottom="@+id/switch5"
+        android:layout_alignParentStart="true"
+        android:id="@+id/imageView19"
+        android:layout_alignTop="@+id/switch5" />
 
 
 </RelativeLayout>

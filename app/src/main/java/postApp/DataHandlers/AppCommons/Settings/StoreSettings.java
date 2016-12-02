@@ -50,7 +50,6 @@ public class StoreSettings extends Observable implements Observer {
         protected Void doInBackground(Void... arg0) {
             settings = new String[3];
             try {
-
                 String query = "UPDATE Users SET BusConfig = '" + bus + "', WeatherConfig = '" + weather + "', `NewsFeedConfig` = '" + news + "' WHERE `UserID` = '" + user +"'";
                 PreparedStatement pstSettings = c.prepareStatement(query);
                 pstSettings.executeUpdate();

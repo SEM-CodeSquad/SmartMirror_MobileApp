@@ -20,7 +20,8 @@ public class ParseJson {
 
     String busID;
     String busName;
-    Map <String, String> SearchMap;
+    Map<String, String> SearchMap;
+
     public String[] parseSearch(String json, String search) throws ParseException {
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         SearchMap = new HashMap<String, String>();
@@ -36,13 +37,13 @@ public class ParseJson {
             String busID = finalobj.get("id").toString();
             if (search.toLowerCase().equals(name.substring(0, search.length()).toLowerCase())) {
                 newlist[i] = name.toString();
-                SearchMap.put(name,busID);
+                SearchMap.put(name, busID);
             }
         }
         return clean(newlist);
-
     }
-    public String getBusIDfromSearch(String BusStop){
+
+    public String getBusIDfromSearch(String BusStop) {
         return SearchMap.get(BusStop);
     }
 
@@ -61,9 +62,8 @@ public class ParseJson {
         return busID;
     }
 
-    public String getName(){
-
-    return busName;
+    public String getName() {
+        return busName;
     }
 
     public static String[] clean(final String[] v) {
