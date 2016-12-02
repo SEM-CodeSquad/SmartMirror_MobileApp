@@ -1,18 +1,11 @@
 package postApp.DataHandlers.MqTTHandler;
 
 
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
-
-import postApp.DataHandlers.Postits.StorePostits;
 
 /**
  In progress will finish asap

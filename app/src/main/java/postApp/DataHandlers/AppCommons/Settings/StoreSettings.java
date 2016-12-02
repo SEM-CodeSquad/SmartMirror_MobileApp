@@ -1,32 +1,36 @@
-package postApp.DataHandlers.Settings;
+package postApp.DataHandlers.AppCommons.Settings;
 
 import android.os.AsyncTask;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.ExecutionException;
 
-import postApp.DataHandlers.Authentication.DBConnection;
+import postApp.DataHandlers.DBConnection.DBConnection;
 
 /**
- * Created by Emanuel on 07/11/2016.
+ * Created by adinH on 2016-11-30.
  */
 
-public class FetchSettings extends Observable implements Observer {
+public class StoreSettings extends Observable implements Observer {
     private DBConnection conn;
     Connection c;
     private String user;
     private String[] settings;
+    private boolean sett;
+    String news;
+    String bus;
+    String weather;
 
-
-    public FetchSettings(String User) {
+    public StoreSettings(String User, String news, String bus, String weather) {
         try {
             conn = new DBConnection();
             conn.addObserver(this);
             this.user = User;
+            this.news = news;
+            this.bus = bus;
+            this.weather = weather;
         } catch (Exception v) {
             System.out.println(v);
         }
@@ -46,39 +50,33 @@ public class FetchSettings extends Observable implements Observer {
         protected Void doInBackground(Void... arg0) {
             settings = new String[3];
             try {
-                String query = "select BusConfig, WeatherConfig, NewsFeedConfig from Users where UserID=?";
+
+                String query = "UPDATE Users SET BusConfig = '" + bus + "', WeatherConfig = '" + weather + "', `NewsFeedConfig` = '" + news + "' WHERE `UserID` = '" + user +"'";
                 PreparedStatement pstSettings = c.prepareStatement(query);
-                pstSettings.setString(1, user);
-                ResultSet rs = pstSettings.executeQuery();
-
-
-                while (rs.next()) {
-                    String bus = rs.getString("BusConfig");
-                    settings[0] = bus;
-                    String weather = rs.getString("WeatherConfig");
-                    settings[1] = weather;
-                    String news = rs.getString("NewsFeedConfig");
-                    settings[2] = news;
-
-
-                }
+                pstSettings.executeUpdate();
+                pstSettings.close();
+                sett = true;
             } catch (Exception e) {
                 e.printStackTrace();
+                sett = false;
 
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void unused) {
             NotObserver();
         }
     }
 
-    public void NotObserver(){
+    public void NotObserver() {
         setChanged();
         notifyObservers();
     }
-    public String[] getSettings(){
-        return settings;
+
+    public Boolean getSettings() {
+        return sett;
     }
 }
+

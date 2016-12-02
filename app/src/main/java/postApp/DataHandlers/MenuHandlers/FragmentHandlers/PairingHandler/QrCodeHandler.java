@@ -9,7 +9,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PairingPresenter.QrCodePresenter;
 
 /**

@@ -13,11 +13,11 @@ import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
-import postApp.DataHandlers.JsonHandler.ParseJson;
-import postApp.DataHandlers.Settings.StoreSettings;
-import postApp.DataHandlers.Vasttrafik.GenerateAccessCode;
-import postApp.DataHandlers.Vasttrafik.TravelByLoc;
+import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.AppCommons.JsonHandler.ParseJson;
+import postApp.DataHandlers.AppCommons.Settings.StoreSettings;
+import postApp.DataHandlers.AppCommons.Vasttrafik.GenerateAccessCode;
+import postApp.DataHandlers.AppCommons.Vasttrafik.TravelByLoc;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.SettingsPresenter;
 
 /**

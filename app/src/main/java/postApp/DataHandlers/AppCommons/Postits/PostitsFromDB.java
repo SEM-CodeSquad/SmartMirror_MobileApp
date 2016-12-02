@@ -1,4 +1,4 @@
-package postApp.DataHandlers.Postits;
+package postApp.DataHandlers.AppCommons.Postits;
 
 import android.os.AsyncTask;
 
@@ -10,7 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
-import postApp.DataHandlers.Authentication.DBConnection;
+import postApp.DataHandlers.DBConnection.DBConnection;
 
 public class PostitsFromDB  extends Observable implements Observer {
     private DBConnection conn;

@@ -11,16 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-import com.google.zxing.Result;
 
-
-import java.util.concurrent.ExecutionException;
-
-import adin.postApp.R;
-import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
-import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PairingHandler.QrCodeHandler;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PairingPresenter.QrCodePresenter;
 
 

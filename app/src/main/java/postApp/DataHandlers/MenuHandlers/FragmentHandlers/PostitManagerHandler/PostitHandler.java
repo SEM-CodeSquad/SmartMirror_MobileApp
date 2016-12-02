@@ -8,11 +8,11 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
-import postApp.DataHandlers.Authentication.DBConnection;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.DBConnection.DBConnection;
+import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.MqTTHandler.Echo;
 
-import postApp.DataHandlers.Postits.StorePostits;
+import postApp.DataHandlers.AppCommons.Postits.StorePostits;
 
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.PostitPresenter;
 

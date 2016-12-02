@@ -1,16 +1,13 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.ManagePostits;
 
-import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostits.PageFragment;
-import postApp.DataHandlers.Authentication.DBConnection;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.MqTTHandler.Echo;
-import postApp.DataHandlers.Postits.DeletePostit;
+import postApp.DataHandlers.AppCommons.Postits.DeletePostit;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits.PageFragmentPresenter;
 
 /**

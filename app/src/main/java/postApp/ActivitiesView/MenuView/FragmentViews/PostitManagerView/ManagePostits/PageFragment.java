@@ -3,7 +3,6 @@ package postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePo
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
@@ -16,13 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits.PageFragmentPresenter;
 
 /**

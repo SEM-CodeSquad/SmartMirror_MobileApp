@@ -1,4 +1,4 @@
-package postApp.DataHandlers.Pairing;
+package postApp.DataHandlers.AppCommons.Pairing;
 
 /**
  * Created by adinH on 2016-11-10.

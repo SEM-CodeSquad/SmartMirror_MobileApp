@@ -14,16 +14,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.Toast;
-
-import java.util.Calendar;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.PostitPresenter;
 
 /**

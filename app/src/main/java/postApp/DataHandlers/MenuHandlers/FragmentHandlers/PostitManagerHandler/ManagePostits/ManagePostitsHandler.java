@@ -3,9 +3,9 @@ package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.
 import java.util.Observable;
 import java.util.Observer;
 import android.os.Handler;
-import postApp.DataHandlers.Postits.DeletePostit;
-import postApp.DataHandlers.Postits.EditPostit;
-import postApp.DataHandlers.Postits.ReadPostits;
+import postApp.DataHandlers.AppCommons.Postits.DeletePostit;
+import postApp.DataHandlers.AppCommons.Postits.EditPostit;
+import postApp.DataHandlers.AppCommons.Postits.ReadPostits;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits.ManagePostitsPresenter;
 
 /**

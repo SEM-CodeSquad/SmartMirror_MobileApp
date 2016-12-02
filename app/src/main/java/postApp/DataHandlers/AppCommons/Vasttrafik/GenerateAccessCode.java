@@ -1,4 +1,4 @@
-package postApp.DataHandlers.Vasttrafik;
+package postApp.DataHandlers.AppCommons.Vasttrafik;
 
 import java.io.BufferedReader;
 import java.io.IOException;

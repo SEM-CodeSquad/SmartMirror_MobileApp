@@ -1,4 +1,4 @@
-package postApp.DataHandlers.Postits;
+package postApp.DataHandlers.AppCommons.Postits;
 
 import android.os.AsyncTask;
 
@@ -6,9 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.ExecutionException;
 
-import postApp.DataHandlers.Authentication.DBConnection;
+import postApp.DataHandlers.DBConnection.DBConnection;
 
 /**
  * @author Emanuel on 23/11/2016.

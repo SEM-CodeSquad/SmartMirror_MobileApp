@@ -5,7 +5,7 @@ import android.os.Handler;
 import java.util.Observable;
 import java.util.Observer;
 
-import postApp.DataHandlers.Settings.FetchSettings;
+import postApp.DataHandlers.AppCommons.Settings.FetchSettings;
 import postApp.Presenters.AuthenticationPresenters.LoginPresenter;
 
 /**

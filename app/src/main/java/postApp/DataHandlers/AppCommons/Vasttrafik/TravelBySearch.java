@@ -1,4 +1,4 @@
-package postApp.DataHandlers.Vasttrafik;
+package postApp.DataHandlers.AppCommons.Vasttrafik;
 
 import android.os.AsyncTask;
 
@@ -13,15 +13,17 @@ import java.net.URL;
 /**
  * Created by adinH on 2016-11-02.
  */
-public class TravelByLoc extends AsyncTask<String, Void, String> {
+   public class TravelBySearch extends AsyncTask<String, Void, String> {
 
-    protected String doInBackground(String... args) {
+    String loc;
+
+        protected String doInBackground(String... args) {
 
         StringBuilder result = new StringBuilder();
         URL url = null;
         try {
 
-            url = new URL("https://api.vasttrafik.se/bin/rest.exe/v2/location.nearbystops?originCoordLat="+ args[1] + "&originCoordLong="+ args[2] + "&maxNo=1&format=json");
+            url = new URL("https://api.vasttrafik.se/bin/rest.exe/v2/location.name?input=" + args[1] + "&format=json");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty( "Authorization:", "Bearer " + args[0]);
@@ -40,9 +42,9 @@ public class TravelByLoc extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
+        System.out.println(result.toString());
         return result.toString();
 
     }
-
 
 }

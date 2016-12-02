@@ -8,7 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.ExecutionException;
+
+import postApp.DataHandlers.DBConnection.DBConnection;
 
 public class Registration extends Observable implements Observer {
     private DBConnection conn;

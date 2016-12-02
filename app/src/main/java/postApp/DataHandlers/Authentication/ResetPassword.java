@@ -6,7 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.ExecutionException;
+
+import postApp.DataHandlers.DBConnection.DBConnection;
 
 /**
  * Created by Emanuel on 08/11/2016.

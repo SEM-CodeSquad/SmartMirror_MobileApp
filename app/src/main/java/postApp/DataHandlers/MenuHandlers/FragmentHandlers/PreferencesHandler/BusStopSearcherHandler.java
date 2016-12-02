@@ -9,10 +9,10 @@ import java.util.concurrent.ExecutionException;
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.BusStopSearcherView;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
-import postApp.DataHandlers.JsonHandler.ParseJson;
-import postApp.DataHandlers.Vasttrafik.GenerateAccessCode;
-import postApp.DataHandlers.Vasttrafik.TravelBySearch;
+import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.AppCommons.JsonHandler.ParseJson;
+import postApp.DataHandlers.AppCommons.Vasttrafik.GenerateAccessCode;
+import postApp.DataHandlers.AppCommons.Vasttrafik.TravelBySearch;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.BusStopSearcherPresenter;
 
 
