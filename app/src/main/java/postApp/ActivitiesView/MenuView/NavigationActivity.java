@@ -19,6 +19,7 @@ import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.AboutView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.ContactView;
+import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.HidePostitView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostits.ManagePostitsView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.PreferencesView;
@@ -186,6 +187,11 @@ public class NavigationActivity extends AppCompatActivity
             fragment.beginTransaction().replace(R.id.content_frame, new ShoppingView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Shopping List");
         }
+        else if (id == R.id.nav_filterpost) {
+            fragment.beginTransaction().replace(R.id.content_frame, new HidePostitView()).addToBackStack(null).commit();
+            getSupportActionBar().setTitle("Shopping List");
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

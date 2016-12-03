@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -24,10 +26,12 @@ public class PreferencesView extends Fragment {
     Switch busswitch;
     Switch newsswitch;
     Switch clockswitch;
-    Switch calenderswitch;
+    Switch deviceswitch;
     Switch weatherswitch;
     Switch postitswitch;
+    Switch greetingsswitch;
     PreferencesPresenter presenter;
+    Button publish;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,12 +39,32 @@ public class PreferencesView extends Fragment {
 
         disableswitch = (Switch) myView.findViewById(R.id.disableswitch);
         busswitch = (Switch) myView.findViewById(R.id.busswitch);
-        //newsswitch = (Switch) myView.findViewById(R.id.newsswitch);
+        newsswitch = (Switch) myView.findViewById(R.id.newsswitch);
         clockswitch = (Switch) myView.findViewById(R.id.clockswitch);
-        calenderswitch = (Switch) myView.findViewById(R.id.disableswitch);
-        weatherswitch = (Switch) myView.findViewById(R.id.disableswitch);
-        postitswitch = (Switch) myView.findViewById(R.id.disableswitch);
+        deviceswitch = (Switch) myView.findViewById(R.id.deviceswitch);
+        weatherswitch = (Switch) myView.findViewById(R.id.weatherswitch);
+        postitswitch = (Switch) myView.findViewById(R.id.postswitch);
+        greetingsswitch = (Switch) myView.findViewById(R.id.greetingsswitch);
+        publish = (Button) myView.findViewById(R.id.prefpub);
         presenter = new PreferencesPresenter(this);
+
+        publish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.PrefBtn();
+            }
+        });
+        disableswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked) {
+                    presenter.DisBtnTrue();
+                } else {
+                    presenter.DisBtnFalse();
+                }
+            }
+        });
+
         return myView;
         }
 
@@ -56,7 +80,29 @@ public class PreferencesView extends Fragment {
             // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
             Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
     }
+
+    public void DisBtnTrue(){
+        busswitch.setChecked(true);
+        newsswitch.setChecked(true);
+        postitswitch.setChecked(true);
+        greetingsswitch.setChecked(true);
+        clockswitch.setChecked(true);
+        deviceswitch.setChecked(true);
+        weatherswitch.setChecked(true);
+    }
+    public void DisBtnFalse(){
+        busswitch.setChecked(false);
+        newsswitch.setChecked(false);
+        postitswitch.setChecked(false);
+        greetingsswitch.setChecked(false);
+        clockswitch.setChecked(false);
+        deviceswitch.setChecked(false);
+        weatherswitch.setChecked(false);
+    }
     public void PublishPrefs(){
-        //presenter.PublishPrefs(topic, user, news, bus, weather, clock, calender, external);
+        presenter.PublishPrefs(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), Boolean.toString(newsswitch.isChecked()),
+                Boolean.toString(busswitch.isChecked()),
+                Boolean.toString(weatherswitch.isChecked()), Boolean.toString(clockswitch.isChecked()),  Boolean.toString(deviceswitch.isChecked()),
+                Boolean.toString(greetingsswitch.isChecked()), Boolean.toString(postitswitch.isChecked()));
     }
 }

@@ -98,6 +98,37 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
 
                 post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
+            } else if (args[1].equals("preferences")) {
+                topic = "dit029/SmartMirror/" + args[0] + "/preferences";
+                sendthis.put("contentType", args[1]);
+
+                JSONArray jArray = new JSONArray();
+                JSONObject test = new JSONObject();
+                test.put("news", args[3]);
+                test.put("bus", args[4]);
+                test.put("weather", args[5]);
+                test.put("clock", args[6]);
+                test.put("device", args[7]);
+                test.put("greetings", args[8]);
+                test.put("postits", args[9]);
+                jArray.add(test);
+                sendthis.put("content", jArray);
+
+                String message = sendthis.toJSONString();
+
+                post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
+            } else if (args[1].equals("preferencesHide")) {
+                    topic = "dit029/SmartMirror/" + args[0] + "/preferences";
+                    sendthis.put("contentType", "preferences");
+
+                    JSONArray jArray = new JSONArray();
+                    JSONObject test = new JSONObject();
+                    test.put("showOnly", args[3]);
+                    jArray.add(test);
+                    sendthis.put("content", jArray);
+
+                    String message = sendthis.toJSONString();
+                    post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
             } else if (args[1].equals("shoppinglist")) {
                 JSONObject item = new JSONObject();
                 sendthis.put("client-id", args[1]);

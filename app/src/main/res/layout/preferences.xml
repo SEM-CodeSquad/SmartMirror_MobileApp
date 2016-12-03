@@ -1,206 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent" android:layout_height="fill_parent"
+        android:background="#ffffff">
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Disable all"
-        android:id="@+id/disableswitch"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:checked="false"
-        android:textStyle="bold"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disable all"
+            android:id="@+id/disableswitch"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:checked="false"
+            android:textStyle="bold"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Weather"
-        android:id="@+id/weatherswitch"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_below="@+id/disableswitch"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="bold"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weather"
+            android:id="@+id/weatherswitch"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/disableswitch"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bus timetable"
-        android:id="@+id/busswitch"
-        android:layout_below="@+id/weatherswitch"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="bold"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bus timetable"
+            android:id="@+id/busswitch"
+            android:layout_below="@+id/weatherswitch"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Post It"
-        android:id="@+id/postswitch"
-        android:layout_below="@+id/busswitch"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="20dp"
-        android:textStyle="bold"
-        android:checked="false" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Post It"
+            android:id="@+id/postswitch"
+            android:layout_below="@+id/busswitch"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:textStyle="bold"
+            android:checked="false" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clock"
-        android:id="@+id/clockswitch"
-        android:layout_alignLeft="@+id/postswitch"
-        android:layout_alignStart="@+id/postswitch"
-        android:layout_below="@+id/postswitch"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:layout_alignParentEnd="true" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clock"
+            android:id="@+id/clockswitch"
+            android:layout_alignLeft="@+id/postswitch"
+            android:layout_alignStart="@+id/postswitch"
+            android:layout_below="@+id/postswitch"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calender"
-        android:id="@+id/calenderswitch"
-        android:layout_marginTop="36dp"
-        android:layout_below="@+id/clockswitch"
-        android:layout_alignLeft="@+id/clockswitch"
-        android:layout_alignStart="@+id/clockswitch"
-        android:textStyle="bold"
-        android:layout_alignEnd="@+id/clockswitch" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="News"
+            android:id="@+id/newsswitch"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/clockswitch"
+            android:layout_alignLeft="@+id/clockswitch"
+            android:layout_alignStart="@+id/clockswitch"
+            android:textStyle="bold"
+            android:layout_alignEnd="@+id/clockswitch" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:layout_above="@+id/weatherswitch"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/clockswitch"
-        android:layout_toStartOf="@+id/clockswitch" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:layout_above="@+id/weatherswitch"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/clockswitch"
+            android:layout_toStartOf="@+id/clockswitch" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView5"
-        android:layout_alignRight="@+id/imageView3"
-        android:layout_alignEnd="@+id/imageView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/weather"
-        android:layout_alignTop="@+id/weatherswitch"
-        android:layout_alignBottom="@+id/weatherswitch" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView5"
+            android:layout_alignRight="@+id/imageView3"
+            android:layout_alignEnd="@+id/imageView3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/weather"
+            android:layout_alignTop="@+id/weatherswitch"
+            android:layout_alignBottom="@+id/weatherswitch" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView6"
-        android:src="@drawable/bus"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/busswitch"
-        android:layout_alignTop="@+id/busswitch" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView6"
+            android:src="@drawable/bus"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/busswitch"
+            android:layout_alignTop="@+id/busswitch" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView7"
-        android:src="@mipmap/post_it_"
-        android:layout_alignRight="@+id/imageView6"
-        android:layout_alignEnd="@+id/imageView6"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/postswitch"
-        android:layout_alignBottom="@+id/postswitch" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView7"
+            android:src="@mipmap/post_it_"
+            android:layout_alignRight="@+id/imageView6"
+            android:layout_alignEnd="@+id/imageView6"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/postswitch"
+            android:layout_alignBottom="@+id/postswitch" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView8"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/calenderswitch"
-        android:src="@drawable/clock"
-        android:layout_alignTop="@+id/clockswitch"
-        android:layout_alignEnd="@+id/imageView7" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView8"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/newsswitch"
+            android:src="@drawable/clock"
+            android:layout_alignTop="@+id/clockswitch"
+            android:layout_alignEnd="@+id/imageView7" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView9"
-        android:layout_alignTop="@+id/calenderswitch"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/calenderswitch"
-        android:src="@drawable/calender"
-        android:layout_alignEnd="@+id/imageView8" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView9"
+            android:layout_alignTop="@+id/newsswitch"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/newsswitch"
+            android:src="@drawable/news"
+            android:layout_alignEnd="@+id/imageView8" />
 
-    <Switch
-        android:text="Switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:id="@+id/switch4"
-        android:layout_below="@+id/calenderswitch"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/imageView9"
-        android:layout_marginRight="20dp"
-        android:layout_alignStart="@+id/calenderswitch" />
+        <Switch
+            android:text="Device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/deviceswitch"
+            android:layout_below="@+id/greetingsswitch"
+            android:layout_marginRight="20dp"
+            android:layout_alignStart="@+id/greetingsswitch"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal|bold"
+            android:layout_alignParentEnd="true" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/clock"
-        android:id="@+id/imageView18"
-        android:layout_alignBottom="@+id/switch4"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/switch4"
-        android:layout_alignEnd="@+id/imageView9" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/clock"
+            android:id="@+id/imageView18"
+            android:layout_alignBottom="@+id/deviceswitch"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/deviceswitch"
+            android:layout_alignEnd="@+id/imageView9" />
 
-    <Switch
-        android:text="Switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/switch4"
-        android:layout_marginBottom="19dp"
-        android:id="@+id/switch5"
-        android:layout_alignEnd="@+id/switch4" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/clock"
+            android:layout_alignBottom="@+id/greetingsswitch"
+            android:layout_alignParentStart="true"
+            android:id="@+id/imageView19"
+            android:layout_alignTop="@+id/greetingsswitch" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/clock"
-        android:layout_alignBottom="@+id/switch5"
-        android:layout_alignParentStart="true"
-        android:id="@+id/imageView19"
-        android:layout_alignTop="@+id/switch5" />
+        <Switch
+            android:text="Greetings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/greetingsswitch"
+            android:textStyle="normal|bold"
+            android:layout_below="@+id/newsswitch"
+            android:layout_alignStart="@+id/newsswitch"
+            android:layout_marginTop="20dp"
+            android:layout_alignEnd="@+id/newsswitch" />
 
+        <Button
+            android:text="Update Preferences"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/deviceswitch"
+            android:layout_alignStart="@+id/deviceswitch"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="46dp"
+            android:id="@+id/prefpub" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

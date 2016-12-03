@@ -16,8 +16,17 @@ public class PreferencesPresenter {
         this.PreferencesHandler = new PreferencesHandler(this);
     }
 
-    public void PublishPrefs(String topic, String user, String news, String bus, String weather, String clock, String calender ,String external){
-        PreferencesHandler.PublishPrefs(topic, user, news, bus, weather, clock, calender, external);
+    public void PublishPrefs(String topic, String user, String news, String bus, String weather, String device, String clock, String calender ,String external){
+        PreferencesHandler.PublishPrefs(topic, user, news, bus, weather, device, clock, calender, external);
+    }
+    public void PrefBtn(){
+        PreferencesView.PublishPrefs();
+    }
+    public void DisBtnTrue(){
+        PreferencesView.DisBtnTrue();
+    }
+    public void DisBtnFalse(){
+        PreferencesView.DisBtnFalse();
     }
     public void ShowMessage(String S){
         PreferencesView.displaySuccPub(S);

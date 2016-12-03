@@ -11,12 +11,16 @@
             android:icon="@mipmap/post_it_"/>
         <item
             android:id="@+id/nav_mirror"
-            android:title="Display Mirror"
+            android:title="Edit and See Postits"
             android:icon="@drawable/mirror" />
         <item
             android:id="@+id/nav_remove"
             android:title="Remove Postit"
             android:icon="@drawable/delpost"/>
+                <item
+                android:id="@+id/nav_filterpost"
+                android:title="Manage Mirror postits"
+                android:icon="@mipmap/post_it_"/>
             </menu>
         </item>
     </group>
