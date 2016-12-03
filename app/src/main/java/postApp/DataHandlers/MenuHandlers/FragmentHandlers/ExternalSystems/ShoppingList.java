@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 
 public class ShoppingList {
-    String listTitle;
-    ArrayList<String> itemList;
+    String listTitle =" ";
+    ArrayList<String> itemList = null;
     String clientID;
 
     public ShoppingList(String listTitle, ArrayList<String> itemList, String clientID){
         this.listTitle = listTitle;
         this.itemList = itemList;
         this.clientID = clientID;
-        itemList = new ArrayList<String>();
+        itemList = new ArrayList<>();
     }
 
     public String getClientID(){

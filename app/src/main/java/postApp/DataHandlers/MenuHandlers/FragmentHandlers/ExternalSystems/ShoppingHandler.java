@@ -1,5 +1,6 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems;
 
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -7,24 +8,31 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.UUID;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
+import postApp.DataHandlers.MqTTHandler.MQTTClient;
+import postApp.DataHandlers.MqTTHandler.MQTTSub;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
 
 
 public class ShoppingHandler {
-    ShoppingPresenter ShoppingPresenter;
-    ShoppingView ShoppingView;
+    ShoppingPresenter presenter;
+    ShoppingView view;
 
+    private ShoppingList shoppingList;
     private String message;
     private String reply;
     private String preData;
     private LinkedList<ShoppingList> SPLList;
 
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter) {
-        this.ShoppingView = ShoppingView;
-        this.ShoppingPresenter = ShoppingPresenter;
-
+        this.view = ShoppingView;
+        this.presenter = ShoppingPresenter;
+        ArrayList<String> abc = new ArrayList<>();
+        shoppingList = new ShoppingList("hey",abc,"clientID");
     }
 
     public void parseMessage(String message) {
@@ -43,6 +51,22 @@ public class ShoppingHandler {
         }
     }
 
+    public void addItemToList(String item){
+        shoppingList.getItemList().add(item);
+    }
+    public void removeItemFromList(int position){
+        shoppingList.getItemList().remove(position);
+    }
+    public void clearShoppingList(){
+        shoppingList.getItemList().clear();
+        shoppingList.setListTitle("");
+    }
+    public ArrayList<String> getShoppingList(){
+        return this.shoppingList.getItemList();
+    }
+    public String getTitle(){
+        return this.shoppingList.getListTitle();
+    }
 
     //TODO unsure if it's needed.
 //    public void parseContent() {
@@ -93,6 +117,5 @@ public class ShoppingHandler {
     public String getReply(){
         return reply;
     }
-
 
 }

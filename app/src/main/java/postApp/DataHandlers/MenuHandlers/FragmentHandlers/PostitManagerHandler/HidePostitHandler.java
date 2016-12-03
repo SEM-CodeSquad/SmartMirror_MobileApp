@@ -2,7 +2,7 @@ package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
 
 import java.util.concurrent.ExecutionException;
 
-import postApp.DataHandlers.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.HidePostitPresenter;
 
 /**
