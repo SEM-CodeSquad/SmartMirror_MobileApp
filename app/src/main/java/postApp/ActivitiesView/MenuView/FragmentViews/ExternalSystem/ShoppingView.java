@@ -48,7 +48,8 @@ public class ShoppingView extends Fragment {
         listTitle = (TextView) myView.findViewById(R.id.editText);
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
-
+        presenter.saveTitle("ListNimish");
+        listTitle.setText(presenter.fetchTitle());
         presenter.updateList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,6 +68,7 @@ public class ShoppingView extends Fragment {
             public void onClick(View view) {
                 fab.setVisibility(View.GONE);
                 listTitle.setEnabled(false);
+                presenter.saveTitle(listTitle.getText().toString());
                 Toast.makeText(getActivity().getApplicationContext(),"Sending List...", Toast.LENGTH_LONG).show();
             }
         });
