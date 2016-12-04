@@ -3,6 +3,7 @@ package postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems.ShoppingHandler;
@@ -33,7 +34,7 @@ public class ShoppingPresenter {
         handler.removeItemFromList(position);
     }
 
-    public ArrayList<String> getShoppingList(){
+    public LinkedList<String> getShoppingList(){
         return handler.getShoppingList();
     }
     public String getTitle(){

@@ -26,13 +26,13 @@ public class ShoppingHandler {
     private String message;
     private String reply;
     private String preData;
-    private LinkedList<ShoppingList> SPLList;
+    private LinkedList<String> SPLList;
 
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter) {
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
-        ArrayList<String> listItems = new ArrayList<>();
-        shoppingList = new ShoppingList("hey",listItems,"clientID"); // Comment here
+        this.SPLList = new LinkedList<>();
+        shoppingList = new ShoppingList("hey",SPLList,"clientID"); // Comment here
     }
 
     public void parseMessage(String message) {
@@ -110,7 +110,7 @@ public class ShoppingHandler {
         shoppingList.setListTitle("");
     }
 
-    public ArrayList<String> getShoppingList(){
+    public LinkedList<String> getShoppingList(){
         return this.shoppingList.getItemList();
     }
     public String getTitle(){
