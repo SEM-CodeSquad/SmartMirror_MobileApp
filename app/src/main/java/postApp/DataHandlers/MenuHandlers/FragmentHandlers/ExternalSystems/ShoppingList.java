@@ -13,7 +13,12 @@ public class ShoppingList {
         this.listTitle = listTitle;
         this.itemList = itemList;
         this.clientID = clientID;
-
+    }
+    public void setClientID(String clientID){
+        this.clientID = clientID;
+    }
+    public void setListTitle(String listTitle){
+        this.listTitle = listTitle;
     }
 
     public String getClientID(){
@@ -26,10 +31,5 @@ public class ShoppingList {
         return this.itemList;
     }
 
-    public void setClientID(String clientID){
-        this.clientID = clientID;
-    }
-    public void setListTitle(String listTitle){
-        this.listTitle = listTitle;
-    }
+
 }

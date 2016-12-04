@@ -8,35 +8,36 @@ import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView
 import postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems.ShoppingHandler;
 
 public class ShoppingPresenter {
-    ShoppingHandler shoppingHandler;
-    ShoppingView shoppingView;
+    ShoppingHandler handler;
+    ShoppingView view;
     public ShoppingPresenter(ShoppingView shoppingView){
-        this.shoppingView = shoppingView;
-        this.shoppingHandler = new ShoppingHandler(shoppingView, this);
+        this.view = shoppingView;
+        this.handler = new ShoppingHandler(shoppingView, this);
     }
 
     public void addItem(String item){
-        shoppingHandler.addItemToList(item);
+        handler.addItemToList(item);
     }
-
     public void updateList(){
-        Collections.sort(shoppingHandler.getShoppingList()); // Maybe should be done in handler
-        shoppingView.getListView().setAdapter(shoppingView.getAdapter());
+        Collections.sort(handler.getShoppingList()); // Maybe should be done in handler
+        view.getListView().setAdapter(view.getAdapter());
+        view.setTitle(handler.getTitle());
     }
     public void setTitle(){
-        shoppingView.setTitle(shoppingHandler.getTitle());
+        view.setTitle(handler.getTitle());
+    }
+    public void clearList(){
+        handler.clearShoppingList();
+    }
+    public void removeElement(int position){
+        handler.removeItemFromList(position);
     }
 
     public ArrayList<String> getShoppingList(){
-        return shoppingHandler.getShoppingList();
+        return handler.getShoppingList();
     }
     public String getTitle(){
-        return shoppingHandler.getTitle();
+        return handler.getTitle();
     }
-    public void clearList(){
-        shoppingHandler.clearShoppingList();
-    }
-    public void removeElement(int position){
-        shoppingHandler.removeItemFromList(position);
-    }
+
 }

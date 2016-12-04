@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -42,12 +44,11 @@ public class ShoppingView extends Fragment {
         presenter = new ShoppingPresenter(this);
         setHasOptionsMenu(true);
         myView = inflater.inflate(R.layout.shopping, container, false);
+
         listTitle = (TextView) myView.findViewById(R.id.editText);
-        presenter.addItem("Milk");
-        presenter.addItem("Daaru");
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+
         presenter.updateList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -60,9 +61,16 @@ public class ShoppingView extends Fragment {
                 }
             }
         });
-
-
-        listTitle.setText("hey");
+        final FloatingActionButton fab = (FloatingActionButton) myView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fab.setVisibility(View.GONE);
+                listTitle.setEnabled(false);
+                Toast.makeText(getActivity().getApplicationContext(),"Sending List...", Toast.LENGTH_LONG).show();
+            }
+        });
+        listTitle.setHint("Enter list Title here");
         return myView;
     }
     @Override
@@ -111,7 +119,8 @@ public class ShoppingView extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     presenter.clearList();
-                    listTitle.setText("");
+                    listTitle.setEnabled(true);
+                    presenter.updateList();
                 }
             });
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

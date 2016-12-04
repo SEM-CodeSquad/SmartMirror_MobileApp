@@ -31,12 +31,11 @@ public class ShoppingHandler {
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter) {
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
-        ArrayList<String> abc = new ArrayList<>();
-        shoppingList = new ShoppingList("hey",abc,"clientID");
+        ArrayList<String> listItems = new ArrayList<>();
+        shoppingList = new ShoppingList("hey",listItems,"clientID"); // Comment here
     }
 
     public void parseMessage(String message) {
-
         try {
             this.message = message;
             JSONParser parser = new JSONParser();
@@ -51,22 +50,8 @@ public class ShoppingHandler {
         }
     }
 
-    public void addItemToList(String item){
-        shoppingList.getItemList().add(item);
-    }
-    public void removeItemFromList(int position){
-        shoppingList.getItemList().remove(position);
-    }
-    public void clearShoppingList(){
-        shoppingList.getItemList().clear();
-        shoppingList.setListTitle("");
-    }
-    public ArrayList<String> getShoppingList(){
-        return this.shoppingList.getItemList();
-    }
-    public String getTitle(){
-        return this.shoppingList.getListTitle();
-    }
+
+
 
     //TODO unsure if it's needed.
 //    public void parseContent() {
@@ -113,6 +98,23 @@ public class ShoppingHandler {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+    public void addItemToList(String item){
+        shoppingList.getItemList().add(item);
+    }
+    public void removeItemFromList(int position){
+        shoppingList.getItemList().remove(position);
+    }
+    public void clearShoppingList(){
+        shoppingList.getItemList().clear();
+        shoppingList.setListTitle("");
+    }
+
+    public ArrayList<String> getShoppingList(){
+        return this.shoppingList.getItemList();
+    }
+    public String getTitle(){
+        return this.shoppingList.getListTitle();
     }
     public String getReply(){
         return reply;
