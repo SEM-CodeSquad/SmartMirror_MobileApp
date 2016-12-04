@@ -48,6 +48,8 @@ public class ShoppingView extends Fragment {
         listTitle = (TextView) myView.findViewById(R.id.editText);
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
+        presenter.saveTitle("ListNimish");
+        listTitle.setText(presenter.fetchTitle());
         presenter.updateList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

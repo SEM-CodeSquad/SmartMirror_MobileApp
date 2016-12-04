@@ -43,8 +43,5 @@ public class ShoppingPresenter {
     public LinkedList<String> getShoppingList(){
         return handler.getShoppingList();
     }
-    public String getTitle(){
-        return handler.getTitle();
-    }
 
 }
