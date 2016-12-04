@@ -105,6 +105,7 @@ public class ShoppingHandler {
                         break;
                 }
             }
+
             //ShoppingList spl = new ShoppingList(this.getTitle(),linkedList,);
 
         } catch (ParseException e) {
