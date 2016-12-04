@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
@@ -39,13 +40,16 @@ public class ShoppingView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         presenter = new ShoppingPresenter(this);
-
         setHasOptionsMenu(true);
         myView = inflater.inflate(R.layout.shopping, container, false);
-        listView = (ListView) getActivity().findViewById(R.id.listView);
-        listTitle = (TextView) getActivity().findViewById(R.id.editText);
+        listTitle = (TextView) myView.findViewById(R.id.editText);
+        presenter.addItem("Milk");
+        presenter.addItem("Daaru");
+        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
+        listView = (ListView) myView.findViewById(R.id.listView);
+        listView.setAdapter(adapter);
+        presenter.updateList();
 
-       /* adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View view, final int position, long id) {
                 String selectedItem = ((TextView) view).getText().toString();
@@ -55,8 +59,10 @@ public class ShoppingView extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(),"Error Removing Element", Toast.LENGTH_LONG).show();
                 }
             }
-        });*/
-        //listTitle.setText("hey");
+        });
+
+
+        listTitle.setText("hey");
         return myView;
     }
     @Override
@@ -87,7 +93,7 @@ public class ShoppingView extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     presenter.addItem(input.getText().toString());
-                    //presenter.updateList();
+                    presenter.updateList();
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -128,7 +134,7 @@ public class ShoppingView extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 presenter.removeElement(position);
-                //presenter.updateList();
+                presenter.updateList();
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
