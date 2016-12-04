@@ -11,17 +11,26 @@ import java.util.Observer;
 
 import postApp.DataHandlers.DBConnection.DBConnection;
 
+/**
+ * Database class for registration
+ */
 public class Registration extends Observable implements Observer {
+
     private DBConnection conn;
     private Connection c;
     private String user;
     private String password;
     private String answer;
     private boolean inUse = true;
-    private String userID;
 
 
-
+    /**
+     * Constructor for the registration class, that makes this class a observable
+     * and sets username password and answer
+     * @param user The username typed in
+     * @param password The password typed in
+     * @param answer The scret question answer
+     */
     public Registration (String user, String password, String answer) {
         try {
             conn = new DBConnection();
@@ -35,12 +44,22 @@ public class Registration extends Observable implements Observer {
 
     }
 
+    /**
+     * A observable update that just confirms that we have eastablished a db connection
+     * then you call the register acc asynctask to start
+     * @param observable
+     * @param o
+     */
     @Override
     public void update(Observable observable, Object o) {
+        this.c = conn.getConn();
         RegisterAcc register = new RegisterAcc();
         register.execute();
     }
 
+    /**
+     * Class that extends a async task for communicating with db
+     */
     private class RegisterAcc extends AsyncTask<Void, Void, Void> {
 
         protected Void doInBackground(Void... arg0) {
@@ -72,17 +91,29 @@ public class Registration extends Observable implements Observer {
             inUse = false;
             return null;
         }
+
+        /**
+         * On postexecute on the async task we want to notify the observer.
+         * @param unused
+         */
         @Override
         protected void onPostExecute(Void unused) {
             NotObserver();
         }
     }
 
+    /**
+     * Just called when wanting to notify observers
+     */
     public void NotObserver(){
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * method that returns inUse
+     * @return inUse is either true or false where its either a successfull registration or not
+     */
     public boolean getInUse(){
         return inUse;
     }
