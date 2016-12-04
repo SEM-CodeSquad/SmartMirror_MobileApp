@@ -61,8 +61,6 @@ public class ShoppingHandler {
     }
 
 
-
-
     //TODO unsure if it's needed.
 //    public void parseContent() {
 //        try {
