@@ -5,14 +5,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Created by adinH on 2016-11-02.
+ * Class that generates a accesscode from vässtrafik
  */
 
 public class GenerateAccessCode {
+
     String code;
 
+    /**
+     * A curl command that request authorization with secret key and access key from västtrafik
+     * @return the code that is gotten from västtrafik
+     */
     public String getAccess(){
-        String[] command = {"curl", "-k", "-d", "grant_type=client_credentials", "-H", "Authorization: Basic VTJyWUFoYXNPem43dDFzX3pFZGJxNjRSR2k0YTpURXFmV0NkdkNzMlc4WjVtUlNrZ1NFN3MxSm9h", "https://api.vasttrafik.se:443/token"
+        String[] command = {"curl", "-k", "-d", "grant_type=client_credentials", "-H", "Authorization: Basic VTJyWUFoYXNPem43dDFzX3pFZGJxNjRSR2k0YTpURXFmV0NkdkNzMlc4WjVtUlNrZ1NFN3MxSm9h",
+                "https://api.vasttrafik.se:443/token"
         };
         String result = "";
         ProcessBuilder process = new ProcessBuilder(command);
@@ -21,7 +27,7 @@ public class GenerateAccessCode {
             p = process.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             StringBuilder builder = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 builder.append(line);
                 builder.append(System.getProperty("line.separator"));

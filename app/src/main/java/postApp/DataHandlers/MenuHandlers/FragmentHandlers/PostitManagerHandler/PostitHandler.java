@@ -1,7 +1,9 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
@@ -42,18 +44,23 @@ public class PostitHandler implements Observer{
         this.color = color;
     }
 
-    public void PublishPostit(String text, String topic, String user) {
+    public void PublishPostit(String text, String topic, String user, String date) {
         this.user = user;
         this.text = text;
         this.topic = topic;
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, 7);
+        if(date == "standard"){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date()); // Now use today date.
+            c.add(Calendar.DATE, 3); // Adding 5 days
+            date = sdf.format(c.getTime());
+        }
         this.idOne = UUID.randomUUID().toString();
-
-        String date = c.getTime().toString();
         StorePost();
         JsonBuilder R = new JsonBuilder();
         String S;
+        System.out.println("here");
+        System.out.println(date);
         if (topic != "No mirror chosen") {
             try {
                 S = R.execute(topic, "postit", text, color, date, idOne).get();

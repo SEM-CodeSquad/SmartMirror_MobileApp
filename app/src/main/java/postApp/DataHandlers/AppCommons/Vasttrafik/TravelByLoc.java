@@ -6,22 +6,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
 /**
- * Created by adinH on 2016-11-02.
+ * Class that Uses västtrafiks api to get the currents locations closest stop, using the authorization bearer we got from
+ * generateaccesscode
+ * Asynctask with 3 arguments, first is generateaccess code, second is lat cordinate, third is long coordinate.
  */
 public class TravelByLoc extends AsyncTask<String, Void, String> {
 
     protected String doInBackground(String... args) {
 
         StringBuilder result = new StringBuilder();
-        URL url = null;
+        URL url;
         try {
 
-            url = new URL("https://api.vasttrafik.se/bin/rest.exe/v2/location.nearbystops?originCoordLat="+ args[1] + "&originCoordLong="+ args[2] + "&maxNo=1&format=json");
+            url = new URL("https://api.vasttrafik.se/bin/rest.exe/v2/location.nearbystops?originCoordLat=" + args[1] + "&originCoordLong=" + args[2] + "&maxNo=1&format=json");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty( "Authorization:", "Bearer " + args[0]);
@@ -32,10 +32,6 @@ public class TravelByLoc extends AsyncTask<String, Void, String> {
 
             }
             rd.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

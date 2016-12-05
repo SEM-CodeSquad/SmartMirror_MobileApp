@@ -26,8 +26,8 @@ public class PostitPresenter {
     public void NoMirror(){
         PostitView.NoMirror();
     }
-    public void PublishPostit(String text, String topic, String user){
-        PostitHandler.PublishPostit(text,topic, user);
+    public void PublishPostit(String text, String topic, String user, String date){
+        PostitHandler.PublishPostit(text,topic, user, date);
     }
     public void BlueClick(){
         PostitView.ColorBlue();

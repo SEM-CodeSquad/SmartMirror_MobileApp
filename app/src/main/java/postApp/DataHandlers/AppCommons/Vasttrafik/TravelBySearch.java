@@ -6,21 +6,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
+
 import java.net.URL;
 
+
 /**
- * Created by adinH on 2016-11-02.
+ * Async task that travels by search with the firs argument being the authorization code, and the second the name.
  */
    public class TravelBySearch extends AsyncTask<String, Void, String> {
-
-    String loc;
 
         protected String doInBackground(String... args) {
 
         StringBuilder result = new StringBuilder();
-        URL url = null;
+        URL url;
         try {
 
             url = new URL("https://api.vasttrafik.se/bin/rest.exe/v2/location.name?input=" + args[1] + "&format=json");
@@ -34,10 +32,6 @@ import java.net.URL;
 
             }
             rd.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
