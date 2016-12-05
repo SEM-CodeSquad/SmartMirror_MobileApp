@@ -51,7 +51,7 @@ public class ShoppingHandler implements Observer {
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
-        shoppingList = new ShoppingList(this.clientID,SPLList,"clientID"); // We need to initialize the ShoppingList here with the client ID
+        shoppingList = new ShoppingList(this.clientID,SPLList,"clientID goes here"); // We need to initialize the ShoppingList here with the client ID
     }
 
     public void parseMessage(String message) {
