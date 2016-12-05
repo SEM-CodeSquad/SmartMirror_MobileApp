@@ -138,25 +138,25 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", "test");
                 sendthis.put("timestamp", "12");
-                    topic = "dit029/SmartMirror/" + args[0] + "/preferences";
-                    sendthis.put("contentType", "preferences");
+                topic = "dit029/SmartMirror/" + args[0] + "/preferences";
+                sendthis.put("contentType", "preferences");
 
-                    JSONArray jArray = new JSONArray();
-                    JSONObject test = new JSONObject();
-                    test.put("showOnly", args[3]);
-                    jArray.add(test);
-                    sendthis.put("content", jArray);
+                JSONArray jArray = new JSONArray();
+                JSONObject test = new JSONObject();
+                test.put("showOnly", args[3]);
+                jArray.add(test);
+                sendthis.put("content", jArray);
 
-                    String message = sendthis.toJSONString();
-                    post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
-            } else if (args[1].equals("shoppinglist")) {
+                String message = sendthis.toJSONString();
+                post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
+            } else if (args[0].equals("shoppinglist")) {
 
                 JSONObject sendthis = new JSONObject();
                 JSONObject item = new JSONObject();
                 item.put("client-id", args[1]);
-                item.put("list", args[2]);
-                item.put("request", args[3]);
-                item.put("data", args[4]);
+                item.put("list", "SmartMirror Shopping List");
+                item.put("request", args[2]);
+                item.put("data", args[3]);
                 JSONArray jArray = new JSONArray();
                 jArray.add(0, item);
                 topic = "Gro/" + args[1];
@@ -164,6 +164,28 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 //TODO the following part, codehigh.ddns.me needs to be changed
                 post = new HttpRequestSender("codehigh.ddns.me", topic, messageString, "1", "false");
 
+            } else if (args[0].equals("SPLToMirror")) {
+
+                //TODO change the "12" to the actual timestamp
+                JSONObject sendthis = new JSONObject();
+                sendthis.put("messageFrom", args[1]);
+                sendthis.put("timestamp", args[2]);
+                sendthis.put("contentType", "shoppingList");
+                JSONObject item = new JSONObject();
+                JSONArray jArray = new JSONArray();
+                //Check how ling the argument is and add item accordingly
+                if (args.length > 3) {
+                    for (int i = 3; i + 1 < args.length; i++) {
+                        item.put("item" + (i - 1), args[i]);
+                    }
+                } else if (args.length == 3) {
+                    //TODO change this part accordingly, case: there is no item in the list.
+                }
+                jArray.add(0, item);
+                sendthis.put("content", jArray);
+                topic = "dit029/SmartMirror/" + args[1] + "/shoppingList";
+                String messageString = sendthis.toJSONString();
+                post = new HttpRequestSender("codehigh.ddns.me", topic, messageString, "0", "false");
             }
             post.executePost(myUrl);
             System.out.println(post.getHttpResponse());
