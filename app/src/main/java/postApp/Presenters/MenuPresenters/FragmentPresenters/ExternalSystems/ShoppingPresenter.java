@@ -8,12 +8,19 @@ import java.util.LinkedList;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems.ShoppingHandler;
 
+
+/*
+ * The shopping presenter acts as a controller for the view class as well as handing over data to
+ * the ShoppingHandler class.
+ */
 public class ShoppingPresenter {
     ShoppingHandler handler;
     ShoppingView view;
-    public ShoppingPresenter(ShoppingView shoppingView){
+    String uuid;
+    public ShoppingPresenter(ShoppingView shoppingView, String uuid){
+        this.uuid = uuid;
         this.view = shoppingView;
-        this.handler = new ShoppingHandler(shoppingView, this);
+        this.handler = new ShoppingHandler(shoppingView, this,uuid);
     }
 
     public void addItem(String item){
@@ -22,10 +29,6 @@ public class ShoppingPresenter {
     public void updateList(){
         Collections.sort(handler.getShoppingList()); // Maybe should be done in handler
         view.getListView().setAdapter(view.getAdapter());
-        view.setTitle(handler.getTitle());
-    }
-    public void setTitle(){
-        view.setTitle(handler.getTitle());
     }
     public void clearList(){
         handler.clearShoppingList();
@@ -33,12 +36,12 @@ public class ShoppingPresenter {
     public void removeElement(int position){
         handler.removeItemFromList(position);
     }
-    public void saveTitle(String title){
+    /*public void saveTitle(String title){
         handler.saveTitle(title);
     }
     public String fetchTitle(){
         return handler.fetchTitle();
-    }
+    }*/
 
     public LinkedList<String> getShoppingList(){
         return handler.getShoppingList();

@@ -3,7 +3,10 @@ package postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-
+/*
+ * The ShoppingList class is an object that holds the attributes of a Shopping List as mentioned by the
+ * ShoppingList RFC group.
+ */
 public class ShoppingList {
     String listTitle = "";
     LinkedList<String> itemList;

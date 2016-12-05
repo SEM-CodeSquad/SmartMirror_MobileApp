@@ -2,6 +2,7 @@ package postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems;
 
 import android.widget.Toast;
 
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,8 +28,11 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.Shop
 
 import static android.content.Context.MODE_PRIVATE;
 
-
-public class ShoppingHandler {
+/*
+ * This class is the handler for the ShoppingList component. This is where the logic part of the component
+ * takes place (addition,deletion,parsing etc.).
+ */
+public class ShoppingHandler implements Observer {
     ShoppingPresenter presenter;
     ShoppingView view;
 
@@ -37,12 +41,17 @@ public class ShoppingHandler {
     private String reply;
     private String preData;
     private LinkedList<String> SPLList;
+    private String clientID;
+    private MQTTClient mqttClient;
 
-    public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter) {
+    public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter, String clientID) {
+        MemoryPersistence persistence = new MemoryPersistence();
+        this.clientID = clientID;
+        this.mqttClient = new MQTTClient("prata server",this.clientID,persistence);
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
-        shoppingList = new ShoppingList(fetchTitle(),SPLList,"clientID"); // We need to initialize the ShoppingList here with the client ID
+        shoppingList = new ShoppingList(this.clientID,SPLList,"clientID"); // We need to initialize the ShoppingList here with the client ID
     }
 
     public void parseMessage(String message) {
@@ -54,6 +63,7 @@ public class ShoppingHandler {
             this.preData = json.get("item").toString();
             this.SPLList = new LinkedList<>();
             parseArray(this.SPLList, "data");
+
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -81,6 +91,27 @@ public class ShoppingHandler {
 //        }
 //
 //    }
+
+    public void addClassObserver(MQTTSub sub){
+        sub.addObserver(this);
+    }
+
+    private void listenSubscription(final String topic) {
+        try {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                    MQTTSub subscriber = new MQTTSub(mqttClient,topic);
+                    addClassObserver(subscriber);
+            }
+        });
+            thread.start();
+            System.out.println("listening to this topic " + topic);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 
     private void parseArray(LinkedList linkedList, String type) {
@@ -120,7 +151,15 @@ public class ShoppingHandler {
         shoppingList.getItemList().clear();
         shoppingList.setListTitle("");
     }
-    public void saveTitle(String title){
+
+    /*
+     * The saveTitle(title) method saves the title of a shopping list internally on a phone. It only
+     * saves the last String used in the saveTitle parameters. This method is used because upon
+     * creation of the ShoppingView, if the user already has a created shopping list ,
+     * the user needs to be presented with it. The items of the shopping list can be received from a fetch call to
+     *
+     */
+    /*public void saveTitle(String title){
         String file_name = "List Title";
         try {
             FileOutputStream fileOutputStream = view.getActivity().openFileOutput(file_name,MODE_PRIVATE);
@@ -132,9 +171,10 @@ public class ShoppingHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public String fetchTitle(){
+
+    /*public String fetchTitle(){
         StringBuffer stringBuffer = new StringBuffer();
         try {
             String title;
@@ -152,7 +192,7 @@ public class ShoppingHandler {
             e.printStackTrace();
         }
         return stringBuffer.toString();
-    }
+    }*/
 
     public LinkedList<String> getShoppingList(){
         return this.shoppingList.getItemList();
@@ -164,4 +204,10 @@ public class ShoppingHandler {
         return reply;
     }
 
+    @Override
+    public void update(Observable observable, Object o) {
+        if (o instanceof MqttMessage){
+            // TODO GEOFF code here regarding how to handle the object
+        }
+    }
 }
