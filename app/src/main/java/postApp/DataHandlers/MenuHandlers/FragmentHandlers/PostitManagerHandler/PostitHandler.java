@@ -60,19 +60,20 @@ public class PostitHandler implements Observer{
             Calendar c = Calendar.getInstance();
             c.setTime(new Date()); // Now use today date.
             c.add(Calendar.DATE, 5); // Adding 5 days
+            this.timestamp = String.valueOf(c.getTimeInMillis()/1000);
             this.date = sdf.format(c.getTime());
-            this.timestamp = String.valueOf(c.getTimeInMillis()/10000);
-        }else{
+        }
             DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss z yyyy");
-            Date dateTemp = null;
+            Date dateTemp;
             try {
                 dateTemp = dateFormat.parse(date);
+                long unixTime =  (dateTemp.getTime())/1000;
+                this.date = String.valueOf(unixTime);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            long unixTime =  (dateTemp.getTime())/1000;
-            this.date = String.valueOf(unixTime);
-        }
+
+
 
         this.idOne = UUID.randomUUID().toString();
         StorePost();
