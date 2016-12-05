@@ -20,9 +20,9 @@ public class StorePostits extends Observable implements Observer {
     private String iD;
     private Boolean stored;
     private String color;
-    private String timeStamp;
+    private long timeStamp;
 
-    public StorePostits(String user,String idOne, String color, String text, String timeStamp) {
+    public StorePostits(String user,String idOne, String color, String text, long timeStamp) {
         try {
             this.user = user;
             this.iD = idOne;

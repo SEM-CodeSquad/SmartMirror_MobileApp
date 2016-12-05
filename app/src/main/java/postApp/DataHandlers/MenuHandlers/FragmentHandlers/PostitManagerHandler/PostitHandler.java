@@ -35,7 +35,7 @@ public class PostitHandler implements Observer{
     private String topic;
     private String user;
     private String date;
-    private String timestamp;
+    private long timestamp;
 
 
     public PostitHandler(PostitView PostitView, PostitPresenter PostitPresenter){
@@ -60,7 +60,7 @@ public class PostitHandler implements Observer{
             Calendar c = Calendar.getInstance();
             c.setTime(new Date()); // Now use today date.
             c.add(Calendar.DATE, 5); // Adding 5 days
-            this.timestamp = String.valueOf(c.getTimeInMillis()/1000);
+            this.timestamp = c.getTimeInMillis()/1000;
             this.date = sdf.format(c.getTime());
         }else {
 
@@ -68,7 +68,7 @@ public class PostitHandler implements Observer{
             try {
                 dateTemp = sdf.parse(date);
                 long unixTime = (dateTemp.getTime()) / 1000;
-                this.timestamp = String.valueOf(unixTime);
+                this.timestamp = unixTime;
             } catch (ParseException e) {
                 e.printStackTrace();
             }
