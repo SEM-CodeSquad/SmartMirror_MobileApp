@@ -5,10 +5,6 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-/**
- * @author Emanuel on 22/11/2016.
- */
-
 public class MQTTClient {
     private MqttConnectOptions options;
     private MqttClient client;

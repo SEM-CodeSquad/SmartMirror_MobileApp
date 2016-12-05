@@ -12,9 +12,7 @@ import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PairingPresenter.QrCodePresenter;
 
-/**
- * Created by Emanuel on 19/11/2016.
- */
+
 
 public class QrCodeHandler implements ZXingScannerView.ResultHandler{
     QrCodeView qrView;

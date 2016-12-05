@@ -5,9 +5,6 @@ import java.util.concurrent.ExecutionException;
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.PreferencesPresenter;
 
-/**
- * Created by Emanuel on 19/11/2016.
- */
 
 public class PreferencesHandler {
     PreferencesPresenter PreferencesPresenter;

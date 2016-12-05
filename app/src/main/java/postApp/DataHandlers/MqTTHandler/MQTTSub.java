@@ -7,9 +7,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.Observable;
 
-/**
- * @author Emanuel on 21/11/2016.
- */
+
 
 public class MQTTSub extends Observable implements MqttCallback
 {
@@ -43,7 +41,7 @@ public class MQTTSub extends Observable implements MqttCallback
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         setChanged();
-        notifyObservers();
+        notifyObservers(message);
     }
 
     @Override

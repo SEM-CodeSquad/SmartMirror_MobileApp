@@ -8,9 +8,6 @@ import postApp.DataHandlers.AppCommons.Postits.EditPostit;
 import postApp.DataHandlers.AppCommons.Postits.ReadPostits;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits.ManagePostitsPresenter;
 
-/**
- * Created by Emanuel on 19/11/2016.
- */
 
 public class ManagePostitsHandler implements Observer {
 

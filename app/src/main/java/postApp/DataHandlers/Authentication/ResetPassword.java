@@ -22,10 +22,11 @@ public class ResetPassword extends Observable implements Observer {
 
     /**
      * Constructor for class that makes this class into a observable and start a dbconnection
-     * @param User username for the db
+     *
+     * @param User     username for the db
      * @param Password pass for the db
      */
-    public ResetPassword(String User, String Password){
+    public ResetPassword(String User, String Password) {
         try {
             conn = new DBConnection();
             conn.addObserver(this);
@@ -38,6 +39,7 @@ public class ResetPassword extends Observable implements Observer {
 
     /**
      * Just a update that start a resetpass asynctask
+     *
      * @param observable
      * @param o
      */
@@ -46,6 +48,21 @@ public class ResetPassword extends Observable implements Observer {
         this.c = conn.getConn();
         resetPass rp = new resetPass();
         rp.execute();
+    }
+
+    /**
+     * Just called when wanting to notify observers
+     */
+    public void NotObserver() {
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * @return reseted, which is a boolean that says if it was successful or not
+     */
+    public boolean getPasswordResetStatus() {
+        return reseted;
     }
 
     /**
@@ -71,26 +88,13 @@ public class ResetPassword extends Observable implements Observer {
 
         /**
          * When async task is doen we notify the observers
+         *
          * @param unused
          */
         @Override
         protected void onPostExecute(Void unused) {
             NotObserver();
         }
-    }
-    /**
-     * Just called when wanting to notify observers
-     */
-    public void NotObserver(){
-        setChanged();
-        notifyObservers();
-    }
-
-    /**
-     * @return reseted, which is a boolean that says if it was successful or not
-     */
-    public boolean getPasswordResetStatus(){
-            return reseted;
     }
 }
 
