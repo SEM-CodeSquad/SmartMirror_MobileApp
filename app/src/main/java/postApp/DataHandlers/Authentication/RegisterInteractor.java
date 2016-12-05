@@ -1,17 +1,8 @@
 package postApp.DataHandlers.Authentication;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-
 import java.util.Observable;
 import java.util.Observer;
 
-import postApp.ActivitiesView.AuthenticationView.LoginActivity;
-import postApp.ActivitiesView.AuthenticationView.RegisterActivity;
 import postApp.Presenters.AuthenticationPresenters.RegisterPresenter;
 
 /**
@@ -25,29 +16,31 @@ public class RegisterInteractor implements Observer {
 
     /**
      * Constructor for class
+     *
      * @param RegisterPresenter is passed as a presenter
      */
-    public RegisterInteractor(RegisterPresenter RegisterPresenter){
+    public RegisterInteractor(RegisterPresenter RegisterPresenter) {
         this.RegisterPresenter = RegisterPresenter;
     }
 
     /**
      * method that is called when registring, checks if its a email
-     * @param User Username
-     * @param Pass Password
+     *
+     * @param User   Username
+     * @param Pass   Password
      * @param Secret Secret answer to question
      */
-    public void OnRegister(String User, String Pass, String Secret){
-        if(isEmailValid(User)) {
+    public void OnRegister(String User, String Pass, String Secret) {
+        if (isEmailValid(User)) {
             reg = new Registration(User.toLowerCase(), Pass, Secret);
-        }
-        else{
+        } else {
             RegisterPresenter.NotEmail();
         }
     }
 
     /**
      * Function that checks if its a email
+     *
      * @param email the Charsequence that needs to be checked
      * @return
      */
@@ -58,6 +51,7 @@ public class RegisterInteractor implements Observer {
     /**
      * This class is a observable and on update we check if the username is in
      * Use or not. Outcomes call the presenterclasses methods
+     *
      * @param observable
      * @param data
      */

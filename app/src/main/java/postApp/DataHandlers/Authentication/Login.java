@@ -18,7 +18,6 @@ public class Login extends Observable implements Observer {
     private Connection c;
 
 
-
     public Login(String User, String Password) {
         try {
             this.user = User;
@@ -38,10 +37,18 @@ public class Login extends Observable implements Observer {
         au.execute();
     }
 
+    public void NotObserver() {
+        setChanged();
+        notifyObservers();
+    }
+
+    public boolean getStatus() {
+        return logedIn;
+    }
+
     private class authenticate extends AsyncTask<Void, Void, Void> {
 
-        protected Void doInBackground(Void... arg0)
-        {
+        protected Void doInBackground(Void... arg0) {
             try {
                 String query = "select UserID, Password from Users where UserID=? and Password=? ";
                 PreparedStatement psLogin = conn.getConn().prepareStatement(query);
@@ -67,19 +74,11 @@ public class Login extends Observable implements Observer {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void unused) {
             NotObserver();
         }
-    }
-
-    public void NotObserver(){
-        setChanged();
-        notifyObservers();
-    }
-
-    public boolean getStatus(){
-        return logedIn;
     }
 }
 

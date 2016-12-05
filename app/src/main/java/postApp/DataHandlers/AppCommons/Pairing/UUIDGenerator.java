@@ -12,14 +12,12 @@ public class UUIDGenerator {
     private String uuid;
 
 
-    public UUIDGenerator()
-    {
+    public UUIDGenerator() {
         UUID id = UUID.randomUUID();
         this.uuid = id.toString().toUpperCase();
     }
 
-    public String getUUID()
-    {
+    public String getUUID() {
         return this.uuid;
     }
 }

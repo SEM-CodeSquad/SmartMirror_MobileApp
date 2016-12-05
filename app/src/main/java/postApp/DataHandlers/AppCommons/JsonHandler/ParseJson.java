@@ -22,6 +22,12 @@ public class ParseJson {
     private String busName;
     private Map<String, String> SearchMap;
 
+    private static String[] clean(final String[] v) {
+        List<String> list = new ArrayList<>(Arrays.asList(v));
+        list.removeAll(Collections.singleton(null));
+        return list.toArray(new String[list.size()]);
+    }
+
     public String[] parseSearch(String json, String search) throws ParseException {
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         SearchMap = new HashMap<>();
@@ -66,12 +72,6 @@ public class ParseJson {
 
     public String getName() {
         return busName;
-    }
-
-    private static String[] clean(final String[] v) {
-        List<String> list = new ArrayList<>(Arrays.asList(v));
-        list.removeAll(Collections.singleton(null));
-        return list.toArray(new String[list.size()]);
     }
 
 
