@@ -6,11 +6,14 @@ import postApp.DataHandlers.Authentication.ResetPasswordInteractor;
 import postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity;
 
 /**
- * Created by adinH on 2016-11-18.
+ * Class that acts as a presenter between the Resetpasswordview and interactor
  */
 
 public class ResetPasswordPresenter {
 
+    /**
+     * Constructor that sets the views and starts a new interactor and injecting this presenter
+     */
     ResetPasswordInteractor ResetPasswordInteractor;
     ResetPasswordActivity ResetPasswordActivity;
     public ResetPasswordPresenter(ResetPasswordActivity ResetPasswordActivity) {
@@ -18,19 +21,49 @@ public class ResetPasswordPresenter {
         this.ResetPasswordInteractor = new ResetPasswordInteractor(this);
     }
 
+    /**
+     * Method that calls the interactors method for checking passwords
+     * @param user
+     * @param pass
+     * @param confpass
+     */
     public void CheckPasswords(String user, String pass, String confpass){
         ResetPasswordInteractor.CheckPasswords(user, pass, confpass);
     }
+
+    /**
+     * Method that calls the views method passwordreset
+     */
     public void PasswordReset(){
         ResetPasswordActivity.PasswordReset();
     }
+
+    /**
+     * When passwords dont match calls the views method for no mathcing passwords
+     */
     public void PasswordNoMatch() {
         ResetPasswordActivity.PasswordNoMatch();
     }
+
+    /**
+     * Calls the views method oncancel
+     */
     public void OnCancel(){
         ResetPasswordActivity.OnCancel();
     }
+
+    /**
+     * Calls the views method to hide keyboard
+     * @param view
+     */
     public void hideKeyboard(View view) {
         ResetPasswordActivity.HideKeyboard(view);
+    }
+
+    /**
+     * When password reset fails calls the views method NoResetPassword
+     */
+    public void NoPasswordReset() {
+        ResetPasswordActivity.NoResetPassword();
     }
 }

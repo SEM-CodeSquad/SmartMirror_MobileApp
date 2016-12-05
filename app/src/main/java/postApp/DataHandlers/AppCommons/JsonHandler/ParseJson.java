@@ -18,13 +18,13 @@ import java.util.Map;
 
 public class ParseJson {
 
-    String busID;
-    String busName;
-    Map<String, String> SearchMap;
+    private String busID;
+    private String busName;
+    private Map<String, String> SearchMap;
 
     public String[] parseSearch(String json, String search) throws ParseException {
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        SearchMap = new HashMap<String, String>();
+        SearchMap = new HashMap<>();
         String newlist[] = new String[20];
         System.out.println(json);
         JSONObject jsonObject = (JSONObject) parser.parse(json);
@@ -33,10 +33,12 @@ public class ParseJson {
         for (int i = 0; i < jsarr.size(); i++) {
 
             JSONObject finalobj = (JSONObject) jsarr.get(i);
-            String name = finalobj.get("name").toString();
-            String busID = finalobj.get("id").toString();
+            String name;
+            name = finalobj.get("name").toString();
+            String busID;
+            busID = finalobj.get("id").toString();
             if (search.toLowerCase().equals(name.substring(0, search.length()).toLowerCase())) {
-                newlist[i] = name.toString();
+                newlist[i] = name;
                 SearchMap.put(name, busID);
             }
         }
@@ -66,8 +68,8 @@ public class ParseJson {
         return busName;
     }
 
-    public static String[] clean(final String[] v) {
-        List<String> list = new ArrayList<String>(Arrays.asList(v));
+    private static String[] clean(final String[] v) {
+        List<String> list = new ArrayList<>(Arrays.asList(v));
         list.removeAll(Collections.singleton(null));
         return list.toArray(new String[list.size()]);
     }

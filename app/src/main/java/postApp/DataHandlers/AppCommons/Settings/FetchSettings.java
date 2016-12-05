@@ -11,16 +11,19 @@ import java.util.Observer;
 import postApp.DataHandlers.DBConnection.DBConnection;
 
 /**
- * Created by Emanuel on 07/11/2016.
+ * Class that connects to database and gets fettings by user typed in.
  */
 
 public class FetchSettings extends Observable implements Observer {
     private DBConnection conn;
-    Connection c;
+    private Connection c;
     private String user;
     private String[] settings;
 
-
+    /**
+     * contructor that creates a db connection and the makes this class a observer.
+     * @param User
+     */
     public FetchSettings(String User) {
         try {
             conn = new DBConnection();

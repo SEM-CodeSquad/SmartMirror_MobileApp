@@ -16,7 +16,7 @@ import adin.postApp.R;
 import postApp.Presenters.AuthenticationPresenters.ResetPasswordPresenter;
 
 /**
- * Created by adinH on 2016-11-07.
+ * Class that is the view for the resetpassword activity
  */
 public class ResetPasswordActivity extends AppCompatActivity {
 
@@ -25,30 +25,38 @@ public class ResetPasswordActivity extends AppCompatActivity {
     String user;
     private ResetPasswordPresenter presenter;
 
+    /**
+     * When we switch to this screen this method happens automatically
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Checks if anything was passed when starting this activity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             user = extras.getString("user");
             //The key argument here must match that used in the other activity
         }
-
+        //Changes layout
         setContentView(R.layout.resetpass);
+        //Instantiates the buttons
         Button reset = (Button)findViewById(R.id.confresetbtn);
         Button cancel = (Button)findViewById(R.id.cancelresetbtn);
         passwrd = (EditText)findViewById(R.id.newpassrest);
         confpass = (EditText)findViewById(R.id.confirmreset);
+        //starts the presenter passing this view
         presenter = new ResetPasswordPresenter(this);
 
 
-
+        //Onclick listener for the reset button
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     presenter.CheckPasswords(user, passwrd.getText().toString(), confpass.getText().toString());
             }
         });
+        //Onclick listener for the cancel button
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,20 +83,36 @@ public class ResetPasswordActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * When press backbutton on the phone calls the superclass backpressed
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
+    /**
+     * Creating optionsmenu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
+
+    /**
+     * Call this method to switch activity
+     */
     public void PasswordReset() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
+
+    /**
+     * Call this method make a alertdialog builder that tells the user that password do not match
+     */
     public void PasswordNoMatch(){
         new AlertDialog.Builder(this)
                 .setTitle("Passwords not matching")
@@ -101,14 +125,36 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * Call this method to hide keyboard
+     * @param view
+     */
     public void HideKeyboard(View view){
         InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    /**
+     * Call this method to cancel password reset and returns Loginactivity
+     */
     public void OnCancel(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
+    }
+
+    /**
+     * Makes a builder that tells the user that password reset failed
+     */
+    public void NoResetPassword() {
+        new AlertDialog.Builder(this)
+                .setTitle("Password Reset Failed")
+                .setMessage("Please try again")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .show();
     }
 }

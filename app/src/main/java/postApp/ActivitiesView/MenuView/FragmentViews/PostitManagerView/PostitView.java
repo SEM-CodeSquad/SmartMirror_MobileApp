@@ -2,6 +2,7 @@ package postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,10 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
@@ -26,6 +31,7 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresent
 public class PostitView extends Fragment {
 
 
+    Button datebutton;
     EditText typedtext;
     View myView;
     PostitPresenter presenter;
@@ -41,10 +47,27 @@ public class PostitView extends Fragment {
         //instantiate the views
         final ImageButton colorbutton = (ImageButton)myView.findViewById(R.id.colorbutton);
         final ImageButton checkmark = (ImageButton)myView.findViewById(R.id.checkmark);
+        datebutton = (Button) myView.findViewById(R.id.datebutton);
         PostitImage = (ImageView)myView.findViewById(R.id.ImageView);
         typedtext = (EditText)myView.findViewById(R.id.typedText);
         builder = new AlertDialog.Builder(getActivity());
         presenter = new PostitPresenter(this);
+
+
+        datebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                System.out.println("the selected " + mDay);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+                        new mDateSetListener(), mYear, mMonth, mDay);
+                dialog.show();
+            }
+        });
+
 
         //when colorbutton is pressed in the UI we show the color builder.
         colorbutton.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +83,12 @@ public class PostitView extends Fragment {
         checkmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser());
+                if(!datebutton.getText().equals("Chose Expiry Date")){
+                    presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), datebutton.getText().toString());
+                }
+               else{
+                    presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), "standard");
+                }
                 presenter.AwaitEcho();
 
 
@@ -185,6 +213,25 @@ public class PostitView extends Fragment {
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+    class mDateSetListener implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            // getCalender();
+            int mYear = year;
+            int mMonth = monthOfYear;
+            int mDay = dayOfMonth;
+            datebutton.setText(new StringBuilder()
+                    // Month is 0 based so add 1
+                    .append(mMonth + 1).append("/").append(mDay).append("/")
+                    .append(mYear).append(" "));
+            System.out.println(datebutton.getText().toString());
+
+
+        }
     }
 
 }

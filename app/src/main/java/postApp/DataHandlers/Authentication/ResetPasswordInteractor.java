@@ -7,24 +7,37 @@ import android.content.Intent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import postApp.ActivitiesView.AuthenticationView.LoginActivity;
 import postApp.ActivitiesView.AuthenticationView.ResetPasswordActivity;
 import postApp.Presenters.AuthenticationPresenters.ResetPasswordPresenter;
 
 /**
- * Created by adinH on 2016-11-18.
+ * A model for the ResetPassword view
  */
 
-public class ResetPasswordInteractor {
+public class ResetPasswordInteractor implements Observer {
 
-
+    ResetPassword  reg;
     ResetPasswordPresenter ResetPasswordPresenter;
 
-
+    /**
+     * Constructor that sets the presenter
+     * @param ResetPasswordPresenter
+     */
     public ResetPasswordInteractor(ResetPasswordPresenter ResetPasswordPresenter){
         this.ResetPasswordPresenter = ResetPasswordPresenter;
     }
 
+    /**
+     * Method that checks if passwords are equal if they are they start on reset else,
+     * they call the presenters method
+     * @param user Username
+     * @param pass Password
+     * @param confpass Confirmed password(2nd typing of same password
+     */
     public void CheckPasswords(String user, String pass, String confpass){
         if(pass.equals(confpass)){
             OnReset(user, pass);
@@ -33,13 +46,30 @@ public class ResetPasswordInteractor {
             ResetPasswordPresenter.PasswordNoMatch();
         }
     }
+
+    /**
+     * Method that calls the resetpassword class
+     * @param User
+     * @param Pass
+     */
     public void OnReset(String User, String Pass){
-        ResetPassword reg = new ResetPassword(User, Pass);
+        reg = new ResetPassword(User, Pass);
+        reg.addObserver(this);
+
+    }
+
+    /**
+     * Gets a update from the resetpassword class when its notified. Calls presenter class, when outcomes are different
+     * @param observable
+     * @param o
+     */
+    @Override
+    public void update(Observable observable, Object o) {
         if(reg.getPasswordResetStatus()){
             ResetPasswordPresenter.PasswordReset();
         }
         else{
-
+            ResetPasswordPresenter.NoPasswordReset();
         }
     }
 }
