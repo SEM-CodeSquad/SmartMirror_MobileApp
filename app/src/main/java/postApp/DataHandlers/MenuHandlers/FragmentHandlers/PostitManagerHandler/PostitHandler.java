@@ -1,6 +1,8 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,6 +34,9 @@ public class PostitHandler implements Observer{
     private DBConnection conn;
     private String topic;
     private String user;
+    private String date;
+    private String timestamp;
+
 
     public PostitHandler(PostitView PostitView, PostitPresenter PostitPresenter){
         this.PostitView = PostitView;
@@ -48,13 +53,27 @@ public class PostitHandler implements Observer{
         this.user = user;
         this.text = text;
         this.topic = topic;
+        this.date = date;
+
         if(date == "standard"){
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Calendar c = Calendar.getInstance();
             c.setTime(new Date()); // Now use today date.
-            c.add(Calendar.DATE, 3); // Adding 5 days
-            date = sdf.format(c.getTime());
+            c.add(Calendar.DATE, 5); // Adding 5 days
+            this.date = sdf.format(c.getTime());
+            this.timestamp = String.valueOf(c.getTimeInMillis()/10000);
+        }else{
+            DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss z yyyy");
+            Date dateTemp = null;
+            try {
+                dateTemp = dateFormat.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long unixTime =  (dateTemp.getTime())/1000;
+            this.date = String.valueOf(unixTime);
         }
+
         this.idOne = UUID.randomUUID().toString();
         StorePost();
         JsonBuilder R = new JsonBuilder();
@@ -92,7 +111,7 @@ public class PostitHandler implements Observer{
 
     }
     public void StorePost(){
-        storePostits = new StorePostits(user,idOne, color, text);
+        storePostits = new StorePostits(user,idOne, color, text, timestamp);
 
         System.out.println(storePostits.getStoreStatus());   //returns boolean saved, if saved postit or not
     }

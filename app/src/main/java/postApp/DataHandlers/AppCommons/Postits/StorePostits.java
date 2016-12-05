@@ -20,13 +20,15 @@ public class StorePostits extends Observable implements Observer {
     private String iD;
     private Boolean stored;
     private String color;
+    private String timeStamp;
 
-    public StorePostits(String user,String idOne, String color, String text) {
+    public StorePostits(String user,String idOne, String color, String text, String timeStamp) {
         try {
             this.user = user;
             this.iD = idOne;
             this.color = color;
             this.postit = text;
+            this.timeStamp = timeStamp;
             conn = new DBConnection();
             conn.addObserver(this);
         } catch (Exception v) {
@@ -48,8 +50,8 @@ public class StorePostits extends Observable implements Observer {
         {
             try{
 
-                String query = "insert into Postits (UserID, PostID, Color, Postit)" + "VALUES('" + user
-                        + "', '" + iD + "', '" + color + "', '" + postit +"');";
+                String query = "insert into Postits (UserID, PostID, Color, Postit, Timestamp)" + "VALUES('" + user
+                        + "', '" + iD + "', '" + color + "', '" + postit +"', '" + timeStamp +"');";
                 PreparedStatement psPost = c.prepareStatement(query);
                 psPost.executeUpdate();
                 psPost.close();
