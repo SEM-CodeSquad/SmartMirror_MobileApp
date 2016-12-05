@@ -54,25 +54,25 @@ public class PostitHandler implements Observer{
         this.text = text;
         this.topic = topic;
         this.date = date;
-
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         if(date == "standard"){
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
             Calendar c = Calendar.getInstance();
             c.setTime(new Date()); // Now use today date.
             c.add(Calendar.DATE, 5); // Adding 5 days
             this.timestamp = String.valueOf(c.getTimeInMillis()/1000);
             this.date = sdf.format(c.getTime());
-        }
-            DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss z yyyy");
+        }else {
+
             Date dateTemp;
             try {
-                dateTemp = dateFormat.parse(date);
-                long unixTime =  (dateTemp.getTime())/1000;
-                this.date = String.valueOf(unixTime);
+                dateTemp = sdf.parse(date);
+                long unixTime = (dateTemp.getTime()) / 1000;
+                this.timestamp = String.valueOf(unixTime);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
+        }
 
 
         this.idOne = UUID.randomUUID().toString();
