@@ -39,7 +39,6 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.Shop
 public class ShoppingView extends Fragment {
     View myView;
     ShoppingPresenter presenter;
-    /* Title of the shopping list */
     ArrayAdapter<String> adapter = null;          /* A way to handle a list or array of objects and map them to a row */
     ListView listView = null;
 

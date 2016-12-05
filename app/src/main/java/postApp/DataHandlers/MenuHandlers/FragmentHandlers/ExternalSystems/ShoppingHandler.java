@@ -1,6 +1,6 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems;
 
-
+import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
@@ -9,18 +9,24 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
-
+import java.util.UUID;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.DataHandlers.MqTTHandler.MQTTClient;
 import postApp.DataHandlers.MqTTHandler.MQTTSub;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
 
-
+import static android.content.Context.MODE_PRIVATE;
 
 /*
  * This class is the handler for the ShoppingList component. This is where the logic part of the component
@@ -36,16 +42,17 @@ public class ShoppingHandler implements Observer {
     private String preData;
     private LinkedList<String> SPLList;
     private String clientID;
-    private MQTTClient mqttClient;
+    //private MQTTClient mqttClient;
 
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter, String clientID) {
         MemoryPersistence persistence = new MemoryPersistence();
         this.clientID = clientID;
-        this.mqttClient = new MQTTClient("prata server",this.clientID,persistence);
+        //this.mqttClient = new MQTTClient("prata server",this.clientID,persistence);
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
-
+        //listenSubscription("Gro/" + clientID);
+        shoppingList = new ShoppingList(this.clientID,SPLList,"clientID goes here"); // We need to initialize the ShoppingList here with the client ID
     }
 
     public void parseMessage(String message) {
@@ -63,6 +70,49 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
     }
+
+
+    //TODO unsure if it's needed.
+//    public void parseContent() {
+//        try {
+//            JSONParser parser = new JSONParser();
+//            JSONArray jsonArray;
+//            JSONObject jso;
+//
+//            switch (getReply()) {
+//                case "Done":
+//                    jsonArray = (JSONArray) parser.parse(this.preData);
+//                    jso = (JSONObject) parser.parse(jsonArray.get(0).toString());
+//                    preData = jso.get("item").toString();
+//
+//                    break;
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
+    public void addClassObserver(MQTTSub sub){
+        sub.addObserver(this);
+    }
+
+    /*private void listenSubscription(final String topic) {
+        try {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                    MQTTSub subscriber = new MQTTSub(mqttClient,topic);
+                    addClassObserver(subscriber);
+            }
+        });
+            thread.start();
+            System.out.println("listening to this topic " + topic);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }*/
 
 
     private void parseArray(LinkedList linkedList, String type) {
@@ -86,40 +136,12 @@ public class ShoppingHandler implements Observer {
                 }
             }
 
-            createShoppingList(this.clientID,linkedList,this.clientID+"@smartmirror.com");
+            //ShoppingList spl = new ShoppingList(this.getTitle(),linkedList,);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
-
-    public ShoppingList createShoppingList(String tittle, LinkedList items,String clientID){
-        this.shoppingList = new ShoppingList(tittle,items,clientID+"@smartmirror.com");
-        return this.shoppingList;
-    }
-
-
-    public void addClassObserver(MQTTSub sub){
-        sub.addObserver(this);
-    }
-
-    private void listenSubscription(final String topic) {
-        try {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                    MQTTSub subscriber = new MQTTSub(mqttClient,topic);
-                    addClassObserver(subscriber);
-            }
-        });
-            thread.start();
-            System.out.println("listening to this topic " + topic);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
     public void addItemToList(String item){
         shoppingList.getItemList().add(item);
     }
@@ -130,7 +152,6 @@ public class ShoppingHandler implements Observer {
         shoppingList.getItemList().clear();
         shoppingList.setListTitle("");
     }
-
 
     /*
      * The saveTitle(title) method saves the title of a shopping list internally on a phone. It only
@@ -185,19 +206,9 @@ public class ShoppingHandler implements Observer {
     }
 
     @Override
-    public void update(Observable observable, final Object o) {
-        //TODO if the instance is always MqttMessage, then remove the if
+    public void update(Observable observable, Object o) {
         if (o instanceof MqttMessage){
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    String str = o.toString();
-                    System.out.println(str);
-
-                    parseMessage(str);
-                }
-            });
-            thread.start();
+            // TODO GEOFF code here regarding how to handle the object
         }
     }
 }
