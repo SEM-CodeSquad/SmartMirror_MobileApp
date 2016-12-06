@@ -22,19 +22,12 @@ public class ShoppingPresenter {
         this.view = shoppingView;
         this.handler = new ShoppingHandler(shoppingView, this,uuid);
     }
-
-    public void addItem(String item){
-        handler.addItemToList(item);
+    public void startListening(){
+        handler.listenSubscription("Gro/" + this.uuid);
     }
-    public void updateList(){
-        Collections.sort(handler.getShoppingList()); // Maybe should be done in handler
+    public void updateList(String requestType, String item){
+        handler.updateList(requestType, item);
         view.getListView().setAdapter(view.getAdapter());
-    }
-    public void clearList(){
-        handler.clearShoppingList();
-    }
-    public void removeElement(int position){
-        handler.removeItemFromList(position);
     }
     /*public void saveTitle(String title){
         handler.saveTitle(title);

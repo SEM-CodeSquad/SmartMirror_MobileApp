@@ -42,7 +42,7 @@ public class ShoppingHandler implements Observer {
     private String preData;
     private LinkedList<String> SPLList;
     private String clientID;
-    //private MQTTClient mqttClient;
+    private MQTTClient mqttClient;
 
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter, String clientID) {
         MemoryPersistence persistence = new MemoryPersistence();
@@ -71,7 +71,6 @@ public class ShoppingHandler implements Observer {
         }
     }
 
-
     //TODO unsure if it's needed.
 //    public void parseContent() {
 //        try {
@@ -97,7 +96,7 @@ public class ShoppingHandler implements Observer {
         sub.addObserver(this);
     }
 
-    /*private void listenSubscription(final String topic) {
+    public void listenSubscription(final String topic) {
         try {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -112,7 +111,7 @@ public class ShoppingHandler implements Observer {
         catch (Exception e){
             e.printStackTrace();
         }
-    }*/
+    }
 
 
     private void parseArray(LinkedList linkedList, String type) {
@@ -142,15 +141,17 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
     }
-    public void addItemToList(String item){
-        shoppingList.getItemList().add(item);
-    }
-    public void removeItemFromList(int position){
-        shoppingList.getItemList().remove(position);
-    }
-    public void clearShoppingList(){
-        shoppingList.getItemList().clear();
-        shoppingList.setListTitle("");
+    public void updateList(String requestType, String item){
+        if (requestType == "add"){
+            //TODO JSON builder to add item.
+            SPLList.add(item);
+        } else if (requestType == "delete"){
+            //TODO JSON builder to delete item.
+            SPLList.remove("item");
+        }else if (requestType == "delete-list"){
+            // TODO JSON builder to
+            SPLList.clear();
+        }
     }
 
     /*
@@ -160,40 +161,7 @@ public class ShoppingHandler implements Observer {
      * the user needs to be presented with it. The items of the shopping list can be received from a fetch call to
      *
      */
-    /*public void saveTitle(String title){
-        String file_name = "List Title";
-        try {
-            FileOutputStream fileOutputStream = view.getActivity().openFileOutput(file_name,MODE_PRIVATE);
-            fileOutputStream.write(title.getBytes());
-            fileOutputStream.close();
-            Toast.makeText(view.getActivity().getApplicationContext(),"Message Saved", Toast.LENGTH_LONG).show();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
-
-    /*public String fetchTitle(){
-        StringBuffer stringBuffer = new StringBuffer();
-        try {
-            String title;
-            FileInputStream fileInputStream = view.getActivity().openFileInput("List Title");
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            try {
-                while ((title = bufferedReader.readLine())!=null){
-                        stringBuffer.append(title + "\n");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return stringBuffer.toString();
-    }*/
 
     public LinkedList<String> getShoppingList(){
         return this.shoppingList.getItemList();
@@ -208,6 +176,7 @@ public class ShoppingHandler implements Observer {
     @Override
     public void update(Observable observable, Object o) {
         if (o instanceof MqttMessage){
+            //parseArray();
             // TODO GEOFF code here regarding how to handle the object
         }
     }

@@ -52,8 +52,7 @@ public class ShoppingView extends Fragment {
 
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
-        // presenter.saveTitle("ListNimish"); // Used as a test
-        presenter.updateList();
+        presenter.startListening();
 
         /*
          * This function sets each row of a listView(each item of a shopping list) a clickable item which will open
@@ -111,8 +110,7 @@ public class ShoppingView extends Fragment {
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    presenter.addItem(input.getText().toString());
-                    presenter.updateList();
+                    presenter.updateList("add",input.getText().toString());
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -129,8 +127,7 @@ public class ShoppingView extends Fragment {
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    presenter.clearList();
-                    presenter.updateList();
+                    presenter.updateList("delete-list", "empty");
                 }
             });
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -149,14 +146,13 @@ public class ShoppingView extends Fragment {
     /*
      * This method here specifically deals with deletion of items from the shopping list.
      */
-    public void removeElement(String selectedItem, final int position){
+    public void removeElement(final String selectedItem, final int position){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Remove " + selectedItem + "?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                presenter.removeElement(position);
-                presenter.updateList();
+                presenter.updateList("delete", selectedItem);
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
