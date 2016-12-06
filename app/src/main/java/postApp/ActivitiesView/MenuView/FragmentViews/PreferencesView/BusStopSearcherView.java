@@ -19,19 +19,27 @@ import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.BusStopSearcherPresenter;
 
-/*
-    Class for searching a stop using västtrafiks api
+/**
+    Class for searching a stop using västtrafiks api and showing a view for it
  */
 public class BusStopSearcherView extends Fragment {
     View myView;
     public ListView listView;
     EditText SearchBox;
     BusStopSearcherPresenter presenter;
+
+    /**
+     * When we switch to this fragment we initialize the views, onclicklisteners etc
+     * @param inflater used for switching layout
+     * @param container the shared viewgroup
+     * @param savedInstanceState saved state
+     * @return the view of the fragment
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.searchstop, container, false);
-        //initilize the views
+        //initialize the views
         listView = (ListView) myView.findViewById(R.id.listview);
         SearchBox = (EditText) myView.findViewById(R.id.txtsearch);
         presenter = new BusStopSearcherPresenter(this);
@@ -39,25 +47,39 @@ public class BusStopSearcherView extends Fragment {
         //set a textchanged listener to searchbox
         SearchBox.addTextChangedListener(new TextWatcher() {
 
-            //not used for now but have to be implemented
+            /**
+             * For a textwatcher you need to implement these methods they are not used
+             * @param s not used
+             * @param start not used
+             * @param count not used
+             * @param after not used
+             */
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int
                     after) {
             }
 
+            /**
+             * @param s not used
+             * @param start not used
+             * @param count not used
+             * @param before not used
+             */
             @Override
-            //not used for now but have to be implemented
             public void onTextChanged(CharSequence s, int start, int before, int
                     count) {
             }
 
-            //after the text is changed we use this
+            /**
+             * After the text is changed we use this method to call methods in the presenter with diffrent outcomes
+             * @param s the string that is written
+             */
             @Override
             public void afterTextChanged(Editable s) {
                 //do nothing if empty
                 if(s.toString().equals("")){
                 }
-                //show nothing if not a lot of letters
+                //show nothing if not more then 2 letters
                 else if (s.length() <= 2) {
                     presenter.EmptyList();
                 }
@@ -71,15 +93,18 @@ public class BusStopSearcherView extends Fragment {
 
         });
 
-        //if we chose a item on the list then we publish that one.
+        /**
+         * if we chose a item on the list then we publish that one.
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View view, int i, long l) {
                 presenter.PublishBus((listView.getItemAtPosition(i).toString()));
                 presenter.OnBusClick();
             }
         });
-
-        //if the searchbox has no focus hide it!
+        /**
+         * if the searchbox has no focus hide it!
+         */
         SearchBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -88,33 +113,49 @@ public class BusStopSearcherView extends Fragment {
                 }
             }
         });
-
-
         return myView;
 
     }
 
+    /**
+     * Just when this fragment is resumed we call the superfunctions onResume, and set title to bustops.
+     */
     @Override
     public void onResume(){
         super.onResume();
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Search for Bustops");
     }
+
+    /**
+     * When we pick a busstop we switch fragments and swich back to a normal drawer
+     */
     public void OnBusClick(){
         //set it back to a drawer instead of backbutton
         ((NavigationActivity) getActivity()).toggleDrawerUse(true);
         //switch back to settings
         getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
     }
+
+    /**
+     * Show a toast containing string s
+     * @param S the message
+     */
     public void ShowMessage(String S){
             Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
         }
+
+    /**
+     * if no mirror is chosen we display this with a toast
+     */
     public void NoMirror(){
         Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
 
     }
-    /*
-   Hides keyboard
-    */
+
+    /**
+     * Hides keyboard
+     * @param view the view where we are hiding the keyboard
+     */
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);

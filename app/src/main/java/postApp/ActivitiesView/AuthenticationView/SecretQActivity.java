@@ -16,13 +16,19 @@ import adin.postApp.R;
 import postApp.Presenters.AuthenticationPresenters.SecretQPresenter;
 
 /**
- * Created by adinH on 2016-11-07.
+ * Class that handles the secret question view
  */
 public class SecretQActivity extends AppCompatActivity {
 
     private EditText usrname;
     private EditText secret;
     private SecretQPresenter presenter;
+
+    /**
+     * When we switch to this activity the oncreate method is ran, which instantiates buttons
+     * sets onclick listeners.
+     * @param savedInstanceState the saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,26 +71,37 @@ public class SecretQActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * When back is pressed we call the superfucntions backpresed
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
 
     }
-
+    /**
+     * Just creating a standard option menu
+     * @param menu the menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-
         return true;
     }
 
+    /**
+     * if the credentials match we switch to resetpasswordactivity
+     * @param User we want to pass to the ResetPasswordActivity
+     */
     public void CorrectCredentials(String User) {
         Intent intent = new Intent(this, ResetPasswordActivity.class);
         intent.putExtra("user", User);
         startActivity(intent);
     }
 
+    /**
+     * If credentials don't match we display a alertdialog saying that
+     */
     public void WrongCredentials(){
         new AlertDialog.Builder(this)
                 .setMessage("Wrong Username or Question Answer")
@@ -96,11 +113,17 @@ public class SecretQActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * Hide keyboard
+     * @param view where we are hiding the keyboard
+     */
     public void HideKeyboard(View view){
         InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
+    /**
+     * When user pressed cancel buttons this method is called which switches screen
+     */
     public void OnCancel(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
