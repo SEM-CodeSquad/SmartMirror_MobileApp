@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,6 +38,7 @@ public class PostitView extends Fragment {
     PostitPresenter presenter;
     AlertDialog.Builder builder;
     ImageView PostitImage;
+    ProgressDialog progress;
 
     /**
      * When we change to this fragment OnCreateView is started which gets buttons, builds alertdialogs and everything required for this view.
@@ -57,7 +59,8 @@ public class PostitView extends Fragment {
         PostitImage = (ImageView)myView.findViewById(R.id.ImageView);
         typedtext = (EditText)myView.findViewById(R.id.typedText);
         builder = new AlertDialog.Builder(getActivity());
-        presenter = new PostitPresenter(this);
+        presenter = new PostitPresenter(this, ((NavigationActivity) getActivity()).getMirror());
+        progress = new ProgressDialog(getActivity());
 
 
         /**
@@ -232,13 +235,6 @@ public class PostitView extends Fragment {
 
     }
 
-    /**
-     * No echo is received we know pblishing failed
-     */
-    public void NoEcho(){
-        Toast.makeText(getActivity(), "Publishing failed.", Toast.LENGTH_SHORT).show();
-    }
-
     public void ShowColors(){
         builder.show();
     }
@@ -249,6 +245,37 @@ public class PostitView extends Fragment {
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+    /**
+     * Loading method that shows a progressdialog
+     */
+    public void Loading(){
+        progress.setMessage("Adding Postit");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.show();
+    }
+
+    /**
+     * method that dismisses the progressbar
+     */
+    public void DoneLoading(){
+        progress.dismiss();
+    }
+
+    /**
+     * Method that shows a alertdialog that says fail.
+     */
+    public void UnsuccessfulPublish(){
+        //if user types wrong login we show a alertdialog some text
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Failed to add Postit")
+                .setMessage("No answer received")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
     }
 
     /**

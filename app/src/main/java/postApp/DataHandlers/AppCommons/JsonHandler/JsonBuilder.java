@@ -18,31 +18,29 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
     private String topic;
     private HttpRequestSender post;
     private String myUrl = "http://codehigh.ddns.me:8080/";
-    private String clientID;
 
     @Override
     protected String doInBackground(String... args) {
         try {
-            this.clientID = args[0];
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
             Calendar c = Calendar.getInstance();
             c.setTime(new Date()); // Now use today date.
-            c.add(Calendar.DATE, 7); // Adding 5 days
-            String output = dateFormat.format(c.getTime());
+            c.add(Calendar.DATE, 5); // Adding 5 days
+            long timestamp = c.getTimeInMillis()/1000;
 
             // Please use this format when passing around a JSON obj
             // 2 different outcomes if its a postit we publish to a different topic if its a config we publish to a dif topic with a dif jsonobj
             if (args[1].equals("postit")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
-                sendthis.put("messageFrom", "test");
-                sendthis.put("timestamp", "12");
+                sendthis.put("messageFrom", args[6]);
+                sendthis.put("timestamp", Long.toString(timestamp));
                 JSONObject item = new JSONObject();
                 sendthis.put("contentType", "post-it");
                 item.put("postItID", args[5]);
                 item.put("body", args[2]);
                 item.put("senderStyle", args[3]);
-                item.put("expiresAt", "12");
+                item.put("expiresAt", args[4]);
                 JSONArray jArray = new JSONArray();
                 jArray.add(0, item);
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];

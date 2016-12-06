@@ -35,4 +35,15 @@ public class PreferencesPresenter {
         PreferencesView.NoMirrorChosen();
     }
 
+    public void Loading() {
+        PreferencesView.Loading();
+    }
+
+    public void DoneLoading() {
+        PreferencesView.DoneLoading();
+    }
+
+    public void NoEcho() {
+        PreferencesView.UnsuccessfulPublish();
+    }
 }

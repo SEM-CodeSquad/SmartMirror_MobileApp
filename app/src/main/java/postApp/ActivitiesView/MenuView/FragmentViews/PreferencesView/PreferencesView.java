@@ -4,7 +4,10 @@ package postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView;
  * Created by adinH on 2016-10-27.
  */
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -32,6 +35,7 @@ public class PreferencesView extends Fragment {
     Switch greetingsswitch;
     PreferencesPresenter presenter;
     Button publish;
+    ProgressDialog progress;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class PreferencesView extends Fragment {
         greetingsswitch = (Switch) myView.findViewById(R.id.greetingsswitch);
         publish = (Button) myView.findViewById(R.id.prefpub);
         presenter = new PreferencesPresenter(this);
+        progress = new ProgressDialog(getActivity());
 
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,5 +109,35 @@ public class PreferencesView extends Fragment {
                 Boolean.toString(busswitch.isChecked()),
                 Boolean.toString(weatherswitch.isChecked()), Boolean.toString(clockswitch.isChecked()),  Boolean.toString(deviceswitch.isChecked()),
                 Boolean.toString(greetingsswitch.isChecked()), Boolean.toString(postitswitch.isChecked()));
+    }
+    /**
+     * Loading method that shows a progressdialog
+     */
+    public void Loading(){
+        progress.setMessage("Updating settings");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.show();
+    }
+    /**
+     * method that dismisses the progressbar
+     */
+    public void DoneLoading(){
+        progress.dismiss();
+    }
+
+    /**
+     * Method that shows a alertdialog that says fail.
+     */
+    public void UnsuccessfulPublish(){
+        //if user types wrong login we show a alertdialog some text
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Failed to update preferences")
+                .setMessage("No answer received")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
     }
 }

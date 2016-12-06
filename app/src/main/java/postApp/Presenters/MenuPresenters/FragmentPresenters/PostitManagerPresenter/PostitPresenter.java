@@ -14,9 +14,9 @@ public class PostitPresenter {
     PostitView PostitView;
     PostitHandler PostitHandler;
 
-    public PostitPresenter(PostitView PostitView){
+    public PostitPresenter(PostitView PostitView, String mirrorid){
         this.PostitView = PostitView;
-        this.PostitHandler = new PostitHandler(PostitView, this);
+        this.PostitHandler = new PostitHandler(this, mirrorid);
         PostitView.BuildColorChoice();
         SetColor("yellow");
     }
@@ -57,11 +57,18 @@ public class PostitPresenter {
         PostitView.hideKeyboard(V);
     }
     public void NoEcho(){
-        PostitView.NoEcho();
+        PostitView.UnsuccessfulPublish();
     }
     public void AwaitEcho(){
         PostitHandler.AwaitEcho();
     }
 
 
+    public void Loading() {
+        PostitView.Loading();
+    }
+
+    public void DoneLoading() {
+        PostitView.DoneLoading();
+    }
 }
