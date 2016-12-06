@@ -76,22 +76,9 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Clock"
-            android:id="@+id/clockswitch"
-            android:layout_alignLeft="@+id/postswitch"
-            android:layout_alignStart="@+id/postswitch"
-            android:layout_below="@+id/postswitch"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:textStyle="bold"
-            android:layout_alignParentEnd="true" />
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="News"
             android:id="@+id/newsswitch"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_below="@+id/clockswitch"
             android:layout_alignLeft="@+id/clockswitch"
             android:layout_alignStart="@+id/clockswitch"
@@ -169,7 +156,7 @@
             android:text="Device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/deviceswitch"
             android:layout_below="@+id/greetingsswitch"
             android:layout_marginRight="20dp"
@@ -181,7 +168,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/clock"
+            android:src="@drawable/devices"
             android:id="@+id/imageView18"
             android:layout_alignBottom="@+id/deviceswitch"
             android:layout_alignParentStart="true"
@@ -191,32 +178,50 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/clock"
+            android:src="@drawable/greetings"
             android:layout_alignBottom="@+id/greetingsswitch"
             android:layout_alignParentStart="true"
             android:id="@+id/imageView19"
             android:layout_alignTop="@+id/greetingsswitch" />
 
         <Switch
-            android:text="Greetings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clock"
+            android:id="@+id/clockswitch"
+            android:layout_marginRight="20dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/imageView7"
+            android:layout_alignStart="@+id/postswitch"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentEnd="true" />
+
+        <Switch
+            android:text="Greetings message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/greetingsswitch"
             android:textStyle="normal|bold"
+            android:layout_marginTop="28dp"
             android:layout_below="@+id/newsswitch"
             android:layout_alignStart="@+id/newsswitch"
-            android:layout_marginTop="20dp"
             android:layout_alignEnd="@+id/newsswitch" />
 
         <Button
+            style="@style/BtnCustomHolo"
             android:text="Update Preferences"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/prefpub"
+            android:textSize="18sp"
             android:layout_below="@+id/deviceswitch"
-            android:layout_alignStart="@+id/deviceswitch"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="46dp"
-            android:id="@+id/prefpub" />
+            android:layout_marginTop="23dp"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp" />
 
     </RelativeLayout>
 </ScrollView>

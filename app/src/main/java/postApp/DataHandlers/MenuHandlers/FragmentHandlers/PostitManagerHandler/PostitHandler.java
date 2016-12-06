@@ -121,7 +121,6 @@ public class PostitHandler implements Observer{
 
     @Override
     public void update(Observable observable, Object data) {
-        System.out.println("hererer");
         stored = true;
         StorePost();
     }

@@ -86,8 +86,6 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
-                System.out.println(topic);
-                System.out.println(message);
                 post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
             } else if (args[1].equals("postIt action")) {
                 //TODO the actual content should be variables and put it in the sendthis object.

@@ -71,6 +71,7 @@
         android:textColor="#030303" />
 
     <Button
+        style="@style/BtnCustomHolo"
         android:text="Chose Expiry Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

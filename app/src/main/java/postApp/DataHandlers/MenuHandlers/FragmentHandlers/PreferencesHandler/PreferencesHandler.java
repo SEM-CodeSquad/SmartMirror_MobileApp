@@ -24,14 +24,19 @@ public class PreferencesHandler implements Observer {
     String postit;
     String device;
     Handler handler;
-    Runnable run;
-    private Echo echo;
     public PreferencesHandler(PreferencesPresenter PreferencesPresenter){
         this.PreferencesPresenter = PreferencesPresenter;
     }
 
     public void PublishPrefs(String topic, String user, String news, String bus, String weather, String clock, String device, String greetings ,String postit) {
+        if (topic != "No mirror chosen") {
+
         PreferencesPresenter.Loading();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    PreferencesPresenter.DoneLoading();
+                }
+            }, 2000); // 3000 milliseconds delay
         this.topic = topic;
         this.user = user;
         this.news = news;
@@ -43,7 +48,7 @@ public class PreferencesHandler implements Observer {
         this.device = device;
         JsonBuilder R = new JsonBuilder();
         String S;
-        if (topic != "No mirror chosen") {
+
             try {
                 S = R.execute(topic, "preferences", user, news, bus, weather, clock, device, greetings, postit).get();
             } catch (InterruptedException e) {
@@ -58,10 +63,10 @@ public class PreferencesHandler implements Observer {
             PreferencesPresenter.NoMirror();
         }
     }
+
+
     @Override
     public void update(Observable observable, Object o) {
-        handler.removeCallbacks(run);
-        PreferencesPresenter.DoneLoading();
 
     }
 }

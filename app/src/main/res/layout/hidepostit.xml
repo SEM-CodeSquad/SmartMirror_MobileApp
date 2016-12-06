@@ -5,30 +5,39 @@
 
 
     <Button
-        android:text="Update postits on mirror"
+        style="@style/BtnCustomHolo"
+        android:text="Update postit view on mirror"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/updatecheck"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="14dp" />
+        android:layout_marginStart="14dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="100dp"
+        android:textColorLink="@color/viewfinder_mask"
+        android:textAlignment="center" />
 
     <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        android:layout_above="@+id/updatecheck"
+        android:id="@+id/radiogroup123"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/radiogroup123">
+        android:layout_above="@+id/updatecheck">
         <RadioButton
             android:text="All"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
             android:id="@+id/allcheck"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/bluecheck" />
+            android:layout_alignStart="@+id/bluecheck"
+            android:textColorLink="@color/viewfinder_mask"
+            android:textSize="18sp" />
 
         <RadioButton
             android:text="Purple"
@@ -37,7 +46,9 @@
             android:id="@+id/purplecheck"
             android:layout_below="@+id/greencheck"
             android:layout_alignStart="@+id/greencheck"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorLink="@color/viewfinder_mask"
+            android:textSize="18sp" />
 
         <RadioButton
             android:text="Orange"
@@ -46,7 +57,9 @@
             android:id="@+id/orangecheck"
             android:layout_below="@+id/purplecheck"
             android:layout_alignStart="@+id/purplecheck"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorLink="@color/viewfinder_mask"
+            android:textSize="18sp" />
 
         <RadioButton
             android:text="Pink"
@@ -55,7 +68,9 @@
             android:layout_below="@+id/orangecheck"
             android:layout_alignStart="@+id/orangecheck"
             android:id="@+id/pinkcheck"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorLink="@color/viewfinder_mask"
+            android:textSize="18sp" />
 
         <RadioButton
             android:text="Blue"
@@ -64,7 +79,9 @@
             android:id="@+id/bluecheck"
             android:layout_below="@+id/allcheck"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorLink="@color/viewfinder_mask"
+            android:textSize="18sp" />
 
         <RadioButton
             android:text="Green"
@@ -73,7 +90,9 @@
             android:id="@+id/greencheck"
             android:layout_below="@+id/bluecheck"
             android:layout_alignStart="@+id/bluecheck"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorLink="@color/viewfinder_mask"
+            android:textSize="18sp" />
 
         <RadioButton
             android:text="Yellow"
@@ -82,7 +101,8 @@
             android:id="@+id/yellowcheck"
             android:layout_marginTop="16dp"
             android:layout_below="@+id/pinkcheck"
-            android:layout_alignStart="@+id/pinkcheck" />
+            android:layout_alignStart="@+id/pinkcheck"
+            android:textSize="18sp" />
     </RadioGroup>
 
 </RelativeLayout>

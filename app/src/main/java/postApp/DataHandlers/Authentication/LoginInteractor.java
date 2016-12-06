@@ -56,7 +56,7 @@ public class LoginInteractor implements Observer {
                         LoginPresenter.DoneLoading();
                         LoginPresenter.SuccessfulLogin(User, Bus, Weather, News);
                     }
-                }, 1000); // 3000 milliseconds delay
+                }, 1000); // 1000 milliseconds delay
             }
             else{
                 sett = true;
