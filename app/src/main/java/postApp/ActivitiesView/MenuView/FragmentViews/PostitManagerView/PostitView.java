@@ -37,9 +37,15 @@ public class PostitView extends Fragment {
     PostitPresenter presenter;
     AlertDialog.Builder builder;
     ImageView PostitImage;
-    /*
-    When we change to this fragment OnCreateView is started which gets buttons, builds alertdialogs and everything required for this view.
+
+    /**
+     * When we change to this fragment OnCreateView is started which gets buttons, builds alertdialogs and everything required for this view.
+     * @param inflater used for inflating the layout
+     * @param container the shared viewgroup of the fragments
+     * @param savedInstanceState and the saved instance
+     * @return the view for the frament
      */
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +60,9 @@ public class PostitView extends Fragment {
         presenter = new PostitPresenter(this);
 
 
+        /**
+         * Set a onclicklistener for the datebutton that shows a datepicker
+         */
         datebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +70,6 @@ public class PostitView extends Fragment {
                 int mYear = c.get(Calendar.YEAR);
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
-                System.out.println("the selected " + mDay);
                 DatePickerDialog dialog = new DatePickerDialog(getActivity(),
                         new mDateSetListener(), mYear, mMonth, mDay);
                 dialog.show();
@@ -69,7 +77,9 @@ public class PostitView extends Fragment {
         });
 
 
-        //when colorbutton is pressed in the UI we show the color builder.
+        /**
+         * when colorbutton is pressed in the UI we show the color builder.
+         */
         colorbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +87,7 @@ public class PostitView extends Fragment {
             }
         });
 
-        /*
+        /**
         This is used for posting a postit with starting the Retrieve data class with all the args we need.
          */
         checkmark.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +105,7 @@ public class PostitView extends Fragment {
             }
         });
 
-        /*
+        /**
         Remove focus from typedtext when clicked on a diffrent place meaning we will hide keyboard when not typing
          */
         typedtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -110,11 +120,18 @@ public class PostitView extends Fragment {
         return myView;
     }
 
+    /**
+     * When we resume to this activity we call the superclass function and we set the title of the actionbar to the publish postit
+     */
     @Override
     public void onResume(){
         super.onResume();
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Publish Postit");
     }
+
+    /**
+     * A alertdialog builder displaying a choice of colors and calling the presenter to change colors according to this
+     */
     public void BuildColorChoice(){
 
         //Set the title to chose color
@@ -128,32 +145,32 @@ public class PostitView extends Fragment {
                         // of the selected item
                         switch (which) {
                             case 0:
-                                //we change post it color when publishing to broker
+                                //We change color, and change the image color of the picture
                                 presenter.SetColor("blue");
                                 presenter.BlueClick();
                                 break;
                             case 1:
-                                //we change variable color1[0] when publishing to broker
+                                //We change color, and change the image color of the picture
                                 presenter.SetColor("green");
                                 presenter.GreenClick();
                                 break;
                             case 2:
-                                //we change variable color1[0] when publishing to broker
+                                //We change color, and change the image color of the picture
                                 presenter.SetColor("yellow");
                                 presenter.YellowClick();
                                 break;
                             case 3:
-                                //we change variable color1[0] when publishing to broker
+                                //We change color, and change the image color of the picture
                                 presenter.SetColor("orange");
                                 presenter.OrangeClick();
                                 break;
                             case 4:
-                                //we change variable color1[0] when publishing to broker
+                                //We change color, and change the image color of the picture
                                 presenter.SetColor("purple");
                                 presenter.PurpleClick();
                                 break;
                             case 5:
-                                //we change variable color1[0] when publishing to broker
+                                //We change color, and change the image color of the picture
                                 presenter.SetColor("pink");
                                 presenter.PinkClick();
                                 break;
@@ -162,43 +179,62 @@ public class PostitView extends Fragment {
                 });
         builder.create();
     }
+    /**
+     * Change the picture color to match the switch chosen
+     */
     public void ColorBlue(){
-        //Change the picture color to match the switch chosen
         PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_blue));
-        Toast.makeText(getActivity(), "Chose Blue", Toast.LENGTH_SHORT).show();
     }
+    /**
+     * Change the picture color to match the switch chosen
+     */
     public void ColorPink(){
-        //Change the picture color to match the switch chosen
         PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_pink));
-        Toast.makeText(getActivity(), "Chose Pink", Toast.LENGTH_SHORT).show();
     }
+    /**
+     * Change the picture color to match the switch chosen
+     */
     public void ColorPurple(){
-        //Change the picture color to match the switch chosen
         PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_purple));
-        Toast.makeText(getActivity(), "Chose Purple", Toast.LENGTH_SHORT).show();
     }
+    /**
+     * Change the picture color to match the switch chosen
+     */
     public void ColorGreen(){
-        //Change the picture color to match the switch chosen
         PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_green));
-        Toast.makeText(getActivity(), "Chose Green", Toast.LENGTH_SHORT).show();
     }
+    /**
+     * Change the picture color to match the switch chosen
+     */
     public void ColorOrange(){
-        //Change the picture color to match the switch chosen
         PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_orange));
-        Toast.makeText(getActivity(), "Chose Orange", Toast.LENGTH_SHORT).show();
     }
+    /**
+     * Change the picture color to match the switch chosen
+     */
     public void ColorYellow(){
-        //Change the picture color to match the switch chosen
         PostitImage.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_yellow));
-        Toast.makeText(getActivity(), "Chose Yellow", Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * Used for showing a toast with a message
+     * @param S the message
+     */
     public void ShowMessage(String S){
         Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * IF no mirror ID is chosen display a toast
+     */
     public void NoMirror(){
         Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
 
     }
+
+    /**
+     * No echo is received we know pblishing failed
+     */
     public void NoEcho(){
         Toast.makeText(getActivity(), "Publishing failed.", Toast.LENGTH_SHORT).show();
     }
@@ -214,8 +250,19 @@ public class PostitView extends Fragment {
         InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    /**
+     * A innerclass for a datepickerdialog
+     */
     class mDateSetListener implements DatePickerDialog.OnDateSetListener {
 
+        /**
+         * When we pick date we set text on the datebutton witth the current date
+         * @param view the view it's in
+         * @param year the year
+         * @param monthOfYear the month
+         * @param dayOfMonth the day
+         */
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
@@ -228,9 +275,6 @@ public class PostitView extends Fragment {
                     // Month is 0 based so add 1
                     .append(mMonth + 1).append("/").append(mDay).append("/")
                     .append(mYear).append(" "));
-            System.out.println(datebutton.getText().toString());
-
-
         }
     }
 

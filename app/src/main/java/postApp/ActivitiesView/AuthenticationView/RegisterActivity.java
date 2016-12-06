@@ -17,6 +17,9 @@ import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.AuthenticationPresenters.RegisterPresenter;
 
+/**
+ * This activity handles the login view
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     EditText usrname;
@@ -24,6 +27,11 @@ public class RegisterActivity extends AppCompatActivity {
     EditText secret;
     private RegisterPresenter presenter;
 
+    /**
+     * When the activity is launched this is the oncreate method,
+     * Iniatilize the buttons, edittext and set onclicklisteners
+     * @param savedInstanceState saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,32 +88,52 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * When back is pressed we call the superfucntions backpresed
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
+    /**
+     * Just creating a standard option menu
+     * @param menu the menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-
         return true;
     }
 
+    /**
+     * When user pressed cancel buttons this method is called which switches screen
+     */
     public void onCancel() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Hide keyboard
+     * @param view we are hiding the keyboard
+     */
     public void HideKeyboard(View view){
         InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    /**
+     * If its a succefull register we take the user back to loginactivity
+     */
     public void SuccessfulRegister(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * A alertdialog method that shows that the name is not a email.
+     */
     public void NotEmail(){
         new AlertDialog.Builder(this)
                 .setMessage("Username must be a valid Email")
@@ -118,6 +146,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * If the username is already chosen we tell the user that
+     */
     public void UnsuccessfulRegister(){
         new AlertDialog.Builder(this)
                 .setMessage("Username already chosen")
