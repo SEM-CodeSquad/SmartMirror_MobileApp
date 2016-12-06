@@ -98,27 +98,6 @@ public class ShoppingHandler implements Observer {
         }
     }
 
-    //TODO unsure if it's needed.
-//    public void parseContent() {
-//        try {
-//            JSONParser parser = new JSONParser();
-//            JSONArray jsonArray;
-//            JSONObject jso;
-//
-//            switch (getReply()) {
-//                case "Done":
-//                    jsonArray = (JSONArray) parser.parse(this.preData);
-//                    jso = (JSONObject) parser.parse(jsonArray.get(0).toString());
-//                    preData = jso.get("item").toString();
-//
-//                    break;
-//            }
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
     public void addClassObserver(MQTTSub sub){
         sub.addObserver(this);
     }
