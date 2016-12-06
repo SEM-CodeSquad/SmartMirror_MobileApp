@@ -169,7 +169,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("contentType", "shoppingList");
                 JSONObject item = new JSONObject();
                 JSONArray jArray = new JSONArray();
-                //Check how ling the argument is and add item accordingly
+                //Check how long the argument is and add item accordingly
                 if (args.length > 3) {
                     for (int i = 3; i + 1 < args.length; i++) {
                         item.put("item" + (i - 1), args[i]);

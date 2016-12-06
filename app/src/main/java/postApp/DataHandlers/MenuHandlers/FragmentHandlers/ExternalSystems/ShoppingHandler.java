@@ -70,6 +70,33 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
     }
+    private void parseArray(LinkedList linkedList, String type) {
+        try {
+            JSONParser parser = new JSONParser();
+            JSONArray jsonArray = (JSONArray) parser.parse(this.preData);
+            String s = jsonArray.get(0).toString();
+            JSONObject jso = (JSONObject) parser.parse(s);
+            ArrayList<String> arrayList = new ArrayList<>(jso.keySet());
+            String item;
+            for (String anArrayList : arrayList) {
+                String value = jso.get(anArrayList).toString();
+                switch (type) {
+                    case "item":
+                        item = value;
+                        linkedList.add(item);
+                        break;
+                    default:
+                        System.out.println("Could Not be Parsed!");
+                        break;
+                }
+            }
+
+            //ShoppingList spl = new ShoppingList(this.getTitle(),linkedList,);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     //TODO unsure if it's needed.
 //    public void parseContent() {
@@ -114,33 +141,7 @@ public class ShoppingHandler implements Observer {
     }
 
 
-    private void parseArray(LinkedList linkedList, String type) {
-        try {
-            JSONParser parser = new JSONParser();
-            JSONArray jsonArray = (JSONArray) parser.parse(this.preData);
-            String s = jsonArray.get(0).toString();
-            JSONObject jso = (JSONObject) parser.parse(s);
-            ArrayList<String> arrayList = new ArrayList<>(jso.keySet());
-            String item;
-            for (String anArrayList : arrayList) {
-                String value = jso.get(anArrayList).toString();
-                switch (type) {
-                    case "item":
-                        item = value;
-                        linkedList.add(item);
-                        break;
-                    default:
-                        System.out.println("Could Not be Parsed!");
-                        break;
-                }
-            }
 
-            //ShoppingList spl = new ShoppingList(this.getTitle(),linkedList,);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
     public void updateList(String requestType, String item){
         if (requestType == "add"){
             //TODO JSON builder to add item.
