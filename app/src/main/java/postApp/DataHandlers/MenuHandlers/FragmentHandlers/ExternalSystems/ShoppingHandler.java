@@ -174,10 +174,19 @@ public class ShoppingHandler implements Observer {
     }
 
     @Override
-    public void update(Observable observable, Object o) {
-        if (o instanceof MqttMessage){
-            //parseArray();
-            // TODO GEOFF code here regarding how to handle the object
+    public void update(Observable observable, final Object obj) {
+
+            Thread thread = new Thread(new Runnable() {
+                Object o = obj;
+                @Override
+                public void run() {
+                    String str = o.toString();
+                    System.out.println(str);
+
+                    parseMessage(str);
+                }
+            });
+            thread.start();
         }
-    }
+
 }
