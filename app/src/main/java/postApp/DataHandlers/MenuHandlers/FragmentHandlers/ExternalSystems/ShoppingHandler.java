@@ -97,8 +97,6 @@ public class ShoppingHandler implements Observer {
                 }
             }
 
-            //ShoppingList spl = new ShoppingList(this.getTitle(),linkedList,);
-
         } catch (ParseException e) {
             e.printStackTrace();
         }

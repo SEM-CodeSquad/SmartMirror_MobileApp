@@ -191,6 +191,12 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                     }
                     jArray.add(0, item);
                     sendthis.put("content", jArray);
+                }else if(args[3]==null){
+                    JSONObject item = new JSONObject();
+                    JSONArray jArray = new JSONArray();
+                    item.put("item","empty");
+                    jArray.add(0, item);
+                    sendthis.put("content", jArray);
                 }
 
                 topic = "dit029/SmartMirror/" + args[1] + "/shoppingList";
