@@ -9,8 +9,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 
 import postApp.DataHandlers.MqTTHandler.HttpRequestSender;
+
+import static java.lang.String.valueOf;
 
 
 public class JsonBuilder extends AsyncTask<String, Void, String> {
@@ -148,13 +151,21 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             } else if (args[0].equals("shoppinglist")) {
 
                 JSONObject sendthis = new JSONObject();
-                JSONObject item = new JSONObject();
-                item.put("client-id", args[1]);
-                item.put("list", "SmartMirror Shopping List");
-                item.put("request", args[2]);
-                item.put("data", args[3]);
-                JSONArray jArray = new JSONArray();
-                jArray.add(0, item);
+
+                sendthis.put("client-id", args[1]);
+                sendthis.put("list", "SmartMirror Shopping List");
+                sendthis.put("request", args[2]);
+                if(!(args[3]==null)) {
+                    JSONObject item = new JSONObject();
+                    JSONArray jArray = new JSONArray();
+                    String tmp = args[4];
+                    for (int i = 0; i < Integer.parseInt(args[3]); i++) {
+                        item.put("item"+i, tmp.substring(0,tmp.indexOf(",")));
+                        tmp = tmp.substring(tmp.indexOf(",")+1);
+                    }
+                    jArray.add(0, item);
+                    sendthis.put("content", jArray);
+                }
                 topic = "Gro/" + args[1];
                 String messageString = sendthis.toJSONString();
                 //TODO the following part, codehigh.ddns.me needs to be changed
@@ -167,18 +178,21 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("messageFrom", args[1]);
                 sendthis.put("timestamp", args[2]);
                 sendthis.put("contentType", "shoppingList");
-                JSONObject item = new JSONObject();
-                JSONArray jArray = new JSONArray();
+
                 //Check how long the argument is and add item accordingly
-                if (args.length > 3) {
-                    for (int i = 3; i + 1 < args.length; i++) {
-                        item.put("item" + (i - 1), args[i]);
+
+                if(!(args[3]==null)) {
+                    JSONObject item = new JSONObject();
+                    JSONArray jArray = new JSONArray();
+                    String tmp = args[4];
+                    for (int i = 0; i < Integer.parseInt(args[3]); i++) {
+                        item.put("item"+i, tmp.substring(0,tmp.indexOf(",")));
+                        tmp = tmp.substring(tmp.indexOf(",")+1);
                     }
-                } else if (args.length == 3) {
-                    //TODO change this part accordingly, case: there is no item in the list.
+                    jArray.add(0, item);
+                    sendthis.put("content", jArray);
                 }
-                jArray.add(0, item);
-                sendthis.put("content", jArray);
+
                 topic = "dit029/SmartMirror/" + args[1] + "/shoppingList";
                 String messageString = sendthis.toJSONString();
                 post = new HttpRequestSender("codehigh.ddns.me", topic, messageString, "0", "false");
