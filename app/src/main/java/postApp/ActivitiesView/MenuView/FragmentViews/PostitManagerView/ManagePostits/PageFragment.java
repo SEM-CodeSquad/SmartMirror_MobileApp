@@ -28,8 +28,10 @@ public class PageFragment extends Fragment {
     String message;
     String color;
     String id;
+    String expireat;
     ImageView imageView;
     TextView textview;
+    TextView expiresat;
     AlertDialog.Builder builderDelete;
     AlertDialog.Builder builderEdit;
     PageFragmentPresenter presenter;
@@ -41,15 +43,19 @@ public class PageFragment extends Fragment {
         View view = inflater.inflate(R.layout.mirror_postit_fragment_view, container, false);
         builderDelete = new AlertDialog.Builder(getActivity());
         builderEdit = new AlertDialog.Builder(getActivity());
+        expiresat = (TextView)view.findViewById(R.id.expiresat);
         textview = (TextView)view.findViewById(R.id.editTypedtext);
         imageView = (ImageView)view.findViewById(R.id.manageImageview);
         Button EditPostit = (Button)view.findViewById(R.id.editcheckmark);
         Button DeletePostit = (Button)view.findViewById(R.id.deletepostitbutton);
         Bundle bundle = getArguments();
+        expireat = bundle.getString("Timestamp");
         message = bundle.getString("Text");
         id = bundle.getString("ID");
         color = bundle.getString("Color");
+
         textview.setText(message);
+        expiresat.setText(expireat);
         presenter = new PageFragmentPresenter(this,color);
 
 

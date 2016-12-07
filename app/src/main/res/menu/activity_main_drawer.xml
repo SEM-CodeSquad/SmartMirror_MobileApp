@@ -5,66 +5,58 @@
     <group android:checkableBehavior="single">
         <item android:title="Functions">
             <menu>
-        <item
-            android:id="@+id/nav_postit"
-            android:title="PostIt"
-            android:icon="@mipmap/post_it_"/>
-        <item
-            android:id="@+id/nav_mirror"
-            android:title="Edit and See Postits"
-            android:icon="@drawable/mirror" />
-        <item
-            android:id="@+id/nav_remove"
-            android:title="Remove Postit"
-            android:icon="@drawable/delpost"/>
                 <item
-                android:id="@+id/nav_filterpost"
-                android:title="Manage Mirror postits"
-                android:icon="@mipmap/post_it_"/>
+                    android:id="@+id/nav_postit"
+                    android:icon="@mipmap/post_it_"
+                    android:title="PostIt" />
+                <item
+                    android:id="@+id/nav_mirror"
+                    android:icon="@drawable/mirror"
+                    android:title="Edit and See Postits" />
+                <item
+                    android:id="@+id/nav_filterpost"
+                    android:icon="@mipmap/post_it_"
+                    android:title="Manage Mirror postits" />
             </menu>
         </item>
     </group>
 
-    <item android:title="Shopping"
-        >
+    <item android:title="Shopping">
         <menu>
             <item
                 android:id="@+id/nav_shoppinglist"
-                android:title="Shopping List"
                 android:icon="@drawable/shoppingcart"
-                />
+                android:title="Shopping List" />
         </menu>
     </item>
 
-    <item android:title="Connectivity"
-        >
-    <menu>
-        <item
-            android:id="@+id/brokerstatus"
-            android:title="Broker status"
-            android:icon="@drawable/cstorage"
-            />
-        <item
-            android:id="@+id/mirrorstatus"
-            android:title="Raspberry Status"
-            android:icon="@drawable/rpi"/>
-    </menu>
+    <item android:title="Connectivity">
+        <menu>
+            <item
+                android:id="@+id/brokerstatus"
+                android:icon="@drawable/cstorage"
+                android:title="Broker status" />
+            <item
+                android:id="@+id/mirrorstatus"
+                android:icon="@drawable/rpi"
+                android:title="Raspberry Status" />
+        </menu>
     </item>
 
     <item android:title="Other">
         <menu>
             <item
                 android:id="@+id/nav_preferences"
-                android:title="Mirror Preferences"
-                android:icon="@drawable/rem"/>
+                android:icon="@drawable/rem"
+                android:title="Mirror Preferences" />
             <item
                 android:id="@+id/nav_contact"
-                android:title="Contact us"
-                android:icon="@drawable/email"/>
+                android:icon="@drawable/email"
+                android:title="Contact us" />
             <item
                 android:id="@+id/nav_about"
-                android:title="About"
-                android:icon="@drawable/info"/>
+                android:icon="@drawable/info"
+                android:title="About" />
         </menu>
     </item>
 

@@ -25,7 +25,6 @@ import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePos
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.PreferencesView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
-import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.RemovePostitView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.Presenters.MenuPresenters.NavigationPresenter;
 
@@ -170,9 +169,6 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_mirror) {
             fragment.beginTransaction().replace(R.id.content_frame, new ManagePostitsView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Mirror");
-        } else if (id == R.id.nav_remove) {
-            fragment.beginTransaction().replace(R.id.content_frame, new RemovePostitView()).addToBackStack(null).commit();
-            getSupportActionBar().setTitle("Remove PostIt");
         } else if (id == R.id.nav_contact) {
             fragment.beginTransaction().replace(R.id.content_frame, new ContactView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("ContactView Us");
@@ -187,7 +183,7 @@ public class NavigationActivity extends AppCompatActivity
             getSupportActionBar().setTitle("Shopping List");
         } else if (id == R.id.nav_filterpost) {
             fragment.beginTransaction().replace(R.id.content_frame, new HidePostitView()).addToBackStack(null).commit();
-            getSupportActionBar().setTitle("Shopping List");
+            getSupportActionBar().setTitle("Filter Postits");
         }
 
 

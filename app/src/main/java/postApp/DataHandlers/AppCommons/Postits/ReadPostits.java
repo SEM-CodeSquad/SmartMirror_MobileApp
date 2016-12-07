@@ -48,7 +48,7 @@ public class ReadPostits extends Observable implements Observer {
         protected Void doInBackground(Void... arg0) {
             try {
                 postArray = new JSONArray();
-                String query = "select PostID, Color, Postit from Postits where UserID=?";
+                String query = "select PostID, Color, Postit, Timestamp from Postits where UserID=?";
                 PreparedStatement pstSettings = c.prepareStatement(query);
                 pstSettings.setString(1, user);
                 ResultSet rs = pstSettings.executeQuery();
@@ -62,6 +62,8 @@ public class ReadPostits extends Observable implements Observer {
                     postitJson.put("Color", color);
                     String text = rs.getString("Postit");
                     postitJson.put("Text", text);
+                    String timeStamp = rs.getString("Timestamp");
+                    postitJson.put("Timestamp", timeStamp);
                     postArray.add(count, postitJson);
                     count++;
 

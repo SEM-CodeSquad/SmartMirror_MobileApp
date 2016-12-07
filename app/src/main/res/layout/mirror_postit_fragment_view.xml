@@ -57,11 +57,23 @@
         android:id="@+id/deletepostitbutton" />
 
     <TextView
+        android:text="Expires at:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/manageImageview"
         android:layout_alignStart="@+id/deletepostitbutton"
-        android:id="@+id/expiresat" />
+        android:id="@+id/textView8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expiresat"
+        android:text="Expires at"
+        android:layout_alignTop="@+id/manageImageview"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView8"
+        android:textStyle="normal|bold"
+        android:layout_marginLeft="5dp" />
 
 
 </RelativeLayout>
