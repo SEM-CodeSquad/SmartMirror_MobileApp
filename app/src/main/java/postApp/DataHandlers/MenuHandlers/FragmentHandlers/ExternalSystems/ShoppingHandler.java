@@ -61,10 +61,16 @@ public class ShoppingHandler implements Observer {
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(this.message);
             this.reply = json.get("reply").toString();
-            this.preData = json.get("item").toString();
-            this.SPLList = new LinkedList<>();
-            parseArray(this.SPLList, "data");
-
+            if(reply.equalsIgnoreCase("done")){
+                //Parse the "data" field if there's any
+                if(json.get("data")!=null){
+                    parseArray(this.SPLList, "data");
+                }
+                //TODO Nimish you can add stuff here, when it's done from the broker
+            }
+            else if (reply.equalsIgnoreCase("error")){
+                //TODO Nimish, Add method for when it's error from the broker
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();
