@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,21 +30,21 @@ public class PageFragment extends Fragment {
     String id;
     ImageView imageView;
     TextView textview;
-    AlertDialog.Builder builder;
+    AlertDialog.Builder builderDelete;
+    AlertDialog.Builder builderEdit;
     PageFragmentPresenter presenter;
-    public PageFragment(){
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.mirror_postit_fragment_view, container, false);
-        builder = new AlertDialog.Builder(getActivity());
+        builderDelete = new AlertDialog.Builder(getActivity());
+        builderEdit = new AlertDialog.Builder(getActivity());
         textview = (TextView)view.findViewById(R.id.editTypedtext);
         imageView = (ImageView)view.findViewById(R.id.manageImageview);
-        ImageButton checkmark = (ImageButton)view.findViewById(R.id.editcheckmark);
-        ImageButton colors = (ImageButton)view.findViewById(R.id.managepostitcolonbutton);
+        Button EditPostit = (Button)view.findViewById(R.id.editcheckmark);
+        Button DeletePostit = (Button)view.findViewById(R.id.deletepostitbutton);
         Bundle bundle = getArguments();
         message = bundle.getString("Text");
         id = bundle.getString("ID");
@@ -52,20 +53,19 @@ public class PageFragment extends Fragment {
         presenter = new PageFragmentPresenter(this,color);
 
 
-        checkmark.setOnClickListener(new View.OnClickListener() {
+        DeletePostit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.DeletePostit(((NavigationActivity) getActivity()).getMirror(), id);
-                //presenter.AwaitEcho();
+                builderDelete.show();
+            }
+        });
+        EditPostit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builderEdit.show();
             }
         });
 
-        colors.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.ShowColors();
-            }
-        });
         textview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -75,56 +75,67 @@ public class PageFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 
+    public void buildDelete(){
+        builderDelete.setTitle("Confirm");
+        builderDelete.setMessage("Are you sure you want to delete this postit?");
 
-    public void BuildColorChoice(){
+        builderDelete.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
-        //Set the title to chose color
-        builder.setTitle("Chose color");
-        //Building the alertdialog with 6 options
-        builder.setItems(new CharSequence[]
-                        {"Blue", "Green", "Yellow", "Orange", "Purple", "Pink"},
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // The 'which' argument contains the index position
-                        // of the selected item
-                        switch (which) {
-                            case 0:
-                                //we change post it color when publishing to broker
-                                presenter.SetColor("blue");
-                                presenter.BlueClick();
-                                break;
-                            case 1:
-                                //we change variable color1[0] when publishing to broker
-                                presenter.SetColor("green");
-                                presenter.GreenClick();
-                                break;
-                            case 2:
-                                //we change variable color1[0] when publishing to broker
-                                presenter.SetColor("yellow");
-                                presenter.YellowClick();
-                                break;
-                            case 3:
-                                //we change variable color1[0] when publishing to broker
-                                presenter.SetColor("orange");
-                                presenter.OrangeClick();
-                                break;
-                            case 4:
-                                //we change variable color1[0] when publishing to broker
-                                presenter.SetColor("purple");
-                                presenter.PurpleClick();
-                                break;
-                            case 5:
-                                //we change variable color1[0] when publishing to broker
-                                presenter.SetColor("pink");
-                                presenter.PinkClick();
-                                break;
-                        }
-                    }
-                });
-        builder.create();
+            public void onClick(DialogInterface dialog, int which) {
+
+                presenter.DeletePostit(((NavigationActivity) getActivity()).getMirror(), id);
+
+                dialog.dismiss();
+            }
+        });
+
+        builderDelete.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        builderDelete.create();
+    }
+
+    public void buildEdit(){
+        builderEdit.setTitle("Confirm");
+        builderEdit.setMessage("Are you sure you want to edit this postit?");
+
+        builderEdit.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                presenter.EditPostit(((NavigationActivity) getActivity()).getMirror(), id, textview.getText().toString());
+
+                dialog.dismiss();
+            }
+        });
+
+        builderEdit.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        builderEdit.create();
+    }
+    public void ShowMessage(String S){
+        Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
+    }
+    public void NoMirror(){
+        Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+
     }
     public void ColorBlue(){
         //Change the picture color to match the switch chosen
@@ -150,20 +161,7 @@ public class PageFragment extends Fragment {
         //Change the picture color to match the switch chosen
         imageView.setImageDrawable(getResources().getDrawable(R.mipmap.post_it_yellow));
     }
-    public void ShowMessage(String S){
-        Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
-    }
-    public void NoMirror(){
-        Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
 
-    }
-    public void NoEcho(){
-        Toast.makeText(getActivity(), "Publishing failed.", Toast.LENGTH_SHORT).show();
-    }
-
-    public void ShowColors(){
-        builder.show();
-    }
     public void ReloadScreen(){
         getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new ManagePostitsView()).addToBackStack(null).commit();
     }
@@ -176,3 +174,4 @@ public class PageFragment extends Fragment {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
+

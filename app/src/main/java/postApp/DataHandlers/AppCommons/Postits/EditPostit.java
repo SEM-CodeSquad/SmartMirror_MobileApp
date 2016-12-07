@@ -34,6 +34,7 @@ public class EditPostit extends Observable implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+        c = conn.getConn();
         EditPost editPost;
         editPost = new EditPostit.EditPost();
         editPost.execute();

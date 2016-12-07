@@ -41,7 +41,6 @@ public class DeletePostit extends Observable implements Observer {
         protected Void doInBackground(Void... arg0)
         {
             try{
-                System.out.println(iD);
                 String query = "delete from Postits where PostID= '" + iD + "' ";
                 PreparedStatement psPost = c.prepareStatement(query);
                 psPost.executeUpdate();

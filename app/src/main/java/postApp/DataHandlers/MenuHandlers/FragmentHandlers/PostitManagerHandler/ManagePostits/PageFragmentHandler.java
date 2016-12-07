@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostits.PageFragment;
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.AppCommons.Postits.EditPostit;
 import postApp.DataHandlers.MqTTHandler.Echo;
 import postApp.DataHandlers.AppCommons.Postits.DeletePostit;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits.PageFragmentPresenter;
@@ -15,91 +16,95 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresent
  */
 
 public class PageFragmentHandler implements Observer {
-        private String color;
-        private PageFragment PageFragment;
-        private PageFragmentPresenter PageFragmentPresenter;
-        private String text;
-        private String idOne;
-        private Echo echo;
-        private long start;
-        private long end;
-        private String topic;
-        DeletePostit RemovePost;
+    private PageFragmentPresenter PageFragmentPresenter;
+    private String idOne;
+    private String text;
+    DeletePostit RemovePost;
+    EditPostit editPostit;
+
+    public PageFragmentHandler(PageFragmentPresenter PageFragmentPresenter) {
+        this.PageFragmentPresenter = PageFragmentPresenter;
+    }
 
 
-        public PageFragmentHandler(PageFragment PageFragment, PageFragmentPresenter PageFragmentPresenter){
-            this.PageFragment = PageFragment;
-            this.PageFragmentPresenter = PageFragmentPresenter;
+    public void SetColor(String color) {
+        if (color.equals("yellow")) {
+            PageFragmentPresenter.YellowClick();
+        } else if (color.equals("purple")) {
+            PageFragmentPresenter.PurpleClick();
+        } else if (color.equals("pink")) {
+            PageFragmentPresenter.PinkClick();
+        } else if (color.equals("blue")) {
+            PageFragmentPresenter.BlueClick();
+        } else if (color.equals("green")) {
+            PageFragmentPresenter.GreenClick();
+        } else if (color.equals("orange")) {
+            PageFragmentPresenter.OrangeClick();
         }
+    }
 
 
-
-        public void SetColor(String color){
-            this.color = color;
-
-            if(color.equals("yellow")){
-                PageFragmentPresenter.YellowClick();
+    public void EditPostit(String topic, String id, String Text) {
+        idOne = id;
+        text = Text;
+        JsonBuilder R = new JsonBuilder();
+        String S;
+        if (topic != "No mirror chosen") {
+            try {
+                S = R.execute(topic, "postIt action", id, "edit", Text).get();
+            } catch (InterruptedException e) {
+                S = "Did not publish";
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                System.out.println(e);
+                S = "Warning: Did Not Publish";
             }
-            else if(color.equals("purple")){
-                PageFragmentPresenter.PurpleClick();
+            if(S.length() > 2) {
+                EditPost();
             }
-            else if(color.equals("pink")){
-                PageFragmentPresenter.PinkClick();
-            }
-            else if(color.equals("blue")){
-                PageFragmentPresenter.BlueClick();
-            }
-            else if(color.equals("green")){
-                PageFragmentPresenter.GreenClick();
-            }
-            else if(color.equals("orange")){
-                PageFragmentPresenter.OrangeClick();
-            }
+            PageFragmentPresenter.ShowMessage(S);
+        } else {
+            PageFragmentPresenter.NoMirror();
         }
+    }
 
-        public void DeletePostit(String topic, String UUID) {
-            this.topic = topic;
-            idOne = UUID;
-            //AwaitEcho();
-            JsonBuilder R = new JsonBuilder();
-            String S;
-            if (topic != "No mirror chosen") {
-                try {
-                    S = R.execute(topic, "postIt action", UUID, "delete", "none").get();
-                } catch (InterruptedException e) {
-                    S = "Did not publish";
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    System.out.println(e);
-                    S = "Warning: Did Not Publish";
-                }
+
+    public void DeletePostit(String topic, String UUID) {
+        idOne = UUID;
+        JsonBuilder R = new JsonBuilder();
+        String S;
+        if (topic != "No mirror chosen") {
+            try {
+                S = R.execute(topic, "postIt action", UUID, "delete", "none").get();
+            } catch (InterruptedException e) {
+                S = "Did not publish";
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                System.out.println(e);
+                S = "Warning: Did Not Publish";
+            }
+            if(S.length() > 2){
                 RemovePost();
-                PageFragmentPresenter.ShowMessage(S);
-            } else {
-                PageFragmentPresenter.NoMirror();
             }
+            PageFragmentPresenter.ShowMessage(S);
+        } else {
+            PageFragmentPresenter.NoMirror();
         }
+    }
 
 
-        public void AwaitEcho(){
-            String topic123 = "dit029/SmartMirror/" +topic + "/echo";
-            echo = new Echo(topic123, topic);
-            echo.addObserver(this);
-            start = System.currentTimeMillis();
-            end = start + 3*1000; // 3 seconds * 1000 ms/sec
-            if (System.currentTimeMillis() > end){
-                PageFragmentPresenter.NoEcho();
-            }
-
-        }
-        public void RemovePost(){
-            RemovePost = new DeletePostit(idOne);
-            RemovePost.addObserver(this);
-        }
+    public void RemovePost() {
+        RemovePost = new DeletePostit(idOne);
+        RemovePost.addObserver(this);
+    }
+    public void EditPost() {
+        editPostit = new EditPostit(text, idOne);
+        editPostit.addObserver(this);
+    }
 
 
-        @Override
-        public void update(Observable observable, Object data) {
-            PageFragmentPresenter.ReloadScreen();  //returns boolean saved, if saved postit or not
-        }
+    @Override
+    public void update(Observable observable, Object data) {
+        PageFragmentPresenter.ReloadScreen();
+    }
 }

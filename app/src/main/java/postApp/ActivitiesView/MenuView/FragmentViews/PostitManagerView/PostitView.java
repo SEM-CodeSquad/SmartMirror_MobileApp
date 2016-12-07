@@ -182,6 +182,8 @@ public class PostitView extends Fragment {
                 });
         builder.create();
     }
+
+
     /**
      * Change the picture color to match the switch chosen
      */

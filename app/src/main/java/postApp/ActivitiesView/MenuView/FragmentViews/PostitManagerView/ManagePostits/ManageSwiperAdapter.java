@@ -24,7 +24,7 @@ public class ManageSwiperAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
 
         JSONObject finalobj = (JSONObject) json.get(position);
-
+        System.out.println(finalobj.toString());
         Fragment fragment = new PageFragment();
         Bundle bundle = new Bundle();
         bundle.putString("ID", finalobj.get("PostitID").toString());
