@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -207,6 +206,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 String messageString = sendthis.toJSONString();
                 post = new HttpRequestSender("codehigh.ddns.me", topic, messageString, "0", "false");
             }
+
             post.executePost(myUrl);
 
             return post.getHttpResponse();
