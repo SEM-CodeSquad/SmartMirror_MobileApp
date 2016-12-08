@@ -17,6 +17,10 @@
                     android:id="@+id/nav_filterpost"
                     android:icon="@mipmap/post_it_"
                     android:title="Manage Mirror postits" />
+                <item
+                    android:id="@+id/nav_test"
+                    android:icon="@mipmap/post_it_"
+                    android:title="Testing" />
             </menu>
         </item>
     </group>

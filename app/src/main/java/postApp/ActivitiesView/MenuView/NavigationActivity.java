@@ -27,6 +27,7 @@ import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.Preferences
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.Presenters.MenuPresenters.NavigationPresenter;
+import postApp.TestingFragment;
 
 /*
 Oncreate method for navigationactivity, starts a navigation drawer and sets the toolbar, functionality etc.
@@ -184,6 +185,10 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_filterpost) {
             fragment.beginTransaction().replace(R.id.content_frame, new HidePostitView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Filter Postits");
+        }
+        else if (id == R.id.nav_test) {
+            fragment.beginTransaction().replace(R.id.content_frame, new TestingFragment()).addToBackStack(null).commit();
+            getSupportActionBar().setTitle("Test");
         }
 
 

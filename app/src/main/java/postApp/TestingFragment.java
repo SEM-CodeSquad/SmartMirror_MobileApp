@@ -1,14 +1,76 @@
-package postApp.DataHandlers.MqTTHandler;
+package postApp;
+
+import android.app.Fragment;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.concurrent.ExecutionException;
+
+import adin.postApp.R;
+import postApp.ActivitiesView.MenuView.NavigationActivity;
+
 /**
- * Class responsible for establishing http connection with web server and send data to it.
+ * Created by adinH on 2016-12-08.
  */
-public class HttpRequestSender {
+
+public class TestingFragment extends Fragment {
+    View myView;
+    int count = 0;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        myView = inflater.inflate(R.layout.testlayout, container, false);
+        Button pubhttp = (Button)myView.findViewById(R.id.pubhtpp);
+        JSONObject sendthis = new JSONObject();
+        JSONArray jArray = new JSONArray();
+        JSONObject item = new JSONObject();
+        sendthis.put("messageFrom", "Adin");
+        sendthis.put("timestamp", "213123");
+        sendthis.put("contentType", "post-it");
+        item.put("postItID", "69f0a9ed-5584-4543-bd2b-0a8672c6a7aa");
+        item.put("body", "TEsting purposes");
+        item.put("senderStyle", "yellow");
+        item.put("expiresAt", count);
+        jArray.add(0, item);
+        sendthis.put("content", jArray);
+        final String messagestring = sendthis.toJSONString();
+
+        pubhttp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HttpRequestSender kk = new HttpRequestSender("codehigh.ddns.me", "dit029/SmartMirror/" +((NavigationActivity) getActivity()).getMirror() +"/postit",messagestring, "0", "false");
+                try {
+                    count++;
+                    System.out.println("Before execution");
+                    kk.execute().get();
+                    System.out.println(kk.getHttpResponse());
+                    System.out.println("After execution");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return myView;
+    }
+}
+
+
+ class HttpRequestSender extends AsyncTask <String, Void, String> {
 
     private String brokerHostname;
     private String topic;
@@ -76,6 +138,19 @@ public class HttpRequestSender {
             }
         }
     }
+
+     @Override
+     protected String doInBackground(String... args) {
+         try {
+             executePost("http://codehigh.ddns.me:8080/");
+         } catch (Exception e) {
+             return "Warning: did not publish";
+         }
+         return "HI";
+     }
+
+
+
 
     /**
      * Method to get the String containing the response from the web server.
