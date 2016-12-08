@@ -172,7 +172,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 topic = "Gro/" + args[1];
                 //String messageString = sendthis.toJSONString();
                 //TODO the following part, codehigh.ddns.me needs to be changed
-                post = new HttpRequestSender("codehigh.ddns.me", topic, send, "1", "false");
+                post = new HttpRequestSender("prata.technocreatives.com", topic, send, "1", "false");
 
             } else if (args[0].equals("SPLToMirror")) {
 

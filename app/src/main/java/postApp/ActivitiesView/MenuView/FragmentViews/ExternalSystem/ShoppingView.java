@@ -41,16 +41,15 @@ public class ShoppingView extends Fragment {
     ShoppingPresenter presenter;
     ArrayAdapter<String> adapter = null;          /* A way to handle a list or array of objects and map them to a row */
     ListView listView = null;
-
+    String uuid;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        String uuid = ((NavigationActivity) getActivity()).getMirror(); // TODO Use this method and pass it on.
+        this.uuid = ((NavigationActivity) getActivity()).getMirror(); // TODO Use this method and pass it on.
         presenter = new ShoppingPresenter(this,uuid);
         setHasOptionsMenu(true);
         myView = inflater.inflate(R.layout.shopping, container, false);
         System.out.println("The list is " + presenter.getShoppingList().toString());
-
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
 
@@ -62,7 +61,7 @@ public class ShoppingView extends Fragment {
             public void onItemClick(AdapterView parent, View view, final int position, long id) {
                 String selectedItem = ((TextView) view).getText().toString();
                 if (selectedItem.trim().equals(presenter.getShoppingList().get(position).trim())) {     /*A check done for integrity purposes*/
-                    removeElement(selectedItem, position);
+                    removeElement(selectedItem);
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(),"Error Removing Element", Toast.LENGTH_LONG).show();
                 }
@@ -103,52 +102,61 @@ public class ShoppingView extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.action_add){
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Add Item");
-            final EditText input = new EditText(getActivity());
-            builder.setView(input);
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    presenter.updateList("add",input.getText().toString());
-
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                    System.out.println("The list is " + presenter.getShoppingList().toString());
-                }
-            });
-            builder.show();
+            if (uuid == "No mirror chosen"){
+                Toast.makeText(getActivity().getApplicationContext(),"Please choose a mirror first", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Add Item");
+                final EditText input = new EditText(getActivity());
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.updateList("add", input.getText().toString());
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        System.out.println("The list is " + presenter.getShoppingList().toString());
+                    }
+                });
+                builder.show();
+            }
             return true;
         }
-        if(id == R.id.action_clear){ AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Clear Entire List");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    presenter.updateList("delete-list", "empty");
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            builder.show();
+        if(id == R.id.action_clear){
+            if (uuid == "No mirror chosen"){
+                Toast.makeText(getActivity().getApplicationContext(),"Please choose a mirror first", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Clear Entire List");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.updateList("delete-list", "empty");
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     /*
      * This method here specifically deals with deletion of items from the shopping list.
      */
-    public void removeElement(final String selectedItem, final int position){
+    public void removeElement(final String selectedItem){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Remove " + selectedItem + "?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

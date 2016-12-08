@@ -59,8 +59,8 @@ public class ShoppingHandler implements Observer {
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
-        listenSubscription("Gro/" + this.clientID+"@smartmirror.com");
-        listenSubscription("Gro/" + this.clientID +"@smartmirror.com"+"/fetch");
+        listenSubscription("Gro/smartmirror@codehigh.com");
+        listenSubscription("Gro/smartmirror@codehigh.com/fetch");
         JsonBuilder builder = new JsonBuilder();
         builder.execute("shoppinglist",this.clientID,"fetch");
         shoppingList = new ShoppingList("ShoppingList",SPLList,this.clientID); // We need to initialize the ShoppingList here with the client ID
@@ -139,7 +139,7 @@ public class ShoppingHandler implements Observer {
     }
 
     public void updateList(String requestType, String item){
-        Long timestamp = 0L;
+        /*Long timestamp = 0L;
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         Date date = new Date();
         Date dateTemp;
@@ -149,34 +149,33 @@ public class ShoppingHandler implements Observer {
             timestamp = unixTime;
         } catch (java.text.ParseException e) {
             e.printStackTrace();
-        }
+        }*/
 
         if (requestType == "add"){
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID, requestType, item);
+            builder.execute("shoppinglist","smartmirror@codehigh.com", requestType, item);
             tempType = requestType; tempItem = item;
-            System.out.println(tempType + " "+tempItem);
             JsonBuilder builderMirror = new JsonBuilder();
-            builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
+            //builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
 
         } else if (requestType == "delete"){
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID,requestType,item);
+            builder.execute("shoppinglist",this.clientID+"@smartmirror.com",requestType,item);
             tempType = requestType; tempItem = item;
             JsonBuilder builderMirror = new JsonBuilder();
             if (SPLList.size() == 1) {
-                builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
+               // builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
             }
             else {
-                builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
+               // builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
             }
 
         }else if (requestType == "delete-list"){
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID,requestType);
+            builder.execute("shoppinglist",this.clientID+"@smartmirror.com",requestType);
             tempType = "delete-list";
             JsonBuilder builderMirror = new JsonBuilder();
-            builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
+            //builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
         }
     }
 

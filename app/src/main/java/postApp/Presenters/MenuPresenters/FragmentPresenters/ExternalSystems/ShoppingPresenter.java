@@ -1,6 +1,8 @@
 package postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems;
 
 
+import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
