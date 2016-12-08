@@ -149,7 +149,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                     send = "{\"client-id\":\"" + args[1]+ "\", " +
                             "\"list\":" + "\"SmartMirror Shopping list\"" + "," +
                             "\"request\":\"" + args[2]+" \"," +
-                            "\"data\":{\"item\":\"" + args[3] + "\"}}";
+                            "\"data\":\"{\"item\":\"" + args[3] + "\"}\"}";
                 }
 
 
