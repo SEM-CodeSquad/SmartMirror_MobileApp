@@ -77,8 +77,7 @@ public class PostitHandler implements Observer {
             this.idOne = UUID.randomUUID().toString();
             JsonBuilder R = new JsonBuilder();
             try {
-                R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user).get();
-                System.out.println("tried");
+                System.out.println(R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user).get());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {

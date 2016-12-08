@@ -49,7 +49,6 @@ public class HttpRequestSender {
 
             //Create connection
             URL url = new URL(targetURL + query);
-            System.out.println(url.toString());
             connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setInstanceFollowRedirects(false);
