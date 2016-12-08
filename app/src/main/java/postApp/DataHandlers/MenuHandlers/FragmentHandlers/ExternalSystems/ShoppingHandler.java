@@ -73,24 +73,29 @@ public class ShoppingHandler implements Observer {
             this.message = message;
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(this.message);
-            this.reply = json.get("reply").toString();
-            this.replyID=json.get("client-ID").toString();
-            if(reply.equalsIgnoreCase("done")){
-                //Parse the "data" field if there's any
-                if(json.get("data")!=null){
-                    this.SPLList.clear();
-                    parseArray(this.SPLList, "data");
-                } else {
-                    if(tempType == "add")SPLList.add(tempItem);
-                    if (tempType == "delete") SPLList.remove(tempItem);
-                    if (tempType == "delete-list") SPLList.clear();
+
+            if (json.containsKey("reply")) {
+                this.reply = json.get("reply").toString();
+                if(reply.equalsIgnoreCase("done")){
+                    //Parse the "data" field if there's any
+                    if(json.get("data")!=null){
+                        this.SPLList.clear();
+                        parseArray(this.SPLList, "data");
+                    } else {
+                        if(tempType == "add")SPLList.add(tempItem);
+                        if (tempType == "delete") SPLList.remove(tempItem);
+                        if (tempType == "delete-list") SPLList.clear();
+                    }
+                } else if (reply.equalsIgnoreCase("error")){
+                    Toast.makeText(view.getActivity().getApplicationContext(),"Error updating list",Toast.LENGTH_LONG).show();
                 }
-            } else if (reply.equalsIgnoreCase("error")){
-                Toast.makeText(view.getActivity().getApplicationContext(),"Error updating list",Toast.LENGTH_LONG).show();
-            } else if(replyID.equals(this.clientID)){
-                //TODO Nimish, add pop up window for done
-                System.out.println("Done?");
+            }else if(json.containsKey("client-id")){
+                this.replyID=json.get("client-id").toString();
+
+                //TODO Nimish do your done checker here!
             }
+
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
