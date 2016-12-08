@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.Timestamp;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,6 +89,7 @@ public class ShoppingHandler implements Observer {
                 Toast.makeText(view.getActivity().getApplicationContext(),"Error updating list",Toast.LENGTH_LONG).show();
             } else if(replyID.equals(this.clientID)){
                 //TODO Nimish, add pop up window for done
+                System.out.println("Done?");
             }
         } catch (ParseException e) {
             e.printStackTrace();
