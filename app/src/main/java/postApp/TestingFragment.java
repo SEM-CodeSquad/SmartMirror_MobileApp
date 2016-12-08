@@ -29,35 +29,25 @@ import postApp.ActivitiesView.MenuView.NavigationActivity;
 public class TestingFragment extends Fragment {
     View myView;
     int count = 0;
+    String messagestring;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.testlayout, container, false);
         Button pubhttp = (Button)myView.findViewById(R.id.pubhtpp);
-        JSONObject sendthis = new JSONObject();
-        JSONArray jArray = new JSONArray();
-        JSONObject item = new JSONObject();
-        sendthis.put("messageFrom", "Adin");
-        sendthis.put("timestamp", "213123");
-        sendthis.put("contentType", "post-it");
-        item.put("postItID", "69f0a9ed-5584-4543-bd2b-0a8672c6a7aa");
-        item.put("body", "TEsting purposes");
-        item.put("senderStyle", "yellow");
-        item.put("expiresAt", count);
-        jArray.add(0, item);
-        sendthis.put("content", jArray);
-        final String messagestring = sendthis.toJSONString();
+
 
         pubhttp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                newjson();
                 HttpRequestSender kk = new HttpRequestSender("codehigh.ddns.me", "dit029/SmartMirror/" +((NavigationActivity) getActivity()).getMirror() +"/postit",messagestring, "0", "false");
                 try {
-                    count++;
+                    System.out.println("Expecting count that is equal to: " + count);
                     System.out.println("Before execution");
-                    kk.execute().get();
-                    System.out.println(kk.getHttpResponse());
+                    System.out.println(kk.execute().get());
                     System.out.println("After execution");
+                    count++;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -67,6 +57,22 @@ public class TestingFragment extends Fragment {
         });
         return myView;
     }
+
+public void newjson(){
+    JSONObject sendthis = new JSONObject();
+    JSONArray jArray = new JSONArray();
+    JSONObject item = new JSONObject();
+    sendthis.put("messageFrom", "Adin");
+    sendthis.put("timestamp", "213123");
+    sendthis.put("contentType", "post-it");
+    item.put("postItID", "HHHHHHH"+Integer.toString(count) +"HHHHHHH");
+    item.put("body", "HHHHHHH"+Integer.toString(count)+"HHHHHHH");
+    item.put("senderStyle", "HHHHHHH"+Integer.toString(count)+"HHHHHHH");
+    item.put("expiresAt", count);
+    jArray.add(0, item);
+    sendthis.put("content", jArray);
+    messagestring = sendthis.toJSONString();
+}
 }
 
 
