@@ -5,15 +5,11 @@ import android.os.AsyncTask;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
 
 import postApp.DataHandlers.MqTTHandler.HttpRequestSender;
-
-import static java.lang.String.valueOf;
 
 
 public class JsonBuilder extends AsyncTask<String, Void, String> {
@@ -29,7 +25,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             Calendar c = Calendar.getInstance();
             c.setTime(new Date()); // Now use today date.
             c.add(Calendar.DATE, 5); // Adding 5 days
-            long timestamp = c.getTimeInMillis()/1000;
+            long timestamp = c.getTimeInMillis() / 1000;
 
             // Please use this format when passing around a JSON obj
             // 2 different outcomes if its a postit we publish to a different topic if its a config we publish to a dif topic with a dif jsonobj
@@ -149,27 +145,41 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
                 post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
             } else if (args[0].equals("shoppinglist")) {
-
-                JSONObject sendthis = new JSONObject();
-
-                sendthis.put("client-id", args[1]);
-                sendthis.put("list", "SmartMirror Shopping List");
-                sendthis.put("request", args[2]);
-                if(!(args[3]==null)) {
-                    JSONObject item = new JSONObject();
-                    JSONArray jArray = new JSONArray();
-                    String tmp = args[4];
-                    for (int i = 0; i < Integer.parseInt(args[3]); i++) {
-                        item.put("item"+i, tmp.substring(0,tmp.indexOf(",")));
-                        tmp = tmp.substring(tmp.indexOf(",")+1);
-                    }
-                    jArray.add(0, item);
-                    sendthis.put("content", jArray);
+                String send = "";
+                if (args.length==3) {
+                    send = "{\"client-id\":\"" + args[1]+ "\", " +
+                            "\"list\":" + "\"SmartMirror Shopping list\"" + "," +
+                            "\"request\":\"" + args[2]+"\"}";
                 }
+                else  if (!(args[3] == null)) {
+
+                    send = "{\"client-id\":\"" + args[1]+ "\", " +
+                            "\"list\":" + "\"SmartMirror Shopping list\"" + "," +
+                            "\"request\":\"" + args[2]+" \"," +
+                            "\"data\":{\"item\":\"" + args[3] + "\"}}";
+                }
+
+
+
+
+//                sendthis.put("client-id", args[1]);
+//                sendthis.put("list", "SmartMirror Shopping List");
+//                sendthis.put("request", args[2]);
+//                if(!(args[3]==null)) {
+//                    JSONObject item = new JSONObject();
+//                    JSONArray jArray = new JSONArray();
+//                    String tmp = args[4];
+//                    for (int i = 0; i < Integer.parseInt(args[3]); i++) {
+//                        item.put("item"+i, tmp.substring(0,tmp.indexOf(",")));
+//                        tmp = tmp.substring(tmp.indexOf(",")+1);
+//                    }
+//                    jArray.add(0, item);
+//                    sendthis.put("content", jArray);
+//                }
                 topic = "Gro/" + args[1];
-                String messageString = sendthis.toJSONString();
+                //String messageString = sendthis.toJSONString();
                 //TODO the following part, codehigh.ddns.me needs to be changed
-                post = new HttpRequestSender("codehigh.ddns.me", topic, messageString, "1", "false");
+                post = new HttpRequestSender("codehigh.ddns.me", topic, send, "1", "false");
 
             } else if (args[0].equals("SPLToMirror")) {
 
@@ -181,13 +191,13 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
                 //Check how long the argument is and add item accordingly
 
-                if(!(args[3]==null)) {
+                if (!(args[3] == null)) {
                     JSONObject item = new JSONObject();
                     JSONArray jArray = new JSONArray();
                     String tmp = args[4];
                     for (int i = 0; i < Integer.parseInt(args[3]); i++) {
-                        item.put("item"+i, tmp.substring(0,tmp.indexOf(",")));
-                        tmp = tmp.substring(tmp.indexOf(",")+1);
+                        item.put("item" + i, tmp.substring(0, tmp.indexOf(",")));
+                        tmp = tmp.substring(tmp.indexOf(",") + 1);
                     }
                     jArray.add(0, item);
                     sendthis.put("content", jArray);
