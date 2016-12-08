@@ -34,6 +34,7 @@ public class PostitHandler implements Observer {
     private String date;
     private long timestamp;
     private boolean stored = false;
+    private boolean waitforecho = false;
 
 
     public PostitHandler(PostitPresenter PostitPresenter, String topic) {
@@ -52,6 +53,7 @@ public class PostitHandler implements Observer {
 
         if (topic != "No mirror chosen") {
             PostitPresenter.Loading();
+            AwaitEcho();
             this.user = user;
             this.text = text;
             this.date = date;
@@ -82,7 +84,7 @@ public class PostitHandler implements Observer {
 
 
     public void AwaitEcho() {
-
+        waitforecho = true;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -93,6 +95,7 @@ public class PostitHandler implements Observer {
                     PostitPresenter.NoEcho();
                     PostitPresenter.DoneLoading();
                 }
+                waitforecho = false;
             }
         }, 2000); // 2000 milliseconds delay
     }
@@ -104,7 +107,9 @@ public class PostitHandler implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-        stored = true;
-        StorePost();
+        if(waitforecho) {
+            stored = true;
+            StorePost();
+        }
     }
 }

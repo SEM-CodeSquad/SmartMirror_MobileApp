@@ -102,7 +102,7 @@ public class PostitView extends Fragment {
                else{
                     presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), "standard");
                 }
-                presenter.AwaitEcho();
+
 
 
             }
