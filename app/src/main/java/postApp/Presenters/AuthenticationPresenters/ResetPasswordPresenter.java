@@ -29,6 +29,7 @@ public class ResetPasswordPresenter {
      */
     public void CheckPasswords(String user, String pass, String confpass){
         ResetPasswordInteractor.CheckPasswords(user, pass, confpass);
+        loading();
     }
 
     /**
@@ -65,5 +66,12 @@ public class ResetPasswordPresenter {
      */
     public void NoPasswordReset() {
         ResetPasswordActivity.NoResetPassword();
+    }
+
+    public void loading(){
+        ResetPasswordActivity.Loading();
+    }
+    public void DoneLoading(){
+        ResetPasswordActivity.DoneLoading();
     }
 }

@@ -2,6 +2,7 @@ package postApp.ActivitiesView.AuthenticationView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +21,11 @@ import postApp.Presenters.AuthenticationPresenters.ResetPasswordPresenter;
  */
 public class ResetPasswordActivity extends AppCompatActivity {
 
-    EditText passwrd;
-    EditText confpass;
-    String user;
+    private EditText passwrd;
+    private EditText confpass;
+    private String user;
     private ResetPasswordPresenter presenter;
+    private ProgressDialog progress;
 
     /**
      * When we switch to this screen this method happens automatically
@@ -32,6 +34,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progress = new ProgressDialog(this);
         //Checks if anything was passed when starting this activity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -141,6 +144,21 @@ public class ResetPasswordActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
+    }
+    /**
+     * Loading method that shows a progressdialog
+     */
+    public void Loading(){
+        progress.setMessage("Reseting Password");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.show();
+    }
+    /**
+     * method that dismisses the progressbar
+     */
+    public void DoneLoading(){
+        progress.dismiss();
     }
 
     /**

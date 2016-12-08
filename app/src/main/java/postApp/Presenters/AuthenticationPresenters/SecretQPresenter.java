@@ -19,6 +19,7 @@ public class SecretQPresenter {
     }
     public void OnSecret(String User, String Secret){
         SecretQInteractor.OnSecret(User,Secret);
+        loading();
     }
     public void OnCancel(){
         SecretQActivity.OnCancel();
@@ -31,5 +32,11 @@ public class SecretQPresenter {
     }
     public void WrongCredentials(){
         SecretQActivity.WrongCredentials();
+    }
+    public void loading(){
+        SecretQActivity.Loading();
+    }
+    public void DoneLoading(){
+        SecretQActivity.DoneLoading();
     }
 }
