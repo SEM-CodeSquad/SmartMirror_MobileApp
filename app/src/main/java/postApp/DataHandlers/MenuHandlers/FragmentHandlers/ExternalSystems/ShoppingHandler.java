@@ -1,5 +1,6 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems;
 
+import android.os.AsyncTask;
 import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -54,12 +55,12 @@ public class ShoppingHandler implements Observer {
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter, String clientID) {
         MemoryPersistence persistence = new MemoryPersistence();
         this.clientID = clientID;
-        this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com",this.clientID+"@smartmirror.com",persistence);
+        this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com",this.clientID+"@codehigh.com",persistence);
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
-        listenSubscription("Gro/" + this.clientID);
-        listenSubscription("Gro/" + this.clientID + "/fetch");
+        listenSubscription("Gro/" + this.clientID+"@smartmirror.com");
+        listenSubscription("Gro/" + this.clientID +"@smartmirror.com"+"/fetch");
         JsonBuilder builder = new JsonBuilder();
         builder.execute("shoppinglist",this.clientID,"fetch");
         shoppingList = new ShoppingList("ShoppingList",SPLList,this.clientID); // We need to initialize the ShoppingList here with the client ID
@@ -150,32 +151,37 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
 
-        JsonBuilder builder = new JsonBuilder();
         if (requestType == "add"){
+            JsonBuilder builder = new JsonBuilder();
             builder.execute("shoppinglist",this.clientID, requestType, item);
             tempType = requestType; tempItem = item;
-            builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
+            System.out.println(tempType + " "+tempItem);
+            JsonBuilder builderMirror = new JsonBuilder();
+            builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
 
         } else if (requestType == "delete"){
+            JsonBuilder builder = new JsonBuilder();
             builder.execute("shoppinglist",this.clientID,requestType,item);
             tempType = requestType; tempItem = item;
+            JsonBuilder builderMirror = new JsonBuilder();
             if (SPLList.size() == 1) {
-                builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
+                builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
             }
             else {
-                builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
-                builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
+                builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
             }
 
         }else if (requestType == "delete-list"){
+            JsonBuilder builder = new JsonBuilder();
             builder.execute("shoppinglist",this.clientID,requestType);
             tempType = "delete-list";
-            builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
+            JsonBuilder builderMirror = new JsonBuilder();
+            builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
         }
     }
 
     public LinkedList<String> getShoppingList(){
-        return this.shoppingList.getItemList();
+        return this.SPLList;
     }
     public String getTitle(){
         return this.shoppingList.getListTitle();
@@ -186,17 +192,20 @@ public class ShoppingHandler implements Observer {
 
     @Override
     public void update(Observable observable, final Object obj) {
+        if (obj instanceof MqttMessage) {
             Thread thread = new Thread(new Runnable() {
                 Object o = obj;
                 @Override
                 public void run() {
                     String str = o.toString();
-                    System.out.println(str);
+                    System.out.println("The received message is " + str);
 
                     parseMessage(str);
                 }
             });
             thread.start();
         }
+    }
+
 
 }

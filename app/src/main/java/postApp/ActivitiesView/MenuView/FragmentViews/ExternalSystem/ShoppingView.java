@@ -49,6 +49,7 @@ public class ShoppingView extends Fragment {
         presenter = new ShoppingPresenter(this,uuid);
         setHasOptionsMenu(true);
         myView = inflater.inflate(R.layout.shopping, container, false);
+        System.out.println("The list is " + presenter.getShoppingList().toString());
 
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
@@ -110,12 +111,14 @@ public class ShoppingView extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     presenter.updateList("add",input.getText().toString());
+
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
+                    System.out.println("The list is " + presenter.getShoppingList().toString());
                 }
             });
             builder.show();

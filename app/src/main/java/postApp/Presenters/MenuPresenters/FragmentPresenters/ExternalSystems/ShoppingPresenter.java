@@ -26,12 +26,7 @@ public class ShoppingPresenter {
         handler.updateList(requestType, item);
         view.getListView().setAdapter(view.getAdapter());
     }
-    /*public void saveTitle(String title){
-        handler.saveTitle(title);
-    }
-    public String fetchTitle(){
-        return handler.fetchTitle();
-    }*/
+
 
     public LinkedList<String> getShoppingList(){
         return handler.getShoppingList();
