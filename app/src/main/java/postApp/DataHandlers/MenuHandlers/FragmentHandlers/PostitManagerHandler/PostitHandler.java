@@ -23,30 +23,28 @@ import postApp.DataHandlers.AppCommons.Postits.StorePostits;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.PostitPresenter;
 
 
-public class PostitHandler implements Observer{
+public class PostitHandler implements Observer {
     private String color;
     private PostitPresenter PostitPresenter;
     private String text;
     private String idOne;
     private Echo echo;
     private StorePostits storePostits;
-    private String topic;
     private String user;
     private String date;
     private long timestamp;
     private boolean stored = false;
 
 
-    public PostitHandler(PostitPresenter PostitPresenter, String topic){
+    public PostitHandler(PostitPresenter PostitPresenter, String topic) {
         this.PostitPresenter = PostitPresenter;
-        String topic123 = "dit029/SmartMirror/" +topic + "/echo";
+        String topic123 = "dit029/SmartMirror/" + topic + "/echo";
         echo = new Echo(topic123, topic);
         echo.addObserver(this);
     }
 
 
-
-    public void SetColor(String color){
+    public void SetColor(String color) {
         this.color = color;
     }
 
@@ -54,43 +52,29 @@ public class PostitHandler implements Observer{
 
         if (topic != "No mirror chosen") {
             PostitPresenter.Loading();
-        this.user = user;
-        this.text = text;
-        this.topic = topic;
-        this.date = date;
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        if(date == "standard"){
-            Calendar c = Calendar.getInstance();
-            c.setTime(new Date()); // Now use today date.
-            c.add(Calendar.DATE, 5); // Adding 5 days
-            this.timestamp = c.getTimeInMillis()/1000;
-            this.date = sdf.format(c.getTime());
-        }else {
-            Date dateTemp;
-            try {
-                dateTemp = sdf.parse(this.date);
-                long unixTime = (dateTemp.getTime()) / 1000;
-                this.timestamp = unixTime;
-            } catch (ParseException e) {
-                e.printStackTrace();
+            this.user = user;
+            this.text = text;
+            this.date = date;
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            if (date == "standard") {
+                Calendar c = Calendar.getInstance();
+                c.setTime(new Date()); // Now use today date.
+                c.add(Calendar.DATE, 5); // Adding 5 days
+                this.timestamp = c.getTimeInMillis() / 1000;
+                this.date = sdf.format(c.getTime());
+            } else {
+                Date dateTemp;
+                try {
+                    dateTemp = sdf.parse(this.date);
+                    long unixTime = (dateTemp.getTime()) / 1000;
+                    this.timestamp = unixTime;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-
-
-        this.idOne = UUID.randomUUID().toString();
-        JsonBuilder R = new JsonBuilder();
-        String S;
-            try {
-                S = R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user).get();
-            } catch (InterruptedException e) {
-                S = "Did not publish";
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                System.out.println(e);
-                S = "Warning: Did Not Publish";
-            }
-            PostitPresenter.ShowMessage(S);
+            this.idOne = UUID.randomUUID().toString();
+            JsonBuilder R = new JsonBuilder();
+            R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user);
         } else {
             PostitPresenter.NoMirror();
         }
@@ -102,11 +86,10 @@ public class PostitHandler implements Observer{
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                if(stored){
+                if (stored) {
                     PostitPresenter.DoneLoading();
                     stored = false;
-                }
-                else{
+                } else {
                     PostitPresenter.NoEcho();
                     PostitPresenter.DoneLoading();
                 }
@@ -114,8 +97,8 @@ public class PostitHandler implements Observer{
         }, 2000); // 2000 milliseconds delay
     }
 
-    public void StorePost(){
-        storePostits = new StorePostits(user,idOne, color, text, timestamp);
+    public void StorePost() {
+        storePostits = new StorePostits(user, idOne, color, text, timestamp);
     }
 
 

@@ -58,7 +58,6 @@ public class SettingsPresenter {
 
     public void StartNews() {
         SettingsHandler.StartNews();
-
     }
 
     public void StartBus() {
@@ -66,6 +65,9 @@ public class SettingsPresenter {
 
     }
 
+    public void PublishAll(String topic, String user, String News, String Weather, String Bus){
+        SettingsHandler.PublishAll(topic, user, News, Weather, Bus);
+    }
     public void StoreSettings(String user, String News, String Weather, String Bus){
         SettingsHandler.StoreSettings(user, News, Weather, Bus);
     }
@@ -75,14 +77,6 @@ public class SettingsPresenter {
 
     public void ShowNews() {
         SettingsView.ShowNews();
-    }
-
-    public void PublishNews(String News, String Topic) {
-        SettingsHandler.PublishNews(News, Topic);
-    }
-
-    public void PublishBus(String Bus, String Topic) {
-        SettingsHandler.PublishBus(Bus, Topic);
     }
 
     public void displaySuccPub(String S) {
@@ -108,13 +102,14 @@ public class SettingsPresenter {
     public void SetNewsGoogle() {
         ((NavigationActivity) SettingsView.getActivity()).setNews("GOOGLE");
     }
-
     public void SetNewsDN() {
         ((NavigationActivity) SettingsView.getActivity()).setNews("DN");
     }
+
     public void SetNewsSVT() {
         ((NavigationActivity) SettingsView.getActivity()).setNews("SVT");
     }
+
     public void SetNewsExpressen() {
         ((NavigationActivity) SettingsView.getActivity()).setNews("EXPRESSEN");
     }

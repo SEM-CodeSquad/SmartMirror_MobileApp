@@ -43,7 +43,4 @@ public class PreferencesPresenter {
         PreferencesView.DoneLoading();
     }
 
-    public void NoEcho() {
-        PreferencesView.UnsuccessfulPublish();
-    }
 }

@@ -98,8 +98,7 @@ public class BusStopSearcherView extends Fragment {
          */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View view, int i, long l) {
-                presenter.PublishBus((listView.getItemAtPosition(i).toString()));
-                presenter.OnBusClick();
+                presenter.OnBusClick((listView.getItemAtPosition(i).toString()));
             }
         });
         /**
@@ -127,9 +126,10 @@ public class BusStopSearcherView extends Fragment {
     }
 
     /**
-     * When we pick a busstop we switch fragments and swich back to a normal drawer
+     * When we pick a busstop we switch fragments and swich back to a normal drawer and set bus to bus stop
      */
-    public void OnBusClick(){
+    public void OnBusClick(String bus){
+        ((NavigationActivity) getActivity()).setNews(bus);
         //set it back to a drawer instead of backbutton
         ((NavigationActivity) getActivity()).toggleDrawerUse(true);
         //switch back to settings

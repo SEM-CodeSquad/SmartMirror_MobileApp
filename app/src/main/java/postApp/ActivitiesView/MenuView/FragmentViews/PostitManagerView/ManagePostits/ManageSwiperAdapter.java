@@ -26,7 +26,6 @@ public class ManageSwiperAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
 
         JSONObject finalobj = (JSONObject) json.get(position);
-        System.out.println(finalobj.toString());
         Fragment fragment = new PageFragment();
         Long timestamp = Long.parseLong(finalobj.get("Timestamp").toString());
         Date date = new Date ();

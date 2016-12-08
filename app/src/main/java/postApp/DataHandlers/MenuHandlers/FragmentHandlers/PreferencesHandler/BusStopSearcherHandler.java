@@ -63,31 +63,4 @@ public class BusStopSearcherHandler {
         BusStopSearcherView.listView.setAdapter(adapter);
 
     }
-    public void publishBus(String BusStop){
-        JsonBuilder R = new JsonBuilder();
-        //we make a toast of this string later on
-        String S;
-        String busID = SetStopID(BusStop);
-        //set it to the busstation
-        ((NavigationActivity) BusStopSearcherView.getActivity()).setBus(BusStop);
-        //set the publishing broker topic
-        String topic = ((NavigationActivity) BusStopSearcherView.getActivity()).getMirror();
-        //if there is a topic we try to publish
-        if (topic != "No mirror chosen") {
-            try {
-                S = R.execute(topic, "config", busID, "buschange").get();
-            } catch (InterruptedException e) {
-                S = "Did not publish";
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                S = "Warning: Did Not Publish";
-            }
-            //show the message got
-            BusStopSearcherPresenter.ShowMessage(S);
-        } else {
-            //else chose a mirror first
-            BusStopSearcherPresenter.NoMirror();
-        }
-    }
 }

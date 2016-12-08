@@ -14,18 +14,10 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter
 
 public class PreferencesHandler implements Observer {
     PreferencesPresenter PreferencesPresenter;
-    String topic;
-    String user;
-    String news;
-    String bus;
-    String weather;
-    String clock;
-    String greetings;
-    String postit;
-    String device;
     Handler handler;
     public PreferencesHandler(PreferencesPresenter PreferencesPresenter){
         this.PreferencesPresenter = PreferencesPresenter;
+        handler = new Handler();
     }
 
     public void PublishPrefs(String topic, String user, String news, String bus, String weather, String clock, String device, String greetings ,String postit) {
@@ -36,16 +28,7 @@ public class PreferencesHandler implements Observer {
                 public void run() {
                     PreferencesPresenter.DoneLoading();
                 }
-            }, 2000); // 3000 milliseconds delay
-        this.topic = topic;
-        this.user = user;
-        this.news = news;
-        this.bus = bus;
-        this.weather = weather;
-        this.clock = clock;
-        this.greetings = greetings;
-        this.postit = postit;
-        this.device = device;
+            }, 2000); // 2000 milliseconds delay
         JsonBuilder R = new JsonBuilder();
         String S;
 

@@ -22,8 +22,8 @@ public class BusStopSearcherPresenter {
     public void EmptyList(){
         BusStopSearcherHandler.EmptyList();
     }
-    public void OnBusClick(){
-        BusStopSearcherView.OnBusClick();
+    public void OnBusClick(String bus){
+        BusStopSearcherView.OnBusClick(bus);
     }
     public void HideKeyboard(View V){
         BusStopSearcherView.hideKeyboard(V);
@@ -34,7 +34,5 @@ public class BusStopSearcherPresenter {
     public void NoMirror(){
         BusStopSearcherView.NoMirror();
     }
-    public void PublishBus(String BusStop){
-        BusStopSearcherHandler.publishBus(BusStop);
-    }
+
 }

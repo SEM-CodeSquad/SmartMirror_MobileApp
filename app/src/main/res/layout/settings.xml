@@ -129,7 +129,7 @@
         android:text="Change Bus Stop"
         android:clickable="true"
         android:editable="false"
-        style="@style/BtnCustomHolo"
+        style="@android:style/Widget.Button"
         android:inputType="textNoSuggestions"
         android:focusable="false"
         android:layout_below="@+id/bustext"
@@ -138,7 +138,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="16dp"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:textAlignment="viewStart" />
 
     <Button
         android:layout_width="wrap_content"
@@ -148,7 +149,7 @@
         android:layout_below="@+id/newstext"
         android:clickable="true"
         android:editable="false"
-        style="@style/BtnCustomHolo"
+        style="@android:style/Widget.Button"
         android:inputType="textNoSuggestions"
         android:focusable="false"
         android:layout_toRightOf="@+id/imageView2"
@@ -156,7 +157,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="16dp"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:textAlignment="viewStart" />
 
     <Button
         android:layout_width="wrap_content"
@@ -212,7 +214,7 @@
         android:text="Change Mirror"
         android:clickable="true"
         android:editable="false"
-        style="@style/BtnCustomHolo"
+        style="@android:style/Widget.Button"
         android:inputType="textNoSuggestions"
         android:focusable="false"
         android:layout_below="@+id/imageView"
@@ -222,7 +224,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/newsbtn"
         android:layout_alignStart="@+id/newsbtn"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:textAlignment="viewStart" />
 
     <ImageView
         android:layout_width="100dp"
@@ -294,7 +297,47 @@
         android:layout_below="@+id/imageView14"
         android:layout_alignStart="@+id/weatherchange"
         android:layout_marginTop="17dp"
-        android:id="@+id/storeindb" />
+        android:id="@+id/storeindb"
+        android:layout_alignEnd="@+id/imageView14"
+        style="@android:style/Widget.Button"
+        android:textAlignment="viewStart" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:text="Change Weather City"
+        android:layout_below="@+id/citytext"
+        android:editable="false"
+        android:clickable="true"
+        style="@style/BtnCustomHolo"
+        android:inputType="textNoSuggestions"
+        android:focusable="false"
+        android:layout_alignLeft="@+id/busbtn"
+        android:layout_alignStart="@+id/busbtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:focusableInTouchMode="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:text="Change Weather City"
+        android:layout_below="@+id/citytext"
+        android:editable="false"
+        android:clickable="true"
+        style="@android:style/Widget.Button"
+        android:inputType="textNoSuggestions"
+        android:focusable="false"
+        android:layout_alignLeft="@+id/busbtn"
+        android:layout_alignStart="@+id/busbtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:focusableInTouchMode="false"
+        android:textAlignment="viewStart" />
 
 
 </RelativeLayout>
