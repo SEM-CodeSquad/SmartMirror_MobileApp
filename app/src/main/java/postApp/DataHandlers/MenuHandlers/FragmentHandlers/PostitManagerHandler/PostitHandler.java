@@ -78,6 +78,7 @@ public class PostitHandler implements Observer {
             JsonBuilder R = new JsonBuilder();
             try {
                 R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user).get();
+                System.out.println("tried");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {

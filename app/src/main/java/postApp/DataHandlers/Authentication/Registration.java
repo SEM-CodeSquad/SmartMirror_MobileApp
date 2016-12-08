@@ -83,6 +83,7 @@ public class Registration extends Observable implements Observer {
                     PreparedStatement ps = c.prepareStatement(register);
                     ps.executeUpdate();
                     ps.close();
+                    c.close();
                 }
 
             } catch (SQLException e) {

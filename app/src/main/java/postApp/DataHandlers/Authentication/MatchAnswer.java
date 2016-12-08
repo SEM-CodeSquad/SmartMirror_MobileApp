@@ -77,8 +77,8 @@ public class MatchAnswer extends Observable implements Observer {
                     System.out.println(answer);
                     match = false;
                 }
-
                 psAnswer.close();
+                c.close();
             } catch (Exception e) {
                 e.printStackTrace();
 
