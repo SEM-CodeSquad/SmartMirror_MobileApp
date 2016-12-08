@@ -45,6 +45,7 @@ public class ShoppingHandler implements Observer {
     private ShoppingList shoppingList;
     private String message;
     private String reply;
+    private String replyID;
     private String preData;
     private LinkedList<String> SPLList;
     private String clientID;
@@ -72,20 +73,21 @@ public class ShoppingHandler implements Observer {
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(this.message);
             this.reply = json.get("reply").toString();
+            this.replyID=json.get("client-ID").toString();
             if(reply.equalsIgnoreCase("done")){
                 //Parse the "data" field if there's any
                 if(json.get("data")!=null){
                     this.SPLList.clear();
                     parseArray(this.SPLList, "data");
-                }
-                else {
+                } else {
                     if(tempType == "add")SPLList.add(tempItem);
                     if (tempType == "delete") SPLList.remove(tempItem);
                     if (tempType == "delete-list") SPLList.clear();
                 }
-            }
-            else if (reply.equalsIgnoreCase("error")){
+            } else if (reply.equalsIgnoreCase("error")){
                 Toast.makeText(view.getActivity().getApplicationContext(),"Error updating list",Toast.LENGTH_LONG).show();
+            } else if(replyID.equals(this.clientID)){
+                //TODO Nimish, add pop up window for done
             }
         } catch (ParseException e) {
             e.printStackTrace();
