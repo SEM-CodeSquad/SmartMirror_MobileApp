@@ -51,7 +51,7 @@ public class Login extends Observable implements Observer {
         protected Void doInBackground(Void... arg0) {
             try {
                 String query = "select UserID, Password from Users where UserID=? and Password=? ";
-                PreparedStatement psLogin = conn.getConn().prepareStatement(query);
+                PreparedStatement psLogin = c.prepareStatement(query);
                 psLogin.setString(1, user);
                 psLogin.setString(2, password);
                 ResultSet rs = psLogin.executeQuery();
@@ -68,6 +68,7 @@ public class Login extends Observable implements Observer {
                 }
 
                 psLogin.close();
+                c.close();
             } catch (Exception e) {
                 e.printStackTrace();
 
