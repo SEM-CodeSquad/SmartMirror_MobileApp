@@ -52,7 +52,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", args[2]);
-                sendthis.put("timestamp", timestamp);
+                sendthis.put("timestamp", Long.toString(timestamp));
                 sendthis.put("contentType", "settings");
 
                 topic = "dit029/SmartMirror/" + args[0] + "/settings";
@@ -71,7 +71,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", "test");
-                sendthis.put("timestamp", "12");
+                sendthis.put("timestamp", Long.toString(timestamp));
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 sendthis.put("contentType", "pairing");
 
@@ -87,7 +87,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", "test");
-                sendthis.put("timestamp", "12");
+                sendthis.put("timestamp", Long.toString(timestamp));
                 topic = "dit029/SmartMirror/" + args[0] + "/postit";
                 sendthis.put("contentType", args[1]);
 
@@ -106,7 +106,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", "test");
-                sendthis.put("timestamp", "12");
+                sendthis.put("timestamp", Long.toString(timestamp));
                 topic = "dit029/SmartMirror/" + args[0] + "/preferences";
                 sendthis.put("contentType", args[1]);
 

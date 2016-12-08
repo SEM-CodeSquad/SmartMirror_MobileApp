@@ -59,11 +59,6 @@ public class PostitPresenter {
     public void NoEcho(){
         PostitView.UnsuccessfulPublish();
     }
-    public void AwaitEcho(){
-        PostitHandler.AwaitEcho();
-    }
-
-
     public void Loading() {
         PostitView.Loading();
     }

@@ -76,7 +76,13 @@ public class PostitHandler implements Observer {
             }
             this.idOne = UUID.randomUUID().toString();
             JsonBuilder R = new JsonBuilder();
-            R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user);
+            try {
+                R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         } else {
             PostitPresenter.NoMirror();
         }

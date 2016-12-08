@@ -11,9 +11,9 @@ public class PreferencesPresenter {
 
     PreferencesView PreferencesView;
     PreferencesHandler PreferencesHandler;
-    public PreferencesPresenter(PreferencesView PreferencesView){
+    public PreferencesPresenter(PreferencesView PreferencesView, String topic){
         this.PreferencesView = PreferencesView;
-        this.PreferencesHandler = new PreferencesHandler(this);
+        this.PreferencesHandler = new PreferencesHandler(this, topic);
     }
 
     public void PublishPrefs(String topic, String user, String news, String bus, String weather, String device, String clock, String calender ,String external){
@@ -38,7 +38,9 @@ public class PreferencesPresenter {
     public void Loading() {
         PreferencesView.Loading();
     }
-
+    public void NoEcho(){
+        PreferencesView.UnsuccessfulPublish();
+    }
     public void DoneLoading() {
         PreferencesView.DoneLoading();
     }

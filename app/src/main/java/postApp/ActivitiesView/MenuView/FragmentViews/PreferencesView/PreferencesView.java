@@ -50,7 +50,7 @@ public class PreferencesView extends Fragment {
         postitswitch = (Switch) myView.findViewById(R.id.postswitch);
         greetingsswitch = (Switch) myView.findViewById(R.id.greetingsswitch);
         publish = (Button) myView.findViewById(R.id.prefpub);
-        presenter = new PreferencesPresenter(this);
+        presenter = new PreferencesPresenter(this,  ((NavigationActivity) getActivity()).getMirror());
         progress = new ProgressDialog(getActivity());
 
         publish.setOnClickListener(new View.OnClickListener() {

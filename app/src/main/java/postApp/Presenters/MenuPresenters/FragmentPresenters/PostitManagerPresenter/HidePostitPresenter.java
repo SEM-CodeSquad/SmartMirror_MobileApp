@@ -9,12 +9,11 @@ import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.H
 
 public class HidePostitPresenter {
 
-
-    HidePostitHandler HidePostitHandler;
-    HidePostitView HidePostitView;
-    public HidePostitPresenter(HidePostitView HidePostitView){
+    private HidePostitHandler HidePostitHandler;
+    private HidePostitView HidePostitView;
+    public HidePostitPresenter(HidePostitView HidePostitView, String topic){
         this.HidePostitView = HidePostitView;
-        this.HidePostitHandler = new HidePostitHandler(this);
+        this.HidePostitHandler = new HidePostitHandler(this, topic);
     }
 
     public void FilterPost(String topic, String user, String yellow, String blue, String orange, String pink, String green, String purple){
@@ -26,4 +25,14 @@ public class HidePostitPresenter {
     public void NoMirror(){
         HidePostitView.NoMirrorChosen();
     }
+    public void Loading() {
+        HidePostitView.Loading();
+    }
+    public void NoEcho(){
+        HidePostitView.UnsuccessfulPublish();
+    }
+    public void DoneLoading() {
+        HidePostitView.DoneLoading();
+    }
+
 }

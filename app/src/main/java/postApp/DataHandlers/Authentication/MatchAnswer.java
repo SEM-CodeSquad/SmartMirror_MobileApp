@@ -59,7 +59,7 @@ public class MatchAnswer extends Observable implements Observer {
         protected Void doInBackground(Void... arg0)
         {
             try {
-                    String answerQuery = "select UserID, Answer from Users where UserID=? and Answer=? ";
+                String answerQuery = "select UserID, Answer from Users where UserID=? and Answer=? ";
                 PreparedStatement psAnswer = c.prepareStatement(answerQuery);
                 psAnswer.setString(1, user);
                 psAnswer.setString(2, answer);
