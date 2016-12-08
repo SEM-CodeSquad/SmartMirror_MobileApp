@@ -54,15 +54,15 @@ public class ShoppingHandler implements Observer {
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter, String clientID) {
         MemoryPersistence persistence = new MemoryPersistence();
         this.clientID = clientID;
-        //this.mqttClient = new MQTTClient("prata server",this.clientID,persistence);
+        this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com",this.clientID+"@smartmirror.com",persistence);
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
-        //listenSubscription("Gro/" + clientID);
-        //JsonBuilder builder = new JsonBuilder();
-        //builder.execute("shoppinglistfetch",this.clientID,"fetch");
-
-        shoppingList = new ShoppingList(this.clientID,SPLList,"clientID goes here"); // We need to initialize the ShoppingList here with the client ID
+        listenSubscription("Gro/" + this.clientID);
+        listenSubscription("Gro/" + this.clientID + "/fetch");
+        JsonBuilder builder = new JsonBuilder();
+        builder.execute("shoppinglist",this.clientID,"fetch");
+        shoppingList = new ShoppingList("ShoppingList",SPLList,this.clientID); // We need to initialize the ShoppingList here with the client ID
     }
 
     public void parseMessage(String message) {
@@ -74,6 +74,7 @@ public class ShoppingHandler implements Observer {
             if(reply.equalsIgnoreCase("done")){
                 //Parse the "data" field if there's any
                 if(json.get("data")!=null){
+                    this.SPLList.clear();
                     parseArray(this.SPLList, "data");
                 }
                 else {
@@ -162,6 +163,7 @@ public class ShoppingHandler implements Observer {
                 builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
             }
             else {
+                builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
                 builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
             }
 

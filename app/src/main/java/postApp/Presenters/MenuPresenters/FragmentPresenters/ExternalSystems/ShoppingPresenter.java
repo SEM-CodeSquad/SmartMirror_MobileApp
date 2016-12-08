@@ -20,10 +20,7 @@ public class ShoppingPresenter {
     public ShoppingPresenter(ShoppingView shoppingView, String uuid){
         this.uuid = uuid;
         this.view = shoppingView;
-        this.handler = new ShoppingHandler(shoppingView, this,uuid);
-    }
-    public void startListening(){
-        handler.listenSubscription("Gro/" + this.uuid);
+        this.handler = new ShoppingHandler(this.view, this,uuid);
     }
     public void updateList(String requestType, String item){
         handler.updateList(requestType, item);

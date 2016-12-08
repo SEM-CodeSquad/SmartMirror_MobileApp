@@ -52,7 +52,6 @@ public class ShoppingView extends Fragment {
 
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
-        presenter.startListening();
 
         /*
          * This function sets each row of a listView(each item of a shopping list) a clickable item which will open
