@@ -6,6 +6,7 @@
 
     <Button
         style="@style/BtnCustomHolo"
+        android:focusableInTouchMode="false"
         android:text="Update postit view on mirror"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

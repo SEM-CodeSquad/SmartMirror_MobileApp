@@ -46,6 +46,7 @@ public class LoginInteractor implements Observer {
     public void update(Observable observable, Object Settings) {
         if(log.getStatus() == true){
             if(sett == true) {
+                sett = false;
                 String[] db = set.getSettings();
                 Bus = (db[0]);
                 News = (db[1]);

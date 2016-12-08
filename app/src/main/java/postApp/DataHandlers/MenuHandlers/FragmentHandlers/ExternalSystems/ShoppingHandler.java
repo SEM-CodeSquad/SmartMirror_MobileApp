@@ -15,13 +15,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
+import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.MqTTHandler.MQTTClient;
 import postApp.DataHandlers.MqTTHandler.MQTTSub;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
@@ -43,16 +48,21 @@ public class ShoppingHandler implements Observer {
     private LinkedList<String> SPLList;
     private String clientID;
     private MQTTClient mqttClient;
+    private String tempType = "";
+    private String tempItem = "";
 
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter, String clientID) {
         MemoryPersistence persistence = new MemoryPersistence();
         this.clientID = clientID;
-        //this.mqttClient = new MQTTClient("prata server",this.clientID,persistence);
+        this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com",this.clientID+"@smartmirror.com",persistence);
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
-        //listenSubscription("Gro/" + clientID);
-        shoppingList = new ShoppingList(this.clientID,SPLList,"clientID goes here"); // We need to initialize the ShoppingList here with the client ID
+        listenSubscription("Gro/" + this.clientID);
+        listenSubscription("Gro/" + this.clientID + "/fetch");
+        JsonBuilder builder = new JsonBuilder();
+        builder.execute("shoppinglist",this.clientID,"fetch");
+        shoppingList = new ShoppingList("ShoppingList",SPLList,this.clientID); // We need to initialize the ShoppingList here with the client ID
     }
 
     public void parseMessage(String message) {
@@ -64,14 +74,18 @@ public class ShoppingHandler implements Observer {
             if(reply.equalsIgnoreCase("done")){
                 //Parse the "data" field if there's any
                 if(json.get("data")!=null){
+                    this.SPLList.clear();
                     parseArray(this.SPLList, "data");
                 }
-                //TODO Nimish you can add stuff here, when it's done from the broker
+                else {
+                    if(tempType == "add")SPLList.add(tempItem);
+                    if (tempType == "delete") SPLList.remove(tempItem);
+                    if (tempType == "delete-list") SPLList.clear();
+                }
             }
             else if (reply.equalsIgnoreCase("error")){
-                //TODO Nimish, Add method for when it's error from the broker
+                Toast.makeText(view.getActivity().getApplicationContext(),"Error updating list",Toast.LENGTH_LONG).show();
             }
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -96,8 +110,6 @@ public class ShoppingHandler implements Observer {
                         break;
                 }
             }
-
-            //ShoppingList spl = new ShoppingList(this.getTitle(),linkedList,);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -125,29 +137,42 @@ public class ShoppingHandler implements Observer {
         }
     }
 
-
-
     public void updateList(String requestType, String item){
+        Long timestamp = 0L;
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Date date = new Date();
+        Date dateTemp;
+        try {
+            dateTemp = sdf.parse(date.toString());
+            long unixTime = (dateTemp.getTime()) / 1000;
+            timestamp = unixTime;
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        JsonBuilder builder = new JsonBuilder();
         if (requestType == "add"){
-            //TODO JSON builder to add item.
-            SPLList.add(item);
+            builder.execute("shoppinglist",this.clientID, requestType, item);
+            tempType = requestType; tempItem = item;
+            builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
+
         } else if (requestType == "delete"){
-            //TODO JSON builder to delete item.
-            SPLList.remove("item");
+            builder.execute("shoppinglist",this.clientID,requestType,item);
+            tempType = requestType; tempItem = item;
+            if (SPLList.size() == 1) {
+                builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
+            }
+            else {
+                builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
+                builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
+            }
+
         }else if (requestType == "delete-list"){
-            // TODO JSON builder to
-            SPLList.clear();
+            builder.execute("shoppinglist",this.clientID,requestType);
+            tempType = "delete-list";
+            builder.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
         }
     }
-
-    /*
-     * The saveTitle(title) method saves the title of a shopping list internally on a phone. It only
-     * saves the last String used in the saveTitle parameters. This method is used because upon
-     * creation of the ShoppingView, if the user already has a created shopping list ,
-     * the user needs to be presented with it. The items of the shopping list can be received from a fetch call to
-     *
-     */
-
 
     public LinkedList<String> getShoppingList(){
         return this.shoppingList.getItemList();
@@ -161,7 +186,6 @@ public class ShoppingHandler implements Observer {
 
     @Override
     public void update(Observable observable, final Object obj) {
-
             Thread thread = new Thread(new Runnable() {
                 Object o = obj;
                 @Override

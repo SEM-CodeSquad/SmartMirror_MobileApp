@@ -22,6 +22,7 @@ public class RegisterPresenter {
 Switches to navigationactivity if a user correctly logs in
  */
     public void OnRegister(String User, String Pass, String Secret){
+        loading();
         RegisterInteractor.OnRegister(User,Pass, Secret);
     }
 
@@ -30,7 +31,12 @@ Switches to navigationactivity if a user correctly logs in
     public void OnCancel(){
         RegisterActivity.onCancel();
     }
-
+    public void loading(){
+        RegisterActivity.Loading();
+    }
+    public void DoneLoading(){
+        RegisterActivity.DoneLoading();
+    }
     public void SuccessfulRegister(){
         RegisterActivity.SuccessfulRegister();
     }

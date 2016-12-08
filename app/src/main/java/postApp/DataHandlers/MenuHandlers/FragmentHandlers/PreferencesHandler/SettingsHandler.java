@@ -70,8 +70,6 @@ public class SettingsHandler {
                             ((NavigationActivity) SettingsView.getActivity()).setWeather(city);
                             //set text to city
                             SettingsView.weathertext.setText(city);
-                            //then we start a retrieve data that publishes the new weather as a config.
-                            PublishWeather(((NavigationActivity) SettingsView.getActivity()).getMirror(), city);
                         }
                     });
         } else {
@@ -80,13 +78,12 @@ public class SettingsHandler {
         }
     }
 
-    // this is used to build a AlertDialog that displays newsoptions.
-    public void PublishNews(String Topic, String News) {
+    public void PublishAll(String Topic, String User, String News, String Weather, String Bus) {
         JsonBuilder R = new JsonBuilder();
         String S;
         if (Topic != "No mirror chosen") {
             try {
-                S = R.execute(Topic, "config", News, "newschange").get();
+                S = R.execute(Topic, "config", User, News, Weather, Bus).get();
             } catch (InterruptedException e) {
                 S = "Did not publish";
                 e.printStackTrace();
@@ -94,49 +91,6 @@ public class SettingsHandler {
                 e.printStackTrace();
                 S = "Warning: Did Not Publish";
             }
-            SettingsPresenter.displaySuccPub(S);
-        } else {
-            // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
-            SettingsPresenter.NoMirrorChosen();
-        }
-    }
-
-    public void PublishWeather(String Topic, String Weather) {
-        JsonBuilder R = new JsonBuilder();
-        String S;
-        if (Topic != "No mirror chosen") {
-            try {
-                S = R.execute(Topic, "config", Weather, "weatherchange").get();
-            } catch (InterruptedException e) {
-                S = "Did not publish";
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                S = "Warning: Did Not Publish";
-            }
-            //displays if it was succesful or not
-            SettingsPresenter.displaySuccPub(S);
-        } else {
-            // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
-            SettingsPresenter.NoMirrorChosen();
-        }
-    }
-
-    public void PublishBus(String Bus, String Topic) {
-        JsonBuilder R = new JsonBuilder();
-        String S;
-        System.out.println(((NavigationActivity) SettingsView.getActivity()).GetBusID());
-        if (Topic != "No mirror chosen") {
-            try {
-                S = R.execute(Topic, "config", Bus, "buschange").get();
-            } catch (InterruptedException e) {
-                S = "Did not publish";
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                S = "Warning: Did Not Publish";
-            }
-            //displays if it was succesful or not
             SettingsPresenter.displaySuccPub(S);
         } else {
             // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
@@ -168,11 +122,8 @@ public class SettingsHandler {
                             //we set the activities stop
                             ((NavigationActivity) SettingsView.getActivity()).SetBusID(js.getID());
                             ((NavigationActivity) SettingsView.getActivity()).setBus(js.getName());
-                            SettingsPresenter.SetBus();
                             //and the we set the bustext in the app to stop
-                            PublishBus(js.getID(), ((NavigationActivity) SettingsView.getActivity()).getMirror() );
-                            //after this we publish to the smartmirror the buschange
-
+                            SettingsPresenter.SetBus();
                         } catch (Exception v) {
                             System.out.println(v);
                         }
@@ -204,7 +155,6 @@ public class SettingsHandler {
     public void StoreSettings(String user, String News, String Weather, String Bus){
         StoreSettings set = new StoreSettings(user, News, Bus, Weather);
         SettingsPresenter.UpdateScreen();
-        System.out.println(set.getSettings());
     }
 
 }

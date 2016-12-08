@@ -13,7 +13,6 @@ public class RegisterInteractor implements Observer {
 
     RegisterPresenter RegisterPresenter;
     Registration reg;
-
     /**
      * Constructor for class
      *
@@ -33,6 +32,7 @@ public class RegisterInteractor implements Observer {
     public void OnRegister(String User, String Pass, String Secret) {
         if (isEmailValid(User)) {
             reg = new Registration(User.toLowerCase(), Pass, Secret);
+            reg.addObserver(this);
         } else {
             RegisterPresenter.NotEmail();
         }
@@ -42,7 +42,7 @@ public class RegisterInteractor implements Observer {
      * Function that checks if its a email
      *
      * @param email the Charsequence that needs to be checked
-     * @return
+     * @return true or false
      */
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
@@ -59,10 +59,12 @@ public class RegisterInteractor implements Observer {
     public void update(Observable observable, Object data) {
         //if we return that the username is not in use we switch to login class since we know the account making was succesfull
         if (reg.getInUse() == false) {
+            RegisterPresenter.DoneLoading();
             RegisterPresenter.SuccessfulRegister();
         }
         //a alertdialog displaying it is already chosen
         else {
+            RegisterPresenter.DoneLoading();
             RegisterPresenter.UnSuccessfulRegister();
         }
     }

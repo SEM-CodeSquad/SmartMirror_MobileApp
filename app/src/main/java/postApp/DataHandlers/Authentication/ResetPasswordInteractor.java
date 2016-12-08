@@ -11,7 +11,7 @@ import postApp.Presenters.AuthenticationPresenters.ResetPasswordPresenter;
 
 public class ResetPasswordInteractor implements Observer {
 
-    ResetPassword reg;
+    ResetPassword reset;
     ResetPasswordPresenter ResetPasswordPresenter;
 
     /**
@@ -46,8 +46,8 @@ public class ResetPasswordInteractor implements Observer {
      * @param Pass
      */
     public void OnReset(String User, String Pass) {
-        reg = new ResetPassword(User, Pass);
-        reg.addObserver(this);
+        reset = new ResetPassword(User, Pass);
+        reset.addObserver(this);
 
     }
 
@@ -59,10 +59,12 @@ public class ResetPasswordInteractor implements Observer {
      */
     @Override
     public void update(Observable observable, Object o) {
-        if (reg.getPasswordResetStatus()) {
+        if (reset.getPasswordResetStatus()) {
             ResetPasswordPresenter.PasswordReset();
+            ResetPasswordPresenter.DoneLoading();
         } else {
             ResetPasswordPresenter.NoPasswordReset();
+            ResetPasswordPresenter.DoneLoading();
         }
     }
 }

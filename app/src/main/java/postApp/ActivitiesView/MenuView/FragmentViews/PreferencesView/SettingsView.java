@@ -95,6 +95,8 @@ public class SettingsView extends Fragment {
             public void onClick(View v) {
                 presenter.StoreSettings(((NavigationActivity) getActivity()).getUser(), ((NavigationActivity) getActivity()).getNews(),
                         ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).getBus());
+                presenter.PublishAll(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), ((NavigationActivity) getActivity()).getNews(),
+                        ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).getBus());
             }
         });
         // a onclick listener that uses the library nlopez smartlocation lib that gets the current location one time only.
@@ -195,11 +197,8 @@ public class SettingsView extends Fragment {
                                 presenter.SetNewsABC();
                                 presenter.SetTextNews();
                                 break;
-
                         }
-                        presenter.PublishNews(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getNews());
-
-                    }
+     }
                 });
         //and we create it with all the above options.
         newsbuilt.create();
@@ -210,9 +209,6 @@ public class SettingsView extends Fragment {
     }
 
     public void Buildstop() {
-        //the first two lines generete a authorization key for the Västtrafik API.
-        GenerateAccessCode gen = new GenerateAccessCode();
-        auth = gen.getAccess();
 
         //we build our bus alertdialog
         busbuilt = new AlertDialog.Builder(getActivity());

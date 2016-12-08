@@ -1,29 +1,35 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
 
+import android.os.Handler;
+
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.MqTTHandler.Echo;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.HidePostitPresenter;
 
 /**
  * Created by adinH on 2016-12-03.
  */
 
-public class HidePostitHandler {
+public class HidePostitHandler implements Observer {
 
     HidePostitPresenter HidePostitPresenter;
-    String topic;
-    String user;
-    String integer;
+    private Boolean waitforecho = false;
+    private Boolean echoed = false;
 
 
-    public HidePostitHandler(HidePostitPresenter HidePostitPresenter){
+    public HidePostitHandler(HidePostitPresenter HidePostitPresenter, String topic){
         this.HidePostitPresenter = HidePostitPresenter;
+        String topic123 = "dit029/SmartMirror/" + topic + "/echo";
+        Echo echo = new Echo(topic123, topic);
+        echo.addObserver(this);
     }
 
     public void FilterPost(String topic, String user, String yellow, String blue, String orange, String pink, String green, String purple){
-        this.topic = topic;
-        this.user = user;
+        String integer;
         if(yellow == "true"){
            integer = "6";
         }
@@ -44,22 +50,44 @@ public class HidePostitHandler {
         else {
             integer = "0";
         }
-        //AwaitEcho();
+        HidePostitPresenter.Loading();
+        AwaitEcho();
         JsonBuilder R = new JsonBuilder();
-        String S;
         if (topic != "No mirror chosen") {
             try {
-                S = R.execute(topic, "preferencesHide", user, integer).get();
+                R.execute(topic, "preferencesHide", user, integer).get();
             } catch (InterruptedException e) {
-                S = "Did not publish";
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 System.out.println(e);
-                S = "Warning: Did Not Publish";
             }
-            HidePostitPresenter.ShowMessage(S);
         } else {
             HidePostitPresenter.NoMirror();
+        }
+    }
+
+
+    private void AwaitEcho() {
+        waitforecho = true;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if (echoed) {
+                    HidePostitPresenter.DoneLoading();
+                    echoed = false;
+                } else {
+                    HidePostitPresenter.NoEcho();
+                    HidePostitPresenter.DoneLoading();
+                }
+                waitforecho = false;
+            }
+        }, 2000); // 2000 milliseconds delay
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        if (waitforecho) {
+            echoed = true;
         }
     }
 }

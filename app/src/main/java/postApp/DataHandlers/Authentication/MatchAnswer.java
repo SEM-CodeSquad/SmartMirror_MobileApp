@@ -28,10 +28,10 @@ public class MatchAnswer extends Observable implements Observer {
      */
     public MatchAnswer(String User, String Answer) {
         try {
-            conn = new DBConnection();
-            conn.addObserver(this);
             this.user = User;
             this.answer = Answer;
+            conn = new DBConnection();
+            conn.addObserver(this);
         } catch (Exception v) {
             System.out.println(v);
         }
@@ -45,6 +45,7 @@ public class MatchAnswer extends Observable implements Observer {
      */
     @Override
     public void update(Observable observable, Object o) {
+
         this.c = conn.getConn();
         matchAnswer ma = new matchAnswer();
         ma.execute();
@@ -58,7 +59,7 @@ public class MatchAnswer extends Observable implements Observer {
         protected Void doInBackground(Void... arg0)
         {
             try {
-                String answerQuery = "select UserID, Answer from Users where Answer=? and Answer=? ";
+                String answerQuery = "select UserID, Answer from Users where UserID=? and Answer=? ";
                 PreparedStatement psAnswer = c.prepareStatement(answerQuery);
                 psAnswer.setString(1, user);
                 psAnswer.setString(2, answer);
@@ -69,13 +70,15 @@ public class MatchAnswer extends Observable implements Observer {
                     count++;
                 }
                 if (count == 1) {
+                    System.out.println(user);
                     match = true;
 
                 } else {
+                    System.out.println(answer);
                     match = false;
                 }
-
                 psAnswer.close();
+                c.close();
             } catch (Exception e) {
                 e.printStackTrace();
 

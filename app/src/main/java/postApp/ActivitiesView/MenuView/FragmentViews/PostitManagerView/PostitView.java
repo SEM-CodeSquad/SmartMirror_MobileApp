@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -102,11 +104,11 @@ public class PostitView extends Fragment {
                else{
                     presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), "standard");
                 }
-                presenter.AwaitEcho();
-
+                isOnline(getActivity());
 
             }
         });
+
 
         /**
         Remove focus from typedtext when clicked on a diffrent place meaning we will hide keyboard when not typing
@@ -121,6 +123,15 @@ public class PostitView extends Fragment {
         });
 
         return myView;
+    }
+
+    public boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(getActivity().CONNECTIVITY_SERVICE);
+        android.net.NetworkInfo networkinfo = cm.getActiveNetworkInfo();
+        if (networkinfo != null && networkinfo.isConnected()) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -182,6 +193,8 @@ public class PostitView extends Fragment {
                 });
         builder.create();
     }
+
+
     /**
      * Change the picture color to match the switch chosen
      */

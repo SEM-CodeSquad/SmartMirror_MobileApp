@@ -1,4 +1,5 @@
 package postApp.ActivitiesView.MenuView;
+
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
@@ -24,9 +25,9 @@ import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePos
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.PreferencesView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
-import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.RemovePostitView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.Presenters.MenuPresenters.NavigationPresenter;
+import postApp.TestingFragment;
 
 /*
 Oncreate method for navigationactivity, starts a navigation drawer and sets the toolbar, functionality etc.
@@ -39,6 +40,7 @@ public class NavigationActivity extends AppCompatActivity
     FragmentManager fragment;
     private NavigationPresenter presenter;
     View.OnClickListener mOriginalListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,7 @@ public class NavigationActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         //if its not a saved instancestate we set the iniatial frame as a postit
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.content_frame, new PostitView()).commit();
         }
@@ -69,7 +71,7 @@ public class NavigationActivity extends AppCompatActivity
         toggle.syncState();
         presenter = new NavigationPresenter(this);
 
-        if(presenter.getMirror() == "No mirror chosen") {
+        if (presenter.getMirror() == "No mirror chosen") {
             UnsuccessfulRegister();
         }
         //here we just get the user that logged in from before using a bundle
@@ -83,18 +85,17 @@ public class NavigationActivity extends AppCompatActivity
 
 
     }
+
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (getFragmentManager().findFragmentByTag("QRFRAG") != null && getFragmentManager().findFragmentByTag("QRFRAG").isVisible()) {
             toggleDrawerUse(true);
-        }
-        else if (getFragmentManager().findFragmentByTag("BUSFRAG") != null && getFragmentManager().findFragmentByTag("BUSFRAG").isVisible()) {
+        } else if (getFragmentManager().findFragmentByTag("BUSFRAG") != null && getFragmentManager().findFragmentByTag("BUSFRAG").isVisible()) {
             toggleDrawerUse(true);
         }
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else if(getFragmentManager().getBackStackEntryCount() > 0) {
+        } else if (getFragmentManager().getBackStackEntryCount() > 0) {
 
             getFragmentManager().popBackStack();
         }
@@ -104,7 +105,7 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        TextView usrnamenav = (TextView)findViewById(R.id.usernavdraw);
+        TextView usrnamenav = (TextView) findViewById(R.id.usernavdraw);
         usrnamenav.setText(presenter.getUser());
         return true;
     }
@@ -134,7 +135,7 @@ public class NavigationActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void UnsuccessfulRegister(){
+    public void UnsuccessfulRegister() {
         new AlertDialog.Builder(this)
                 .setMessage("Mirror is not paired, would you like to pair now?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -163,33 +164,31 @@ public class NavigationActivity extends AppCompatActivity
         //when a diffrent navigation item is clicked we do a specific thing, eg when nav_postit(postit icon) is clicked
         //we switch fragment to postit and set title of actionbar to publish posit.
         //same thing for all navigationitems
-        if (id == R.id.nav_postit){
+        if (id == R.id.nav_postit) {
             fragment.beginTransaction().replace(R.id.content_frame, new PostitView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Publish PostIt");
         } else if (id == R.id.nav_mirror) {
             fragment.beginTransaction().replace(R.id.content_frame, new ManagePostitsView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Mirror");
-        } else if (id == R.id.nav_remove) {
-            fragment.beginTransaction().replace(R.id.content_frame, new RemovePostitView()).addToBackStack(null).commit();
-            getSupportActionBar().setTitle("Remove PostIt");
         } else if (id == R.id.nav_contact) {
             fragment.beginTransaction().replace(R.id.content_frame, new ContactView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("ContactView Us");
         } else if (id == R.id.nav_about) {
             fragment.beginTransaction().replace(R.id.content_frame, new AboutView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("AboutView");
-        }
-        else if (id == R.id.nav_preferences) {
+        } else if (id == R.id.nav_preferences) {
             fragment.beginTransaction().replace(R.id.content_frame, new PreferencesView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("PreferencesView");
-        }
-        else if (id == R.id.nav_shoppinglist) {
+        } else if (id == R.id.nav_shoppinglist) {
             fragment.beginTransaction().replace(R.id.content_frame, new ShoppingView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Shopping List");
-        }
-        else if (id == R.id.nav_filterpost) {
+        } else if (id == R.id.nav_filterpost) {
             fragment.beginTransaction().replace(R.id.content_frame, new HidePostitView()).addToBackStack(null).commit();
-            getSupportActionBar().setTitle("Shopping List");
+            getSupportActionBar().setTitle("Filter Postits");
+        }
+        else if (id == R.id.nav_test) {
+            fragment.beginTransaction().replace(R.id.content_frame, new TestingFragment()).addToBackStack(null).commit();
+            getSupportActionBar().setTitle("Test");
         }
 
 
@@ -197,44 +196,56 @@ public class NavigationActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-/*
-Getters and setter for all the current string that will be used to passing data
-Having these to access the same from all fragments
- */
-public String getMirror(){
-    return presenter.getMirror();
-}
-    public void setMirror(String UUID){
+
+    /*
+    Getters and setter for all the current string that will be used to passing data
+    Having these to access the same from all fragments
+     */
+    public String getMirror() {
+        return presenter.getMirror();
+    }
+
+    public void setMirror(String UUID) {
         presenter.setMirror(UUID);
     }
-    public String getBus(){
+
+    public String getBus() {
         return presenter.getBus();
     }
-    public void setBus(String busid){
+
+    public void setBus(String busid) {
         presenter.setBus(busid);
     }
-    public String getWeather(){
+
+    public String getWeather() {
         return presenter.getWeather();
     }
-    public void setWeather(String W){
+
+    public void setWeather(String W) {
         presenter.setWeather(W);
     }
-    public String getNews(){
+
+    public String getNews() {
         return presenter.getNews();
     }
-    public void setNews(String N){
-        presenter.setNews(N) ;
+
+    public void setNews(String N) {
+        presenter.setNews(N);
     }
-    public String getUUID(){
+
+    public String getUUID() {
         return presenter.getUUID();
     }
-    public String getUser(){
+
+    public String getUser() {
         return presenter.getUser();
     }
-    public void SetBusID(String busID){
+
+    public void SetBusID(String busID) {
         presenter.SetBusID(busID);
     }
-    public String GetBusID(){
+
+    public String GetBusID() {
         return presenter.GetBusID();
     }
 

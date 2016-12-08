@@ -15,8 +15,9 @@ public class PageFragmentPresenter {
 
     public PageFragmentPresenter(PageFragment PageFragment, String color){
         this.PageFragment = PageFragment;
-        this.PageFragmentHandler = new PageFragmentHandler(PageFragment, this);
-        PageFragment.BuildColorChoice();
+        this.PageFragmentHandler = new PageFragmentHandler(this);
+        PageFragment.buildDelete();
+        PageFragment.buildEdit();
         SetColor(color);
     }
     public void ShowMessage(String S){
@@ -27,6 +28,9 @@ public class PageFragmentPresenter {
     }
     public void DeletePostit(String topic, String ID){
         PageFragmentHandler.DeletePostit(topic, ID);
+    }
+    public void EditPostit(String topic, String id, String Text){
+        PageFragmentHandler.EditPostit(topic, id, Text);
     }
     public void BlueClick(){
         PageFragment.ColorBlue();
@@ -46,9 +50,6 @@ public class PageFragmentPresenter {
     public void OrangeClick(){
         PageFragment.ColorOrange();
     }
-    public void ShowColors(){
-        PageFragment.ShowColors();
-    }
     public void SetColor(String S){
         PageFragmentHandler.SetColor(S);
 
@@ -56,12 +57,7 @@ public class PageFragmentPresenter {
     public void HideKeyboard(View V){
         PageFragment.hideKeyboard(V);
     }
-    public void NoEcho(){
-        PageFragment.NoEcho();
-    }
-    public void AwaitEcho(){
-        PageFragmentHandler.AwaitEcho();
-    }
+
     public void ReloadScreen(){
         PageFragment.ReloadScreen();
     }

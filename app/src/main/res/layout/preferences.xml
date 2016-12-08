@@ -208,7 +208,8 @@
             android:layout_alignEnd="@+id/newsswitch" />
 
         <Button
-            style="@style/BtnCustomHolo"
+            style="@android:style/Widget.Button"
+            android:focusableInTouchMode="false"
             android:text="Update Preferences"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

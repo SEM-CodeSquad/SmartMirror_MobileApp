@@ -78,6 +78,7 @@ public class ResetPassword extends Observable implements Observer {
                 psReset.executeUpdate();
                 reseted = true;
                 psReset.close();
+                c.close();
             } catch (Exception e) {
                 reseted = false;
                 e.printStackTrace();

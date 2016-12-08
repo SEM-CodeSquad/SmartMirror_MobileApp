@@ -55,7 +55,6 @@ public class HttpRequestSender {
             connection.setRequestMethod("POST");
             connection.setUseCaches(false);
 
-
             //Get Response
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()));

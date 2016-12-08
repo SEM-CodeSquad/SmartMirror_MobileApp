@@ -2,6 +2,7 @@ package postApp.ActivitiesView.AuthenticationView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     TextView passwrd;
     EditText secret;
     private RegisterPresenter presenter;
+    ProgressDialog progress;
 
     /**
      * When the activity is launched this is the oncreate method,
@@ -36,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registeracc);
+        progress = new ProgressDialog(this);
         //initilize the views
         Button reg = (Button)findViewById(R.id.regbtn);
         Button cancel = (Button)findViewById(R.id.regclc);
@@ -121,6 +124,22 @@ public class RegisterActivity extends AppCompatActivity {
     public void HideKeyboard(View view){
         InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    /**
+     * Loading method that shows a progressdialog
+     */
+    public void Loading(){
+        progress.setMessage("Registring");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.show();
+    }
+    /**
+     * method that dismisses the progressbar
+     */
+    public void DoneLoading(){
+        progress.dismiss();
     }
 
     /**

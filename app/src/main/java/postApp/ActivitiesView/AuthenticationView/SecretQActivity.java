@@ -2,6 +2,7 @@ package postApp.ActivitiesView.AuthenticationView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class SecretQActivity extends AppCompatActivity {
     private EditText usrname;
     private EditText secret;
     private SecretQPresenter presenter;
+    private ProgressDialog progress;
 
     /**
      * When we switch to this activity the oncreate method is ran, which instantiates buttons
@@ -32,6 +34,8 @@ public class SecretQActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progress = new ProgressDialog(this);
+
         setContentView(R.layout.secretq);
         Button confirm = (Button)findViewById(R.id.confsecretq);
         Button cancel = (Button)findViewById(R.id.cancelsecretq);
@@ -111,6 +115,21 @@ public class SecretQActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+    /**
+     * Loading method that shows a progressdialog
+     */
+    public void Loading(){
+        progress.setMessage("Checking if Username and question are correct");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.show();
+    }
+    /**
+     * method that dismisses the progressbar
+     */
+    public void DoneLoading(){
+        progress.dismiss();
     }
 
     /**

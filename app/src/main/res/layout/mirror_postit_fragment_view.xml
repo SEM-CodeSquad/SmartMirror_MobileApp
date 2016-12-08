@@ -19,17 +19,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Pick Postit color"
-        android:id="@+id/pickmanagepostitcolor"
-        android:textColor="#030303"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/editcheckmark"
-        android:layout_marginTop="14dp" />
-
     <EditText
         android:id="@+id/editTypedtext"
         android:layout_width="300dp"
@@ -41,29 +30,50 @@
         android:text="Write your tasks here"
         android:textStyle="normal"
         android:textSize="30dp"
-        android:layout_below="@+id/managepostitcolonbutton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="49dp"
+        android:layout_alignTop="@+id/manageImageview"
+        android:layout_centerHorizontal="true" />
 
-    <ImageButton
+    <Button
+        style="@style/BtnCustomHolo"
+        android:focusableInTouchMode="false"
+        android:text="Edit postit Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
         android:id="@+id/editcheckmark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:src="@drawable/checkmark"
-        android:layout_marginBottom="29dp"
-        android:layout_alignBottom="@+id/manageImageview"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="22dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/editTypedtext" />
 
-    <ImageButton
+    <Button
+        style="@style/BtnCustomHolo"
+        android:focusableInTouchMode="false"
+        android:text="Delete postit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/managepostitcolonbutton"
-        android:src="@mipmap/pickcolor"
-        android:background="@null"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/editcheckmark" />
+        android:layout_alignBottom="@+id/editcheckmark"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="26dp"
+        android:id="@+id/deletepostitbutton" />
+
+    <TextView
+        android:text="Expires at:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/manageImageview"
+        android:layout_alignStart="@+id/deletepostitbutton"
+        android:id="@+id/textView8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expiresat"
+        android:text="Expires at"
+        android:layout_alignTop="@+id/manageImageview"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView8"
+        android:textStyle="normal|bold"
+        android:layout_marginLeft="5dp" />
 
 
 </RelativeLayout>
