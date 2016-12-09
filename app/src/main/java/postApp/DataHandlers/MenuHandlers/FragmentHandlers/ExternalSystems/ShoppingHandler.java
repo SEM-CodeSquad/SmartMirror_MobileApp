@@ -64,7 +64,7 @@ public class ShoppingHandler implements Observer {
         listenSubscription("Gro/smartmirror@codehigh.com");
         listenSubscription("Gro/smartmirror@codehigh.com/fetch");
         JsonBuilder builder = new JsonBuilder();
-        builder.execute("shoppinglist",this.clientID,"fetch");
+        builder.execute("shoppinglist","smartmirror@codehigh.com","fetch");
         shoppingList = new ShoppingList("ShoppingList",SPLList,this.clientID); // We need to initialize the ShoppingList here with the client ID
     }
 
@@ -77,21 +77,25 @@ public class ShoppingHandler implements Observer {
             if (json.containsKey("reply")) {
                 this.reply = json.get("reply").toString();
                 if(reply.equalsIgnoreCase("done")){
-                    //Parse the "data" field if there's any
+                    System.out.println("got done boy");
                     if(json.get("data")!=null){
                         this.SPLList.clear();
                         parseArray(this.SPLList, "data");
                     } else {
-                        if(tempType == "add")SPLList.add(tempItem);
-                        if (tempType == "delete") SPLList.remove(tempItem);
-                        if (tempType == "delete-list") SPLList.clear();
+                        if(tempType == "add"){
+                            System.out.println("Adding boy");
+                            SPLList.add(tempItem);
+                            System.out.println(SPLList.toString());
+                        }
+                        else if (tempType == "delete") SPLList.remove(tempItem);
+                        else if (tempType == "delete-list") SPLList.clear();
                     }
                 } else if (reply.equalsIgnoreCase("error")){
                     Toast.makeText(view.getActivity().getApplicationContext(),"Error updating list",Toast.LENGTH_LONG).show();
                 }
             }else if(json.containsKey("client-id")){
-                this.replyID=json.get("client-id").toString();
-
+                //this.replyID=json.get("client-id").toString();
+                System.out.println("hey man it works");
                 //TODO Nimish do your done checker here!
             }
 
@@ -162,14 +166,14 @@ public class ShoppingHandler implements Observer {
 
         if (requestType == "add"){
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist","smartmirror@codehigh.com", requestType, item);
+            builder.execute("shoppinglist","smartmirror@codehigh.com",requestType,item);
             tempType = requestType; tempItem = item;
-            JsonBuilder builderMirror = new JsonBuilder();
+            //JsonBuilder builderMirror = new JsonBuilder();
             //builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
 
         } else if (requestType == "delete"){
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID+"@smartmirror.com",requestType,item);
+            builder.execute("shoppinglist",this.clientID+"@smartmirror.com",requestType,item); // The client id here is the one we should be using.
             tempType = requestType; tempItem = item;
             JsonBuilder builderMirror = new JsonBuilder();
             if (SPLList.size() == 1) {

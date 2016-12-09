@@ -101,55 +101,55 @@ public class ShoppingView extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_add){
-            if (uuid == "No mirror chosen"){
+        if (id == R.id.action_add) {
+            /*if (uuid == "No mirror chosen"){
                 Toast.makeText(getActivity().getApplicationContext(),"Please choose a mirror first", Toast.LENGTH_SHORT).show();
             }
-            else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Add Item");
-                final EditText input = new EditText(getActivity());
-                builder.setView(input);
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        presenter.updateList("add", input.getText().toString());
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        System.out.println("The list is " + presenter.getShoppingList().toString());
-                    }
-                });
-                builder.show();
-            }
+            else {*/
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Add Item");
+            final EditText input = new EditText(getActivity());
+            builder.setView(input);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    presenter.updateList("add", input.getText().toString());
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    System.out.println("The list is " + presenter.getShoppingList().toString());
+                }
+            });
+            builder.show();
+
             return true;
         }
-        if(id == R.id.action_clear){
-            if (uuid == "No mirror chosen"){
+        if (id == R.id.action_clear) {
+           /* if (uuid == "No mirror chosen"){
                 Toast.makeText(getActivity().getApplicationContext(),"Please choose a mirror first", Toast.LENGTH_SHORT).show();
             }
-            else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Clear Entire List");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        presenter.updateList("delete-list", "empty");
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            }
-            return true;
-        }
+            else {*/
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Clear Entire List");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    presenter.updateList("delete-list", "empty");
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+
+        return true;
+    }
         return super.onOptionsItemSelected(item);
     }
 

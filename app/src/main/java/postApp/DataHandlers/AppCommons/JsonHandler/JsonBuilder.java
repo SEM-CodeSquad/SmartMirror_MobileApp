@@ -140,21 +140,17 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             } else if (args[0].equals("shoppinglist")) {
                 String send = "";
                 if (args.length==3) {
-                    send = "{\"client-id\":\"" + args[1]+ "\"," +
+                    send = "{\"client_id\":\"" + args[1]+ "\"," +
                             "\"list\":" + "\"SmartMirror Shopping list\"" + "," +
                             "\"request\":\"" + args[2]+"\"}";
                 }
                 else  if (!(args[3] == null)) {
 
-                    send = "{\"client-id\":\"" + args[1]+ "\"," +
+                    send = "{\"client_id\":\"" + args[1]+ "\"," +
                             "\"list\":" + "\"SmartMirror Shopping list\"" + "," +
                             "\"request\":\"" + args[2]+"\"," +
-                            "\"data\":\"{\"item\":\"" + args[3] + "\"}\"}";
+                            "\"data\":{\"item\":\"" + args[3] + "\"}}";
                 }
-
-
-
-
 //                sendthis.put("client-id", args[1]);
 //                sendthis.put("list", "SmartMirror Shopping List");
 //                sendthis.put("request", args[2]);
