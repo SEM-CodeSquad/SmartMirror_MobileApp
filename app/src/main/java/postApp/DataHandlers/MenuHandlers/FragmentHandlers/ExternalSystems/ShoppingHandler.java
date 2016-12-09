@@ -1,6 +1,6 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems;
 
-import android.os.AsyncTask;
+
 import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -10,22 +10,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.security.Timestamp;
-import java.sql.SQLOutput;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.UUID;
+
 
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
@@ -33,7 +25,7 @@ import postApp.DataHandlers.MqTTHandler.MQTTClient;
 import postApp.DataHandlers.MqTTHandler.MQTTSub;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
 
-import static android.content.Context.MODE_PRIVATE;
+
 
 /*
  * This class is the handler for the ShoppingList component. This is where the logic part of the component
@@ -80,7 +72,7 @@ public class ShoppingHandler implements Observer {
                     System.out.println("got done boy");
                     if(json.get("data")!=null){
                         this.SPLList.clear();
-                        parseArray(this.SPLList, "data");
+                        parseItem(json.get("data").toString());
                     } else {
                         if(tempType == "add"){
                             System.out.println("Adding boy");
@@ -104,24 +96,27 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
     }
-    private void parseArray(LinkedList linkedList, String type) {
+    private void parseItem(String json) {
+        LinkedList list = new LinkedList();
         try {
             JSONParser parser = new JSONParser();
-            JSONArray jsonArray = (JSONArray) parser.parse(this.preData);
-            String s = jsonArray.get(0).toString();
-            JSONObject jso = (JSONObject) parser.parse(s);
-            ArrayList<String> arrayList = new ArrayList<>(jso.keySet());
-            String item;
-            for (String anArrayList : arrayList) {
-                String value = jso.get(anArrayList).toString();
-                switch (type) {
-                    case "item":
-                        item = value;
-                        linkedList.add(item);
-                        break;
-                    default:
-                        System.out.println("Could Not be Parsed!");
-                        break;
+
+            JSONObject jsonOBJ = (JSONObject) parser.parse(json);
+
+            if(jsonOBJ.get("data").equals("[]")){
+
+            }else if(!(jsonOBJ.get("data").equals("[]"))) {
+
+                JSONArray jary = (JSONArray) jsonOBJ.get("data");
+                System.out.println(jary);
+                for (Object o : jary) {
+                    if (o instanceof JSONObject) {
+                        System.out.println(((JSONObject) o).get("item"));
+
+                        list.addLast(((JSONObject) o).get("item"));
+
+                    }
+
                 }
             }
 

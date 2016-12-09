@@ -172,7 +172,6 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
             } else if (args[0].equals("SPLToMirror")) {
 
-                //TODO change the "12" to the actual timestamp
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", args[1]);
                 sendthis.put("timestamp", args[2]);

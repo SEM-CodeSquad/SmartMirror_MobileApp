@@ -29,7 +29,7 @@ public class ParseJson {
     }
 
     public String[] parseSearch(String json, String search) throws ParseException {
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        JSONParser parser = new JSONParser();
         SearchMap = new HashMap<>();
         String newlist[] = new String[20];
         System.out.println(json);
