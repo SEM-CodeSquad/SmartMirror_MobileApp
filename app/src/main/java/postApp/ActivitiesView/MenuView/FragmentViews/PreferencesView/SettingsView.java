@@ -96,7 +96,7 @@ public class SettingsView extends Fragment {
                 presenter.StoreSettings(((NavigationActivity) getActivity()).getUser(), ((NavigationActivity) getActivity()).getNews(),
                         ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).getBus());
                 presenter.PublishAll(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), ((NavigationActivity) getActivity()).getNews(),
-                        ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).getBus());
+                        ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).GetBusID());
             }
         });
         // a onclick listener that uses the library nlopez smartlocation lib that gets the current location one time only.
@@ -113,7 +113,7 @@ public class SettingsView extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("FetchSettings");
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Settings");
     }
 
     public void SetNews(String news){

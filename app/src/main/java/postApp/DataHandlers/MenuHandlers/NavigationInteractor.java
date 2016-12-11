@@ -22,35 +22,8 @@ public class NavigationInteractor {
     String user;
     String busIDVäst = "no väst";
     UUID idOne = UUID.randomUUID();
-    String BusID;
-    View.OnClickListener mOriginalListener;
 
-    postApp.ActivitiesView.MenuView.NavigationActivity NavigationActivity;
-
-
-    public NavigationInteractor(NavigationActivity NavigationActivity){
-        this.NavigationActivity = NavigationActivity;
-    }
-
-    public void toggleDrawerUse(boolean useDrawer) {
-        // Enable/Disable the icon being used by the drawer
-        NavigationActivity.toggle.setDrawerIndicatorEnabled(useDrawer);
-        final FragmentManager fragment = NavigationActivity.getFragmentManager();
-        // Switch between the listeners as necessary
-        if(useDrawer) {
-            NavigationActivity.toggle.setToolbarNavigationClickListener(mOriginalListener);
-        }
-        else
-            NavigationActivity.toggle.setHomeAsUpIndicator(R.drawable.back); //set the icon to a back button
-        NavigationActivity.toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //listeners that goes back to settings whne pressed
-                fragment.beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
-                NavigationActivity.getSupportActionBar().setTitle("FetchSettings"); //sets the title to settings
-                toggleDrawerUse(true);//activates the drawer again
-
-            }
-        });
+    public NavigationInteractor(){
     }
 
     /*

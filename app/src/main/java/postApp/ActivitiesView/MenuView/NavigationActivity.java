@@ -27,7 +27,6 @@ import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.Preferences
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
 import postApp.Presenters.MenuPresenters.NavigationPresenter;
-import postApp.TestingFragment;
 
 /*
 Oncreate method for navigationactivity, starts a navigation drawer and sets the toolbar, functionality etc.
@@ -119,7 +118,7 @@ public class NavigationActivity extends AppCompatActivity
         //if settings is pressed we opens the settings fragment and set title to settings
         if (id == R.id.action_settings) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).addToBackStack(null).commit();
-            getSupportActionBar().setTitle("FetchSettings");
+            getSupportActionBar().setTitle("Settings");
         }
         if (id == R.id.pairmirror) {
             //since pairmirror uses a back button we save the original listener which is a drawer
@@ -186,11 +185,6 @@ public class NavigationActivity extends AppCompatActivity
             fragment.beginTransaction().replace(R.id.content_frame, new HidePostitView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Filter Postits");
         }
-        else if (id == R.id.nav_test) {
-            fragment.beginTransaction().replace(R.id.content_frame, new TestingFragment()).addToBackStack(null).commit();
-            getSupportActionBar().setTitle("Test");
-        }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

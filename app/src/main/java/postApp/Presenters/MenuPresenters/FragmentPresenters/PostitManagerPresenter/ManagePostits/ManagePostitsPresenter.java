@@ -6,32 +6,49 @@ import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePos
 import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.ManagePostits.ManagePostitsHandler;
 
 /**
- * Created by Emanuel on 19/11/2016.
+ * A class for interacting with the handler and presenting the view
  */
 
 public class ManagePostitsPresenter {
-    ManagePostitsView ManagePostitsView;
-    ManagePostitsHandler ManagePostitsHandler;
+    private ManagePostitsView ManagePostitsView;
+    private ManagePostitsHandler ManagePostitsHandler;
+
+    /**
+     * Constructor that injects the presenter into the handler and gets the view. It also starts a loading screen when instantiated
+     * @param ManagePostitsView
+     */
     public ManagePostitsPresenter(ManagePostitsView ManagePostitsView){
         this.ManagePostitsView = ManagePostitsView;
         this.ManagePostitsHandler = new ManagePostitsHandler(this);
         Loading();
     }
+
+    /**
+     * We call the handlers function the fetch the postits
+     * @param User the user that we fetch for
+     */
     public void FetchPost(String User){
         ManagePostitsHandler.ReadPost(User);
     }
-    public void EditPost(String text,  String id){
-        ManagePostitsHandler.EditPost(text, id);
-    }
-    public void DeletePost(String id){
-        ManagePostitsHandler.DeletePost(id);
-    }
+
+    /**
+     * Tell the view to we are done with loading
+     */
     public void DoneLoading(){
         ManagePostitsView.DoneLoading();
     }
+
+    /**
+     * Tell the view to start a progressdialog showing that we are loading
+     */
     public void Loading(){
         ManagePostitsView.Loading();
     }
+
+    /**
+     * Tell the view to start loading the postit
+     * @param PostIts pass a array of postits
+     */
     public void StartLoadingPost(JSONArray PostIts){
         ManagePostitsView.UpdateGuiPost(PostIts);
     }
