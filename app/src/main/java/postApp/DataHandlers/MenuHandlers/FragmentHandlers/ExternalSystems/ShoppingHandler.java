@@ -40,7 +40,7 @@ public class ShoppingHandler implements Observer {
     private String reply;
     private String replyID;
     private String preData;
-    private LinkedList<String> SPLList;
+    private LinkedList SPLList;
     private String clientID;
     private MQTTClient mqttClient;
     private String tempType = "";
@@ -97,7 +97,7 @@ public class ShoppingHandler implements Observer {
         }
     }
     private void parseItem(String json) {
-        LinkedList list = new LinkedList();
+
         try {
             JSONParser parser = new JSONParser();
 
@@ -113,7 +113,7 @@ public class ShoppingHandler implements Observer {
                     if (o instanceof JSONObject) {
                         System.out.println(((JSONObject) o).get("item"));
 
-                        list.addLast(((JSONObject) o).get("item"));
+                        this.SPLList.addLast(((JSONObject) o).get("item"));
 
                     }
 
