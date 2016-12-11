@@ -23,15 +23,6 @@ public class ManagePostitsHandler implements Observer {
         readPostits = new ReadPostits(user);
         readPostits.addObserver(this);
     }
-    public void DeletePost(String idOne){
-        deletpostit = new DeletePostit(idOne);
-        deletpostit.getDeletedStatus();
-    }
-
-    public void EditPost(String text, String idOne){
-        editPostit = new EditPostit(text, idOne);
-        editPostit.getEditedStatus();
-    }
 
     @Override
     public void update(Observable observable, Object data) {
@@ -43,5 +34,4 @@ public class ManagePostitsHandler implements Observer {
         }, 1000); // 3000 milliseconds delay
         ManagePostitsPresenter.StartLoadingPost(readPostits.getPostitArray());
     }
-
 }

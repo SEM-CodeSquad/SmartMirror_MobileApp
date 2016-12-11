@@ -21,8 +21,8 @@ public class FetchSettings extends Observable implements Observer {
     private String[] settings;
 
     /**
-     * contructor that creates a db connection and the makes this class a observer.
-     * @param User
+     * Constructor that creates a db connection and the makes this class a observer.
+     * @param User the user we want to get settings for
      */
     public FetchSettings(String User) {
         try {
@@ -34,6 +34,11 @@ public class FetchSettings extends Observable implements Observer {
         }
     }
 
+    /**
+     * When we know the db connection is done we call the async function to get the settings
+     * @param observable The observable
+     * @param o the object
+     */
     @Override
     public void update(Observable observable, Object o) {
         c = conn.getConn();
@@ -42,6 +47,9 @@ public class FetchSettings extends Observable implements Observer {
         set.execute();
     }
 
+    /**
+     * Async task that gets the settings
+     */
     private class fetchSettings extends AsyncTask<Void, Void, Void> {
 
 
@@ -70,16 +78,28 @@ public class FetchSettings extends Observable implements Observer {
             }
             return null;
         }
+
+        /**
+         * Notify the observer that the async task is complete
+         * @param unused q
+         */
         @Override
         protected void onPostExecute(Void unused) {
             NotObserver();
         }
     }
 
+    /**
+     * Notifies observers with this class
+     */
     public void NotObserver(){
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
+
+    /**
+     * @return The settings as a string[]
+     */
     public String[] getSettings(){
         return settings;
     }

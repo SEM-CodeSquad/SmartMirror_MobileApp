@@ -42,31 +42,36 @@ public class LoginInteractor implements Observer {
 
     }
 
+    /**
+     * This method is called from the observables and we check first if its a instanceof login. If it is we check if
+     * We succesfully log in, if we do we call UpdateSettings(). Else we call the presenters function Unsuccessfull login.
+     * If the object is a instance of FetchSettings we get the settings and the set the bus to diffrent positions in the String array
+     * And then we use methods to be done with loading
+     * @param observable The observable
+     * @param obj The object
+     */
     @Override
-    public void update(Observable observable, Object Settings) {
-        if(log.getStatus() == true){
-            if(sett == true) {
-                sett = false;
-                String[] db = set.getSettings();
-                Bus = (db[0]);
-                News = (db[1]);
-                Weather = (db[2]);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        LoginPresenter.DoneLoading();
-                        LoginPresenter.SuccessfulLogin(User, Bus, Weather, News);
-                    }
-                }, 1000); // 1000 milliseconds delay
-            }
-            else{
-                sett = true;
+    public void update(Observable observable, Object obj) {
+        if (obj instanceof Login) {
+            if (log.getStatus()) {
                 UpdateSettings();
+            } else {
+                LoginPresenter.UnsuccessfulLogin();
+                LoginPresenter.DoneLoading();
             }
         }
-        else{
-            LoginPresenter.UnsuccessfulLogin();
-            LoginPresenter.DoneLoading();
+        else if (obj instanceof FetchSettings) {
+            String[] db = set.getSettings();
+            Bus = (db[0]);
+            News = (db[1]);
+            Weather = (db[2]);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    LoginPresenter.DoneLoading();
+                    LoginPresenter.SuccessfulLogin(User, Bus, Weather, News);
+                }
+            }, 1000); // 1000 milliseconds delay
         }
     }
 

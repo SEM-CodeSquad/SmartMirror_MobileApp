@@ -19,8 +19,8 @@ public class PageFragmentHandler implements Observer {
     private PageFragmentPresenter PageFragmentPresenter;
     private String idOne;
     private String text;
-    DeletePostit RemovePost;
-    EditPostit editPostit;
+    private DeletePostit RemovePost;
+    private EditPostit editPostit;
 
     public PageFragmentHandler(PageFragmentPresenter PageFragmentPresenter) {
         this.PageFragmentPresenter = PageFragmentPresenter;

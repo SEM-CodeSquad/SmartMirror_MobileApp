@@ -39,7 +39,7 @@ public class MatchAnswer extends Observable implements Observer {
     }
 
     /**
-     * When db connection is done the update is called, this starts a new Matchanwer async class
+     * When db connection is done the update is called, this starts a new Matchanswer async class
      * @param observable
      * @param o
      */
@@ -70,11 +70,9 @@ public class MatchAnswer extends Observable implements Observer {
                     count++;
                 }
                 if (count == 1) {
-                    System.out.println(user);
                     match = true;
 
                 } else {
-                    System.out.println(answer);
                     match = false;
                 }
                 psAnswer.close();
@@ -88,7 +86,7 @@ public class MatchAnswer extends Observable implements Observer {
 
         /**
          * OnPostexecute of async task we notify the observers
-         * @param unused
+         * @param unused n
          */
         @Override
         protected void onPostExecute(Void unused) {

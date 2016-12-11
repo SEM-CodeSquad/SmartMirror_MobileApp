@@ -10,7 +10,7 @@ import java.util.Observer;
 import postApp.DataHandlers.DBConnection.DBConnection;
 
 /**
- * @author Emanuel on 23/11/2016.
+ * Class that is used for editing a postit
  */
 
 public class EditPostit extends Observable implements Observer {
@@ -21,6 +21,11 @@ public class EditPostit extends Observable implements Observer {
     private String text;
 
 
+    /**
+     * Constructor that start a db conn and sets the id and text
+     * @param text text of the postit
+     * @param iD id of the postit
+     */
     public EditPostit(String text, String iD){
         try {
             this.text = text;
@@ -32,6 +37,11 @@ public class EditPostit extends Observable implements Observer {
         }
     }
 
+    /**
+     * When we get a update that DB connection is done we execute the async class editpost
+     * @param observable
+     * @param o
+     */
     @Override
     public void update(Observable observable, Object o) {
         c = conn.getConn();
@@ -40,9 +50,12 @@ public class EditPostit extends Observable implements Observer {
         editPost.execute();
     }
 
-    private class EditPost extends AsyncTask<Void, Void, Boolean> {
+    /**
+     * Class that extends async task that tries to edit a postit from DB
+     */
+    private class EditPost extends AsyncTask<Void, Void, Void> {
 
-        protected Boolean doInBackground(Void... arg0)
+        protected Void doInBackground(Void... arg0)
         {
             try{
                 String query = "update Postits set Postit=? where PostID= '" + iD + "' ";
@@ -56,11 +69,31 @@ public class EditPostit extends Observable implements Observer {
                 edited = false;
             }
 
-            return edited;
+            return null;
+        }
+
+        /**
+         * When done notify the observers
+         * @param unused o
+         */
+        @Override
+        protected void onPostExecute(Void unused) {
+            NotObserver();
         }
 
     }
 
+    /**
+     * Notifies the observers
+     */
+    public void NotObserver(){
+        setChanged();
+        notifyObservers();
+    }
+
+    /*
+      * @return A boolean that is either true or false if its deleted
+      */
     public Boolean getEditedStatus(){
         return edited;
     }

@@ -9,7 +9,7 @@ import postApp.DataHandlers.DBConnection.DBConnection;
 
 
 /**
- * @author Emanuel on 21/11/2016.
+ * Class that stores the postits in the database
  */
 
 public class StorePostits extends Observable implements Observer {
@@ -22,6 +22,14 @@ public class StorePostits extends Observable implements Observer {
     private String color;
     private long timeStamp;
 
+    /**
+     * Establish a connection with the database and set all the Passed parameters
+     * @param user the user
+     * @param idOne The id of the postit
+     * @param color The color of the postit
+     * @param text The text of the postit
+     * @param timeStamp The time of the postit
+     */
     public StorePostits(String user,String idOne, String color, String text, long timeStamp) {
         try {
             this.user = user;
@@ -36,6 +44,11 @@ public class StorePostits extends Observable implements Observer {
         }
     }
 
+    /**
+     * When we get a update from the dbconnection that its done we execute a SavePostits class
+     * @param observable o
+     * @param o o
+     */
     @Override
     public void update(Observable observable, Object o) {
             c = conn.getConn();
@@ -44,6 +57,9 @@ public class StorePostits extends Observable implements Observer {
             psS.execute();
     }
 
+    /**
+     * Class that extends async task that adds a postit in the database
+     */
     private class SavePostits extends AsyncTask<Void, Void, Void> {
 
         protected Void doInBackground(Void... arg0)
@@ -65,6 +81,11 @@ public class StorePostits extends Observable implements Observer {
             }
             return null;
         }
+
+        /**
+         * When the async task is done we notify the observers
+         * @param unused u
+         */
         @Override
         protected void onPostExecute(Void unused) {
             NotObserver();
@@ -72,14 +93,19 @@ public class StorePostits extends Observable implements Observer {
 
     }
 
+    /**
+     * Notify the observers
+     */
     public void NotObserver(){
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * @return stored that is either true or false.
+     */
     public Boolean getStoreStatus(){
         return stored;
     }
-
 
 }
