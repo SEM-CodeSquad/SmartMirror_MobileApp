@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * This method is ran when activity is created. We set onclicklisteners
      * Initialize the views
-     * @param savedInstanceState
+     * @param savedInstanceState s
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
