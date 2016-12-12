@@ -34,7 +34,9 @@ public class ShoppingPresenter {
     public LinkedList<String> getShoppingList(){
         return handler.getShoppingList();
     }
-
+    public void makeToast(String message){
+        view.makeToast(message);
+    }
     public boolean getBoolean(){
        return handler.getBoolean();
     }

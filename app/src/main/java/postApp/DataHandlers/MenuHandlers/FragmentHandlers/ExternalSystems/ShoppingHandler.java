@@ -50,7 +50,7 @@ public class ShoppingHandler implements Observer {
     private boolean value;
 
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter, String clientID) {
-       this.value = false;
+        this.value = false;
         MemoryPersistence persistence = new MemoryPersistence();
         this.clientID = clientID;
         this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com",this.clientID+"@codehigh.com",persistence);
@@ -96,7 +96,7 @@ public class ShoppingHandler implements Observer {
                         }
                     }
                 } else if (reply.equalsIgnoreCase("error")){
-                    Toast.makeText(view.getActivity().getApplicationContext(),"Error updating list",Toast.LENGTH_LONG).show();
+                    makeToast("Error updating list");
                 }
             }else if(json.containsKey("client_id")){
                 //this.replyID=json.get("client-id").toString();
@@ -218,6 +218,10 @@ public class ShoppingHandler implements Observer {
             });
             thread.start();
         }
+    }
+
+    public void makeToast(String message){
+        presenter.makeToast(message);
     }
 
     public boolean getBoolean(){

@@ -239,6 +239,9 @@ public class ShoppingView extends Fragment {
         });
         builder.show();
     }
+    public void makeToast(String message){
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
     public ListView getListView(){
         return this.listView;
     }
