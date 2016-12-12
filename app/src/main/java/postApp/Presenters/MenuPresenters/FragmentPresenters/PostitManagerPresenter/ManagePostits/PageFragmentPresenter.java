@@ -18,9 +18,9 @@ public class PageFragmentPresenter {
      * @param PageFragment The view passed
      * @param color The color to set
      */
-    public PageFragmentPresenter(PageFragment PageFragment, String color){
+    public PageFragmentPresenter(PageFragment PageFragment, String color, String topic){
         this.PageFragment = PageFragment;
-        this.PageFragmentHandler = new PageFragmentHandler(this);
+        this.PageFragmentHandler = new PageFragmentHandler(this, topic);
         PageFragment.buildDelete();
         PageFragment.buildEdit();
         SetColor(color);
@@ -30,8 +30,8 @@ public class PageFragmentPresenter {
      * Call the view to show a message
      * @param S The message
      */
-    public void ShowMessage(String S){
-        PageFragment.ShowMessage(S);
+    public void loading(String S){
+        PageFragment.Loading(S);
     }
 
     /**
@@ -118,5 +118,13 @@ public class PageFragmentPresenter {
      */
     public void ReloadScreen(){
         PageFragment.ReloadScreen();
+    }
+
+    public void NoEcho(String s){
+        PageFragment.UnsuccessfulPublish(s);
+    }
+
+    public void DoneLoading() {
+        PageFragment.DoneLoading();
     }
 }

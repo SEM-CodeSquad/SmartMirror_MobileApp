@@ -80,7 +80,7 @@ public class DeletePostit extends Observable implements Observer {
      */
     public void NotObserver(){
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
 
     /*

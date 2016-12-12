@@ -34,4 +34,10 @@ public class Echo extends  Observable implements Observer
             setChanged();
             notifyObservers();
     }
+    public void disconnect(){
+        client.disconnect();
+    }
+    public void connect(){
+        client.reconnect();
+    }
 }

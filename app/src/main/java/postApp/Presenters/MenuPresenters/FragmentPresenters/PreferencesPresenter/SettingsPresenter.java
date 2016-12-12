@@ -12,9 +12,9 @@ public class SettingsPresenter {
     private SettingsHandler SettingsHandler;
     private SettingsView SettingsView;
 
-    public SettingsPresenter(SettingsView SettingsView) {
+    public SettingsPresenter(SettingsView SettingsView, String topic, String user) {
         this.SettingsView = SettingsView;
-        this.SettingsHandler = new SettingsHandler(this, SettingsView);
+        this.SettingsHandler = new SettingsHandler(this, SettingsView, topic, user);
         startup();
     }
 
@@ -44,11 +44,11 @@ public class SettingsPresenter {
         SettingsView.SetWeather(((NavigationActivity) SettingsView.getActivity()).getWeather());
     }
 
-    public void BuildNews() {
+    private void BuildNews() {
         SettingsView.Buildnews();
     }
 
-    public void BuildStop() {
+    private void BuildStop() {
         SettingsView.Buildstop();
     }
 
@@ -68,19 +68,12 @@ public class SettingsPresenter {
     public void PublishAll(String topic, String user, String News, String Weather, String Bus){
         SettingsHandler.PublishAll(topic, user, News, Weather, Bus);
     }
-    public void StoreSettings(String user, String News, String Weather, String Bus){
-        SettingsHandler.StoreSettings(user, News, Weather, Bus);
-    }
     public void ShowBus() {
         SettingsView.ShowBus();
     }
 
     public void ShowNews() {
         SettingsView.ShowNews();
-    }
-
-    public void displaySuccPub(String S) {
-        SettingsView.displaySuccPub(S);
     }
 
     public void NoMirrorChosen() {
@@ -117,12 +110,18 @@ public class SettingsPresenter {
         ((NavigationActivity) SettingsView.getActivity()).setNews("ABC");
     }
 
-    public void UpdateScreen(){
-        SettingsView.UpdateScreen();
-    }
-
     public void BusByLoc() {
         SettingsHandler.SetLocalStop();
+    }
+    public void NoEcho(){
+        SettingsView.UnsuccessfulPublish();
+    }
+    public void Loading() {
+        SettingsView.Loading();
+    }
+
+    public void DoneLoading() {
+        SettingsView.DoneLoading();
     }
 
 }

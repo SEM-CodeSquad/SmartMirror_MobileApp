@@ -28,9 +28,6 @@ public class PreferencesPresenter {
     public void DisBtnFalse(){
         PreferencesView.DisBtnFalse();
     }
-    public void ShowMessage(String S){
-        PreferencesView.displaySuccPub(S);
-    }
     public void NoMirror(){
         PreferencesView.NoMirrorChosen();
     }

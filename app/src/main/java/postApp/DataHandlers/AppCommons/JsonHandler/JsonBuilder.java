@@ -41,7 +41,6 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 jArray.add(0, item);
                 sendthis.put("content", jArray);
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
-                System.out.println("Inbetween");
                 String messagestring = sendthis.toJSONString();
                 post = new HttpRequestSender("codehigh.ddns.me", topic, messagestring, "0", "false");
             } else if (args[1].equals("config")) {

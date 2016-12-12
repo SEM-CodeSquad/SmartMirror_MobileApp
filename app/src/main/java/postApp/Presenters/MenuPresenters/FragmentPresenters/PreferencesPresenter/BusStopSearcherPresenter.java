@@ -6,11 +6,19 @@ import android.view.View;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.BusStopSearcherView;
 import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PreferencesHandler.BusStopSearcherHandler;
 
+/**
+ * Class for interacting with the busstopsearcherview and the busstopsearcherhandler
+ */
 public class BusStopSearcherPresenter {
 
 
-    BusStopSearcherView BusStopSearcherView;
-    BusStopSearcherHandler BusStopSearcherHandler;
+    private BusStopSearcherView BusStopSearcherView;
+    private BusStopSearcherHandler BusStopSearcherHandler;
+
+    /**
+     *
+     * @param BusStopSearcherView
+     */
     public BusStopSearcherPresenter(BusStopSearcherView BusStopSearcherView){
         this.BusStopSearcherView = BusStopSearcherView;
         this.BusStopSearcherHandler = new BusStopSearcherHandler(BusStopSearcherView, this);
@@ -28,11 +36,11 @@ public class BusStopSearcherPresenter {
     public void HideKeyboard(View V){
         BusStopSearcherView.hideKeyboard(V);
     }
-    public void ShowMessage(String S){
-        BusStopSearcherView.ShowMessage(S);
-    }
     public void NoMirror(){
         BusStopSearcherView.NoMirror();
+    }
+    public String getBusID(String s){
+        return BusStopSearcherHandler.getStopID(s);
     }
 
 }

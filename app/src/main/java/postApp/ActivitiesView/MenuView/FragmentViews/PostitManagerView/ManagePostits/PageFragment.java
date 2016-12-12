@@ -2,6 +2,7 @@ package postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePo
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +36,8 @@ public class PageFragment extends Fragment {
     AlertDialog.Builder builderDelete;
     AlertDialog.Builder builderEdit;
     PageFragmentPresenter presenter;
+    ProgressDialog progress;
+
 
     @Nullable
     @Override
@@ -53,10 +56,11 @@ public class PageFragment extends Fragment {
         message = bundle.getString("Text");
         id = bundle.getString("ID");
         color = bundle.getString("Color");
+        progress = new ProgressDialog(getActivity());
 
         textview.setText(message);
         expiresat.setText(expireat);
-        presenter = new PageFragmentPresenter(this,color);
+        presenter = new PageFragmentPresenter(this,color,((NavigationActivity) getActivity()).getMirror());
 
 
         DeletePostit.setOnClickListener(new View.OnClickListener() {
@@ -179,5 +183,39 @@ public class PageFragment extends Fragment {
         InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    /**
+     * Loading method that shows a progressdialog
+     */
+    public void Loading(String message){
+        progress.setMessage(message);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.show();
+    }
+
+    /**
+     * method that dismisses the progressbar
+     */
+    public void DoneLoading(){
+        progress.dismiss();
+    }
+
+    /**
+     * Method that shows a alertdialog that says fail.
+     * @param s the string we show
+     */
+    public void UnsuccessfulPublish(String s){
+        //if user types wrong login we show a alertdialog some text
+        new AlertDialog.Builder(getActivity())
+                .setTitle(s)
+                .setMessage("No answer received")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+    }
+
 }
 

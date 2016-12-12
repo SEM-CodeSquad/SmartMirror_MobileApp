@@ -122,28 +122,20 @@ public class BusStopSearcherView extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Search for Bustops");
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Search for Bus Stops");
     }
 
     /**
      * When we pick a busstop we switch fragments and swich back to a normal drawer and set bus to bus stop
      */
     public void OnBusClick(String bus){
-        ((NavigationActivity) getActivity()).setNews(bus);
+        ((NavigationActivity) getActivity()).setBus(bus);
+        ((NavigationActivity) getActivity()).SetBusID(presenter.getBusID(bus));
         //set it back to a drawer instead of backbutton
         ((NavigationActivity) getActivity()).toggleDrawerUse(true);
         //switch back to settings
         getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
     }
-
-    /**
-     * Show a toast containing string s
-     * @param S the message
-     */
-    public void ShowMessage(String S){
-            Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
-        }
-
     /**
      * if no mirror is chosen we display this with a toast
      */
@@ -151,7 +143,6 @@ public class BusStopSearcherView extends Fragment {
         Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
 
     }
-
     /**
      * Hides keyboard
      * @param view the view where we are hiding the keyboard

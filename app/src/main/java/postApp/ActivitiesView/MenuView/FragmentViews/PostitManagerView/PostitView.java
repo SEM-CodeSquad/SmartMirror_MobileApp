@@ -104,7 +104,6 @@ public class PostitView extends Fragment {
                else{
                     presenter.PublishPostit(typedtext.getText().toString(),  ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), "standard");
                 }
-                isOnline(getActivity());
 
             }
         });
@@ -125,14 +124,6 @@ public class PostitView extends Fragment {
         return myView;
     }
 
-    public boolean isOnline(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(getActivity().CONNECTIVITY_SERVICE);
-        android.net.NetworkInfo networkinfo = cm.getActiveNetworkInfo();
-        if (networkinfo != null && networkinfo.isConnected()) {
-            return true;
-        }
-        return false;
-    }
 
     /**
      * When we resume to this activity we call the superclass function and we set the title of the actionbar to the publish postit
@@ -233,14 +224,6 @@ public class PostitView extends Fragment {
     }
 
     /**
-     * Used for showing a toast with a message
-     * @param S the message
-     */
-    public void ShowMessage(String S){
-        Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
      * IF no mirror ID is chosen display a toast
      */
     public void NoMirror(){
@@ -306,7 +289,6 @@ public class PostitView extends Fragment {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            // TODO Auto-generated method stub
             // getCalender();
             int mYear = year;
             int mMonth = monthOfYear;

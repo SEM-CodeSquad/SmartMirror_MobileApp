@@ -11,17 +11,14 @@ import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.P
 
 public class PostitPresenter {
 
-    PostitView PostitView;
-    PostitHandler PostitHandler;
+    private PostitView PostitView;
+    private PostitHandler PostitHandler;
 
     public PostitPresenter(PostitView PostitView, String mirrorid){
         this.PostitView = PostitView;
         this.PostitHandler = new PostitHandler(this, mirrorid);
         PostitView.BuildColorChoice();
         SetColor("yellow");
-    }
-    public void ShowMessage(String S){
-        PostitView.ShowMessage(S);
     }
     public void NoMirror(){
         PostitView.NoMirror();

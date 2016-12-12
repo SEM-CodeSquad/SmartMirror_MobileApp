@@ -8,6 +8,7 @@ This is the settings fragments managing all the controlling when pressing the se
  */
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,10 +30,8 @@ import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 public class SettingsView extends Fragment {
     View myView;
-    BusStopSearcherView newSearch;
     AlertDialog.Builder newsbuilt;
     AlertDialog.Builder busbuilt;
-    String auth;
     public EditText UUID;
     public String user;
     private SettingsPresenter presenter;
@@ -40,6 +39,7 @@ public class SettingsView extends Fragment {
     public EditText newstext;
     public EditText weathertext;
     private View.OnClickListener mOriginalListener;
+    ProgressDialog progress;
 
     /*
     This is created when the fragment is started.
@@ -61,8 +61,9 @@ public class SettingsView extends Fragment {
         newstext = (EditText) myView.findViewById(R.id.newstext);
         weathertext = (EditText) myView.findViewById(R.id.citytext);
         user =  (((NavigationActivity) getActivity()).getUser());
+        progress = new ProgressDialog(getActivity());
 
-        presenter = new SettingsPresenter(this);
+        presenter = new SettingsPresenter(this, ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser());
 
         //A QrCodeView2 button that has a onclicklistener that changes fragments to the qr fragment, and then change title on the toolbar.
         // the toggleDrawerUse switches from a drawer to a backbutton.
@@ -93,8 +94,6 @@ public class SettingsView extends Fragment {
         StoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.StoreSettings(((NavigationActivity) getActivity()).getUser(), ((NavigationActivity) getActivity()).getNews(),
-                        ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).getBus());
                 presenter.PublishAll(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), ((NavigationActivity) getActivity()).getNews(),
                         ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).GetBusID());
             }
@@ -142,10 +141,6 @@ public class SettingsView extends Fragment {
         newsbuilt.show();
     }
 
-    public void displaySuccPub(String S){
-        Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
-
-    }
     public void NoMirrorChosen(){
         // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
         Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
@@ -204,10 +199,6 @@ public class SettingsView extends Fragment {
         newsbuilt.create();
     }
 
-    public void UpdateScreen(){
-        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).addToBackStack(null).commit();
-    }
-
     public void Buildstop() {
 
         //we build our bus alertdialog
@@ -229,4 +220,37 @@ public class SettingsView extends Fragment {
         //creates builder
         busbuilt.create();
     }
+
+    /**
+     * Loading method that shows a progressdialog
+     */
+    public void Loading(){
+        progress.setMessage("Updating settings");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.show();
+    }
+
+    /**
+     * method that dismisses the progressbar
+     */
+    public void DoneLoading(){
+        progress.dismiss();
+    }
+
+    /**
+     * Method that shows a alertdialog that says fail.
+     */
+    public void UnsuccessfulPublish(){
+        //if user types wrong login we show a alertdialog some text
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Failed to edit settings")
+                .setMessage("No answer received")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+    }
+
 }

@@ -3,10 +3,14 @@ package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PreferencesHandler;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Handler;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
@@ -18,45 +22,42 @@ import postApp.DataHandlers.AppCommons.JsonHandler.ParseJson;
 import postApp.DataHandlers.AppCommons.Settings.StoreSettings;
 import postApp.DataHandlers.AppCommons.Vasttrafik.GenerateAccessCode;
 import postApp.DataHandlers.AppCommons.Vasttrafik.TravelByLoc;
+import postApp.DataHandlers.MqTTHandler.Echo;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.SettingsPresenter;
 
 /**
  * Created by adinH on 2016-11-18.
  */
 
-public class SettingsHandler {
-    String auth;
-    SettingsPresenter SettingsPresenter;
-    SettingsView SettingsView;
-    public SettingsHandler(SettingsPresenter SettingsPresenter, SettingsView SettingsView) {
+public class SettingsHandler implements Observer {
+
+    private String auth;
+    private String news;
+    private String bus;
+    private String weather;
+    private String user;
+    private SettingsPresenter SettingsPresenter;
+    private SettingsView SettingsView;
+    private Echo echo;
+    private boolean echoed = false;
+    public SettingsHandler(SettingsPresenter SettingsPresenter, SettingsView SettingsView, String topic, String user) {
+
         this.SettingsPresenter = SettingsPresenter;
         this.SettingsView = SettingsView;
+        echo = new Echo("dit029/SmartMirror/" + topic + "/echo", user);
+        echo.addObserver(this);
+        echo.disconnect();
     }
 
     public void StartBus() {
-        String topic = ((NavigationActivity) SettingsView.getActivity()).getMirror();
-        if (topic != "No mirror chosen") {
             SettingsPresenter.ShowBus();
-        } else {
-            // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
-            SettingsPresenter.NoMirrorChosen();
-        }
     }
 
     public void StartNews() {
-        String topic = ((NavigationActivity) SettingsView.getActivity()).getMirror();
-        if (topic != "No mirror chosen") {
             SettingsPresenter.ShowNews();
-        } else {
-            // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
-            SettingsPresenter.NoMirrorChosen();
-        }
     }
 
     public void WeatherOnLoc() {
-        String topic = ((NavigationActivity) SettingsView.getActivity()).getMirror();
-        if (topic != "No mirror chosen") {
-
             //using lib smartlocation
             SmartLocation.with(SettingsView.getActivity()).location()
                     //used for getting location just ones
@@ -72,26 +73,22 @@ public class SettingsHandler {
                             SettingsView.weathertext.setText(city);
                         }
                     });
-        } else {
-            // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
-            SettingsPresenter.NoMirrorChosen();
-        }
     }
 
     public void PublishAll(String Topic, String User, String News, String Weather, String Bus) {
+
+        if (!Topic.equals("No mirror chosen")) {
+            AwaitEcho();
+            this.news = News;
+            this.weather = Weather;
+            this.user = User;
+            this.bus = Bus;
         JsonBuilder R = new JsonBuilder();
-        String S;
-        if (Topic != "No mirror chosen") {
             try {
-                S = R.execute(Topic, "config", User, News, Weather, Bus).get();
-            } catch (InterruptedException e) {
-                S = "Did not publish";
+                R.execute(Topic, "config", User, News, Weather, Bus).get();
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                S = "Warning: Did Not Publish";
             }
-            SettingsPresenter.displaySuccPub(S);
         } else {
             // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
             SettingsPresenter.NoMirrorChosen();
@@ -133,7 +130,7 @@ public class SettingsHandler {
     }
 
     //here we just get the city for the weather
-    public String weathercity(double Lat, double Long){
+    private String weathercity(double Lat, double Long){
         //will be final adress
         String finalAddress = "";
         //android lib geocoder that gets the current location
@@ -152,9 +149,43 @@ public class SettingsHandler {
         return finalAddress;
     }
 
-    public void StoreSettings(String user, String News, String Weather, String Bus){
-        StoreSettings set = new StoreSettings(user, News, Bus, Weather);
-        SettingsPresenter.UpdateScreen();
+    private void StoreSettings(){
+        StoreSettings set = new StoreSettings(user, news, bus, weather);
+        set.addObserver(this);
     }
 
+    private void AwaitEcho() {
+        echo.connect();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if (echoed) {
+                    SettingsPresenter.DoneLoading();
+                    echoed = false;
+                } else {
+                    SettingsPresenter.NoEcho();
+                    SettingsPresenter.DoneLoading();
+                }
+                Disc();
+            }
+        }, 2000); // 2000 milliseconds delay
+    }
+
+
+    /**
+     * Method for removing observer and disconnecting
+     */
+    private void Disc(){
+        echo.disconnect();
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        if(o instanceof Echo){
+            StoreSettings();
+        }
+        else if(o instanceof StoreSettings){
+            echoed = true;
+        };
+    }
 }

@@ -88,7 +88,7 @@ public class EditPostit extends Observable implements Observer {
      */
     public void NotObserver(){
         setChanged();
-        notifyObservers();
+        notifyObservers(this);
     }
 
     /*

@@ -8,42 +8,45 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 public class MQTTClient {
     private MqttConnectOptions options;
     private MqttClient client;
-    private long unixTime;
+    private String clientid;
 
     public MQTTClient(String url, String id, MemoryPersistence persistence)
     {
         try
         {
+            this.clientid = id;
             options = new MqttConnectOptions();
             options.setCleanSession(false);
             options.setKeepAliveInterval(20);
             client = new MqttClient(url, id, persistence);
             client.connect(options);
-
-            this.unixTime = System.currentTimeMillis() / 1000L;
-
             System.out.println("Client Connected!");
         }
         catch (MqttException e)
         {
             e.printStackTrace();
+            disconnect();
+            reconnect();
         }
     }
 
-    public void disconnect(String clientId)
+    public void disconnect()
     {
-        System.out.println("Disconnecting...");
-        try
+        if (this.client.isConnected())
         {
-            String topic = "dit029/SmartMirror/" + clientId;
-            byte[] emptyArray = new byte[0];
-            this.client.publish(topic, emptyArray, 1, true);
+            System.out.println("Disconnecting...");
+            try
+            {
+                String topic = "presence/" + this.clientid;
+                byte[] emptyArray = new byte[0];
+                this.client.publish(topic, emptyArray, 1, true);
 
-            client.disconnect();
-        }
-        catch (MqttException e)
-        {
-            e.printStackTrace();
+                client.disconnect();
+            }
+            catch (MqttException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 

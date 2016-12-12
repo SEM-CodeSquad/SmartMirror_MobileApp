@@ -32,7 +32,7 @@ public class PostitHandler implements Observer {
     private String date;
     private long timestamp;
     private boolean stored = false;
-    private boolean waitforecho = false;
+    private String echotopic;
 
     /**
      * We set the postitpresenter, set the topic we are posting too. Instantiate a Echo Class that we observe
@@ -41,9 +41,10 @@ public class PostitHandler implements Observer {
      */
     public PostitHandler(PostitPresenter PostitPresenter, String topic) {
         this.PostitPresenter = PostitPresenter;
-        String topic123 = "dit029/SmartMirror/" + topic + "/echo";
-        echo = new Echo(topic123, topic);
+        this.echotopic = "dit029/SmartMirror/" + topic + "/echo";
+        echo = new Echo(echotopic, user);
         echo.addObserver(this);
+        echo.disconnect();
     }
 
     /**
@@ -63,7 +64,7 @@ public class PostitHandler implements Observer {
      */
     public void PublishPostit(String text, String topic, String user, String date) {
         //Check if a mirror is paired
-        if (topic != "No mirror chosen") {
+        if (!topic.equals("No mirror chosen")) {
             // set a loading screen
             PostitPresenter.Loading();
             //await a echo
@@ -94,10 +95,8 @@ public class PostitHandler implements Observer {
             this.idOne = UUID.randomUUID().toString();
             JsonBuilder R = new JsonBuilder();
             try {
-                System.out.println(R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user).get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+                R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user).get();
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }
@@ -110,8 +109,8 @@ public class PostitHandler implements Observer {
     /**
      * Method used for awaiting a echo. if stored is true after 2 seconds we know we got a echo
      */
-    public void AwaitEcho() {
-        waitforecho = true;
+    private void AwaitEcho() {
+        echo.connect();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -122,15 +121,21 @@ public class PostitHandler implements Observer {
                     PostitPresenter.NoEcho();
                     PostitPresenter.DoneLoading();
                 }
-                waitforecho = false;
+                Disc();
             }
         }, 2000); // 2000 milliseconds delay
     }
 
     /**
+     * Method for removing observer and disconnecting
+     */
+    private void Disc(){
+        echo.disconnect();
+    }
+    /**
      * Method for storing postits in the database
      */
-    public void StorePost() {
+    private void StorePost() {
         StorePostits storePostits = new StorePostits(user, idOne, color, text, timestamp);
     }
 
@@ -141,9 +146,7 @@ public class PostitHandler implements Observer {
      */
     @Override
     public void update(Observable observable, Object data) {
-        if(waitforecho) {
             stored = true;
             StorePost();
-        }
     }
 }

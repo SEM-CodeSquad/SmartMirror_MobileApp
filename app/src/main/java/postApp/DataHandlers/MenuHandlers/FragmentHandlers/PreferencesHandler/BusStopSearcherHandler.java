@@ -48,7 +48,7 @@ public class BusStopSearcherHandler {
             System.out.println(v);
         }
     }
-    public String SetStopID(String S){
+    public String getStopID(String S){
         return js.getBusIDfromSearch(S);
     }
 
