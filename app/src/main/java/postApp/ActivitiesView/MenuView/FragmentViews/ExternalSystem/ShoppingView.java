@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.concurrent.CountDownLatch;
 
 
 import adin.postApp.R;
@@ -52,6 +54,7 @@ public class ShoppingView extends Fragment {
         System.out.println("The list is " + presenter.getShoppingList().toString());
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
+        listView.setAdapter(adapter);
 
         /*
          * This function sets each row of a listView(each item of a shopping list) a clickable item which will open
@@ -114,6 +117,26 @@ public class ShoppingView extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     presenter.updateList("add", input.getText().toString());
+                    final Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{
+                                    Thread.sleep(2000);
+                                    if (presenter.getBoolean()== false){
+                                        Toast.makeText(getActivity().getApplicationContext(),"Error adding element, please try again.", Toast.LENGTH_LONG).show();
+                                    }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    if (presenter.getBoolean()){
+                        presenter.setBooleanFalse();
+                        adapter.notifyDataSetChanged();
+                        System.out.println("kuch toh hua hain");
+                        listView.setAdapter(adapter);
+                    }
+
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -124,9 +147,9 @@ public class ShoppingView extends Fragment {
                 }
             });
             builder.show();
-
             return true;
         }
+
         if (id == R.id.action_clear) {
            /* if (uuid == "No mirror chosen"){
                 Toast.makeText(getActivity().getApplicationContext(),"Please choose a mirror first", Toast.LENGTH_SHORT).show();
@@ -173,7 +196,6 @@ public class ShoppingView extends Fragment {
         });
         builder.show();
     }
-
     public ListView getListView(){
         return this.listView;
     }

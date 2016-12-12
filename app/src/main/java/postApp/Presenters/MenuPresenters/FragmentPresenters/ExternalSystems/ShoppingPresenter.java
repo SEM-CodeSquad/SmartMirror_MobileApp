@@ -27,14 +27,22 @@ public class ShoppingPresenter {
     public void updateList(String requestType, String item){
         handler.updateList(requestType, item);
     }
-
-    public void updateListView(){
-        view.getListView().setAdapter(view.getAdapter());
+    public void addStuff(String stuff){
+        handler.addStuff(stuff);
     }
-
+    /*public void updateListView(){
+        view.updateList();
+    }*/
 
     public LinkedList<String> getShoppingList(){
         return handler.getShoppingList();
+    }
+
+    public boolean getBoolean(){
+       return handler.getBoolean();
+    }
+    public void setBooleanFalse(){
+        handler.setBooleanFalse();
     }
 
 }
