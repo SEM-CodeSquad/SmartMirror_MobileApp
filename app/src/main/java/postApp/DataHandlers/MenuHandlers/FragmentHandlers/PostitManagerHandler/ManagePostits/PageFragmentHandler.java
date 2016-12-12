@@ -95,6 +95,7 @@ public class PageFragmentHandler implements Observer {
      */
     public void DeletePostit(String topic, String UUID) {
         if (!topic.equals("No mirror chosen")) {
+            AwaitEcho();
             message = "Could not delete postit";
             PageFragmentPresenter.loading("Deleting postit");
             editordelete = "delete";
@@ -163,21 +164,13 @@ public class PageFragmentHandler implements Observer {
      */
     @Override
     public void update(Observable observable, Object data) {
-        if (data instanceof EditPostit) {
-            if(editPostit.getEditedStatus()){
-                echoed = true;
-            }
-        }
-        else if (data instanceof DeletePostit) {
-            if(RemovePost.getDeletedStatus()){
-                echoed = true;
-            }
-        }
-        else if (data instanceof Echo) {
+        if (data instanceof Echo) {
             if(editordelete.equals("edit")){
+                echoed = true;
                 EditPost();
             }
             else if(editordelete.equals("delete")){
+                echoed = true;
                 RemovePost();
             }
         }

@@ -30,19 +30,6 @@
         </menu>
     </item>
 
-    <item android:title="Connectivity">
-        <menu>
-            <item
-                android:id="@+id/brokerstatus"
-                android:icon="@drawable/cstorage"
-                android:title="Broker status" />
-            <item
-                android:id="@+id/mirrorstatus"
-                android:icon="@drawable/rpi"
-                android:title="Raspberry Status" />
-        </menu>
-    </item>
-
     <item android:title="Other">
         <menu>
             <item

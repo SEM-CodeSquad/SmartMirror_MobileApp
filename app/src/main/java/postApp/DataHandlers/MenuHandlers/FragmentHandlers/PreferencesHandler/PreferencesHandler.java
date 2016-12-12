@@ -19,7 +19,7 @@ public class PreferencesHandler implements Observer {
     public PreferencesHandler(PreferencesPresenter PreferencesPresenter, String topic) {
         this.PreferencesPresenter = PreferencesPresenter;
         String topic123 = "dit029/SmartMirror/" + topic + "/echo";
-        Echo echo = new Echo(topic123, topic);
+        echo = new Echo(topic123, topic);
         echo.addObserver(this);
         echo.disconnect();
     }
