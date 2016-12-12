@@ -34,6 +34,7 @@ public class SettingsHandler implements Observer {
     private String auth;
     private String news;
     private String bus;
+    private String busID;
     private String weather;
     private String user;
     private SettingsPresenter SettingsPresenter;
@@ -41,7 +42,6 @@ public class SettingsHandler implements Observer {
     private Echo echo;
     private boolean echoed = false;
     public SettingsHandler(SettingsPresenter SettingsPresenter, SettingsView SettingsView, String topic, String user) {
-
         this.SettingsPresenter = SettingsPresenter;
         this.SettingsView = SettingsView;
         echo = new Echo("dit029/SmartMirror/" + topic + "/echo", user);
@@ -75,19 +75,28 @@ public class SettingsHandler implements Observer {
                     });
     }
 
-    public void PublishAll(String Topic, String User, String News, String Weather, String Bus) {
+    public void PublishAll(String Topic, String User, String News, String Weather, String BusID , String Busname) {
 
         if (!Topic.equals("No mirror chosen")) {
-            AwaitEcho();
-            this.news = News;
-            this.weather = Weather;
-            this.user = User;
-            this.bus = Bus;
-        JsonBuilder R = new JsonBuilder();
-            try {
-                R.execute(Topic, "config", User, News, Weather, Bus).get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+            if(!News.equals("No feed selected") && !Weather.equals("No city selected") && !Busname.equals("No bus stop selected")) {
+                SettingsPresenter.Loading();
+                AwaitEcho();
+                this.news = News;
+                this.weather = Weather;
+                this.user = User;
+                this.busID = BusID;
+                this.bus = Busname;
+                StoreSettings();
+
+                JsonBuilder R = new JsonBuilder();
+                try {
+                    R.execute(Topic, "config", User, News, Weather, BusID).get();
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                SettingsPresenter.ChoseAllSettings();
             }
         } else {
             // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
@@ -120,7 +129,7 @@ public class SettingsHandler implements Observer {
                             ((NavigationActivity) SettingsView.getActivity()).SetBusID(js.getID());
                             ((NavigationActivity) SettingsView.getActivity()).setBus(js.getName());
                             //and the we set the bustext in the app to stop
-                            SettingsPresenter.SetBus();
+                            SettingsPresenter.SetBus(js.getName());
                         } catch (Exception v) {
                             System.out.println(v);
                         }
@@ -143,14 +152,18 @@ public class SettingsHandler implements Observer {
             Address myadd = address.get(0);
             //we get locality which is city only
             finalAddress = myadd.getLocality() + "," + myadd.getCountryName();
-        } catch (IOException e) {}
-        //returns final adress
-        ((NavigationActivity) SettingsView.getActivity()).setWeather(finalAddress);
+            //returns final adress
+            ((NavigationActivity) SettingsView.getActivity()).setWeather(finalAddress);
+            SettingsPresenter.SetWeather(finalAddress);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return finalAddress;
     }
 
     private void StoreSettings(){
-        StoreSettings set = new StoreSettings(user, news, bus, weather);
+        StoreSettings set = new StoreSettings(user, news, bus + ":" + busID, weather);
         set.addObserver(this);
     }
 
@@ -163,6 +176,7 @@ public class SettingsHandler implements Observer {
                     SettingsPresenter.DoneLoading();
                     echoed = false;
                 } else {
+
                     SettingsPresenter.NoEcho();
                     SettingsPresenter.DoneLoading();
                 }
@@ -181,11 +195,6 @@ public class SettingsHandler implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        if(o instanceof Echo){
-            StoreSettings();
-        }
-        else if(o instanceof StoreSettings){
             echoed = true;
-        };
     }
 }

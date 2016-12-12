@@ -20,7 +20,6 @@ public class MQTTClient {
             options.setKeepAliveInterval(20);
             client = new MqttClient(url, id, persistence);
             client.connect(options);
-            System.out.println("Client Connected!");
         }
         catch (MqttException e)
         {
@@ -34,7 +33,6 @@ public class MQTTClient {
     {
         if (this.client.isConnected())
         {
-            System.out.println("Disconnecting...");
             try
             {
                 String topic = "presence/" + this.clientid;

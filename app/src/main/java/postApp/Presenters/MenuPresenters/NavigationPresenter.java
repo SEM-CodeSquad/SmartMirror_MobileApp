@@ -63,7 +63,8 @@ public class NavigationPresenter {
      * @param weather The selected weather location
      * @param user The user
      */
-    public void UpdateSettings(String bus, String news, String weather, String user){
+    public void UpdateSettings(String bus, String busid, String news, String weather, String user){
+        SetBusID(busid);
         setBus(bus);
         setNews(news);
         setWeather(weather);

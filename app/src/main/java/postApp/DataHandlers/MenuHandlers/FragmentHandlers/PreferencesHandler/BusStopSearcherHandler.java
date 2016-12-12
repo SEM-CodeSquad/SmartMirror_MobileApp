@@ -17,16 +17,13 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter
 
 
 public class BusStopSearcherHandler {
-    String auth;
-    String[] items;
-    ArrayList<String> listItems;
-    ArrayAdapter<String> adapter;
-    BusStopSearcherView BusStopSearcherView;
-    String emptylist[] = new String[0];
-    ParseJson js;
-    BusStopSearcherPresenter BusStopSearcherPresenter;
-    public BusStopSearcherHandler(BusStopSearcherView BusStopSearcherView, BusStopSearcherPresenter BusStopSearcherPresenter){
-        this.BusStopSearcherView = BusStopSearcherView;
+    private String auth;
+    private String[] items;
+    private ArrayList<String> listItems;
+    private String emptylist[] = new String[0];
+    private ParseJson js;
+    private BusStopSearcherPresenter BusStopSearcherPresenter;
+    public BusStopSearcherHandler(BusStopSearcherPresenter BusStopSearcherPresenter){
         this.BusStopSearcherPresenter = BusStopSearcherPresenter;
         // here we use the generateaccesscode class to get a new access code for the api
         GenerateAccessCode gen = new GenerateAccessCode();
@@ -39,11 +36,11 @@ public class BusStopSearcherHandler {
         try {
             TravelBySearch trav = new TravelBySearch();
             //we execute the async task
-            trav.execute(auth, s.toString());
+            trav.execute(auth, s);
             //json parser for search
             js = new ParseJson();
             //we parse the json data with the data we get from vässtrafik and the string that was searched for
-            initList(js.parseSearch(trav.get(), s.toString()));
+            BusStopSearcherPresenter.setListview(initList(js.parseSearch(trav.get(), s)));
         } catch (Exception v) {
             System.out.println(v);
         }
@@ -55,12 +52,9 @@ public class BusStopSearcherHandler {
     public void EmptyList(){
         initList(emptylist);
     }
-    public void initList(String[] vastitems){
+    private ArrayList<String>  initList(String[] vastitems){
         items= vastitems;
         listItems=new ArrayList<>(Arrays.asList(items));
-        adapter=new ArrayAdapter<String>(BusStopSearcherView.getActivity(),
-                R.layout.listitem, R.id.txtitem, listItems);
-        BusStopSearcherView.listView.setAdapter(adapter);
-
+        return listItems;
     }
 }

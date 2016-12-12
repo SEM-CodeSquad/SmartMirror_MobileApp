@@ -76,7 +76,7 @@ public class NavigationActivity extends AppCompatActivity
         //here we just get the user that logged in from before using a bundle
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            presenter.UpdateSettings(extras.getString("bus"), extras.getString("news"), extras.getString("weather"), extras.getString("user"));
+            presenter.UpdateSettings(extras.getString("bus"), extras.getString("busid"), extras.getString("news"), extras.getString("weather"), extras.getString("user"));
             // /The key argument here must match that used in the other activity
         }
 

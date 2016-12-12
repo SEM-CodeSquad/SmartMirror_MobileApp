@@ -160,12 +160,13 @@ public class LoginActivity extends AppCompatActivity {
      * @param weather Puts in the intent weather which is the weather String
      * @param news Puts in the intent news which is the news String
      */
-    public void SuccessfulLogin(String User, String bus, String news, String weather){
+    public void SuccessfulLogin(String User, String bus, String busid, String news, String weather){
         //if we log in we swithc to navigationActivity
         Intent intent = new Intent(this, NavigationActivity.class);
         //we add in a fetchable user when we start the activity
         intent.putExtra("user", User);
         intent.putExtra("bus", bus);
+        intent.putExtra("busid", busid);
         intent.putExtra("weather", weather);
         intent.putExtra("news", news);
         startActivity(intent);

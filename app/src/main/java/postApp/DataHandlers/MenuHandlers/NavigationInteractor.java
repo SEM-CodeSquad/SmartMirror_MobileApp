@@ -20,7 +20,7 @@ public class NavigationInteractor {
     String busID = "No bus or tram stop chosen";
     String weatherID = "No city chosen";
     String user;
-    String busIDVäst = "no väst";
+    String busIDVäst = "No ID";
     UUID idOne = UUID.randomUUID();
 
     public NavigationInteractor(){

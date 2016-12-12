@@ -82,8 +82,8 @@ public class LoginPresenter {
      * @param weather Bus that we fetched
      * @param news Bus that we fetched
      */
-    public void SuccessfulLogin(String User, String bus, String weather, String news){
-        LoginActivity.SuccessfulLogin(User, bus, weather , news);
+    public void SuccessfulLogin(String User, String bus, String busid, String weather, String news){
+        LoginActivity.SuccessfulLogin(User, bus, busid, weather , news);
     }
 
     /**

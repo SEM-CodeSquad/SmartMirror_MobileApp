@@ -112,7 +112,7 @@
         android:layout_below="@+id/citytext"
         android:editable="false"
         android:clickable="true"
-        style="@style/BtnCustomHolo"
+        style="@android:style/Widget.Button"
         android:inputType="textNoSuggestions"
         android:focusable="false"
         android:layout_alignLeft="@+id/busbtn"
@@ -120,7 +120,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="16dp"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:textAlignment="viewStart" />
 
     <Button
         android:layout_width="wrap_content"
@@ -300,44 +301,7 @@
         android:id="@+id/storeindb"
         android:layout_alignEnd="@+id/imageView14"
         style="@android:style/Widget.Button"
-        android:textAlignment="viewStart" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:text="Change Weather City"
-        android:layout_below="@+id/citytext"
-        android:editable="false"
-        android:clickable="true"
-        style="@style/BtnCustomHolo"
-        android:inputType="textNoSuggestions"
-        android:focusable="false"
-        android:layout_alignLeft="@+id/busbtn"
-        android:layout_alignStart="@+id/busbtn"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="16dp"
-        android:focusableInTouchMode="false" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:text="Change Weather City"
-        android:layout_below="@+id/citytext"
-        android:editable="false"
-        android:clickable="true"
-        style="@android:style/Widget.Button"
-        android:inputType="textNoSuggestions"
-        android:focusable="false"
-        android:layout_alignLeft="@+id/busbtn"
-        android:layout_alignStart="@+id/busbtn"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="16dp"
-        android:focusableInTouchMode="false"
-        android:textAlignment="viewStart" />
+        android:textAlignment="center" />
 
 
 </RelativeLayout>

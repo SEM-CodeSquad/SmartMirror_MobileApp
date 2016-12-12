@@ -13,14 +13,14 @@ import postApp.Presenters.AuthenticationPresenters.LoginPresenter;
  */
 
 public class LoginInteractor implements Observer {
-    LoginPresenter LoginPresenter;
-    Login log;
-    String User;
-    String Bus;
-    String News;
-    String Weather;
-    Boolean sett = false;
-    FetchSettings set;
+    private LoginPresenter LoginPresenter;
+    private Login log;
+    private String User;
+    private String Bus;
+    private String BusID;
+    private String News;
+    private String Weather;
+    private FetchSettings set;
 
     /**
      * Constructor for the interactor
@@ -62,14 +62,25 @@ public class LoginInteractor implements Observer {
         }
         else if (obj instanceof FetchSettings) {
             String[] db = set.getSettings();
-            Bus = (db[0]);
+            if(db[0].equals("No bus stop selected")){
+                Bus = db[0];
+                BusID = db[0];
+            }
+            else if(db[0].contains(":")){
+                Bus = (db[0].substring(0, db[0].indexOf(":")));
+                BusID = (db[0].substring(db[0].indexOf(":")+ 1, db[0].length()));
+            }
+            else {
+                Bus = db[0];
+                BusID = db[0];
+            }
             News = (db[1]);
             Weather = (db[2]);
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
                     LoginPresenter.DoneLoading();
-                    LoginPresenter.SuccessfulLogin(User, Bus, Weather, News);
+                    LoginPresenter.SuccessfulLogin(User, Bus, BusID, Weather, News);
                 }
             }, 1000); // 1000 milliseconds delay
         }

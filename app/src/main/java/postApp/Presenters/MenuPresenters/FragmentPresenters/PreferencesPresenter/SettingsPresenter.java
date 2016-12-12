@@ -20,28 +20,28 @@ public class SettingsPresenter {
 
     private void startup(){
         this.SetUUID();
-        this.SetWeather();
-        this.SetBus();
-        this.SetTextNews();
+        this.SetWeather(((NavigationActivity) SettingsView.getActivity()).getWeather());
+        this.SetBus((((NavigationActivity) SettingsView.getActivity()).getBus()));
+        this.SetTextField((((NavigationActivity) SettingsView.getActivity()).getNews()));
         this.BuildNews();
         this.BuildStop();
 
     }
 
-    public void SetTextNews() {
-        SettingsView.SetNews((((NavigationActivity) SettingsView.getActivity()).getNews()));
+    public void SetTextField(String news) {
+        SettingsView.SetNews(news);
     }
 
     public void SetUUID() {
         SettingsView.SetUUID((((NavigationActivity) SettingsView.getActivity()).getMirror()));
     }
 
-    public void SetBus() {
-        SettingsView.SetBus((((NavigationActivity) SettingsView.getActivity()).getBus()));
+    public void SetBus(String bus) {
+        SettingsView.SetBus(bus);
     }
 
-    public void SetWeather() {
-        SettingsView.SetWeather(((NavigationActivity) SettingsView.getActivity()).getWeather());
+    public void SetWeather(String weather) {
+        SettingsView.SetWeather(weather);
     }
 
     private void BuildNews() {
@@ -65,8 +65,12 @@ public class SettingsPresenter {
 
     }
 
-    public void PublishAll(String topic, String user, String News, String Weather, String Bus){
-        SettingsHandler.PublishAll(topic, user, News, Weather, Bus);
+    public void ChoseAllSettings(){
+        SettingsView.ChoseAllSettings();
+    }
+
+    public void PublishAll(String topic, String user, String News, String Weather, String BusID, String busname){
+        SettingsHandler.PublishAll(topic, user, News, Weather, BusID, busname);
     }
     public void ShowBus() {
         SettingsView.ShowBus();
@@ -88,28 +92,9 @@ public class SettingsPresenter {
         SettingsView.ChangeToSearch();
     }
 
-    public void SetNewsCNN() {
-        ((NavigationActivity) SettingsView.getActivity()).setNews("CNN");
+    public void SetNews(String news){
+        ((NavigationActivity) SettingsView.getActivity()).setNews(news);
     }
-
-    public void SetNewsGoogle() {
-        ((NavigationActivity) SettingsView.getActivity()).setNews("GOOGLE");
-    }
-    public void SetNewsDN() {
-        ((NavigationActivity) SettingsView.getActivity()).setNews("DN");
-    }
-
-    public void SetNewsSVT() {
-        ((NavigationActivity) SettingsView.getActivity()).setNews("SVT");
-    }
-
-    public void SetNewsExpressen() {
-        ((NavigationActivity) SettingsView.getActivity()).setNews("EXPRESSEN");
-    }
-    public void SetNewsABC() {
-        ((NavigationActivity) SettingsView.getActivity()).setNews("ABC");
-    }
-
     public void BusByLoc() {
         SettingsHandler.SetLocalStop();
     }

@@ -2,7 +2,11 @@ package postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresente
 
 
 import android.view.View;
+import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
+
+import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.BusStopSearcherView;
 import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PreferencesHandler.BusStopSearcherHandler;
 
@@ -11,7 +15,7 @@ import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PreferencesHandler.Bus
  */
 public class BusStopSearcherPresenter {
 
-
+    private ArrayAdapter<String> adapter;
     private BusStopSearcherView BusStopSearcherView;
     private BusStopSearcherHandler BusStopSearcherHandler;
 
@@ -21,7 +25,7 @@ public class BusStopSearcherPresenter {
      */
     public BusStopSearcherPresenter(BusStopSearcherView BusStopSearcherView){
         this.BusStopSearcherView = BusStopSearcherView;
-        this.BusStopSearcherHandler = new BusStopSearcherHandler(BusStopSearcherView, this);
+        this.BusStopSearcherHandler = new BusStopSearcherHandler(this);
     }
 
     public void GetStops(String s){
@@ -43,4 +47,9 @@ public class BusStopSearcherPresenter {
         return BusStopSearcherHandler.getStopID(s);
     }
 
+    public void setListview(ArrayList<String> list ) {
+        adapter = new ArrayAdapter<>(BusStopSearcherView.getActivity(),
+                R.layout.listitem, R.id.txtitem, list);
+        BusStopSearcherView.listView.setAdapter(adapter);
+    }
 }

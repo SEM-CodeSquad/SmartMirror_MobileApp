@@ -95,7 +95,7 @@ public class SettingsView extends Fragment {
             @Override
             public void onClick(View v) {
                 presenter.PublishAll(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), ((NavigationActivity) getActivity()).getNews(),
-                        ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).GetBusID());
+                        ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).GetBusID(), ((NavigationActivity) getActivity()).getBus());
             }
         });
         // a onclick listener that uses the library nlopez smartlocation lib that gets the current location one time only.
@@ -103,7 +103,6 @@ public class SettingsView extends Fragment {
             @Override
             public void onClick(View v) {
                 presenter.WeatherOnLoc();
-                presenter.SetWeather();
             }
         });
 
@@ -141,6 +140,21 @@ public class SettingsView extends Fragment {
         newsbuilt.show();
     }
 
+
+    /**
+     * Method that shows a alertdialog that says fail.
+     */
+    public void ChoseAllSettings(){
+        //if user types wrong login we show a alertdialog some text
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Not all settings are chosen")
+                .setMessage("Please chose all settings first")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+    }
     public void NoMirrorChosen(){
         // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
         Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
@@ -169,28 +183,28 @@ public class SettingsView extends Fragment {
                         // A switch with a onlick that sets text in activity based on what you choose
                         switch (which) {
                             case 0:
-                                presenter.SetNewsCNN();
-                                presenter.SetTextNews();
+                                presenter.SetTextField("CNN");
+                                presenter.SetNews("CNN");
                                 break;
                             case 1:
-                                presenter.SetNewsGoogle();
-                                presenter.SetTextNews();
+                                presenter.SetTextField("GOOGLE");
+                                presenter.SetNews("GOOGLE");
                                 break;
                             case 2:
-                                presenter.SetNewsDN();
-                                presenter.SetTextNews();
+                                presenter.SetTextField("DN");
+                                presenter.SetNews("DN");
                                 break;
                             case 3:
-                                presenter.SetNewsSVT();
-                                presenter.SetTextNews();
+                                presenter.SetTextField("SVT");
+                                presenter.SetNews("SVT");
                                 break;
                             case 4:
-                                presenter.SetNewsExpressen();
-                                presenter.SetTextNews();
+                                presenter.SetTextField("EXPRESSEN");
+                                presenter.SetNews("EXPRESSEN");
                                 break;
                             case 5:
-                                presenter.SetNewsABC();
-                                presenter.SetTextNews();
+                                presenter.SetTextField("ABC");
+                                presenter.SetNews("ABC");
                                 break;
                         }
      }
