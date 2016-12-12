@@ -153,9 +153,9 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * A alertdialog method that shows that the name is not a email.
      */
-    public void NotEmail(){
+    public void NotCorrect(String S){
         new AlertDialog.Builder(this)
-                .setMessage("Username must be a valid Email")
+                .setMessage(S)
                 .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete

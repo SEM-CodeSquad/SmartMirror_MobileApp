@@ -23,7 +23,8 @@ public class RegisterInteractor implements Observer {
     }
 
     /**
-     * method that is called when registring, checks if its a email
+     * method that is called when registring, checks if its a email, the password is bigger then 5 letter,
+     * and if the secret question is not emty
      *
      * @param User   Username
      * @param Pass   Password
@@ -31,10 +32,21 @@ public class RegisterInteractor implements Observer {
      */
     public void OnRegister(String User, String Pass, String Secret) {
         if (isEmailValid(User)) {
-            reg = new Registration(User.toLowerCase(), Pass, Secret);
-            reg.addObserver(this);
+            if(Pass.length() > 5) {
+                if(Secret.length() > 0) {
+                    RegisterPresenter.loading();
+                    reg = new Registration(User.toLowerCase(), Pass, Secret);
+                    reg.addObserver(this);
+                }
+                else{
+                    RegisterPresenter.NotCorrect("Secret answer is empty");
+                }
+            }
+            else{
+                RegisterPresenter.NotCorrect("Password must be atleast 6 characters");
+            }
         } else {
-            RegisterPresenter.NotEmail();
+            RegisterPresenter.NotCorrect("Username must be a valid Email");
         }
     }
 

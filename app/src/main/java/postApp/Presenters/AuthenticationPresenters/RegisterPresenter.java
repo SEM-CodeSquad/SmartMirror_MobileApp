@@ -22,7 +22,6 @@ public class RegisterPresenter {
 Switches to navigationactivity if a user correctly logs in
  */
     public void OnRegister(String User, String Pass, String Secret){
-        loading();
         RegisterInteractor.OnRegister(User,Pass, Secret);
     }
 
@@ -46,7 +45,8 @@ Switches to navigationactivity if a user correctly logs in
     public void hideKeyboard(View view) {
         RegisterActivity.HideKeyboard(view);
     }
-    public void NotEmail(){
-        RegisterActivity.NotEmail();
+    public void NotCorrect(String s){
+        RegisterActivity.NotCorrect(s);
     }
+
 }
