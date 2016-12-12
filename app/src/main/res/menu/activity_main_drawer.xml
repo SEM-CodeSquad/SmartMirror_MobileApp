@@ -8,15 +8,15 @@
                 <item
                     android:id="@+id/nav_postit"
                     android:icon="@mipmap/post_it_"
-                    android:title="PostIt" />
+                    android:title="Post-It" />
                 <item
                     android:id="@+id/nav_mirror"
                     android:icon="@drawable/mirror"
-                    android:title="Edit and See Postits" />
+                    android:title="Manage Post-its" />
                 <item
                     android:id="@+id/nav_filterpost"
                     android:icon="@mipmap/post_it_"
-                    android:title="Manage Mirror postits" />
+                    android:title="Filter Post-its" />
             </menu>
         </item>
     </group>
