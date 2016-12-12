@@ -54,6 +54,11 @@ public class ShoppingView extends Fragment {
         System.out.println("The list is " + presenter.getShoppingList().toString());
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         listView.setAdapter(adapter);
 
         /*
@@ -103,76 +108,96 @@ public class ShoppingView extends Fragment {
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_add) {
-            /*if (uuid == "No mirror chosen"){
-                Toast.makeText(getActivity().getApplicationContext(),"Please choose a mirror first", Toast.LENGTH_SHORT).show();
-            }
-            else {*/
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Add Item");
-            final EditText input = new EditText(getActivity());
-            builder.setView(input);
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    presenter.updateList("add", input.getText().toString());
-                    final Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try{
-                                    Thread.sleep(2000);
-                                    if (presenter.getBoolean()== false){
-                                        Toast.makeText(getActivity().getApplicationContext(),"Error adding element, please try again.", Toast.LENGTH_LONG).show();
-                                    }
+            if (uuid == "No mirror chosen") {
+                Toast.makeText(getActivity().getApplicationContext(), "Please choose a mirror first", Toast.LENGTH_SHORT).show();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Add Item");
+                final EditText input = new EditText(getActivity());
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.updateList("add", input.getText().toString());
+                        for (int i = 0; i < 6; i++) {
+                            try {
+                                Thread.sleep(500);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            if (presenter.getBoolean()) {
+                                break;
+                            }
                         }
-                    });
-                    if (presenter.getBoolean()){
-                        presenter.setBooleanFalse();
-                        adapter.notifyDataSetChanged();
-                        System.out.println("kuch toh hua hain");
-                        listView.setAdapter(adapter);
-                    }
+                        if (!presenter.getBoolean()){
+                            Toast.makeText(getActivity().getApplicationContext(), "Error adding item, please try again", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (presenter.getBoolean()) {
+                            Toast.makeText(getActivity().getApplicationContext(), input.getText().toString() + " added", Toast.LENGTH_SHORT).show();
+                            presenter.setBooleanFalse();
+                            adapter.notifyDataSetChanged();
+                            System.out.println("kuch toh hua hain");
+                            listView.setAdapter(adapter);
+                        }
 
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                    System.out.println("The list is " + presenter.getShoppingList().toString());
-                }
-            });
-            builder.show();
-            return true;
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        System.out.println("The list is " + presenter.getShoppingList().toString());
+                    }
+                });
+                builder.show();
+                return true;
+            }
         }
 
         if (id == R.id.action_clear) {
-           /* if (uuid == "No mirror chosen"){
-                Toast.makeText(getActivity().getApplicationContext(),"Please choose a mirror first", Toast.LENGTH_SHORT).show();
-            }
-            else {*/
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Clear Entire List");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    presenter.updateList("delete-list", "empty");
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            builder.show();
+            if (uuid == "No mirror chosen") {
+                Toast.makeText(getActivity().getApplicationContext(), "Please choose a mirror first", Toast.LENGTH_SHORT).show();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Clear Entire List");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.updateList("delete-list", "empty");
+                        for (int i = 0; i < 6; i++) {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (presenter.getBoolean()) {
+                                break;
+                            }
+                        }
+                        if(!presenter.getBoolean()){
+                            Toast.makeText(getActivity().getApplicationContext(), "Error deleting list, please try again", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (presenter.getBoolean()) {
+                            Toast.makeText(getActivity().getApplicationContext(), "List Deleted", Toast.LENGTH_SHORT).show();
+                            presenter.setBooleanFalse();
+                            adapter.notifyDataSetChanged();
+                            System.out.println("kuch toh hua hain");
+                            listView.setAdapter(adapter);
+                        }
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
 
-        return true;
-    }
+                return true;
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -186,6 +211,24 @@ public class ShoppingView extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 presenter.updateList("delete", selectedItem);
+                for (int i=0; i<6; i++){
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (presenter.getBoolean()){
+                        break;
+                    }
+                    Toast.makeText(getActivity().getApplicationContext(),"Error removing item, please try again", Toast.LENGTH_LONG).show();
+                }
+                if (presenter.getBoolean()){
+                    Toast.makeText(getActivity().getApplicationContext(),selectedItem +" Removed", Toast.LENGTH_SHORT).show();
+                    presenter.setBooleanFalse();
+                    adapter.notifyDataSetChanged();
+                    System.out.println("kuch toh hua hain");
+                    listView.setAdapter(adapter);
+                }
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -202,4 +245,7 @@ public class ShoppingView extends Fragment {
     public ArrayAdapter getAdapter(){
         return this.adapter;
     }
+
+
 }
+

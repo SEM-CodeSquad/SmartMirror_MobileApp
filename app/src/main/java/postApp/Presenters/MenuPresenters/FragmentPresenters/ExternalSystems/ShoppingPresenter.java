@@ -27,9 +27,6 @@ public class ShoppingPresenter {
     public void updateList(String requestType, String item){
         handler.updateList(requestType, item);
     }
-    public void addStuff(String stuff){
-        handler.addStuff(stuff);
-    }
     /*public void updateListView(){
         view.updateList();
     }*/
