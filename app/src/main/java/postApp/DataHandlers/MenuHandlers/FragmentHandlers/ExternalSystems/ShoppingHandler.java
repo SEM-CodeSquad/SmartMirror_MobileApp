@@ -70,7 +70,7 @@ public class ShoppingHandler implements Observer {
                     System.out.println("got done boy");
                     if(json.get("data")!=null){
                         this.SPLList.clear();
-                        parseItem(json.get("data").toString());
+                        parseItem(this.message);
                     } else {
                         if(tempType == "add"){
                             System.out.println("Adding boy");
