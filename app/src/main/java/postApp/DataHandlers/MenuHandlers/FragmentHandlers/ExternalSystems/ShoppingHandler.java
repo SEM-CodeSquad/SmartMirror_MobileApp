@@ -35,7 +35,6 @@ public class ShoppingHandler implements Observer {
     ShoppingPresenter presenter;
     ShoppingView view;
 
-    private ShoppingList shoppingList;
     private String message;
     private String reply;
     private String replyID;
@@ -53,11 +52,10 @@ public class ShoppingHandler implements Observer {
         this.view = ShoppingView;
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
-        listenSubscription("Gro/smartmirror@codehigh.com");
-        listenSubscription("Gro/smartmirror@codehigh.com/fetch");
+        listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
+        listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
         JsonBuilder builder = new JsonBuilder();
-        builder.execute("shoppinglist","smartmirror@codehigh.com","fetch");
-        shoppingList = new ShoppingList("ShoppingList",SPLList,this.clientID); // We need to initialize the ShoppingList here with the client ID
+        builder.execute("shoppinglist",this.clientID + "@smartmirror.com","fetch");
     }
 
     public void parseMessage(String message) {
@@ -77,10 +75,17 @@ public class ShoppingHandler implements Observer {
                         if(tempType == "add"){
                             System.out.println("Adding boy");
                             SPLList.add(tempItem);
+                            updateListView();
                             System.out.println(SPLList.toString());
                         }
-                        else if (tempType == "delete") SPLList.remove(tempItem);
-                        else if (tempType == "delete-list") SPLList.clear();
+                        else if (tempType == "delete"){
+                            SPLList.remove(tempItem);
+                            updateListView();
+                        }
+                        else if (tempType == "delete-list"){
+                            SPLList.clear();
+                            updateListView();
+                        }
                     }
                 } else if (reply.equalsIgnoreCase("error")){
                     Toast.makeText(view.getActivity().getApplicationContext(),"Error updating list",Toast.LENGTH_LONG).show();
@@ -161,10 +166,10 @@ public class ShoppingHandler implements Observer {
 
         if (requestType == "add"){
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist","smartmirror@codehigh.com",requestType,item);
+            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType,item);
             tempType = requestType; tempItem = item;
-            //JsonBuilder builderMirror = new JsonBuilder();
-            //builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
+           // JsonBuilder builderMirror = new JsonBuilder();
+           // builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),SPLList.toString());
 
         } else if (requestType == "delete"){
             JsonBuilder builder = new JsonBuilder();
@@ -187,11 +192,12 @@ public class ShoppingHandler implements Observer {
         }
     }
 
+    public void updateListView(){
+        presenter.updateListView();
+    }
+
     public LinkedList<String> getShoppingList(){
         return this.SPLList;
-    }
-    public String getTitle(){
-        return this.shoppingList.getListTitle();
     }
     public String getReply(){
         return reply;
