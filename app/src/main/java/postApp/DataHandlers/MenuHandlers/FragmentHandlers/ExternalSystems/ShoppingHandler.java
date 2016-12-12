@@ -62,7 +62,7 @@ public class ShoppingHandler implements Observer {
         try {
             this.message = message;
             JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(this.message);
+            JSONObject json = (JSONObject) parser.parse(message);
 
             if (json.containsKey("reply")) {
                 this.reply = json.get("reply").toString();
@@ -70,7 +70,7 @@ public class ShoppingHandler implements Observer {
                     System.out.println("got done boy");
                     if(json.get("data")!=null){
                         this.SPLList.clear();
-                        parseItem(this.message);
+                        parseItem(message);
                     } else {
                         if(tempType == "add"){
                             System.out.println("Adding boy");
