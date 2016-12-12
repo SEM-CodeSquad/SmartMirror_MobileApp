@@ -94,7 +94,7 @@ public class PageFragmentHandler implements Observer {
      * @param UUID  the uuid of the postit
      */
     public void DeletePostit(String topic, String UUID) {
-        if (topic.equals("No mirror chosen")) {
+        if (!topic.equals("No mirror chosen")) {
             message = "Could not delete postit";
             PageFragmentPresenter.loading("Deleting postit");
             editordelete = "delete";

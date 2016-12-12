@@ -42,7 +42,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("content", jArray);
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 String messagestring = sendthis.toJSONString();
-                post = new HttpRequestSender("codehigh.ddns.me", topic, messagestring, "0", "false");
+                post = new HttpRequestSender("54.154.153.243", topic, messagestring, "0", "false");
             } else if (args[1].equals("config")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
@@ -60,7 +60,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
-                post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
+                post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
 
             } else if (args[1].equals("pairing")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
@@ -77,7 +77,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
-                post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
+                post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
             } else if (args[1].equals("postIt action")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
@@ -96,7 +96,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
                 String message = sendthis.toJSONString();
 
-                post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
+                post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
             } else if (args[1].equals("preferences")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
@@ -119,7 +119,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
                 String message = sendthis.toJSONString();
 
-                post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
+                post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
             } else if (args[1].equals("preferencesHide")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
@@ -135,7 +135,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
-                post = new HttpRequestSender("codehigh.ddns.me", topic, message, "0", "false");
+                post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
             } else if (args[0].equals("shoppinglist")) {
                 String send = "";
                 if (args.length==3) {
@@ -167,7 +167,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 topic = "Gro/" + args[1];
                 //String messageString = sendthis.toJSONString();
                 //TODO the following part, codehigh.ddns.me needs to be changed
-                post = new HttpRequestSender("prata.technocreatives.com", topic, send, "1", "false");
+                post = new HttpRequestSender("54.154.153.243", topic, send, "1", "false");
 
             } else if (args[0].equals("SPLToMirror")) {
 
@@ -198,7 +198,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
                 topic = "dit029/SmartMirror/" + args[1] + "/shoppingList";
                 String messageString = sendthis.toJSONString();
-                post = new HttpRequestSender("codehigh.ddns.me", topic, messageString, "0", "false");
+                post = new HttpRequestSender("54.154.153.243", topic, messageString, "0", "false");
             }
 
             post.executePost(myUrl);

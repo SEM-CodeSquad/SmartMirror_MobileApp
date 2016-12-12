@@ -24,7 +24,8 @@ public class Echo extends  Observable implements Observer
         this.echoTopic = topic;
         MemoryPersistence persistence = new MemoryPersistence();
         Uuid = UUID.randomUUID().toString();
-        client = new MQTTClient("tcp://codehigh.ddns.me", clientID + Uuid, persistence);  //change this to prata broker later
+        System.out.println(echoTopic);
+        client = new MQTTClient("tcp://54.154.153.243", clientID + Uuid, persistence);  //change this to prata broker later
         subscriber = new MQTTSub(client, echoTopic);
         subscriber.addObserver(this);
     }
