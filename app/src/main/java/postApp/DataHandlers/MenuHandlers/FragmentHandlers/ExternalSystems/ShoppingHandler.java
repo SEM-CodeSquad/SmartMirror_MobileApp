@@ -59,6 +59,7 @@ public class ShoppingHandler implements Observer {
     }
 
     public void parseMessage(String message) {
+
         try {
             this.message = message;
             JSONParser parser = new JSONParser();
