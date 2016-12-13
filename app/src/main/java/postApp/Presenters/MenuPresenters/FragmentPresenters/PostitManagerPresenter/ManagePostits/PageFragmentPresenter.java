@@ -100,7 +100,7 @@ public class PageFragmentPresenter {
      * Call the handlers function to setColor
      * @param S the string with the color name
      */
-    public void SetColor(String S){
+    private void SetColor(String S){
         PageFragmentHandler.SetColor(S);
 
     }

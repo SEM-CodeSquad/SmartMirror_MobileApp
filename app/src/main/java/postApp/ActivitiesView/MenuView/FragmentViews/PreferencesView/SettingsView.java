@@ -78,7 +78,7 @@ public class SettingsView extends Fragment {
         newsbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.StartNews();
+                presenter.ShowNews();
             }
         });
 
@@ -86,7 +86,7 @@ public class SettingsView extends Fragment {
         busbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.StartBus();
+                presenter.ShowBus();
             }
         });
 

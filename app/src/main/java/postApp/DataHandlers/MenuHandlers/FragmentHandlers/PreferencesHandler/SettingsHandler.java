@@ -49,14 +49,6 @@ public class SettingsHandler implements Observer {
         echo.disconnect();
     }
 
-    public void StartBus() {
-            SettingsPresenter.ShowBus();
-    }
-
-    public void StartNews() {
-            SettingsPresenter.ShowNews();
-    }
-
     public void WeatherOnLoc() {
             //using lib smartlocation
             SmartLocation.with(SettingsView.getActivity()).location()
