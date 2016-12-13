@@ -110,7 +110,7 @@ public class ShoppingView extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_add) {
             if (uuid == "No mirror chosen") {
-                Toast.makeText(getActivity().getApplicationContext(), "Please choose a mirror first", Toast.LENGTH_SHORT).show();
+                makeToast("Please choose a mirror first");
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Add Item");
@@ -131,13 +131,12 @@ public class ShoppingView extends Fragment {
                             }
                         }
                         if (!presenter.getBoolean()){
-                            Toast.makeText(getActivity().getApplicationContext(), "Error adding item, please try again", Toast.LENGTH_SHORT).show();
+                            makeToast("Error adding item, please try again");
                         }
                         else if (presenter.getBoolean()) {
-                            Toast.makeText(getActivity().getApplicationContext(), input.getText().toString() + " added", Toast.LENGTH_SHORT).show();
+                            makeToast(input.getText().toString() + " added");
                             presenter.setBooleanFalse();
                             adapter.notifyDataSetChanged();
-                            System.out.println("kuch toh hua hain");
                             listView.setAdapter(adapter);
                         }
 
@@ -157,7 +156,7 @@ public class ShoppingView extends Fragment {
 
         if (id == R.id.action_clear) {
             if (uuid == "No mirror chosen") {
-                Toast.makeText(getActivity().getApplicationContext(), "Please choose a mirror first", Toast.LENGTH_SHORT).show();
+                makeToast("Please choose a mirror first");
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Clear Entire List");
@@ -176,13 +175,12 @@ public class ShoppingView extends Fragment {
                             }
                         }
                         if(!presenter.getBoolean()){
-                            Toast.makeText(getActivity().getApplicationContext(), "Error deleting list, please try again", Toast.LENGTH_SHORT).show();
+                            makeToast("Error deleting list, please try again");
                         }
                         else if (presenter.getBoolean()) {
-                            Toast.makeText(getActivity().getApplicationContext(), "List Deleted", Toast.LENGTH_SHORT).show();
+                            makeToast("List Deleted");
                             presenter.setBooleanFalse();
                             adapter.notifyDataSetChanged();
-                            System.out.println("kuch toh hua hain");
                             listView.setAdapter(adapter);
                         }
                     }
@@ -220,13 +218,12 @@ public class ShoppingView extends Fragment {
                     if (presenter.getBoolean()){
                         break;
                     }
-                    Toast.makeText(getActivity().getApplicationContext(),"Error removing item, please try again", Toast.LENGTH_LONG).show();
+                    makeToast("Error removing item, please try again");
                 }
                 if (presenter.getBoolean()){
-                    Toast.makeText(getActivity().getApplicationContext(),selectedItem +" Removed", Toast.LENGTH_SHORT).show();
+                    makeToast(selectedItem +" Removed");
                     presenter.setBooleanFalse();
                     adapter.notifyDataSetChanged();
-                    System.out.println("kuch toh hua hain");
                     listView.setAdapter(adapter);
                 }
             }

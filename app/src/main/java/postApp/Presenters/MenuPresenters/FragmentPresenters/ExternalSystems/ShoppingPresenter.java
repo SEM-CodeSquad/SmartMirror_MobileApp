@@ -27,10 +27,6 @@ public class ShoppingPresenter {
     public void updateList(String requestType, String item){
         handler.updateList(requestType, item);
     }
-    /*public void updateListView(){
-        view.updateList();
-    }*/
-
     public LinkedList<String> getShoppingList(){
         return handler.getShoppingList();
     }
