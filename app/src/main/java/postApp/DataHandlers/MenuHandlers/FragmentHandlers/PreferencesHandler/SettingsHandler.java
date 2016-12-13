@@ -186,7 +186,6 @@ public class SettingsHandler implements Observer {
      */
     private void StoreSettings(){
         StoreSettings set = new StoreSettings(user, news, bus + ":" + busID, weather);
-        set.addObserver(this);
     }
 
     /**
