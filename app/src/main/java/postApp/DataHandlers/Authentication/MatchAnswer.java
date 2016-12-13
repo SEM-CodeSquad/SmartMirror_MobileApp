@@ -14,7 +14,7 @@ import postApp.DataHandlers.DBConnection.DBConnection;
  * Class that starts a dbconnection and checks if secret answers match
  */
 
-public class MatchAnswer extends Observable implements Observer {
+class MatchAnswer extends Observable implements Observer {
     private DBConnection conn;
     private String user;
     private String answer;
@@ -23,25 +23,25 @@ public class MatchAnswer extends Observable implements Observer {
 
     /**
      * Constructor that start a db connection and sets observer
-     * @param User
-     * @param Answer
+     * @param User the user
+     * @param Answer the answer
      */
-    public MatchAnswer(String User, String Answer) {
+    MatchAnswer(String User, String Answer) {
         try {
             this.user = User;
             this.answer = Answer;
             conn = new DBConnection();
             conn.addObserver(this);
         } catch (Exception v) {
-            System.out.println(v);
+            v.printStackTrace();
         }
 
     }
 
     /**
      * When db connection is done the update is called, this starts a new Matchanswer async class
-     * @param observable
-     * @param o
+     * @param observable the observable
+     * @param o the object
      */
     @Override
     public void update(Observable observable, Object o) {
@@ -56,6 +56,11 @@ public class MatchAnswer extends Observable implements Observer {
      */
     private class matchAnswer extends AsyncTask<Void, Void, Void> {
 
+        /**
+         * async task that checks if secret question answer is correct
+         * @param arg0 not used
+         * @return null
+         */
         protected Void doInBackground(Void... arg0)
         {
             try {
@@ -106,7 +111,7 @@ public class MatchAnswer extends Observable implements Observer {
      * Get the answer match
      * @return true if they match else false
      */
-    public boolean getAnswerMatch(){
+    boolean getAnswerMatch(){
         return match;
     }
 }

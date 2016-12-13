@@ -4,11 +4,16 @@ import android.os.AsyncTask;
 import java.sql.*;
 import java.util.Observable;
 
+/**
+ * Class used for establish a connection to the database
+ */
 public class DBConnection extends Observable {
 
-    String URL = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7143433";
-    Connection Conn;
+    private Connection Conn;
 
+    /**
+     * Constructor that executes the runDB inner class
+     */
     public DBConnection() {
         runDB r = new runDB();
         r.execute();
@@ -24,6 +29,9 @@ public class DBConnection extends Observable {
 
     }
 
+    /**
+     * Async task that connects to the database
+     */
     private class runDB extends AsyncTask<String, Void, Void> {
 
         protected Void doInBackground(String... args) {
@@ -33,16 +41,12 @@ public class DBConnection extends Observable {
                 System.err.println("Driver loaded...");
                 String Username = "sql7143433";
                 String Password = "CSqnX957Xb";
+                String URL = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7143433";
                 Conn = DriverManager.getConnection(URL, Username, Password);
                 System.err.println("Connected!");
             } catch (ClassNotFoundException ex) {
                 System.err.println("\n" + "Could not load driver..." + "\n");
-                System.err.println(ex);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            } catch (InstantiationException | IllegalAccessException | SQLException e) {
                 e.printStackTrace();
             }
             return null;

@@ -11,13 +11,12 @@ import postApp.Presenters.AuthenticationPresenters.ResetPasswordPresenter;
 
 public class ResetPasswordInteractor implements Observer {
 
-    ResetPassword reset;
-    ResetPasswordPresenter ResetPasswordPresenter;
+    private ResetPassword reset;
+    private ResetPasswordPresenter ResetPasswordPresenter;
 
     /**
      * Constructor that sets the presenter
-     *
-     * @param ResetPasswordPresenter
+     * @param ResetPasswordPresenter the presenter we interact with
      */
     public ResetPasswordInteractor(ResetPasswordPresenter ResetPasswordPresenter) {
         this.ResetPasswordPresenter = ResetPasswordPresenter;
@@ -41,9 +40,8 @@ public class ResetPasswordInteractor implements Observer {
 
     /**
      * Method that calls the resetpassword class
-     *
-     * @param User
-     * @param Pass
+     * @param User username
+     * @param Pass password
      */
     public void OnReset(String User, String Pass) {
         reset = new ResetPassword(User, Pass);
@@ -52,10 +50,9 @@ public class ResetPasswordInteractor implements Observer {
     }
 
     /**
-     * Gets a update from the resetpassword class when its notified. Calls presenter class, when outcomes are different
-     *
-     * @param observable
-     * @param o
+     * Gets a update from the resetpassword class when its notified, it calls the presenters methods depending on outcome of getPasswordResetStatus()
+     * @param observable the observable
+     * @param o the object
      */
     @Override
     public void update(Observable observable, Object o) {

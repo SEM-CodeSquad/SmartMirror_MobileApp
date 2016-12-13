@@ -6,7 +6,7 @@ import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePos
 import postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler.ManagePostits.ManagePostitsHandler;
 
 /**
- * A class for interacting with the handler and presenting the view
+ * A class for interacting with the handler and presenting the view of managing posits
  */
 
 public class ManagePostitsPresenter {
@@ -15,7 +15,7 @@ public class ManagePostitsPresenter {
 
     /**
      * Constructor that injects the presenter into the handler and gets the view. It also starts a loading screen when instantiated
-     * @param ManagePostitsView
+     * @param ManagePostitsView the view
      */
     public ManagePostitsPresenter(ManagePostitsView ManagePostitsView){
         this.ManagePostitsView = ManagePostitsView;

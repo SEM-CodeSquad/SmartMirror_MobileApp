@@ -15,6 +15,11 @@ import java.net.URL;
  */
    public class TravelBySearch extends AsyncTask<String, Void, String> {
 
+    /**
+     * Async task for travelling by search
+     * @param args args[0] = auth code, args[1] = search
+     * @return the result as json
+     */
         protected String doInBackground(String... args) {
 
         StringBuilder result = new StringBuilder();
@@ -36,7 +41,6 @@ import java.net.URL;
             e.printStackTrace();
         }
 
-        System.out.println(result.toString());
         return result.toString();
 
     }

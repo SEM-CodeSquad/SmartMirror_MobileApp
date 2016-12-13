@@ -11,10 +11,15 @@ import java.net.URL;
 /**
  * Class that Uses västtrafiks api to get the currents locations closest stop, using the authorization bearer we got from
  * generateaccesscode
- * Asynctask with 3 arguments, first is generateaccess code, second is lat cordinate, third is long coordinate.
+
  */
 public class TravelByLoc extends AsyncTask<String, Void, String> {
 
+    /**
+     * Asynctask that gets the closest stop
+     * @param args args[0] is generateaccess code, args[1] is lat cordinate, third is args[2] coordinate.
+     * @return the closest stop as a string
+     */
     protected String doInBackground(String... args) {
 
         StringBuilder result = new StringBuilder();

@@ -10,19 +10,25 @@ import java.util.Observer;
 import postApp.DataHandlers.DBConnection.DBConnection;
 
 /**
- * Created by adinH on 2016-11-30.
+ * Class for storing settings in the db
  */
 
 public class StoreSettings extends Observable implements Observer {
     private DBConnection conn;
-    Connection c;
+    private Connection c;
     private String user;
-    private String[] settings;
     private boolean sett;
-    String news;
-    String bus;
-    String weather;
+    private String news;
+    private String bus;
+    private String weather;
 
+    /**
+     * Constructor for storesettings that starts a db connection
+     * @param User The user
+     * @param news The news
+     * @param bus The bus
+     * @param weather The weather
+     */
     public StoreSettings(String User, String news, String bus, String weather) {
         try {
             conn = new DBConnection();
@@ -36,6 +42,11 @@ public class StoreSettings extends Observable implements Observer {
         }
     }
 
+    /**
+     * When we get a update from the databaseconnection class we execute fetchsettings
+     * @param observable The Observable
+     * @param o The object
+     */
     @Override
     public void update(Observable observable, Object o) {
         c = conn.getConn();
@@ -44,11 +55,13 @@ public class StoreSettings extends Observable implements Observer {
         set.execute();
     }
 
+    /**
+     * Async task that stores settings and sets sett to either true or false
+     */
     private class fetchSettings extends AsyncTask<Void, Void, Void> {
 
 
         protected Void doInBackground(Void... arg0) {
-            settings = new String[3];
             try {
                 String query = "UPDATE Users SET BusConfig = '" + bus + "', WeatherConfig = '" + weather + "', `NewsFeedConfig` = '" + news + "' WHERE `UserID` = '" + user +"'";
                 PreparedStatement pstSettings = c.prepareStatement(query);
@@ -63,17 +76,27 @@ public class StoreSettings extends Observable implements Observer {
             return null;
         }
 
+        /**
+         * Notify obs on postexecute
+         * @param unused n
+         */
         @Override
         protected void onPostExecute(Void unused) {
             NotObserver();
         }
     }
 
+    /**
+     * Used for notifying observers
+     */
     public void NotObserver() {
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * @return If settings are stored or not (true or false)
+     */
     public Boolean getSettings() {
         return sett;
     }

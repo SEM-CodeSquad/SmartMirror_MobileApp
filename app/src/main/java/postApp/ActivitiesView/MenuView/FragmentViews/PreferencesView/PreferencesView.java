@@ -78,9 +78,7 @@ public class PreferencesView extends Fragment {
         super.onResume();
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Preferences");
     }
-    public void displaySuccPub(String S){
-        Toast.makeText(getActivity(), S, Toast.LENGTH_SHORT).show();
-    }
+
     public void NoMirrorChosen(){
             // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
             Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();

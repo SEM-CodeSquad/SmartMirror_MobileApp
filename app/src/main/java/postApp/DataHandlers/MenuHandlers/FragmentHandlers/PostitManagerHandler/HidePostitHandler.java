@@ -108,8 +108,8 @@ public class HidePostitHandler implements Observer {
     }
     /**
      * Just a observable that waits for a notification from the echo class.
-     * @param observable q
-     * @param o q
+     * @param observable The observable
+     * @param o The object
      */
     @Override
     public void update(Observable observable, Object o) {

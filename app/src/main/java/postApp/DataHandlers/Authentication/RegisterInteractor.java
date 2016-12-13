@@ -11,8 +11,8 @@ import postApp.Presenters.AuthenticationPresenters.RegisterPresenter;
 
 public class RegisterInteractor implements Observer {
 
-    RegisterPresenter RegisterPresenter;
-    Registration reg;
+    private RegisterPresenter RegisterPresenter;
+    private Registration reg;
     /**
      * Constructor for class
      *
@@ -56,7 +56,7 @@ public class RegisterInteractor implements Observer {
      * @param email the Charsequence that needs to be checked
      * @return true or false
      */
-    boolean isEmailValid(CharSequence email) {
+    private boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
@@ -64,13 +64,13 @@ public class RegisterInteractor implements Observer {
      * This class is a observable and on update we check if the username is in
      * Use or not. Outcomes call the presenterclasses methods
      *
-     * @param observable
-     * @param data
+     * @param observable the observable
+     * @param data the data
      */
     @Override
     public void update(Observable observable, Object data) {
         //if we return that the username is not in use we switch to login class since we know the account making was succesfull
-        if (reg.getInUse() == false) {
+        if (!reg.getInUse()) {
             RegisterPresenter.DoneLoading();
             RegisterPresenter.SuccessfulRegister();
         }

@@ -14,7 +14,7 @@ import postApp.DataHandlers.DBConnection.DBConnection;
 /**
  * Database class for registration
  */
-public class Registration extends Observable implements Observer {
+class Registration extends Observable implements Observer {
 
     private DBConnection conn;
     private Connection c;
@@ -31,7 +31,7 @@ public class Registration extends Observable implements Observer {
      * @param password The password typed in
      * @param answer The scret question answer
      */
-    public Registration (String user, String password, String answer) {
+    Registration(String user, String password, String answer) {
         try {
             conn = new DBConnection();
             conn.addObserver(this);
@@ -39,7 +39,7 @@ public class Registration extends Observable implements Observer {
             this.password = password;
             this.answer = answer;
         } catch (Exception v) {
-            System.out.println(v);
+            v.printStackTrace();
         }
 
     }
@@ -47,8 +47,8 @@ public class Registration extends Observable implements Observer {
     /**
      * A observable update that just confirms that we have eastablished a db connection
      * then you call the register acc asynctask to start
-     * @param observable
-     * @param o
+     * @param observable the observable
+     * @param o the object
      */
     @Override
     public void update(Observable observable, Object o) {
@@ -95,7 +95,7 @@ public class Registration extends Observable implements Observer {
 
         /**
          * On postexecute on the async task we want to notify the observer.
-         * @param unused
+         * @param unused unused
          */
         @Override
         protected void onPostExecute(Void unused) {
@@ -115,7 +115,7 @@ public class Registration extends Observable implements Observer {
      * method that returns inUse
      * @return inUse is either true or false where its either a successfull registration or not
      */
-    public boolean getInUse(){
+    boolean getInUse(){
         return inUse;
     }
 }

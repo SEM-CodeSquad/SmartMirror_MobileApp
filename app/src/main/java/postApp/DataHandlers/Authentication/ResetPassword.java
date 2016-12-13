@@ -13,7 +13,7 @@ import postApp.DataHandlers.DBConnection.DBConnection;
  * Class that is used for resetting password
  */
 
-public class ResetPassword extends Observable implements Observer {
+class ResetPassword extends Observable implements Observer {
     private DBConnection conn;
     private Connection c;
     private String user;
@@ -26,22 +26,21 @@ public class ResetPassword extends Observable implements Observer {
      * @param User     username for the db
      * @param Password pass for the db
      */
-    public ResetPassword(String User, String Password) {
+    ResetPassword(String User, String Password) {
         try {
             conn = new DBConnection();
             conn.addObserver(this);
             this.user = User;
             this.password = Password;
         } catch (Exception v) {
-            System.out.println(v);
+            v.printStackTrace();
         }
     }
 
     /**
-     * Just a update that start a resetpass asynctask
-     *
-     * @param observable
-     * @param o
+     * Just a method waiting for a update from the dbconnection that then start a resetpass asynctask and executes it
+     * @param observable The observable
+     * @param o the object
      */
     @Override
     public void update(Observable observable, Object o) {
@@ -61,7 +60,7 @@ public class ResetPassword extends Observable implements Observer {
     /**
      * @return reseted, which is a boolean that says if it was successful or not
      */
-    public boolean getPasswordResetStatus() {
+    boolean getPasswordResetStatus() {
         return reseted;
     }
 
@@ -88,9 +87,8 @@ public class ResetPassword extends Observable implements Observer {
         }
 
         /**
-         * When async task is doen we notify the observers
-         *
-         * @param unused
+         * When async task is done we notify the observers
+         * @param unused unused
          */
         @Override
         protected void onPostExecute(Void unused) {

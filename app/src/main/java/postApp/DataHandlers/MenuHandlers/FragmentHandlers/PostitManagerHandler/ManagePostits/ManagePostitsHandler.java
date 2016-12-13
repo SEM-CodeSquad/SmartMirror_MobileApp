@@ -9,21 +9,36 @@ import postApp.DataHandlers.AppCommons.Postits.ReadPostits;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits.ManagePostitsPresenter;
 
 
+/**
+ * Class used as a handler for the ManagePostits presenter and ManagePostits view
+ */
 public class ManagePostitsHandler implements Observer {
 
     private ReadPostits readPostits;
-    private DeletePostit deletpostit;
-    private EditPostit editPostit;
-    ManagePostitsPresenter ManagePostitsPresenter;
+    private ManagePostitsPresenter ManagePostitsPresenter;
 
+    /**
+     * Sets the presenter
+     * @param ManagePostitsPresenter the presenter
+     */
     public ManagePostitsHandler(ManagePostitsPresenter ManagePostitsPresenter){
         this.ManagePostitsPresenter = ManagePostitsPresenter;
     }
+
+    /**
+     * Starts a ReadPostits class
+     * @param user The user we want to read postits from
+     */
     public void ReadPost(String user){
         readPostits = new ReadPostits(user);
         readPostits.addObserver(this);
     }
 
+    /**
+     * On update we use the presenters method for doneloading and StartLoadingPost with the postitArray we get from readpostits class
+     * @param observable the observable
+     * @param data the data
+     */
     @Override
     public void update(Observable observable, Object data) {
         Handler handler = new Handler();
