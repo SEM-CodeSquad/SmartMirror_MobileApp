@@ -98,11 +98,13 @@ public class SettingsHandler implements Observer {
                 this.busID = BusID;
                 this.bus = Busname;
                 JsonBuilder R = new JsonBuilder();
-                try {
-                    R.execute(mirror, "config", User, News, Weather, BusID).get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                R.execute(mirror, "config", User, "newsedit", News);
+
+                JsonBuilder E = new JsonBuilder();
+                E.execute(mirror, "config", User, "weatheredit", Weather);
+
+                JsonBuilder P = new JsonBuilder();
+                P.execute(mirror, "config", User, "busedit", BusID);
             }
             else{
                 //If not all settings are chosen we call the presenters function
@@ -226,7 +228,6 @@ public class SettingsHandler implements Observer {
     @Override
     public void update(Observable observable, Object o) {
             echoed = true;
-             StoreSettings();
-
+            StoreSettings();
     }
 }
