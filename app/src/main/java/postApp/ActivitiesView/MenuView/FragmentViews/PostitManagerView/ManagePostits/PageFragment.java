@@ -97,7 +97,7 @@ public class PageFragment extends Fragment {
 
             public void onClick(DialogInterface dialog, int which) {
 
-                presenter.DeletePostit(((NavigationActivity) getActivity()).getMirror(), id);
+                presenter.DeletePostit(((NavigationActivity) getActivity()).getMirror(), id, ((NavigationActivity) getActivity()).getUser());
 
                 dialog.dismiss();
             }
@@ -123,7 +123,7 @@ public class PageFragment extends Fragment {
 
             public void onClick(DialogInterface dialog, int which) {
 
-                presenter.EditPostit(((NavigationActivity) getActivity()).getMirror(), id, textview.getText().toString());
+                presenter.EditPostit(((NavigationActivity) getActivity()).getMirror(), id, textview.getText().toString(),  ((NavigationActivity) getActivity()).getUser());
 
                 dialog.dismiss();
             }

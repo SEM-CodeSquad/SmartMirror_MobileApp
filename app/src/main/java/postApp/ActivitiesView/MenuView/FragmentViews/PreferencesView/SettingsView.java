@@ -17,8 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+
+import org.w3c.dom.Text;
 
 import adin.postApp.R;
 
@@ -40,6 +43,7 @@ public class SettingsView extends Fragment {
     public EditText weathertext;
     private View.OnClickListener mOriginalListener;
     ProgressDialog progress;
+    private TextView username;
 
     /*
     This is created when the fragment is started.
@@ -60,6 +64,8 @@ public class SettingsView extends Fragment {
         bustext = (EditText) myView.findViewById(R.id.bustext);
         newstext = (EditText) myView.findViewById(R.id.newstext);
         weathertext = (EditText) myView.findViewById(R.id.citytext);
+        username = (TextView) myView.findViewById(R.id.usernameSett);
+
         user =  (((NavigationActivity) getActivity()).getUser());
         progress = new ProgressDialog(getActivity());
 
@@ -120,6 +126,11 @@ public class SettingsView extends Fragment {
     public void SetUUID(String id){
         UUID.setText(id);
     }
+
+    public void SetUser(String user){
+        username.setText(user);
+    }
+
     public void SetBus(String bus){
         bustext.setText(bus);
     }

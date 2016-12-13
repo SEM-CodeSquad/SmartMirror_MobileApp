@@ -81,7 +81,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             } else if (args[1].equals("postIt action")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
-                sendthis.put("messageFrom", "test");
+                sendthis.put("messageFrom", args[5]);
                 sendthis.put("timestamp", Long.toString(timestamp));
                 topic = "dit029/SmartMirror/" + args[0] + "/postit";
                 sendthis.put("contentType", args[1]);
@@ -100,7 +100,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             } else if (args[1].equals("preferences")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
-                sendthis.put("messageFrom", "test");
+                sendthis.put("messageFrom", args[2]);
                 sendthis.put("timestamp", Long.toString(timestamp));
                 topic = "dit029/SmartMirror/" + args[0] + "/preferences";
                 sendthis.put("contentType", args[1]);
@@ -114,17 +114,17 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 test.put("device", args[7]);
                 test.put("greetings", args[8]);
                 test.put("postits", args[9]);
+                test.put("shoppingList", args[10]);
                 jArray.add(test);
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
-
                 post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
             } else if (args[1].equals("preferencesHide")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
-                sendthis.put("messageFrom", "test");
-                sendthis.put("timestamp", "12");
+                sendthis.put("messageFrom", args[2]);
+                sendthis.put("timestamp", Long.toString(timestamp));
                 topic = "dit029/SmartMirror/" + args[0] + "/preferences";
                 sendthis.put("contentType", "preferences");
 
@@ -202,7 +202,6 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             }
 
             post.executePost(myUrl);
-
             return post.getHttpResponse();
 
         } catch (Exception e) {

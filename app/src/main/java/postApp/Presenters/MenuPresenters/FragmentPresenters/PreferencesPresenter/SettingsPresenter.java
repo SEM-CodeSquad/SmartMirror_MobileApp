@@ -33,6 +33,7 @@ public class SettingsPresenter {
         this.SetTextField((((NavigationActivity) SettingsView.getActivity()).getNews()));
         this.BuildNews();
         this.BuildStop();
+        this.SetUserField((((NavigationActivity) SettingsView.getActivity()).getUser()));
     }
 
     /**
@@ -43,6 +44,9 @@ public class SettingsPresenter {
         SettingsView.SetNews(news);
     }
 
+    public void SetUserField(String user) {
+        SettingsView.SetUser(user);
+    }
     /**
      * Settings the UUID
      */

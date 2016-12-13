@@ -19,7 +19,6 @@ public class MQTTClient {
             options.setCleanSession(false);
             options.setKeepAliveInterval(20);
             client = new MqttClient(url, id, persistence);
-            System.out.println(id);
             client.connect(options);
         }
         catch (MqttException e)
@@ -36,8 +35,6 @@ public class MQTTClient {
         {
             try
             {
-                System.out.println(clientid);
-
                 String topic = "presence/" + this.clientid;
                 byte[] emptyArray = new byte[0];
                 this.client.publish(topic, emptyArray, 1, true);

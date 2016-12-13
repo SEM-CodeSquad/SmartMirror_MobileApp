@@ -71,7 +71,7 @@ public class PageFragmentHandler implements Observer {
      * @param id    The id of the postit
      * @param Text  The text of postit to change
      */
-    public void EditPostit(String topic, String id, String Text) {
+    public void EditPostit(String topic, String id, String Text, String user) {
         if (!topic.equals("No mirror chosen")) {
             message = "Could not edit postit";
             PageFragmentPresenter.loading("Editing postit");
@@ -81,7 +81,7 @@ public class PageFragmentHandler implements Observer {
             text = Text;
             JsonBuilder R = new JsonBuilder();
             try {
-                R.execute(topic, "postIt action", id, "edit", Text).get();
+                R.execute(topic, "postIt action", id, "edit", Text, user).get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
@@ -92,11 +92,11 @@ public class PageFragmentHandler implements Observer {
 
     /**
      * Method That publishes a delete to server
-     *
-     * @param topic the topic to publish to
+     *  @param topic the topic to publish to
      * @param UUID  the uuid of the postit
+     * @param user
      */
-    public void DeletePostit(String topic, String UUID) {
+    public void DeletePostit(String topic, String UUID, String user) {
         if (!topic.equals("No mirror chosen")) {
             AwaitEcho();
             message = "Could not delete postit";
@@ -105,7 +105,7 @@ public class PageFragmentHandler implements Observer {
             idOne = UUID;
             JsonBuilder R = new JsonBuilder();
             try {
-                R.execute(topic, "postIt action", UUID, "delete", "none").get();
+                R.execute(topic, "postIt action", UUID, "delete", "none", user).get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -43,7 +44,7 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bus timetable"
+            android:text="Bus Timetable *"
             android:id="@+id/busswitch"
             android:layout_below="@+id/weatherswitch"
             android:layout_alignParentRight="true"
@@ -160,10 +161,10 @@
             android:id="@+id/deviceswitch"
             android:layout_below="@+id/greetingsswitch"
             android:layout_marginRight="20dp"
-            android:layout_alignStart="@+id/greetingsswitch"
             android:fontFamily="sans-serif-medium"
             android:textStyle="normal|bold"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/greetingsswitch" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -202,7 +203,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/greetingsswitch"
             android:textStyle="normal|bold"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="30dp"
             android:layout_below="@+id/newsswitch"
             android:layout_alignStart="@+id/newsswitch"
             android:layout_alignEnd="@+id/newsswitch" />
@@ -216,13 +217,46 @@
             android:id="@+id/prefpub"
             android:textSize="18sp"
             android:layout_below="@+id/deviceswitch"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="80dp"
             android:layout_alignParentStart="true"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp" />
+
+        <Switch
+            android:text=" Shopping List *"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shoppingswitch"
+            android:layout_below="@+id/deviceswitch"
+            android:layout_marginTop="30dp"
+            android:textStyle="normal|bold"
+            android:layout_alignEnd="@+id/prefpub"
+            android:layout_toEndOf="@+id/imageView18"
+            android:layout_alignStart="@+id/deviceswitch" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/shoppingcart"
+            android:layout_alignBottom="@+id/shoppingswitch"
+            android:layout_alignEnd="@+id/imageView19"
+            android:id="@+id/imageView17"
+            android:layout_alignTop="@+id/shoppingswitch"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="* Shopping List and Bus Timetable cannot be shown at the same time due to mirror screen size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/prefpub"
+            android:layout_marginTop="50dp"
+            android:id="@+id/textView5"
+            android:layout_alignStart="@+id/shoppingswitch"
+            android:textSize="10sp"
+            android:layout_alignEnd="@+id/prefpub" />
 
     </RelativeLayout>
 </ScrollView>

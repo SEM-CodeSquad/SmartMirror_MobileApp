@@ -82,4 +82,12 @@ public class PreferencesPresenter {
         PreferencesView.DoneLoading();
     }
 
+    public void BusFalse(){
+        PreferencesView.BusFalse();
+    }
+
+    public void ShoppingFalse(){
+        PreferencesView.ShoppingFalse();
+    }
+
 }

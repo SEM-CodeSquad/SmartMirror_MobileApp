@@ -46,8 +46,8 @@ public class PageFragmentPresenter {
      * @param topic Pass the topic
      * @param ID PAss the ID
      */
-    public void DeletePostit(String topic, String ID){
-        PageFragmentHandler.DeletePostit(topic, ID);
+    public void DeletePostit(String topic, String ID, String user){
+        PageFragmentHandler.DeletePostit(topic, ID, user);
     }
 
     /**
@@ -56,8 +56,8 @@ public class PageFragmentPresenter {
      * @param id The Id of the postit we want to edit
      * @param Text The text we want to change
      */
-    public void EditPostit(String topic, String id, String Text){
-        PageFragmentHandler.EditPostit(topic, id, Text);
+    public void EditPostit(String topic, String id, String Text, String user){
+        PageFragmentHandler.EditPostit(topic, id, Text, user);
     }
 
     /**

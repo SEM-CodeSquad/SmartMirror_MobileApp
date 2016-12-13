@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -121,7 +122,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="16dp"
         android:focusableInTouchMode="false"
-        android:textAlignment="viewStart" />
+        android:textAlignment="viewStart"
+        android:layout_marginTop="5dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -140,7 +142,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="16dp"
         android:focusableInTouchMode="false"
-        android:textAlignment="viewStart" />
+        android:textAlignment="viewStart"
+        android:layout_marginTop="5dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -159,22 +162,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="16dp"
         android:focusableInTouchMode="false"
-        android:textAlignment="viewStart" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/usrbtn"
-        android:text="Change User Settings"
-        android:textAlignment="center"
-        style="@style/BtnCustomHolo"
-        android:editable="false"
-        android:clickable="true"
-        android:inputType="none"
-        android:focusable="false"
-        android:layout_below="@+id/userpic"
-        android:layout_centerHorizontal="true"
-        android:focusableInTouchMode="false"/>
+        android:textAlignment="viewStart"
+        android:layout_marginTop="5dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -189,44 +178,6 @@
         android:layout_marginLeft="150dp"
         android:layout_marginRight="150dp"
         android:src="@drawable/user"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="none"
-        android:text="No Chosen Mirror"
-        android:ems="10"
-        android:id="@+id/mirrortext"
-        android:background="@android:color/transparent"
-        android:editable="false"
-        android:clickable="false"
-        android:focusable="false"
-        android:layout_below="@+id/imageView13"
-        android:layout_alignLeft="@+id/mirrorbtn"
-        android:layout_alignStart="@+id/mirrorbtn"
-        android:layout_marginTop="10dp"
-        android:textSize="12dp"
-        android:layout_alignRight="@+id/newsbtn"
-        android:layout_alignEnd="@+id/newsbtn" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:id="@+id/mirrorbtn"
-        android:text="Change Mirror"
-        android:clickable="true"
-        android:editable="false"
-        style="@android:style/Widget.Button"
-        android:inputType="textNoSuggestions"
-        android:focusable="false"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="16dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/newsbtn"
-        android:layout_alignStart="@+id/newsbtn"
-        android:focusableInTouchMode="false"
-        android:textAlignment="viewStart" />
 
     <ImageView
         android:layout_width="100dp"
@@ -269,18 +220,6 @@
 
     <ImageView
         android:layout_width="100dp"
-        android:layout_height="10dp"
-        android:id="@+id/imageView13"
-        android:background="@drawable/middleline"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/usrbtn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
-
-    <ImageView
-        android:layout_width="100dp"
         android:layout_height="2dp"
         android:id="@+id/imageView14"
         android:background="@drawable/middleline"
@@ -302,6 +241,59 @@
         android:layout_alignEnd="@+id/imageView14"
         style="@android:style/Widget.Button"
         android:textAlignment="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/mirrorbtn"
+        android:text="Change Mirror"
+        android:clickable="true"
+        android:editable="false"
+        style="@android:style/Widget.Button"
+        android:inputType="textNoSuggestions"
+        android:focusable="false"
+        android:layout_marginRight="16dp"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:textAlignment="viewStart"
+        android:layout_below="@+id/mirrortext"
+        android:layout_alignStart="@+id/newsbtn"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:text="No Chosen Mirror"
+        android:ems="10"
+        android:id="@+id/mirrortext"
+        android:background="@android:color/transparent"
+        android:editable="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:textSize="12dp"
+        android:layout_below="@+id/imageView13"
+        android:layout_alignStart="@+id/mirrorbtn"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/usernameSett"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:layout_below="@+id/userpic" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="10dp"
+        android:id="@+id/imageView13"
+        android:background="@drawable/middleline"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/usernameSett"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

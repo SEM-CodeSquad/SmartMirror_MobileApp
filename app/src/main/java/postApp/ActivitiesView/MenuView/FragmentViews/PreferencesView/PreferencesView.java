@@ -33,6 +33,7 @@ public class PreferencesView extends Fragment {
     Switch weatherswitch;
     Switch postitswitch;
     Switch greetingsswitch;
+    Switch shoppingswitch;
     PreferencesPresenter presenter;
     Button publish;
     ProgressDialog progress;
@@ -49,6 +50,7 @@ public class PreferencesView extends Fragment {
         weatherswitch = (Switch) myView.findViewById(R.id.weatherswitch);
         postitswitch = (Switch) myView.findViewById(R.id.postswitch);
         greetingsswitch = (Switch) myView.findViewById(R.id.greetingsswitch);
+        shoppingswitch = (Switch) myView.findViewById(R.id.shoppingswitch);
         publish = (Button) myView.findViewById(R.id.prefpub);
         presenter = new PreferencesPresenter(this,  ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser());
         progress = new ProgressDialog(getActivity());
@@ -66,6 +68,22 @@ public class PreferencesView extends Fragment {
                     presenter.DisBtnTrue();
                 } else {
                     presenter.DisBtnFalse();
+                }
+            }
+        });
+
+        busswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    presenter.ShoppingFalse();
+                }
+            }
+        });
+
+        shoppingswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    presenter.BusFalse();
                 }
             }
         });
@@ -101,12 +119,20 @@ public class PreferencesView extends Fragment {
         clockswitch.setChecked(false);
         deviceswitch.setChecked(false);
         weatherswitch.setChecked(false);
+        shoppingswitch.setChecked(false);
     }
     public void PublishPrefs(){
         presenter.PublishPrefs(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), Boolean.toString(newsswitch.isChecked()),
                 Boolean.toString(busswitch.isChecked()),
                 Boolean.toString(weatherswitch.isChecked()), Boolean.toString(clockswitch.isChecked()),  Boolean.toString(deviceswitch.isChecked()),
-                Boolean.toString(greetingsswitch.isChecked()), Boolean.toString(postitswitch.isChecked()), "Notdoneyet");
+                Boolean.toString(greetingsswitch.isChecked()), Boolean.toString(postitswitch.isChecked()), Boolean.toString(shoppingswitch.isChecked()));
+    }
+
+    public void BusFalse(){
+        busswitch.setChecked(false);
+    }
+    public void ShoppingFalse(){
+        shoppingswitch.setChecked(false);
     }
     /**
      * Loading method that shows a progressdialog
