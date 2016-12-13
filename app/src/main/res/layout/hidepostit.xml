@@ -30,7 +30,7 @@
         android:layout_alignParentStart="true"
         android:layout_above="@+id/updatecheck">
         <RadioButton
-            android:text="Standard"
+            android:text="External systems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"

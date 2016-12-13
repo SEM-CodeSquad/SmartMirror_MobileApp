@@ -43,22 +43,22 @@ public class StoreSettings extends Observable implements Observer {
     }
 
     /**
-     * When we get a update from the databaseconnection class we execute fetchsettings
+     * When we get a update from the databaseconnection class we execute storesettings
      * @param observable The Observable
      * @param o The object
      */
     @Override
     public void update(Observable observable, Object o) {
         c = conn.getConn();
-        fetchSettings set;
-        set = new fetchSettings();
+        storesettings set;
+        set = new storesettings();
         set.execute();
     }
 
     /**
      * Async task that stores settings and sets sett to either true or false
      */
-    private class fetchSettings extends AsyncTask<Void, Void, Void> {
+    private class storesettings extends AsyncTask<Void, Void, Void> {
 
 
         protected Void doInBackground(Void... arg0) {

@@ -81,7 +81,7 @@ public class PageFragmentHandler implements Observer {
             text = Text;
             JsonBuilder R = new JsonBuilder();
             try {
-                R.execute(topic, "postIt action", id, "edit", Text, user).get();
+                R.execute(topic, "postIt action", id, "Modify", Text, user).get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
@@ -105,7 +105,7 @@ public class PageFragmentHandler implements Observer {
             idOne = UUID;
             JsonBuilder R = new JsonBuilder();
             try {
-                R.execute(topic, "postIt action", UUID, "delete", "none", user).get();
+                R.execute(topic, "postIt action", UUID, "Delete", "none", user).get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
