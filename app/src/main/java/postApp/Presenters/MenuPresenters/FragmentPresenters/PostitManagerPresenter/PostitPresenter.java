@@ -19,10 +19,11 @@ public class PostitPresenter {
      * And the setcolor method, with "yellow" the iniatial color
      * @param PostitView the view
      * @param mirrorid the mirror id
+     * @param user the user
      */
-    public PostitPresenter(PostitView PostitView, String mirrorid){
+    public PostitPresenter(PostitView PostitView, String mirrorid, String user){
         this.PostitView = PostitView;
-        this.PostitHandler = new PostitHandler(this, mirrorid);
+        this.PostitHandler = new PostitHandler(this, mirrorid, user);
         PostitView.BuildColorChoice();
         SetColor("yellow");
     }

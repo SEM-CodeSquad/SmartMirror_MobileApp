@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by adinH on 2016-11-09.
+ * Class that parses the json data
  */
 
 public class ParseJson {
@@ -22,17 +22,29 @@ public class ParseJson {
     private String busName;
     private Map<String, String> SearchMap;
 
+    /**
+     * Removes all nulls from a string
+     * @param v the string
+     * @return return a list as a array with the listsize
+     */
     private static String[] clean(final String[] v) {
         List<String> list = new ArrayList<>(Arrays.asList(v));
-        list.removeAll(Collections.singleton(null));
+        Collections.singleton(null).removeAll(list);
         return list.toArray(new String[list.size()]);
     }
 
+    /**
+     * Parses a json string and parses it down to just a name and a ID. The string that is passed is from the Västtrafiks API. And this parser method
+     * Is adjusted after that. We also add the name and bus id to a map
+     * @param json the json string
+     * @param search the name we search for
+     * @return the list but we use the method to clean the nulls from it first
+     * @throws ParseException
+     */
     public String[] parseSearch(String json, String search) throws ParseException {
         JSONParser parser = new JSONParser();
         SearchMap = new HashMap<>();
         String newlist[] = new String[20];
-        System.out.println(json);
         JSONObject jsonObject = (JSONObject) parser.parse(json);
         JSONObject obj = (JSONObject) jsonObject.get("LocationList");
         JSONArray jsarr = (JSONArray) obj.get("StopLocation");
@@ -51,11 +63,20 @@ public class ParseJson {
         return clean(newlist);
     }
 
+    /**
+     * if we want the ID for a busname we call this function. We get the ID from the map made above
+     * @param BusStop The busttop name
+     * @return the Bus ID
+     */
     public String getBusIDfromSearch(String BusStop) {
         return SearchMap.get(BusStop);
     }
 
-    //parses json for the closest stop location return a string with a name of a stop
+    /**
+     * Json parser for the vässtrafiks api that gets the name and ID from the object
+     * @param json the json string
+     * @throws ParseException the exception
+     */
     public void parseLoc(String json) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(json);
@@ -66,10 +87,17 @@ public class ParseJson {
         busID = obj2.get("id").toString();
     }
 
+    /**
+     * To get the ID call this
+     * @return the busID
+     */
     public String getID() {
         return busID;
     }
 
+    /**
+     * @return Bus Name
+     */
     public String getName() {
         return busName;
     }

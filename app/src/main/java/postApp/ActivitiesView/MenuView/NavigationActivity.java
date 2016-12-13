@@ -227,10 +227,6 @@ public class NavigationActivity extends AppCompatActivity
         presenter.setNews(N);
     }
 
-    public String getUUID() {
-        return presenter.getUUID();
-    }
-
     public String getUser() {
         return presenter.getUser();
     }

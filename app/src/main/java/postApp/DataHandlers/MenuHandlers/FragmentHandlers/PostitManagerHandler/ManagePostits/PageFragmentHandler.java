@@ -5,8 +5,6 @@ import android.os.Handler;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutionException;
-
-import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostits.PageFragment;
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.AppCommons.Postits.EditPostit;
 import postApp.DataHandlers.MqTTHandler.Echo;
@@ -21,8 +19,6 @@ public class PageFragmentHandler implements Observer {
     private PageFragmentPresenter PageFragmentPresenter;
     private String idOne;
     private String text;
-    private DeletePostit RemovePost;
-    private EditPostit editPostit;
     private Boolean echoed = false;
     private Echo echo;
     private String editordelete;
@@ -33,10 +29,10 @@ public class PageFragmentHandler implements Observer {
      *
      * @param PageFragmentPresenter the presenter
      */
-    public PageFragmentHandler(PageFragmentPresenter PageFragmentPresenter, String topic) {
+    public PageFragmentHandler(PageFragmentPresenter PageFragmentPresenter, String topic, String user) {
         this.PageFragmentPresenter = PageFragmentPresenter;
         String topic123 = "dit029/SmartMirror/" + topic + "/echo";
-        echo = new Echo(topic123, topic);
+        echo = new Echo(topic123, user);
         echo.addObserver(this);
         echo.disconnect();
     }
@@ -46,18 +42,25 @@ public class PageFragmentHandler implements Observer {
      * @param color according to which color is in this string we change
      */
     public void SetColor(String color) {
-        if (color.equals("yellow")) {
-            PageFragmentPresenter.YellowClick();
-        } else if (color.equals("purple")) {
-            PageFragmentPresenter.PurpleClick();
-        } else if (color.equals("pink")) {
-            PageFragmentPresenter.PinkClick();
-        } else if (color.equals("blue")) {
-            PageFragmentPresenter.BlueClick();
-        } else if (color.equals("green")) {
-            PageFragmentPresenter.GreenClick();
-        } else if (color.equals("orange")) {
-            PageFragmentPresenter.OrangeClick();
+        switch (color) {
+            case "yellow":
+                PageFragmentPresenter.YellowClick();
+                break;
+            case "purple":
+                PageFragmentPresenter.PurpleClick();
+                break;
+            case "pink":
+                PageFragmentPresenter.PinkClick();
+                break;
+            case "blue":
+                PageFragmentPresenter.BlueClick();
+                break;
+            case "green":
+                PageFragmentPresenter.GreenClick();
+                break;
+            case "orange":
+                PageFragmentPresenter.OrangeClick();
+                break;
         }
     }
 
@@ -115,15 +118,15 @@ public class PageFragmentHandler implements Observer {
      * method for removing post
      */
     private void RemovePost() {
-        RemovePost = new DeletePostit(idOne);
-        RemovePost.addObserver(this);
+        DeletePostit removePost = new DeletePostit(idOne);
+        removePost.addObserver(this);
     }
 
     /**
      * Method for editing post
      */
     private void EditPost() {
-        editPostit = new EditPostit(text, idOne);
+        EditPostit editPostit = new EditPostit(text, idOne);
         editPostit.addObserver(this);
     }
 

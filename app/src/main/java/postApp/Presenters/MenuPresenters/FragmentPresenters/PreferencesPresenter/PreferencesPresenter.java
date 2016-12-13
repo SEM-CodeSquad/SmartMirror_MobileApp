@@ -16,10 +16,11 @@ public class PreferencesPresenter {
      * Constructor that injects this presenter into the handler and the topic
      * @param PreferencesView The view we get from Preferences
      * @param topic The topic
+     * @param user The user
      */
-    public PreferencesPresenter(PreferencesView PreferencesView, String topic){
+    public PreferencesPresenter(PreferencesView PreferencesView, String topic, String user){
         this.PreferencesView = PreferencesView;
-        this.PreferencesHandler = new PreferencesHandler(this, topic);
+        this.PreferencesHandler = new PreferencesHandler(this, topic, user);
     }
 
     /**
@@ -34,8 +35,8 @@ public class PreferencesPresenter {
      * @param calender the calender
      * @param external the external system
      */
-    public void PublishPrefs(String topic, String user, String news, String bus, String weather, String device, String clock, String calender ,String external){
-        PreferencesHandler.PublishPrefs(topic, user, news, bus, weather, device, clock, calender, external);
+    public void PublishPrefs(String topic, String user, String news, String bus, String weather, String device, String clock, String calender ,String external, String ShoppingList){
+        PreferencesHandler.PublishPrefs(topic, user, news, bus, weather, device, clock, calender, external, ShoppingList);
     }
 
     /**

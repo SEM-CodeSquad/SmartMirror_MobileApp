@@ -18,9 +18,9 @@ public class PageFragmentPresenter {
      * @param PageFragment The view passed
      * @param color The color to set
      */
-    public PageFragmentPresenter(PageFragment PageFragment, String color, String topic){
+    public PageFragmentPresenter(PageFragment PageFragment, String color, String topic, String user){
         this.PageFragment = PageFragment;
-        this.PageFragmentHandler = new PageFragmentHandler(this, topic);
+        this.PageFragmentHandler = new PageFragmentHandler(this, topic, user);
         PageFragment.buildDelete();
         PageFragment.buildEdit();
         SetColor(color);

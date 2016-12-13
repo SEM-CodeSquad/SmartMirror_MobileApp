@@ -50,7 +50,7 @@ public class PreferencesView extends Fragment {
         postitswitch = (Switch) myView.findViewById(R.id.postswitch);
         greetingsswitch = (Switch) myView.findViewById(R.id.greetingsswitch);
         publish = (Button) myView.findViewById(R.id.prefpub);
-        presenter = new PreferencesPresenter(this,  ((NavigationActivity) getActivity()).getMirror());
+        presenter = new PreferencesPresenter(this,  ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser());
         progress = new ProgressDialog(getActivity());
 
         publish.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class PreferencesView extends Fragment {
         presenter.PublishPrefs(((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser(), Boolean.toString(newsswitch.isChecked()),
                 Boolean.toString(busswitch.isChecked()),
                 Boolean.toString(weatherswitch.isChecked()), Boolean.toString(clockswitch.isChecked()),  Boolean.toString(deviceswitch.isChecked()),
-                Boolean.toString(greetingsswitch.isChecked()), Boolean.toString(postitswitch.isChecked()));
+                Boolean.toString(greetingsswitch.isChecked()), Boolean.toString(postitswitch.isChecked()), "Notdoneyet");
     }
     /**
      * Loading method that shows a progressdialog

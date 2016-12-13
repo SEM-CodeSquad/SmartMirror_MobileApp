@@ -14,7 +14,7 @@ public class SettingsPresenter {
     /**
      * The constructor for this class that instantiates a handler, sets this settingsview and calls startup
      * @param SettingsView the view
-     * @param topic the topci
+     * @param topic the topic
      * @param user the user
      */
     public SettingsPresenter(SettingsView SettingsView, String topic, String user) {

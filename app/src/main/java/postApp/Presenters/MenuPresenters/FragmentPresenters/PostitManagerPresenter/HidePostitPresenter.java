@@ -16,10 +16,11 @@ public class HidePostitPresenter {
      * We instantiate a HidePostitHandler with this presenter and the topic name
      * @param HidePostitView the view
      * @param topic the topic
+     * @param user the user
      */
-    public HidePostitPresenter(HidePostitView HidePostitView, String topic){
+    public HidePostitPresenter(HidePostitView HidePostitView, String topic, String user){
         this.HidePostitView = HidePostitView;
-        this.HidePostitHandler = new HidePostitHandler(this, topic);
+        this.HidePostitHandler = new HidePostitHandler(this, topic, user);
     }
 
     /**

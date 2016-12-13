@@ -42,7 +42,7 @@ public class HidePostitView extends Fragment {
         progress = new ProgressDialog(getActivity());
 
         publish = (Button) myView.findViewById(R.id.updatecheck);
-        presenter = new HidePostitPresenter(this, ((NavigationActivity) getActivity()).getMirror());
+        presenter = new HidePostitPresenter(this, ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser());
         blue = (RadioButton)  myView.findViewById(R.id.bluecheck);
         yellow = (RadioButton)  myView.findViewById(R.id.yellowcheck);
         green = (RadioButton)  myView.findViewById(R.id.greencheck);

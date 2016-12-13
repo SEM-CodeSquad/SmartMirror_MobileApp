@@ -1,19 +1,12 @@
 package postApp.Presenters.AuthenticationPresenters;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
-import postApp.ActivitiesView.AuthenticationView.RegisterActivity;
-import postApp.ActivitiesView.AuthenticationView.SecretQActivity;
+import android.view.View;
 import postApp.DataHandlers.Authentication.LoginInteractor;
 import postApp.ActivitiesView.AuthenticationView.LoginActivity;
 
 /**
- * @author adinH on 2016-11-18.
- * Class that is used as a presenter that controls the View of login and handles the logic
- * On the interactor
+ * Class that is used as a presenter between the view and handler
  */
 
 public class LoginPresenter {
@@ -21,8 +14,8 @@ public class LoginPresenter {
     private LoginActivity LoginActivity;
 
     /**
-     * Constructor
-     * @param LoginActivity when instansiated pass the LoginActivity it presents.
+     * Constructor that instantiates the loging interactor and sets login activity
+     * @param LoginActivity the activity
      */
     public LoginPresenter(LoginActivity LoginActivity) {
         this.LoginActivity = LoginActivity;

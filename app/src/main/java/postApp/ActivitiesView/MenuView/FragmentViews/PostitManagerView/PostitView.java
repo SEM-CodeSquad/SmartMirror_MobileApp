@@ -61,7 +61,7 @@ public class PostitView extends Fragment {
         PostitImage = (ImageView)myView.findViewById(R.id.ImageView);
         typedtext = (EditText)myView.findViewById(R.id.typedText);
         builder = new AlertDialog.Builder(getActivity());
-        presenter = new PostitPresenter(this, ((NavigationActivity) getActivity()).getMirror());
+        presenter = new PostitPresenter(this, ((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser());
         progress = new ProgressDialog(getActivity());
 
 

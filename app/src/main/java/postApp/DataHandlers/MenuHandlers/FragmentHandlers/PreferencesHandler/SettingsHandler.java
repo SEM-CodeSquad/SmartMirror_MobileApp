@@ -8,7 +8,6 @@ import android.os.Handler;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutionException;
@@ -26,9 +25,8 @@ import postApp.DataHandlers.MqTTHandler.Echo;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.SettingsPresenter;
 
 /**
- * Created by adinH on 2016-11-18.
+ * Class used as a handler for the settings view that communicates with the presenter
  */
-
 public class SettingsHandler implements Observer {
 
     private String auth;
@@ -41,14 +39,26 @@ public class SettingsHandler implements Observer {
     private SettingsView SettingsView;
     private Echo echo;
     private boolean echoed = false;
-    public SettingsHandler(SettingsPresenter SettingsPresenter, SettingsView SettingsView, String topic, String user) {
+
+    /**
+     * The constructor that start a echo and adds a observer, we then disconnect to just keep the echo and don't have to instantiate it again
+     * @param SettingsPresenter the presenter
+     * @param SettingsView the view
+     * @param mirror the mirror ID
+     * @param user the user
+     */
+    public SettingsHandler(SettingsPresenter SettingsPresenter, SettingsView SettingsView, String mirror, String user) {
         this.SettingsPresenter = SettingsPresenter;
         this.SettingsView = SettingsView;
-        echo = new Echo("dit029/SmartMirror/" + topic + "/echo", user);
+        echo = new Echo("dit029/SmartMirror/" + mirror + "/echo", user);
         echo.addObserver(this);
         echo.disconnect();
     }
 
+    /**
+     * This function uses library io.nlopez.smartlocation:library:3.2.9 that gets the location and only one time and sets the location in the
+     * navigationactivity and calls the settings presenter to update the text
+     */
     public void WeatherOnLoc() {
             //using lib smartlocation
             SmartLocation.with(SettingsView.getActivity()).location()
@@ -62,14 +72,23 @@ public class SettingsHandler implements Observer {
                             //set the weather to the city
                             ((NavigationActivity) SettingsView.getActivity()).setWeather(city);
                             //set text to city
-                            SettingsView.weathertext.setText(city);
+                            SettingsPresenter.SetWeather(city);
                         }
                     });
     }
 
-    public void PublishAll(String Topic, String User, String News, String Weather, String BusID , String Busname) {
+    /**
+     * To publish all settings we call this function which starts a JSon builder then executes it with the below values
+     * @param mirror the mirror
+     * @param User the user
+     * @param News the news
+     * @param Weather the weather
+     * @param BusID the bus ID
+     * @param Busname the busname
+     */
+    public void PublishAll(String mirror, String User, String News, String Weather, String BusID , String Busname) {
 
-        if (!Topic.equals("No mirror chosen")) {
+        if (!mirror.equals("No mirror chosen")) {
             if(!News.equals("No feed selected") && !Weather.equals("No city selected") && !Busname.equals("No bus stop selected")) {
                 SettingsPresenter.Loading();
                 AwaitEcho();
@@ -78,16 +97,15 @@ public class SettingsHandler implements Observer {
                 this.user = User;
                 this.busID = BusID;
                 this.bus = Busname;
-                StoreSettings();
-
                 JsonBuilder R = new JsonBuilder();
                 try {
-                    R.execute(Topic, "config", User, News, Weather, BusID).get();
+                    R.execute(mirror, "config", User, News, Weather, BusID).get();
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
             }
             else{
+                //If not all settings are chosen we call the presenters function
                 SettingsPresenter.ChoseAllSettings();
             }
         } else {
@@ -96,6 +114,10 @@ public class SettingsHandler implements Observer {
         }
     }
 
+    /**
+     * This method uses io.nlopez.smartlocation:library:3.2.9 to get the locations latitude and logitude and then we use TravelByLoc and execute it
+     * with the latitude and logitude gotten. And also the generated accesscode from the class GenerateAccessCode
+     */
     public void SetLocalStop() {
         //the first two lines generete a authorization key for the Västtrafik API.
         GenerateAccessCode gen = new GenerateAccessCode();
@@ -117,20 +139,25 @@ public class SettingsHandler implements Observer {
                             ParseJson js = new ParseJson();
                             js.parseLoc(trav.get());
 
-                            //we set the activities stop
+                            //we set the Navigationactivities stop and bus ID
                             ((NavigationActivity) SettingsView.getActivity()).SetBusID(js.getID());
                             ((NavigationActivity) SettingsView.getActivity()).setBus(js.getName());
                             //and the we set the bustext in the app to stop
                             SettingsPresenter.SetBus(js.getName());
                         } catch (Exception v) {
-                            System.out.println(v);
+                            v.printStackTrace();
                         }
                     }
 
                 });
     }
 
-    //here we just get the city for the weather
+    /**
+     * Uses androids geoCode that gets the city and country we are in. Sets the activities weather and calls the presenter to set the textfields weather.
+     * @param Lat the latitude
+     * @param Long the longitude
+     * @return the adress
+     */
     private String weathercity(double Lat, double Long){
         //will be final adress
         String finalAddress = "";
@@ -154,11 +181,19 @@ public class SettingsHandler implements Observer {
         return finalAddress;
     }
 
+    /**
+     * Function used to storesettings and add a observer
+     */
     private void StoreSettings(){
         StoreSettings set = new StoreSettings(user, news, bus + ":" + busID, weather);
         set.addObserver(this);
     }
 
+    /**
+     * Function used to await a echo from the broker. We connect to the broker here and then we start a handler that is delayed by 2 seconds.
+     * We do this because we give the echo 2 seconds to reach the broker. If reached we call the presenter to be done loading, if not we do the same but call also the
+     * presenters function for no echo. At the end we call function disc()
+     */
     private void AwaitEcho() {
         echo.connect();
         Handler handler = new Handler();
@@ -168,7 +203,6 @@ public class SettingsHandler implements Observer {
                     SettingsPresenter.DoneLoading();
                     echoed = false;
                 } else {
-
                     SettingsPresenter.NoEcho();
                     SettingsPresenter.DoneLoading();
                 }
@@ -179,14 +213,21 @@ public class SettingsHandler implements Observer {
 
 
     /**
-     * Method for removing observer and disconnecting
+     * Method for disconnecting from the broker
      */
     private void Disc(){
         echo.disconnect();
     }
 
+    /**
+     * If we get a echo we store the settings by calling the function StoreSettings()
+     * @param observable the observable
+     * @param o the object
+     */
     @Override
     public void update(Observable observable, Object o) {
             echoed = true;
+             StoreSettings();
+
     }
 }

@@ -136,14 +136,6 @@ public class NavigationPresenter {
     }
 
     /**
-     * Method for getting the UUID
-     * @return the UUID
-     */
-    public String getUUID(){
-        return NavigationInteractor.getUUID();
-    }
-
-    /**
      * Method for setting the user
      * @param user username
      */

@@ -60,7 +60,7 @@ public class PageFragment extends Fragment {
 
         textview.setText(message);
         expiresat.setText(expireat);
-        presenter = new PageFragmentPresenter(this,color,((NavigationActivity) getActivity()).getMirror());
+        presenter = new PageFragmentPresenter(this,color,((NavigationActivity) getActivity()).getMirror(), ((NavigationActivity) getActivity()).getUser());
 
 
         DeletePostit.setOnClickListener(new View.OnClickListener() {

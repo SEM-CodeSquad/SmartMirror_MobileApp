@@ -1,69 +1,106 @@
 package postApp.DataHandlers.MenuHandlers;
 
-import android.app.FragmentManager;
-import android.view.View;
-
-import java.util.UUID;
-
-import adin.postApp.R;
-import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsView;
-import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 /**
- * Created by adinH on 2016-11-18.
+ * Class responsible as a model for the navigation interactor. The strings in this class are shared by all fragments
  */
-
 public class NavigationInteractor {
 
-    String mirrorID = "No mirror chosen";
-    String newsID = "No news chosen";
-    String busID = "No bus or tram stop chosen";
-    String weatherID = "No city chosen";
-    String user;
-    String busIDVäst = "No ID";
-    UUID idOne = UUID.randomUUID();
+    private String mirrorID = "No mirror chosen";
+    private String newsID = "No news chosen";
+    private String busname = "No bus or tram stop chosen";
+    private String weatherID = "No city chosen";
+    private String user;
+    private String busIDVäst = "No ID";
+
 
     public NavigationInteractor(){
     }
 
-    /*
-    Getters and setter for all the current string that will be used to passing data
-    Having these to access the same from all fragments
+    /**
+     * @return mirror ID
      */
     public String getMirror(){
         return mirrorID;
     }
+
+    /**
+     * Sets mirror id
+     * @param UUID the id
+     */
     public void setMirror(String UUID){
         this.mirrorID = UUID;
     }
+
+    /**
+     * @return The bus stop name
+     */
     public String getBus(){
-        return busID;
+        return busname;
     }
-    public void setBus(String busid){
-        this.busID = busid;
+
+    /**
+     * Sets the bus name
+     * @param busname the busname
+     */
+    public void setBus(String busname){
+        this.busname = busname;
     }
+
+    /**
+     * @return The weather city name
+     */
     public String getWeather(){
         return weatherID;
     }
+
+    /**
+     * Sets the weather city name
+     * @param W the weather name
+     */
     public void setWeather(String W){
         weatherID = W ;
     }
+
+    /**
+     * @return news source
+     */
     public String getNews(){
         return newsID;
     }
+
+    /**
+     * Set news source
+     * @param N the news source
+     */
     public void setNews(String N){
         newsID = N ;
     }
-    public String getUUID(){
-        return idOne.toString();
-    }
+
+    /**
+     * Set the user
+     * @param user the username
+     */
     public void SetUser(String user){
         this.user = user;
     }
+
+    /**
+     * @return username
+     */
     public String getUser(){
         return user;
     }
+
+    /**
+     * Set the bus id västtrafik gives us from their API
+     * @param busID the bus ID
+     */
     public void SetBusID(String busID){this.busIDVäst = busID;}
+
+    /**
+     * @return Västtrafiks busID
+     */
     public String GetBusID(){
         return busIDVäst;
     }

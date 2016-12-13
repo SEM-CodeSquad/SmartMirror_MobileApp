@@ -23,9 +23,9 @@ public class ResetPasswordPresenter {
 
     /**
      * Method that calls the interactors method for checking passwords
-     * @param user
-     * @param pass
-     * @param confpass
+     * @param user the username
+     * @param pass the password
+     * @param confpass the confirmed password
      */
     public void CheckPasswords(String user, String pass, String confpass){
         ResetPasswordInteractor.CheckPasswords(user, pass, confpass);
@@ -55,7 +55,7 @@ public class ResetPasswordPresenter {
 
     /**
      * Calls the views method to hide keyboard
-     * @param view
+     * @param view the view
      */
     public void hideKeyboard(View view) {
         ResetPasswordActivity.HideKeyboard(view);

@@ -25,11 +25,12 @@ public class HidePostitHandler implements Observer {
      *
      * @param HidePostitPresenter The presenter we interact with
      * @param topic               the topic we echo to
+     * @param user the user
      */
-    public HidePostitHandler(HidePostitPresenter HidePostitPresenter, String topic) {
+    public HidePostitHandler(HidePostitPresenter HidePostitPresenter, String topic, String user) {
         this.HidePostitPresenter = HidePostitPresenter;
         String topic123 = "dit029/SmartMirror/" + topic + "/echo";
-        echo = new Echo(topic123, topic);
+        echo = new Echo(topic123, user);
         echo.addObserver(this);
         echo.disconnect();
     }

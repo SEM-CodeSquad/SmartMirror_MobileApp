@@ -12,6 +12,7 @@ import java.util.Observer;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.AppCommons.Pairing.UUIDGenerator;
 import postApp.DataHandlers.MqTTHandler.Echo;
 
 import postApp.DataHandlers.AppCommons.Postits.StorePostits;
@@ -36,12 +37,12 @@ public class PostitHandler implements Observer {
 
     /**
      * We set the postitpresenter, set the topic we are posting too. Instantiate a Echo Class that we observe
-     * @param PostitPresenter
-     * @param topic
+     * @param PostitPresenter the presenter
+     * @param mirror the mirror id
      */
-    public PostitHandler(PostitPresenter PostitPresenter, String topic) {
+    public PostitHandler(PostitPresenter PostitPresenter, String mirror, String user) {
         this.PostitPresenter = PostitPresenter;
-        this.echotopic = "dit029/SmartMirror/" + topic + "/echo";
+        this.echotopic = "dit029/SmartMirror/" + mirror + "/echo";
         echo = new Echo(echotopic, user);
         echo.addObserver(this);
         echo.disconnect();
@@ -92,7 +93,8 @@ public class PostitHandler implements Observer {
                 }
             }
             //A random UUID for the postit
-            this.idOne = UUID.randomUUID().toString();
+            UUIDGenerator uuid = new UUIDGenerator();
+            this.idOne = uuid.getUUID();
             JsonBuilder R = new JsonBuilder();
             try {
                 R.execute(topic, "postit", text, color, Long.toString(timestamp), idOne, user).get();
@@ -140,9 +142,9 @@ public class PostitHandler implements Observer {
     }
 
     /**
-     * Just a observable that waits for a notification from the echo class. If it gets it it stores a postit and sets stored to true
-     * @param observable q
-     * @param data q
+     * Just a observable that waits for a notification from the echo class. If it gets a update, we store a postit and sets stored to true
+     * @param observable The observable
+     * @param data THe object
      */
     @Override
     public void update(Observable observable, Object data) {
