@@ -29,7 +29,7 @@ public class ParseJson {
      */
     private static String[] clean(final String[] v) {
         List<String> list = new ArrayList<>(Arrays.asList(v));
-        Collections.singleton(null).removeAll(list);
+        list.removeAll(Collections.singleton(null));
         return list.toArray(new String[list.size()]);
     }
 
@@ -39,25 +39,32 @@ public class ParseJson {
      * @param json the json string
      * @param search the name we search for
      * @return the list but we use the method to clean the nulls from it first
-     * @throws ParseException
+     * @throws ParseException the exception
      */
     public String[] parseSearch(String json, String search) throws ParseException {
         JSONParser parser = new JSONParser();
         SearchMap = new HashMap<>();
         String newlist[] = new String[20];
         JSONObject jsonObject = (JSONObject) parser.parse(json);
-        JSONObject obj = (JSONObject) jsonObject.get("LocationList");
-        JSONArray jsarr = (JSONArray) obj.get("StopLocation");
-        for (int i = 0; i < jsarr.size(); i++) {
+        if(jsonObject.size() > 0) {
+            JSONObject obj = (JSONObject) jsonObject.get("LocationList");
+            JSONArray jsarr = (JSONArray) obj.get("StopLocation");
+            int size = jsarr.size();
+            if(size > 20){
+                size = 20;
+            }
 
-            JSONObject finalobj = (JSONObject) jsarr.get(i);
-            String name;
-            name = finalobj.get("name").toString();
-            String busID;
-            busID = finalobj.get("id").toString();
-            if (search.toLowerCase().equals(name.substring(0, search.length()).toLowerCase())) {
-                newlist[i] = name;
-                SearchMap.put(name, busID);
+            for (int i = 0; i < size; i++) {
+
+                JSONObject finalobj = (JSONObject) jsarr.get(i);
+                String name;
+                name = finalobj.get("name").toString();
+                String busID;
+                busID = finalobj.get("id").toString();
+                if (search.toLowerCase().equals(name.substring(0, search.length()).toLowerCase())) {
+                    newlist[i] = name;
+                    SearchMap.put(name, busID);
+                }
             }
         }
         return clean(newlist);

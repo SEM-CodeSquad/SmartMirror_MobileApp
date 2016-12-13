@@ -3,12 +3,12 @@
     android:background="#ffffff">
 
     <group android:checkableBehavior="single">
-        <item android:title="Functions">
+        <item android:title="Post-It">
             <menu>
                 <item
                     android:id="@+id/nav_postit"
-                    android:icon="@mipmap/post_it_"
-                    android:title="Post-It" />
+                    android:icon="@drawable/add"
+                    android:title="Add Post-It" />
                 <item
                     android:id="@+id/nav_mirror"
                     android:icon="@drawable/mirror"
@@ -29,13 +29,16 @@
                 android:title="Shopping List" />
         </menu>
     </item>
-
-    <item android:title="Other">
+    <item android:title="Preferences">
         <menu>
             <item
                 android:id="@+id/nav_preferences"
                 android:icon="@drawable/rem"
                 android:title="Mirror Preferences" />
+        </menu>
+    </item>
+    <item android:title="Other">
+        <menu>
             <item
                 android:id="@+id/nav_contact"
                 android:icon="@drawable/email"
@@ -44,7 +47,12 @@
                 android:id="@+id/nav_about"
                 android:icon="@drawable/info"
                 android:title="About" />
+
         </menu>
     </item>
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/logout"
+        android:title="Logout" />
 
 </menu>

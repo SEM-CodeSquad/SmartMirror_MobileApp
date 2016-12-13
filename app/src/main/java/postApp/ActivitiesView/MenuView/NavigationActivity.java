@@ -3,6 +3,7 @@ package postApp.ActivitiesView.MenuView;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 
 import adin.postApp.R;
+import postApp.ActivitiesView.AuthenticationView.LoginActivity;
+import postApp.ActivitiesView.AuthenticationView.SecretQActivity;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.AboutView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.ContactView;
@@ -184,6 +187,10 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_filterpost) {
             fragment.beginTransaction().replace(R.id.content_frame, new HidePostitView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Filter Postits");
+        }
+        else if (id == R.id.nav_logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

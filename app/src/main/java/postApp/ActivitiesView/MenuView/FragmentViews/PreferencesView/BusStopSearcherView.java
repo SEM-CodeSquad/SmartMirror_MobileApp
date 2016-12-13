@@ -76,11 +76,8 @@ public class BusStopSearcherView extends Fragment {
              */
             @Override
             public void afterTextChanged(Editable s) {
-                //do nothing if empty
-                if(s.toString().equals("")){
-                }
                 //show nothing if not more then 2 letters
-                else if (s.length() <= 2) {
+                if (s.length() <= 2 && s.length() > 0) {
                     presenter.EmptyList();
                 }
                 // if more than 2 letters are typed we start a travelbysearch which fetches västtrafiks stops.

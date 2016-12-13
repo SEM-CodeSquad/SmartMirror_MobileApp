@@ -123,7 +123,11 @@ public class SettingsHandler implements Observer {
     public void SetLocalStop() {
         //the first two lines generete a authorization key for the Västtrafik API.
         GenerateAccessCode gen = new GenerateAccessCode();
-        auth = gen.getAccess();
+        try {
+            auth = gen.execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
 
         // if by location is chosen we use the SmartLocation lib once again to get the fixed location
         SmartLocation.with(SettingsView.getActivity()).location()

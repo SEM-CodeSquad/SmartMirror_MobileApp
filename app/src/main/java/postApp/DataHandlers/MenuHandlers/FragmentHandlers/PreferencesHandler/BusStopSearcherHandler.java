@@ -33,7 +33,11 @@ public class BusStopSearcherHandler {
         // here we use the generateaccesscode class to get a new access code for the api
         GenerateAccessCode gen = new GenerateAccessCode();
         //we set the access to auth
-        auth = gen.getAccess();
+        try {
+            auth = gen.execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
         //json parser for search
         js = new ParseJson();
     }
@@ -68,7 +72,7 @@ public class BusStopSearcherHandler {
      * To empty the arraylist we call this class
      */
     public void EmptyList(){
-        initList(emptylist);
+        BusStopSearcherPresenter.setListview(initList(emptylist));
     }
 
     /**
