@@ -119,7 +119,6 @@ public class PageFragmentHandler implements Observer {
      */
     private void RemovePost() {
         DeletePostit removePost = new DeletePostit(idOne);
-        removePost.addObserver(this);
     }
 
     /**
@@ -127,7 +126,6 @@ public class PageFragmentHandler implements Observer {
      */
     private void EditPost() {
         EditPostit editPostit = new EditPostit(text, idOne);
-        editPostit.addObserver(this);
     }
 
     /**
@@ -167,7 +165,6 @@ public class PageFragmentHandler implements Observer {
      */
     @Override
     public void update(Observable observable, Object data) {
-        if (data instanceof Echo) {
             if(editordelete.equals("edit")){
                 echoed = true;
                 EditPost();
@@ -176,6 +173,5 @@ public class PageFragmentHandler implements Observer {
                 echoed = true;
                 RemovePost();
             }
-        }
     }
 }
