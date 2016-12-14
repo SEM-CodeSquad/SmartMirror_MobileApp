@@ -61,6 +61,8 @@ public class ShoppingHandler implements Observer {
         parent = view.getActivity();
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
+
+        makeToast("SOMETHING!0");
         if(this.clientID != "No mirror chosen"){
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");

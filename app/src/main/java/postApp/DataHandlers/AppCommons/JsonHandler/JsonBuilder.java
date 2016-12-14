@@ -186,8 +186,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
                 //Check how long the argument is and add item accordingly
 
-                if (!(args[3] == null)) {
-
+                if (!(args[3].equals("0"))) {
                     JSONObject item = new JSONObject();
                     JSONArray jArray = new JSONArray();
                     String tmp = args[4];
@@ -197,7 +196,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                     }
                     jArray.add(0, item);
                     sendthis.put("content", jArray);
-                } else if (args[3] == null) {
+                } else if (args[3].equals("0")) {
                     JSONObject item = new JSONObject();
                     JSONArray jArray = new JSONArray();
                     item.put("item", "empty");
