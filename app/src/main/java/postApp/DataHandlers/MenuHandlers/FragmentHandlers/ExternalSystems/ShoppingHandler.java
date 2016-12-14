@@ -63,6 +63,7 @@ public class ShoppingHandler implements Observer {
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
 
+
         if(this.clientID != "No mirror chosen"){
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");
@@ -71,6 +72,12 @@ public class ShoppingHandler implements Observer {
         }
     }
 
+
+    /**
+     *  Method that take a MQTT message(String) and parse it according to the content of the message.
+     *
+     * @param message A String containing the content of the MQTT message from the broker.
+     */
     public void parseMessage(String message) {
 
         try {
@@ -111,6 +118,12 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Method that will parse the content of the message(Json), get the result and put them into the SPLList.
+     *
+     * @param json containing the JsonObject from the broker as string.
+     */
     private void parseItem(String json) {
         try {
             JSONParser parser = new JSONParser();
