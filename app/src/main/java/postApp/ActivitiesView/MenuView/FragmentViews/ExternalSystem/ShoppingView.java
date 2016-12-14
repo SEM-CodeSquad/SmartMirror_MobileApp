@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -31,6 +34,8 @@ import java.util.concurrent.CountDownLatch;
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
+
+import static android.R.id.message;
 
 /*
  * This class here initiates the shopping.xml which is the fragment view for the Shopping List
@@ -239,6 +244,7 @@ public class ShoppingView extends Fragment {
     public void makeToast(String message){
         Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
+
     public ListView getListView(){
         return this.listView;
     }

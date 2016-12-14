@@ -1,6 +1,7 @@
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -38,6 +39,8 @@ public class ShoppingHandler implements Observer {
     ShoppingPresenter presenter;
     ShoppingView view;
 
+    private static Activity parent;
+
     private String message;
     private String reply;
     private String replyID;
@@ -55,8 +58,10 @@ public class ShoppingHandler implements Observer {
         this.clientID = clientID;
         this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com",this.clientID+"@codehigh.com",persistence);
         this.view = ShoppingView;
+        parent = view.getActivity();
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
+        makeToast("something here");
         if(this.clientID != "No mirror chosen"){
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");
@@ -96,7 +101,7 @@ public class ShoppingHandler implements Observer {
                         }
                     }
                 } else if (reply.equalsIgnoreCase("error")){
-                    makeToast("Error updating list");
+                    toastMsg("error with the list");
                 }
             }else if(json.containsKey("client_id")){
                 //this.replyID=json.get("client-id").toString();
@@ -134,6 +139,7 @@ public class ShoppingHandler implements Observer {
         }
     }
 
+
     public void addClassObserver(MQTTSub sub){
         sub.addObserver(this);
     }
@@ -159,32 +165,33 @@ public class ShoppingHandler implements Observer {
         Long timestamp = System.currentTimeMillis() / 1000L;
 
         if (requestType == "add"){
-            JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType,item);
-            tempType = requestType; tempItem = item;
-            JsonBuilder builderMirror = new JsonBuilder();
             LinkedList<String> copyList = new LinkedList<>();
             for (int i = 0; i<this.SPLList.size();i++){
                 copyList.add(SPLList.get(i).toString());
             }
+            JsonBuilder builder = new JsonBuilder();
+            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType,item);
+            tempType = requestType; tempItem = item;
+            JsonBuilder builderMirror = new JsonBuilder();
+
             copyList.add(item);
             builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(copyList.size()),mirrorList(copyList));
 
         } else if (requestType == "delete"){
+            LinkedList<String> copyList = new LinkedList<>();
+            for (int i = 0; i<this.SPLList.size();i++){
+                copyList.add(SPLList.get(i).toString());
             JsonBuilder builder = new JsonBuilder();
             builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType,item); // The client id here is the one we should be using.
             tempType = requestType; tempItem = item;
             JsonBuilder builderMirror = new JsonBuilder();
-            if (SPLList.size() == 1) {
+            if (copyList.size() == 1) {
                 builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
             }
             else {
-                LinkedList<String> copyList = new LinkedList<>();
-                for (int i = 0; i<this.SPLList.size();i++){
-                    copyList.add(SPLList.get(i).toString());
-                }
                 copyList.remove(item);
                 builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(copyList.size()),mirrorList(copyList));
+                }
             }
 
         }else if (requestType == "delete-list"){
@@ -231,6 +238,13 @@ public class ShoppingHandler implements Observer {
             }
 
         return list;
+    }
+    public void toastMsg(final String msg){
+        parent.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(parent.getBaseContext(), msg, Toast.LENGTH_LONG).show();
+            }
+        });
     }
     public boolean getBoolean(){
         return this.value;
