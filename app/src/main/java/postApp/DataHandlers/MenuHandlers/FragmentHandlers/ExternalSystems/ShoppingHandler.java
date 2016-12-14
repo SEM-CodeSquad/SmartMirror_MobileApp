@@ -173,9 +173,9 @@ public class ShoppingHandler implements Observer {
         if (this.SPLList.isEmpty()) {
             System.out.println("alright empty list");
             builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), Integer.toString(0));
-
             JsonBuilder builder = new JsonBuilder();
             builder.execute("SPLToMirror", clientID, Long.toString(timestamp), "-1");
+
 
         } else {
             builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), Integer.toString(this.SPLList.size()), mirrorList(this.SPLList));
