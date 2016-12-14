@@ -8,7 +8,6 @@ import org.json.simple.JSONObject;
 import java.util.Calendar;
 import java.util.Date;
 
-
 import postApp.DataHandlers.MqTTHandler.HttpRequestSender;
 
 
@@ -18,10 +17,9 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
     private String myUrl = "http://codehigh.ddns.me:8080/";
 
     /**
-     *  The following function contains the JSONBuilder for different functions needed for both mirror and the Shopping list
+     * The following function contains the JSONBuilder for different functions needed for both mirror and the Shopping list
      *
      * @param args arguments being passed to the parser
-     *
      * @return return the respond of the HTTP
      */
     @Override
@@ -60,13 +58,12 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 topic = "dit029/SmartMirror/" + args[0] + "/settings";
                 JSONArray jArray = new JSONArray();
                 JSONObject jOBJ = new JSONObject();
-                if(args[3].equals("newsedit")){
+                if (args[3].equals("newsedit")) {
                     jOBJ.put("news", args[4]);
                 }
-                if(args[3].equals("busedit")){
+                if (args[3].equals("busedit")) {
                     jOBJ.put("busStop", args[4]);
-                }
-                else if(args[3].equals("weatheredit")){
+                } else if (args[3].equals("weatheredit")) {
                     jOBJ.put("weather", args[4]);
                 }
 
@@ -152,16 +149,15 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
             } else if (args[0].equals("shoppinglist")) {
                 String send = "";
-                if (args.length==3) {
-                    send = "{\"client_id\":\"" + args[1]+ "\"," +
+                if (args.length == 3) {
+                    send = "{\"client_id\":\"" + args[1] + "\"," +
                             "\"list\":" + "\"SmartMirror Shopping list\"" + "," +
-                            "\"request\":\"" + args[2]+"\"}";
-                }
-                else  if (!(args[3] == null)) {
+                            "\"request\":\"" + args[2] + "\"}";
+                } else if (!(args[3] == null)) {
 
-                    send = "{\"client_id\":\"" + args[1]+ "\"," +
+                    send = "{\"client_id\":\"" + args[1] + "\"," +
                             "\"list\":" + "\"SmartMirror Shopping list\"" + "," +
-                            "\"request\":\"" + args[2]+"\"," +
+                            "\"request\":\"" + args[2] + "\"," +
                             "\"data\":{\"item\":\"" + args[3] + "\"}}";
                 }
 
@@ -174,11 +170,10 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", args[1]);
                 sendthis.put("timestamp", args[2]);
-                sendthis.put("contentType", "shoppingList");
 
 
-
-                if (!(args[3].equals("0"))) {
+                if ((!(args[3].equals("0")))&&(!(args[3].equals("-1")))){
+                    sendthis.put("contentType", "shoppingList");
                     JSONObject item = new JSONObject();
                     JSONArray jArray = new JSONArray();
                     String tmp = args[4];
@@ -189,11 +184,15 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                     jArray.add(0, item);
                     sendthis.put("content", jArray);
                 } else if (args[3].equals("0")) {
+                    sendthis.put("contentType", "shoppingList");
                     JSONObject item = new JSONObject();
                     JSONArray jArray = new JSONArray();
                     item.put("item", "empty");
                     jArray.add(0, item);
                     sendthis.put("content", jArray);
+                }else if(args[3].equals("-1")){
+                    sendthis.put("contentType", "Create list");
+                    sendthis.put("content", "Create new list "+args[1]);
                 }
 
                 topic = "dit029/SmartMirror/" + args[1] + "/shoppingList";
