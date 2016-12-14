@@ -171,11 +171,17 @@ public class ShoppingHandler implements Observer {
         }
     }
     private void updateMirrorList(){
-        Long timestamp = System.currentTimeMillis() / 1000L;
-        JsonBuilder builderMirror = new JsonBuilder();
+        final Long timestamp = System.currentTimeMillis() / 1000L;
+        final JsonBuilder builderMirror = new JsonBuilder();
         if (this.SPLList.isEmpty()) {
             System.out.println("alright empty list");
             builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp),Integer.toString(0));
+            Thread thread = new Thread(new Runnable() {
+                public void run() {
+                    builderMirror.execute("SPLToMirror", clientID, Long.toString(timestamp),"-1");
+                }
+            });
+            thread.start();
         }
         else {
             builderMirror.execute("SPLToMirror",this.clientID,Long.toString(timestamp),Integer.toString(this.SPLList.size()),mirrorList(this.SPLList));
