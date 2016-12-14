@@ -99,7 +99,7 @@ public class ShoppingHandler implements Observer {
                             SPLList.remove(tempItem);
                             this.value = true;
                             this.updateMirrorList();
-                        } else if (tempType == "delete-list") {
+                        } else if (tempType.equals("delete-list")) {
                             SPLList.clear();
                             this.value = true;
                             this.updateMirrorList();
@@ -145,8 +145,6 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
     }
-
-
     public void addClassObserver(MQTTSub sub) {
         sub.addObserver(this);
     }
@@ -172,11 +170,9 @@ public class ShoppingHandler implements Observer {
         final JsonBuilder builderMirror = new JsonBuilder();
         if (this.SPLList.isEmpty()) {
             System.out.println("alright empty list");
-            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), Integer.toString(0));
+            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), "0");
             JsonBuilder builder = new JsonBuilder();
             builder.execute("SPLToMirror", clientID, Long.toString(timestamp), "-1");
-
-
         } else {
             builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), Integer.toString(this.SPLList.size()), mirrorList(this.SPLList));
         }
@@ -197,6 +193,7 @@ public class ShoppingHandler implements Observer {
             JsonBuilder builder = new JsonBuilder();
             builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType);
             tempType = requestType;
+            tempItem = item;
         }
     }
 

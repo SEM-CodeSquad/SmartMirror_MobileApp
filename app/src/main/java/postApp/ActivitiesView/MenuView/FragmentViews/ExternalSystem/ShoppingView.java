@@ -125,7 +125,7 @@ public class ShoppingView extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         presenter.updateList("add", input.getText().toString());
-                        for (int i = 0; i < 6; i++) {
+                        for (int i = 0; i < 10; i++) {
                             try {
                                 Thread.sleep(500);
                             } catch (InterruptedException e) {
@@ -164,12 +164,12 @@ public class ShoppingView extends Fragment {
                 makeToast("Please choose a mirror first");
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Clear Entire List");
+                builder.setTitle("Clear list items ?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         presenter.updateList("delete-list", "empty");
-                        for (int i = 0; i < 6; i++) {
+                        for (int i = 0; i < 10; i++) {
                             try {
                                 Thread.sleep(500);
                             } catch (InterruptedException e) {
@@ -214,7 +214,7 @@ public class ShoppingView extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 presenter.updateList("delete", selectedItem);
-                for (int i=0; i<6; i++){
+                for (int i=0; i<10; i++){
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
