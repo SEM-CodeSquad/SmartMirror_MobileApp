@@ -114,7 +114,7 @@ public class LoginInteractor implements Observer {
      * Calls settings db class to get the new settings with a observer
      * to know when the async task is doen
      */
-    public void UpdateSettings(){
+    private void UpdateSettings(){
         set = new FetchSettings(User);
         set.addObserver(this);
     }

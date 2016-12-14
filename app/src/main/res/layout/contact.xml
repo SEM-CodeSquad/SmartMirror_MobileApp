@@ -1,6 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Subject"
+        android:ems="10"
+        android:layout_below="@+id/receip"
+        android:layout_marginTop="32dp"
+        android:id="@+id/emtitle"
+        android:layout_alignStart="@+id/receip"
+        android:paddingLeft="16dp"
+        android:layout_alignEnd="@+id/receip" />
+
+    <TextView
+        android:text="Type in your Email:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/emtitle"
+        android:layout_marginBottom="48dp"
+        android:id="@+id/textview5"
+        android:layout_marginLeft="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="16dp" />
+
+    <TextView
+        android:text="Subject of your concern:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:layout_below="@+id/receip"
+        android:layout_marginTop="13dp"
+        android:layout_alignStart="@+id/emtitle" />
+
+    <EditText
+        android:background="@drawable/textfieldboxes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/emtext"
+        android:layout_below="@+id/emtitle"
+        android:layout_alignStart="@+id/emtitle"
+        android:layout_above="@+id/emailsend"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:gravity="top|left"
+        android:paddingLeft="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="16dp"
+        android:paddingRight="16dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_marginTop="85dp"
+        android:id="@+id/receip"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/textview5"
+        android:layout_marginRight="16dp" />
+
+    <TextView
+        android:text="Support"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:id="@+id/Support"
+        android:textSize="18sp" />
+
+    <Button
+        android:text="Send Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailsend"
+        android:layout_marginBottom="20dp"
+        style="@android:style/Widget.Button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/emtext"
+        android:layout_alignEnd="@+id/emtext"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

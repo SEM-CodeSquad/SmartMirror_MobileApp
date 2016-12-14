@@ -45,6 +45,7 @@ import postApp.ActivitiesView.AuthenticationView.LoginActivity;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.AboutView;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.ContactView;
+import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.FAQView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.HidePostitView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.ManagePostits.ManagePostitsView;
 import postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView.PostitView;
@@ -235,6 +236,10 @@ public class NavigationActivity extends AppCompatActivity
         else if (id == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+        }
+        else if (id == R.id.nav_help) {
+            fragment.beginTransaction().replace(R.id.content_frame, new FAQView()).addToBackStack(null).commit();
+            getSupportActionBar().setTitle("FAQ");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

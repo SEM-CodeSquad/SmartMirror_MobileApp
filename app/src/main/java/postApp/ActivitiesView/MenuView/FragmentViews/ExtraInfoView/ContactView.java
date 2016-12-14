@@ -24,30 +24,152 @@
 
 package postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.Button;
+import android.widget.Toast;
 
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
+import postApp.Presenters.MenuPresenters.FragmentPresenters.ExtraInfoPresenter.ContactPresenter;
 
 /**
- * Created by adinH on 2016-10-26.
+ * Class responsible for the contact layout view and instantiating all the buttons and onclicklistners
  */
+
 public class ContactView extends Fragment {
+
+    ProgressDialog pdialog = null;
+    Context context = null;
+    EditText reciep, sub, msg;
     View myView;
+    ContactPresenter presenter;
+
+    /**
+     * This method is ran on create of the view which instantiates the buttons and sets onclick listeners.
+     * @param inflater the inflater
+     * @param container the container
+     * @param savedInstanceState the saved instance
+     * @return the view
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.contact, container, false);
+
+        context = getActivity();
+        Button sendemail = (Button) myView.findViewById(R.id.emailsend);
+        reciep = (EditText) myView.findViewById(R.id.receip);
+        reciep.setText(((NavigationActivity) getActivity()).getUser());
+        sub = (EditText) myView.findViewById(R.id.emtitle);
+        msg = (EditText) myView.findViewById(R.id.emtext);
+        presenter = new ContactPresenter(this);
+        /**
+         * Sets a onclick lister to the button send email that calls the presenters function to send email
+         */
+        sendemail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.SendEmail(reciep.getText().toString(), sub.getText().toString(),  msg.getText().toString());
+            }
+        });
+
+        /**
+         * if the sub edittext has no focus hide it!
+         */
+        sub.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    presenter.hideKeyboard(v);
+                }
+            }
+        });
+        /**
+         * if the msg edittext has no focus hide it!
+         */
+        msg.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    presenter.hideKeyboard(v);
+                }
+            }
+        });
+        /**
+         * if the receip has no focus hide it!
+         */
+        reciep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    presenter.hideKeyboard(v);
+                }
+            }
+        });
+
         return myView;
     }
+
+    /**
+     * Method that onResume sets actionbar title
+     */
     @Override
     public void onResume(){
         super.onResume();
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Contact Us");
+    }
+
+    public void ShowProgress(){
+        pdialog = ProgressDialog.show(context, "", "Sending Mail...", true);
+    }
+
+    /**
+     * Method for reseting the email fields and making a toast
+     */
+    public void SentEmail() {
+        pdialog.dismiss();
+        msg.setText("");
+        sub.setText("");
+        Toast.makeText(getActivity(), "We hope to answer your Email within 24 hours", Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Method that hides keyboard when textfied not in focus
+     * @param view
+     * view its hiding keyboard from
+     */
+    public void HideKeyboard(View view){
+        InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+
+    /**
+     * Method to display a alertdialog with the Message S
+     * @param s the message
+     */
+    public void NotCorrect(String s) {
+            new AlertDialog.Builder(getActivity())
+                    .setMessage(s)
+                    .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+                    .show();
+
+
     }
 }

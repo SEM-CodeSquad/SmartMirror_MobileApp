@@ -36,4 +36,7 @@ dependencies {
     compile 'io.nlopez.smartlocation:library:3.2.9'
     compile files('libs/mysql-connector-java-3.1.14-bin.jar')
     compile 'com.android.support:support-v13:+'
+    compile files('libs/activation.jar')
+    compile files('libs/additionnal.jar')
+    compile files('libs/mail.jar')
 }
