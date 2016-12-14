@@ -1,3 +1,27 @@
+/*
+ * Copyright 2016 CodeHigh
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (C) 2016 CodeHigh.
+ *     Permission is granted to copy, distribute and/or modify this document
+ *     under the terms of the GNU Free Documentation License, Version 1.3
+ *     or any later version published by the Free Software Foundation;
+ *     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ *     A copy of the license is included in the section entitled "GNU
+ *     Free Documentation License".
+ */
+
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
 
 import android.os.Handler;
@@ -49,19 +73,19 @@ public class HidePostitHandler implements Observer {
      */
     public void FilterPost(String topic, String user, String yellow, String blue, String orange, String pink, String green, String purple) {
         String integer;
-        if (topic != "No mirror chosen") {
+        if (!topic.equals("No mirror chosen")) {
             AwaitEcho();
-            if (yellow == "true") {
+            if (yellow.equals("true")) {
                 integer = "6";
-            } else if (blue == "true") {
+            } else if (blue.equals("true")) {
                 integer = "1";
-            } else if (orange == "true") {
+            } else if (orange.equals("true")) {
                 integer = "4";
-            } else if (pink == "true") {
+            } else if (pink.equals("true")) {
                 integer = "5";
-            } else if (green == "true") {
+            } else if (green.equals("true")) {
                 integer = "2";
-            } else if (purple == "true") {
+            } else if (purple.equals("true")) {
                 integer = "3";
             } else {
                 integer = "0";
@@ -71,10 +95,8 @@ public class HidePostitHandler implements Observer {
 
             try {
                 R.execute(topic, "preferencesHide", user, integer).get();
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
-            } catch (ExecutionException e) {
-                System.out.println(e);
             }
         } else {
             HidePostitPresenter.NoMirror();
@@ -104,7 +126,7 @@ public class HidePostitHandler implements Observer {
     /**
      * Method for removing observer and disconnecting
      */
-    public void Disc() {
+    private void Disc() {
         echo.disconnect();
     }
     /**

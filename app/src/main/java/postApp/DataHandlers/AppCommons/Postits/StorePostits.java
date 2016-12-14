@@ -1,4 +1,29 @@
+/*
+ * Copyright 2016 CodeHigh
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (C) 2016 CodeHigh.
+ *     Permission is granted to copy, distribute and/or modify this document
+ *     under the terms of the GNU Free Documentation License, Version 1.3
+ *     or any later version published by the Free Software Foundation;
+ *     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ *     A copy of the license is included in the section entitled "GNU
+ *     Free Documentation License".
+ */
+
 package postApp.DataHandlers.AppCommons.Postits;
+
 import android.os.AsyncTask;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,18 +32,16 @@ import java.util.Observer;
 
 import postApp.DataHandlers.DBConnection.DBConnection;
 
-
 /**
  * Class that stores the postits in the database
  */
 
-public class StorePostits extends Observable implements Observer {
+public class StorePostits implements Observer {
     private DBConnection conn;
     private Connection c;
     private String user;
     private String postit;
     private String iD;
-    private Boolean stored;
     private String color;
     private long timeStamp;
 
@@ -40,7 +63,7 @@ public class StorePostits extends Observable implements Observer {
             conn = new DBConnection();
             conn.addObserver(this);
         } catch (Exception v) {
-            System.out.println(v);
+            v.printStackTrace();
         }
     }
 
@@ -72,40 +95,12 @@ public class StorePostits extends Observable implements Observer {
                 psPost.executeUpdate();
                 psPost.close();
 
-                stored = true;
-
             } catch (Exception e) {
                 e.printStackTrace();
-                stored = false;
 
             }
             return null;
         }
 
-        /**
-         * When the async task is done we notify the observers
-         * @param unused u
-         */
-        @Override
-        protected void onPostExecute(Void unused) {
-            NotObserver();
-        }
-
     }
-
-    /**
-     * Notify the observers
-     */
-    public void NotObserver(){
-        setChanged();
-        notifyObservers();
-    }
-
-    /**
-     * @return stored that is either true or false.
-     */
-    public Boolean getStoreStatus(){
-        return stored;
-    }
-
 }

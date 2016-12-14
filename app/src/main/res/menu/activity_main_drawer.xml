@@ -11,7 +11,7 @@
                     android:title="Add Post-It" />
                 <item
                     android:id="@+id/nav_mirror"
-                    android:icon="@drawable/mirror"
+                    android:icon="@drawable/manage"
                     android:title="Manage Post-its" />
                 <item
                     android:id="@+id/nav_filterpost"
@@ -33,7 +33,7 @@
         <menu>
             <item
                 android:id="@+id/nav_preferences"
-                android:icon="@drawable/rem"
+                android:icon="@drawable/preferences"
                 android:title="Mirror Preferences" />
         </menu>
     </item>

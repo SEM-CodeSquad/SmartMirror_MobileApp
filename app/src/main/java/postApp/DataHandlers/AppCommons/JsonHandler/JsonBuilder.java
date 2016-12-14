@@ -72,7 +72,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             } else if (args[1].equals("pairing")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
-                sendthis.put("messageFrom", "test");
+                sendthis.put("messageFrom", args[2]);
                 sendthis.put("timestamp", Long.toString(timestamp));
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 sendthis.put("contentType", "pairing");

@@ -1,5 +1,28 @@
-package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
+/*
+ * Copyright 2016 CodeHigh
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (C) 2016 CodeHigh.
+ *     Permission is granted to copy, distribute and/or modify this document
+ *     under the terms of the GNU Free Documentation License, Version 1.3
+ *     or any later version published by the Free Software Foundation;
+ *     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ *     A copy of the license is included in the section entitled "GNU
+ *     Free Documentation License".
+ */
 
+package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
 
 import android.os.Handler;
 
@@ -7,16 +30,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
 import postApp.DataHandlers.AppCommons.Pairing.UUIDGenerator;
 import postApp.DataHandlers.MqTTHandler.Echo;
-
 import postApp.DataHandlers.AppCommons.Postits.StorePostits;
-
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.PostitPresenter;
 
 /**
@@ -30,10 +51,8 @@ public class PostitHandler implements Observer {
     private String idOne;
     private Echo echo;
     private String user;
-    private String date;
     private long timestamp;
     private boolean stored = false;
-    private String echotopic;
 
     /**
      * We set the postitpresenter, set the topic we are posting too. Instantiate a Echo Class that we observe
@@ -42,7 +61,7 @@ public class PostitHandler implements Observer {
      */
     public PostitHandler(PostitPresenter PostitPresenter, String mirror, String user) {
         this.PostitPresenter = PostitPresenter;
-        this.echotopic = "dit029/SmartMirror/" + mirror + "/echo";
+        String echotopic = "dit029/SmartMirror/" + mirror + "/echo";
         echo = new Echo(echotopic, user);
         echo.addObserver(this);
         echo.disconnect();
@@ -72,21 +91,20 @@ public class PostitHandler implements Observer {
             AwaitEcho();
             this.user = user;
             this.text = text;
-            this.date = date;
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            Locale loc = new Locale("GERMANY");
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", loc);
             //we make a date here to UNIX time, if its standard
-            if (date == "standard") {
+            if (date.equals("standard")) {
                 Calendar c = Calendar.getInstance();
                 c.setTime(new Date()); // Now use today date.
                 c.add(Calendar.DATE, 5); // Adding 5 days
                 this.timestamp = c.getTimeInMillis() / 1000;
-                this.date = sdf.format(c.getTime());
             }
             //else the date is chosen already by the user and
             else {
                 Date dateTemp;
                 try {
-                    dateTemp = sdf.parse(this.date);
+                    dateTemp = sdf.parse(date);
                     this.timestamp = (dateTemp.getTime()) / 1000;
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -138,7 +156,7 @@ public class PostitHandler implements Observer {
      * Method for storing postits in the database
      */
     private void StorePost() {
-        StorePostits storePostits = new StorePostits(user, idOne, color, text, timestamp);
+        new StorePostits(user, idOne, color, text, timestamp);
     }
 
     /**
