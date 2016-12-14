@@ -7,6 +7,7 @@
     android:focusableInTouchMode="true">
 
     <EditText
+        style="@style/EditTextCustomHolo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -17,7 +18,9 @@
         android:id="@+id/emtitle"
         android:layout_alignStart="@+id/receip"
         android:paddingLeft="16dp"
-        android:layout_alignEnd="@+id/receip" />
+        android:layout_alignEnd="@+id/receip"
+        android:selectAllOnFocus="true"
+        android:singleLine="true" />
 
     <TextView
         android:text="Type in your Email:"
@@ -58,6 +61,7 @@
         android:paddingRight="16dp" />
 
     <EditText
+        style="@style/EditTextCustomHolo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -69,7 +73,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@+id/textview5"
-        android:layout_marginRight="16dp" />
+        android:layout_marginRight="16dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true" />
 
     <TextView
         android:text="Support"

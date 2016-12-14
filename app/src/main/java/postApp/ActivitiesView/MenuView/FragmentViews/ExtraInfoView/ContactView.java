@@ -74,6 +74,7 @@ public class ContactView extends Fragment {
         reciep.setText(((NavigationActivity) getActivity()).getUser());
         sub = (EditText) myView.findViewById(R.id.emtitle);
         msg = (EditText) myView.findViewById(R.id.emtext);
+        pdialog = new ProgressDialog(getActivity());
         presenter = new ContactPresenter(this);
         /**
          * Sets a onclick lister to the button send email that calls the presenters function to send email
@@ -132,7 +133,13 @@ public class ContactView extends Fragment {
     }
 
     public void ShowProgress(){
-        pdialog = ProgressDialog.show(context, "", "Sending Mail...", true);
+
+        pdialog.setMessage("Sending Mail...");
+        pdialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pdialog.setIndeterminate(true);
+        pdialog.setCancelable(false);
+        pdialog.setCanceledOnTouchOutside(false);
+        pdialog.show();
     }
 
     /**

@@ -117,6 +117,9 @@ public class HidePostitView extends Fragment {
         progress.setMessage("Filtering postits");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
         progress.show();
     }
 

@@ -30,6 +30,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -37,6 +38,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
@@ -53,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView forgot;
     private LoginPresenter presenter;
     ProgressDialog progress;
-
+    private Boolean exit = false;
     /**
      * This method is ran when activity is created. We set onclicklisteners and
      * Initialize the views
@@ -118,9 +120,22 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
 
     }
-
     /**
      * @param menu
      * Creates option menu when the activity is created
@@ -165,6 +180,8 @@ public class LoginActivity extends AppCompatActivity {
         progress.setMessage("Logging In");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
         progress.show();
     }
 

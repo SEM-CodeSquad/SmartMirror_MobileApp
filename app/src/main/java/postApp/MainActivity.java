@@ -26,8 +26,10 @@ package postApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 
+import adin.postApp.R;
 import postApp.ActivitiesView.AuthenticationView.LoginActivity;
 
 /**
@@ -42,9 +44,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Intent intent = new Intent(this, LoginActivity.class);
+        setContentView(R.layout.logo);
+        new CountDownTimer(5000,1000){
+            @Override
+            public void onTick(long millisUntilFinished){}
 
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            @Override
+            public void onFinish(){
+                startActivity(intent);
+            }
+        }.start();
+
 
     }
 }

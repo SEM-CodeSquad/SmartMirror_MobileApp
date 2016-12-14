@@ -262,6 +262,8 @@ public class PageFragment extends Fragment {
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
         progress.show();
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
     }
 
     /**

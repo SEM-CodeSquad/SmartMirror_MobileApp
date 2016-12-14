@@ -312,6 +312,9 @@ public class SettingsView extends Fragment {
         progress.setMessage("Updating settings");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
         progress.show();
     }
 

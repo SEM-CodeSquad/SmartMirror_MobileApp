@@ -147,6 +147,8 @@ public class SecretQActivity extends AppCompatActivity {
         progress.setMessage("Checking if Username and question are correct");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
         progress.show();
     }
     /**

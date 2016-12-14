@@ -155,6 +155,8 @@ public class RegisterActivity extends AppCompatActivity {
         progress.setMessage("Registring");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
         progress.show();
     }
     /**

@@ -176,6 +176,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
         progress.setMessage("Reseting Password");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
         progress.show();
     }
     /**
