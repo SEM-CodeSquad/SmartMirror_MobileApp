@@ -68,7 +68,11 @@ public class SettingsPresenter {
         SettingsView.SetNews(news);
     }
 
-    public void SetUserField(String user) {
+    /**
+     * Calls the method in the view that sets a textfield with the user
+     * @param user the username
+     */
+    private void SetUserField(String user) {
         SettingsView.SetUser(user);
     }
     /**

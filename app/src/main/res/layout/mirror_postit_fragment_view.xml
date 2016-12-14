@@ -32,7 +32,9 @@
         android:textSize="30dp"
         android:layout_marginTop="49dp"
         android:layout_alignTop="@+id/manageImageview"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:singleLine="false"
+        android:selectAllOnFocus="true" />
 
     <Button
         style="@style/BtnCustomHolo"

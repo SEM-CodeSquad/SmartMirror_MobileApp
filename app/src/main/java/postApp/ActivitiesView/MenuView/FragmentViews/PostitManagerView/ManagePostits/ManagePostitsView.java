@@ -48,7 +48,7 @@ public class ManagePostitsView extends Fragment {
     ProgressDialog progress;
 
     /**
-     * Oncreatemethod that instantiates all the views and starts fetching postits
+     * Oncreatemethod that instantiates all the views and starts fetching postits. And Instantiating a new ManageSwiper adapter, with the fragment manager and the postits it fetched
      * @param inflater the inflater
      * @param container the container
      * @param savedInstanceState the savedinstance

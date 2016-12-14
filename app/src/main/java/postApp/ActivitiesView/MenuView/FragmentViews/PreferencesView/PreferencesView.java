@@ -43,7 +43,7 @@ import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.PreferencesPresenter;
 
 /**
- * This class is responsible for the preferences fragment, handles all the views (buttons, switches).
+ * This class is responsible for the preferences fragment, handles all the views (buttons, switches) and the user clicks and input..
  */
 
 public class PreferencesView extends Fragment {

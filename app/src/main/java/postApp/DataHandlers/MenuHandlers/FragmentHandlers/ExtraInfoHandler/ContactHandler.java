@@ -101,8 +101,7 @@ public class ContactHandler {
     }
 
     /**
-     * Function that checks if its a email
-     *
+     * Function that checks if the Charsequence is a email
      * @param email the Charsequence that needs to be checked
      * @return true or false
      */

@@ -21,7 +21,10 @@
         android:layout_alignStart="@+id/regbtn"
         android:layout_alignRight="@+id/regclc"
         android:layout_alignEnd="@+id/regclc"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:paddingLeft="4dp"
+        android:singleLine="true"
+        android:selectAllOnFocus="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -35,7 +38,10 @@
         android:layout_alignStart="@+id/textView3"
         android:layout_alignRight="@+id/reguser"
         android:layout_alignEnd="@+id/reguser"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:paddingLeft="4dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true" />
 
     <Button
         android:layout_height="wrap_content"
@@ -79,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Username"
+        android:text="Email Adress"
         android:id="@+id/textView4"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:layout_marginLeft="50dp"
@@ -98,7 +104,10 @@
         android:layout_marginRight="50dp"
         android:layout_below="@+id/textView4"
         android:layout_alignStart="@+id/textView4"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:paddingLeft="4dp"
+        android:singleLine="true"
+        android:selectAllOnFocus="true" />
     <TextView
         android:text="© CodeHigh 2016"
         android:layout_width="wrap_content"

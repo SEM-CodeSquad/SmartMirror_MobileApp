@@ -22,40 +22,36 @@
  *     Free Documentation License".
  */
 
-package postApp;
+package postApp.Presenters.MenuPresenters.FragmentPresenters.ExtraInfoPresenter;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
+import java.util.HashMap;
+import java.util.List;
 
-import adin.postApp.R;
-import postApp.ActivitiesView.AuthenticationView.LoginActivity;
+import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.FAQView;
+import postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExtraInfoHandler.FAQHandler;
 
 /**
- * Class that just switches activity to loginActivity
+ * Class responsible to interact with the handler and present the information to the view
  */
-public class MainActivity extends AppCompatActivity {
+
+public class FAQPresenter {
+    private FAQView FAQView;
+    private FAQHandler FAQHandler;
 
     /**
-     * Method that just switches activity on create, shows a loading screen with our logo for 3 seconds
-     * @param savedInstanceState the saved instance
+     * The constructor that sets the view passed and instantiates a FAQHandler
+     * @param FAQView the view
      */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.logo);
-        final Intent intent = new Intent(this, LoginActivity.class);
-        new CountDownTimer(4000,1000){
-            @Override
-            public void onTick(long millisUntilFinished){}
+    public FAQPresenter(FAQView FAQView) {
+        this.FAQView = FAQView;
+        FAQHandler = new FAQHandler();
+    }
 
-            @Override
-            public void onFinish(){
-                startActivity(intent);
-            }
-        }.start();
-
-
+    /**
+     * Sets the views adapter with all the Questions and answers we get from the handler
+     */
+    public void setAdapter() {
+        HashMap<String, List<String>> faqQuestions = FAQHandler.getInfo();
+        FAQView.SetAdapter(faqQuestions, FAQHandler.GetAnswer(faqQuestions));
     }
 }

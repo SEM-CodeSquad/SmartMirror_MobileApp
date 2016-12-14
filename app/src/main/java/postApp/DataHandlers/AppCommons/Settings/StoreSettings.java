@@ -79,7 +79,7 @@ public class StoreSettings implements Observer {
     }
 
     /**
-     * Async task that stores settings and sets sett to either true or false
+     * Async task that stores settings
      */
     private class storesettings extends AsyncTask<Void, Void, Void> {
 

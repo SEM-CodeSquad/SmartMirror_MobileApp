@@ -75,7 +75,7 @@ public class RegisterInteractor implements Observer {
     }
 
     /**
-     * Function that checks if its a email
+     * Function that checks if the charsequence is a email
      *
      * @param email the Charsequence that needs to be checked
      * @return true or false

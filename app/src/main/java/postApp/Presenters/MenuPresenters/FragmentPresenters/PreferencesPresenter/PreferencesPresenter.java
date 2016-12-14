@@ -105,11 +105,15 @@ public class PreferencesPresenter {
     public void DoneLoading() {
         PreferencesView.DoneLoading();
     }
-
+    /**
+     * Call the views method to set the busswitch to false
+     */
     public void BusFalse(){
         PreferencesView.BusFalse();
     }
-
+    /**
+     * Call the views method to set the shoppingswitch to false
+     */
     public void ShoppingFalse(){
         PreferencesView.ShoppingFalse();
     }

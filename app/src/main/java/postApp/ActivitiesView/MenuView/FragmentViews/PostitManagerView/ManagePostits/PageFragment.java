@@ -43,7 +43,7 @@ import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.ManagePostits.PageFragmentPresenter;
 
 /**
- * Class that is a for the PageFragment view
+ * Class that is responsible for the PageFragment view. Handling the views and onclicklisteners
  */
 
 public class PageFragment extends Fragment {

@@ -123,13 +123,19 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * On back pressed which waits for two clicks and then goes to home. Used for going out of login activity
+     */
     @Override
     public void onBackPressed() {
         if (exit) {
-            finish(); // finish activity
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);// finish activity
         } else {
             Toast.makeText(this, "Press Back again to Exit.",
                     Toast.LENGTH_SHORT).show();
+
             exit = true;
             new Handler().postDelayed(new Runnable() {
                 @Override

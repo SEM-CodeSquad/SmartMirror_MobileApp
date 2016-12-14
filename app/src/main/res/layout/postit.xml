@@ -32,7 +32,8 @@
         android:textStyle="normal"
         android:layout_below="@+id/colorbutton"
         android:layout_centerHorizontal="true"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:selectAllOnFocus="true" />
 
     <ImageButton
         android:id="@+id/checkmark"

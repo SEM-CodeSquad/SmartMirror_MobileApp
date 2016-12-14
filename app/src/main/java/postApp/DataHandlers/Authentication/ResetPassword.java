@@ -63,8 +63,9 @@ class ResetPassword extends Observable implements Observer {
 
     /**
      * Just a method waiting for a update from the dbconnection that then start a resetpass asynctask and executes it
+     *
      * @param observable The observable
-     * @param o the object
+     * @param o          the object
      */
     @Override
     public void update(Observable observable, Object o) {
@@ -108,15 +109,6 @@ class ResetPassword extends Observable implements Observer {
             }
 
             return null;
-        }
-
-        /**
-         * When async task is done we notify the observers
-         * @param unused unused
-         */
-        @Override
-        protected void onPostExecute(Void unused) {
-            NotObserver();
         }
     }
 }

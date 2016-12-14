@@ -68,13 +68,18 @@ public class SecretQActivity extends AppCompatActivity {
 
         presenter = new SecretQPresenter(this);
 
-
+        /**
+         * if the confirm button is pressed get the text and secret and call the presenters method
+         */
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.OnSecret(usrname.getText().toString(), secret.getText().toString());
             }
         });
+        /**
+         * if the cancel has no focus hide it!
+         */
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +94,9 @@ public class SecretQActivity extends AppCompatActivity {
                 }
             }
         });
-        //if the passwrd has no focus hide it!
+        /**
+         * if the passwrd has no focus hide it!
+         */
         secret.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

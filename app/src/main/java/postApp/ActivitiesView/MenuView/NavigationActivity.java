@@ -60,7 +60,8 @@ import postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView.SettingsVie
 import postApp.Presenters.MenuPresenters.NavigationPresenter;
 
 /**
- * This class is shared by all the fragments, it handles the toolbar and navigationdrawer
+ * This class is shared by all the fragments, it handles the toolbar and navigationdrawer. All the clicks on them is handled by this class.
+ * Since this activity is shared by all the fragments, some values needed are stored here so all fragments can access them. Such as the Mirror QrCode.
  */
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -112,6 +113,7 @@ public class NavigationActivity extends AppCompatActivity
         }
 
         View header=navigationView.getHeaderView(0);
+        //sets the navigation drawer view Usernavdrav text
         TextView usrnamenav = (TextView) header.findViewById(R.id.usernavdraw);
         usrnamenav.setText(presenter.getUser());
 
@@ -145,14 +147,13 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     /**
-     * When this activity is created this method is automatically called which inflates the menu. And sets the name of the TextView to the user logged in
+     * When this activity is created this method is automatically called which inflates the menu.
      * @param menu the menu
      * @return true
      */
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
         return true;
     }
 
@@ -187,7 +188,9 @@ public class NavigationActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * This method is used to creating our action bar drawer. For both the slide and open we added a method to hide the keyboard if it's up.
+     */
     public void CreateDrawer(){
 
         toggle = new ActionBarDrawerToggle(
@@ -200,6 +203,7 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                //hide keyboard
                 InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
@@ -207,12 +211,16 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
+                //hide keyboard
                 InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
         };
     }
 
+    /**
+     * A method asking the user if he wants to pair, if he presses yes. A qrcodeview is switched to
+     */
     public void NotPaired() {
         new AlertDialog.Builder(this)
                 .setMessage("Mirror is not paired, would you like to pair now?")
@@ -259,19 +267,22 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_preferences) {
             fragment.beginTransaction().replace(R.id.content_frame, new PreferencesView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Preferences");
-        } else if (id == R.id.nav_shoppinglist) {
+        }
+        //You can only switch to the shoppinglist while you are paired
+        else if (id == R.id.nav_shoppinglist) {
             if(!getMirror().equals("No mirror chosen")){
                 fragment.beginTransaction().replace(R.id.content_frame, new ShoppingView()).addToBackStack(null).commit();
                 getSupportActionBar().setTitle("Shopping List");
             }
             else{
+                //shows a toast to pair first
                 presenter.makeToast();
             }
         } else if (id == R.id.nav_filterpost) {
             fragment.beginTransaction().replace(R.id.content_frame, new HidePostitView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Filter Post-Its");
         }
-        // If logout is pressed we switch activiy to LoginActivity
+        // If logout is pressed we switch activiy to LoginActivity. We also add the current user to the bundle so he doesnt have to type in his username again
         else if (id == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
             Bundle bundle = new Bundle();
@@ -290,12 +301,13 @@ public class NavigationActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Just displays a toast with the text to chose a mirror first
+     */
     public void NoMirror(){
         Toast.makeText(this, "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
 
     }
-
-
     /**
      * @return Mirror ID
      */

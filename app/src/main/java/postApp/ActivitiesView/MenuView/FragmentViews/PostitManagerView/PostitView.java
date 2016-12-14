@@ -48,7 +48,7 @@ import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.PostitPresenter;
 
 /**
- used for posting postits
+ Class responsible for the PostitView. Handles user clicks, instantiates views. Changes postit colors
  */
 public class PostitView extends Fragment {
 
@@ -148,7 +148,7 @@ public class PostitView extends Fragment {
     }
 
     /**
-     *
+     *  Method used for making a datepickerdialog and showing it.
      */
     public void ShowCalender(){
         Calendar c = Calendar.getInstance();

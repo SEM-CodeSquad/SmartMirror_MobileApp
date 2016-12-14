@@ -1,3 +1,27 @@
+/*
+ * Copyright 2016 CodeHigh
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (C) 2016 CodeHigh.
+ *     Permission is granted to copy, distribute and/or modify this document
+ *     under the terms of the GNU Free Documentation License, Version 1.3
+ *     or any later version published by the Free Software Foundation;
+ *     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ *     A copy of the license is included in the section entitled "GNU
+ *     Free Documentation License".
+ */
+
 package postApp.DataHandlers.AppCommons.JsonHandler;
 
 import android.os.AsyncTask;
@@ -10,29 +34,29 @@ import java.util.Date;
 
 import postApp.DataHandlers.MqTTHandler.HttpRequestSender;
 
-
+/**
+ * Class for used for building a json object and then starting a httprequestparser with this fully build json message and url.
+ */
 public class JsonBuilder extends AsyncTask<String, Void, String> {
-    private String topic;
     private HttpRequestSender post;
-    private String myUrl = "http://codehigh.ddns.me:8080/";
 
     /**
      * The following function contains the JSONBuilder for different functions needed for both mirror and the Shopping list
-     *
      * @param args arguments being passed to the parser
      * @return return the respond of the HTTP
      */
     @Override
     protected String doInBackground(String... args) {
         try {
+            //We get the current timestamp here
             Calendar c = Calendar.getInstance();
             c.setTime(new Date()); // Now use today date.
             c.add(Calendar.DATE, 5); // Adding 5 days
             long timestamp = c.getTimeInMillis() / 1000;
 
-
+            //If args[1] is postit we know we are supposed to publish a postit so we adjust all the args[] to that.
+            String topic;
             if (args[1].equals("postit")) {
-                //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
                 JSONArray jArray = new JSONArray();
                 JSONObject item = new JSONObject();
@@ -48,8 +72,9 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 String messagestring = sendthis.toJSONString();
                 post = new HttpRequestSender("54.154.153.243", topic, messagestring, "0", "false");
-            } else if (args[1].equals("config")) {
-                //TODO the actual content should be variables and put it in the sendthis object.
+            }
+            //If args[1] is postit we know we are supposed to publish the settings so we adjust all the args[] to that.
+            else if (args[1].equals("config")) {
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", args[2]);
                 sendthis.put("timestamp", Long.toString(timestamp));
@@ -58,6 +83,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 topic = "dit029/SmartMirror/" + args[0] + "/settings";
                 JSONArray jArray = new JSONArray();
                 JSONObject jOBJ = new JSONObject();
+                //Which type of settings to publish
                 if (args[3].equals("newsedit")) {
                     jOBJ.put("news", args[4]);
                 }
@@ -73,7 +99,10 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 String message = sendthis.toJSONString();
                 post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
 
-            } else if (args[1].equals("pairing")) {
+            }
+
+            //If args[1] is pairing we know we are supposed to publish pairing message so we adjust all the args[] to that.
+            else if (args[1].equals("pairing")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", args[2]);
@@ -82,14 +111,16 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("contentType", "pairing");
 
                 JSONArray jArray = new JSONArray();
-                JSONObject test = new JSONObject();
-                test.put("ClientID", args[2]);
-                jArray.add(test);
+                JSONObject theobj = new JSONObject();
+                theobj.put("ClientID", args[2]);
+                jArray.add(theobj);
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
                 post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
-            } else if (args[1].equals("postIt action")) {
+            }
+            //If args[1] is Postit ACtion we know we are supposed to publish a edit or delete so we adjust all the args[] to that.
+            else if (args[1].equals("postIt action")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", args[5]);
@@ -98,17 +129,19 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("contentType", args[1]);
 
                 JSONArray jArray = new JSONArray();
-                JSONObject test = new JSONObject();
-                test.put("postItID", args[2]);
-                test.put("action", args[3]);
-                test.put("modification", args[4]);
-                jArray.add(test);
+                JSONObject theobj = new JSONObject();
+                theobj.put("postItID", args[2]);
+                theobj.put("action", args[3]);
+                theobj.put("modification", args[4]);
+                jArray.add(theobj);
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
 
                 post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
-            } else if (args[1].equals("preferences")) {
+            }
+            //If args[1] is preferences we know we are supposed to publish the preferences so we adjust all the args[] we put in the object to that to that.
+            else if (args[1].equals("preferences")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", args[2]);
@@ -117,16 +150,16 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("contentType", args[1]);
 
                 JSONArray jArray = new JSONArray();
-                JSONObject test = new JSONObject();
-                test.put("news", args[3]);
-                test.put("bus", args[4]);
-                test.put("weather", args[5]);
-                test.put("clock", args[6]);
-                test.put("device", args[7]);
-                test.put("greetings", args[8]);
-                test.put("postits", args[9]);
-                test.put("shoppinglist", args[10]);
-                jArray.add(test);
+                JSONObject theobj = new JSONObject();
+                theobj.put("news", args[3]);
+                theobj.put("bus", args[4]);
+                theobj.put("weather", args[5]);
+                theobj.put("clock", args[6]);
+                theobj.put("device", args[7]);
+                theobj.put("greetings", args[8]);
+                theobj.put("postits", args[9]);
+                theobj.put("shoppinglist", args[10]);
+                jArray.add(theobj);
                 sendthis.put("content", jArray);
 
                 String message = sendthis.toJSONString();
@@ -200,17 +233,13 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 post = new HttpRequestSender("54.154.153.243", topic, messageString, "0", "false");
             }
 
+            String myUrl = "http://codehigh.ddns.me:8080/";
             post.executePost(myUrl);
             return post.getHttpResponse();
 
         } catch (Exception e) {
             return "Warning: did not publish";
         }
-
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
 
     }
 }

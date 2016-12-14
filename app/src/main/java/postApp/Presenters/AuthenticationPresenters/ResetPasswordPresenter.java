@@ -68,13 +68,21 @@ public class ResetPasswordPresenter {
         ResetPasswordActivity.NoResetPassword();
     }
 
+    /**
+     * Calls the activities method to show a loading dialog
+     */
     public void loading(){
         ResetPasswordActivity.Loading();
     }
+    /**
+     * Calls the activities method to show a doneloading dialog
+     */
     public void DoneLoading(){
         ResetPasswordActivity.DoneLoading();
     }
-
+    /**
+     * Calls the activities method to show a too short password dialog
+     */
     public void tooShortPassword() {
         ResetPasswordActivity.TooShortPassword();
     }

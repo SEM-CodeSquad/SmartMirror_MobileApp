@@ -35,7 +35,7 @@ import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 /**
- * Class that is just used for switching to the about layout.
+ * Class that is just used for switching to the about layout. The about layer is just a layout with no input or changes.
  */
 public class AboutView extends Fragment {
     View myView;

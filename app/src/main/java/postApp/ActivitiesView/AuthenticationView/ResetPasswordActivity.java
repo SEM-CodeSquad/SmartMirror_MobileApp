@@ -41,7 +41,7 @@ import adin.postApp.R;
 import postApp.Presenters.AuthenticationPresenters.ResetPasswordPresenter;
 
 /**
- * Class that is the view for the resetpassword activity
+ * Class that is the view for the resetpassword activity, instantiates the buttons and other views
  */
 public class ResetPasswordActivity extends AppCompatActivity {
 
@@ -202,6 +202,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * Shows a dialog saying password is shorter then 6 chars
+     */
     public void TooShortPassword() {
         new AlertDialog.Builder(this)
                 .setTitle("Password length is not larger than 5 numbers")

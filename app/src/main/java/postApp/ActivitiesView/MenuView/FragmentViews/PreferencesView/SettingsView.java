@@ -24,12 +24,16 @@
 
 package postApp.ActivitiesView.MenuView.FragmentViews.PreferencesView;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v13.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +47,7 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 /**
- * This class is responsible for the Settings view fragment and the views like buttons and textview
+ * This class is responsible for the Settings view fragment and the views like buttons and textviews.
  */
 public class SettingsView extends Fragment {
     View myView;
@@ -53,13 +57,14 @@ public class SettingsView extends Fragment {
     public String user;
     private SettingsPresenter presenter;
     public EditText bustext;
+    private String perm;
     public EditText newstext;
     public EditText weathertext;
     ProgressDialog progress;
     private TextView username;
 
     /**
-     * Method that is done on create
+     * Method that is called when this fragment is created.
      * @param inflater the inflater
      * @param container the viewgroup container
      * @param savedInstanceState the saved instance
@@ -122,11 +127,26 @@ public class SettingsView extends Fragment {
                         ((NavigationActivity) getActivity()).getWeather(), ((NavigationActivity) getActivity()).GetBusID(), ((NavigationActivity) getActivity()).getBus());
             }
         });
-        // a onclick listener that uses the library nlopez smartlocation lib that gets the current location one time only.
+        // a onclick listener that uses the library nlopez smartlocation lib that gets the current location one time only. Checks if
+        // the application has permission to ACCESS fine location
+        // if by location is chosen we use the SmartLocation lib once again to get the fixed location
         weatherbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.WeatherOnLoc();
+                if(hasPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    //this is if permission is already granted
+                    presenter.WeatherOnLoc();
+                }
+                else {
+                    //setting perm to "bus" to make it clear for the onRequestPermissionResult method what function to call in the presenter if
+                    // the app is given permission
+                    perm = "weather";
+                    //request permission
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            1);
+                }
+
             }
         });
 
@@ -287,12 +307,22 @@ public class SettingsView extends Fragment {
 
         //we build our bus alertdialog
         busbuilt = new AlertDialog.Builder(getActivity());
-        //We give the usser two options by location or by search.
+        //We give the user two options by location or by search.
         busbuilt.setMessage("Choose One Option")
                 .setPositiveButton("By Location", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // if by location is chosen we use the SmartLocation lib once again to get the fixed location
-                        presenter.BusByLoc();
+                        if(hasPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+                            // if by location is chosen we use the SmartLocation lib once again to get the fixed location
+                            presenter.BusByLoc();
+                        }
+                        else {
+                            //setting perm to "bus" to make it clear for the onRequestPermissionResult method what function to call in the presenter if
+                            // the app is given permission
+                            perm = "bus";
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    1);
+                        }
                     }
                 })
                 .setNegativeButton("By Search", new DialogInterface.OnClickListener() {
@@ -339,4 +369,48 @@ public class SettingsView extends Fragment {
                 })
                 .show();
     }
+    /** Determines if the context calling has the required permission
+     * @param context - the IPC context
+     * @param permission - The permissions to check
+     * @return true if the IPC has the granted permission
+     */
+    public static boolean hasPermission(Context context, String permission) {
+
+        int res = context.checkCallingOrSelfPermission(permission);
+        return res == PackageManager.PERMISSION_GRANTED;
+
+    }
+
+    /**
+     * Handles Request permission results, if the permission is given we wither Call the bus stop by location functionality in the presenter
+     * or we call the weather on location functionality depending on the string perm.
+     * @param requestCode the requestcode
+     * @param permissions the permission
+     * @param grantResults the granted result
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //If perm is bus we know we are supposed to set bus by location
+                    if(perm.equals("bus")) {
+                        presenter.BusByLoc();
+                    }
+                    //Else weather by location
+                    else{
+                        presenter.WeatherOnLoc();
+                    }
+                } else {
+                    //Displays a toast saying to give permission first
+                    Toast.makeText(getActivity(), "Permission denied to your GPS location, please enable this permission to use the applicaiton.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
 }

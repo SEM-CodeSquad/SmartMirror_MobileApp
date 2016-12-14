@@ -72,7 +72,7 @@ public class BusStopSearcherView extends Fragment {
         SearchBox.addTextChangedListener(new TextWatcher() {
 
             /**
-             * For a textwatcher you need to implement these methods they are not used
+             * For a textwatcher you need to implement these methods, they are not used
              * @param s not used
              * @param start not used
              * @param count not used
@@ -84,6 +84,7 @@ public class BusStopSearcherView extends Fragment {
             }
 
             /**
+             * For a textwatcher you need to implement these methods, they are not used
              * @param s not used
              * @param start not used
              * @param count not used

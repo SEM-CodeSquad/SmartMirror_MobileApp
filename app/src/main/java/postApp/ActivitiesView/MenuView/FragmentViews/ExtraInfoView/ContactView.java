@@ -69,6 +69,7 @@ public class ContactView extends Fragment {
         myView = inflater.inflate(R.layout.contact, container, false);
 
         context = getActivity();
+        //instantiates the views
         Button sendemail = (Button) myView.findViewById(R.id.emailsend);
         reciep = (EditText) myView.findViewById(R.id.receip);
         reciep.setText(((NavigationActivity) getActivity()).getUser());
@@ -132,6 +133,9 @@ public class ContactView extends Fragment {
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Contact Us");
     }
 
+    /**
+     * Shows a progress dialog for sending mail
+     */
     public void ShowProgress(){
 
         pdialog.setMessage("Sending Mail...");
@@ -176,7 +180,5 @@ public class ContactView extends Fragment {
                         }
                     })
                     .show();
-
-
     }
 }

@@ -63,6 +63,7 @@ public class NavigationPresenter {
             if(useDrawer) {
                 NavigationActivity.toggle.setToolbarNavigationClickListener(mOriginalListener);
             }
+            //when false the navigationclicklisteners becomes a back button
             else
                 NavigationActivity.toggle.setHomeAsUpIndicator(R.drawable.back); //set the icon to a back button
             NavigationActivity.toggle.setToolbarNavigationClickListener(new View.OnClickListener() {

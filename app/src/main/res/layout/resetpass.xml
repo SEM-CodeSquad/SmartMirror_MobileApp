@@ -18,7 +18,9 @@
         android:layout_alignLeft="@+id/textView17"
         android:layout_alignStart="@+id/textView17"
         android:layout_marginTop="8dp"
-        android:layout_width="290dp" />
+        android:layout_width="290dp"
+        android:hint="Enter Password"
+        android:paddingLeft="4dp" />
 
     <TextView
         android:text="New password"
@@ -33,7 +35,6 @@
         android:layout_marginTop="300dp" />
 
     <TextView
-        android:text="Confirm Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView12"
@@ -55,7 +56,10 @@
         android:layout_alignLeft="@+id/textView12"
         android:layout_alignStart="@+id/textView12"
         android:layout_alignRight="@+id/cancelresetbtn"
-        android:layout_alignEnd="@+id/cancelresetbtn" />
+        android:layout_alignEnd="@+id/cancelresetbtn"
+        android:layout_marginLeft="4dp"
+        android:singleLine="true"
+        android:selectAllOnFocus="true" />
 
     <Button
         style="@style/BtnCustomHolo"

@@ -41,7 +41,7 @@ import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.HidePostitPresenter;
 
 /**
- * Class used responsible for the HidePostitView
+ * Class used responsible for the HidePostitView. The class insantiates the radiobuttons, handles onclicklisteners and communicates with the presenter.
  */
 public class HidePostitView extends Fragment {
     View myView;

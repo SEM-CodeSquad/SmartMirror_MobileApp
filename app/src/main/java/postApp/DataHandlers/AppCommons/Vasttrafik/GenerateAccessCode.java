@@ -40,7 +40,7 @@ import java.net.URL;
 public class GenerateAccessCode extends AsyncTask<String, Void, String> {
 
     /**
-     * A curl command that request authorization with secret key and access key from västtrafik
+     * A Http rquest that fetches a access key to their API.
      * @return the code that is gotten from västtrafik
      */
     protected String doInBackground(String... args) {

@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * When back is pressed we call the superfucntions backpresed
+     * When back is pressed we call the superfucntions backpressed
      */
     @Override
     public void onBackPressed() {
@@ -176,6 +176,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * A alertdialog method that shows that the string S.
+     * @param S the message
      */
     public void NotCorrect(String S){
         new AlertDialog.Builder(this)

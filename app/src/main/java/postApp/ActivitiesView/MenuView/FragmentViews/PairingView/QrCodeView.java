@@ -65,6 +65,9 @@ public class QrCodeView extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mScannerView = new ZXingScannerView(getActivity());   // Programmatically initialize the scanner view
 
+        /**
+         * Checks if you have camera permission, if you have you start camera and if you dont you ask for the permission
+         */
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -82,7 +85,7 @@ public class QrCodeView extends Fragment  {
     }
 
     /**
-     * Android function for requesting permission, if granted starts camera
+     * Android function for requesting permission, if granted starts camera, else shows a toast that says you need to give permission
      * @param requestCode the request code
      * @param permissions the permissiom
      * @param grantResults the result
