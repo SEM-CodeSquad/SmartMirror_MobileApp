@@ -1,40 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#383838"
+    android:background="#e6e5e5"
     android:weightSum="1"
     android:clickable="true"
     android:focusableInTouchMode="true">
 
     <EditText
         android:layout_width="match_parent"
-        android:inputType="textPersonName"
-        android:background="@drawable/textfieldboxes"
+        android:layout_height="30dp"
         android:ems="10"
-        android:id="@+id/reguser"
-        android:layout_marginTop="125dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_height="40dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
         android:inputType="textEmailAddress"
         android:background="@drawable/textfieldboxes"
-        android:ems="10"
         android:id="@+id/regsecret"
         android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/regbtn"
         android:layout_alignStart="@+id/regbtn"
         android:layout_alignRight="@+id/regclc"
-        android:layout_alignEnd="@+id/regclc" />
+        android:layout_alignEnd="@+id/regclc"
+        android:layout_marginTop="8dp" />
 
     <EditText
         android:layout_width="match_parent"
         android:inputType="textPassword"
         android:background="@drawable/textfieldboxes"
+        android:layout_height="30dp"
         android:ems="10"
         android:id="@+id/regpass"
         android:layout_below="@+id/textView3"
@@ -42,20 +35,7 @@
         android:layout_alignStart="@+id/textView3"
         android:layout_alignRight="@+id/reguser"
         android:layout_alignEnd="@+id/reguser"
-        android:layout_height="40dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        style="@style/BtnCustomHolo"
-        android:id="@+id/regclc"
-        android:layout_gravity="right"
-        android:layout_alignTop="@+id/regbtn"
-        android:layout_toRightOf="@+id/regbtn"
-        android:layout_alignRight="@+id/regpass"
-        android:layout_alignEnd="@+id/regpass"
-        android:focusableInTouchMode="false"/>
+        android:layout_marginTop="8dp" />
 
     <Button
         android:layout_height="wrap_content"
@@ -66,7 +46,8 @@
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2"
         android:layout_width="160dp"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,11 +55,12 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="What was your first childhood nickname?"
         android:id="@+id/textView2"
-        android:textColor="#ffffff"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:layout_below="@+id/regpass"
         android:layout_alignLeft="@+id/regpass"
         android:layout_alignStart="@+id/regpass"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,11 +68,12 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Password"
         android:id="@+id/textView3"
-        android:textColor="#ffffff"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:layout_below="@+id/reguser"
         android:layout_alignLeft="@+id/reguser"
         android:layout_alignStart="@+id/reguser"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -98,11 +81,63 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Username"
         android:id="@+id/textView4"
-        android:textColor="#ffffff"
-        android:layout_above="@+id/textView3"
-        android:layout_alignParentLeft="true"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:layout_marginLeft="50dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="50dp" />
+        android:layout_marginTop="290dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:inputType="textPersonName"
+        android:background="@drawable/textfieldboxes"
+        android:layout_width="290dp"
+        android:layout_height="30dp"
+        android:ems="10"
+        android:id="@+id/reguser"
+        android:layout_marginRight="50dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_marginTop="8dp" />
+    <TextView
+        android:text="© CodeHigh 2016"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="12sp" />
+    <ImageView
+        app:srcCompat="@drawable/logoactivity"
+        android:id="@+id/imageView21"
+        android:layout_alignParentTop="true"
+        android:layout_width="400dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="325dp"
+        android:layout_above="@+id/textView12" />
+
+    <ImageView
+        app:srcCompat="@drawable/companylogo"
+        android:id="@+id/imageView22"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        style="@style/BtnCustomHolo"
+        android:id="@+id/regclc"
+        android:layout_gravity="right"
+        android:focusableInTouchMode="false"
+        android:layout_alignTop="@+id/regbtn"
+        android:layout_alignEnd="@+id/regpass"
+        android:layout_toEndOf="@+id/regbtn" />
 
 </RelativeLayout>

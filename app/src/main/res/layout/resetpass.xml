@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#383838"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#e6e5e5"
     android:weightSum="1"
     android:clickable="true"
     android:focusableInTouchMode="true">
@@ -15,7 +17,7 @@
         android:layout_below="@+id/textView17"
         android:layout_alignLeft="@+id/textView17"
         android:layout_alignStart="@+id/textView17"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="8dp"
         android:layout_width="290dp" />
 
     <TextView
@@ -23,12 +25,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView17"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="48dp"
-        android:layout_marginTop="135dp" />
+        android:layout_marginTop="300dp" />
 
     <TextView
         android:text="Confirm Password"
@@ -36,7 +38,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView12"
         android:layout_marginTop="18dp"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:layout_below="@+id/newpassrest"
         android:layout_alignLeft="@+id/newpassrest"
         android:layout_alignStart="@+id/newpassrest" />
@@ -46,7 +48,7 @@
         android:layout_height="30dp"
         android:inputType="textPassword"
         android:ems="10"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:id="@+id/confirmreset"
         android:background="@drawable/textfieldboxes"
         android:layout_below="@+id/textView12"
@@ -56,17 +58,7 @@
         android:layout_alignEnd="@+id/cancelresetbtn" />
 
     <Button
-        android:text="Confirm"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:id="@+id/confresetbtn"
-        android:layout_width="140dp"
-        android:layout_below="@+id/confirmreset"
-        android:layout_alignLeft="@+id/confirmreset"
-        android:layout_alignStart="@+id/confirmreset"
-        android:focusableInTouchMode="false"/>
-
-    <Button
+        style="@style/BtnCustomHolo"
         android:text="Cancel"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
@@ -76,4 +68,46 @@
         android:layout_alignRight="@+id/newpassrest"
         android:layout_alignEnd="@+id/newpassrest"
         android:focusableInTouchMode="false"/>
+
+    <Button
+        style="@style/BtnCustomHolo"
+        android:text="Confirm"
+        android:layout_height="wrap_content"
+        android:id="@+id/confresetbtn"
+        android:layout_width="140dp"
+        android:focusableInTouchMode="false"
+        android:layout_below="@+id/confirmreset"
+        android:layout_alignStart="@+id/confirmreset" />
+
+    <TextView
+        android:text="© CodeHigh 2016"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="12sp" />
+
+    <ImageView
+        app:srcCompat="@drawable/logoactivity"
+        android:id="@+id/imageView21"
+        android:layout_alignParentTop="true"
+        android:layout_width="400dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="325dp"
+        android:layout_above="@+id/textView12" />
+
+    <ImageView
+        app:srcCompat="@drawable/companylogo"
+        android:id="@+id/imageView22"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+
 </RelativeLayout>
