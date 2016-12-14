@@ -31,7 +31,6 @@ import postApp.DataHandlers.MqTTHandler.MQTTSub;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
 
 
-
 /*
  * This class is the handler for the ShoppingList component. This is where the logic part of the component
  * takes place (addition,deletion,parsing etc.).
@@ -57,24 +56,24 @@ public class ShoppingHandler implements Observer {
         this.value = false;
         MemoryPersistence persistence = new MemoryPersistence();
         this.clientID = clientID;
-        this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com",this.clientID+"@codehigh.com",persistence);
+        this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com", this.clientID + "@codehigh.com", persistence);
         this.view = ShoppingView;
         parent = view.getActivity();
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
 
 
-        if(this.clientID != "No mirror chosen"){
+        if (this.clientID != "No mirror chosen") {
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID + "@smartmirror.com","fetch");
+            builder.execute("shoppinglist", this.clientID + "@smartmirror.com", "fetch");
         }
     }
 
 
     /**
-     *  Method that take a MQTT message(String) and parse it according to the content of the message.
+     * Method that take a MQTT message(String) and parse it according to the content of the message.
      *
      * @param message A String containing the content of the MQTT message from the broker.
      */
@@ -87,31 +86,29 @@ public class ShoppingHandler implements Observer {
 
             if (json.containsKey("reply")) {
                 this.reply = json.get("reply").toString();
-                if(reply.equalsIgnoreCase("done")){
-                    if(json.get("data")!=null){
+                if (reply.equalsIgnoreCase("done")) {
+                    if (json.get("data") != null) {
                         this.SPLList.clear();
                         parseItem(message);
                     } else {
-                        if(tempType == "add"){
+                        if (tempType == "add") {
                             SPLList.add(tempItem);
                             this.value = true;
                             this.updateMirrorList();
-                        }
-                        else if (tempType == "delete"){
+                        } else if (tempType == "delete") {
                             SPLList.remove(tempItem);
                             this.value = true;
                             this.updateMirrorList();
-                        }
-                        else if (tempType == "delete-list"){
+                        } else if (tempType == "delete-list") {
                             SPLList.clear();
                             this.value = true;
                             this.updateMirrorList();
                         }
                     }
-                } else if (reply.equalsIgnoreCase("error")){
+                } else if (reply.equalsIgnoreCase("error")) {
                     toastMessage("Error updating List");
                 }
-            }else if(json.containsKey("client_id")){
+            } else if (json.containsKey("client_id")) {
                 // TODO Can be used for something.
             }
         } catch (ParseException e) {
@@ -128,9 +125,9 @@ public class ShoppingHandler implements Observer {
         try {
             JSONParser parser = new JSONParser();
             JSONObject jsonOBJ = (JSONObject) parser.parse(json);
-            if(jsonOBJ.get("data").equals("[]")){
+            if (jsonOBJ.get("data").equals("[]")) {
 
-            }else if(!(jsonOBJ.get("data").equals("[]"))) {
+            } else if (!(jsonOBJ.get("data").equals("[]"))) {
 
                 JSONArray jary = (JSONArray) jsonOBJ.get("data");
                 System.out.println(jary);
@@ -150,43 +147,41 @@ public class ShoppingHandler implements Observer {
     }
 
 
-    public void addClassObserver(MQTTSub sub){
+    public void addClassObserver(MQTTSub sub) {
         sub.addObserver(this);
     }
 
     public void listenSubscription(final String topic) {
         try {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                    MQTTSub subscriber = new MQTTSub(mqttClient,topic);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    MQTTSub subscriber = new MQTTSub(mqttClient, topic);
                     addClassObserver(subscriber);
-            }
-        });
+                }
+            });
             thread.start();
             System.out.println("listening to this topic " + topic);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    private void updateMirrorList(){
+
+    private void updateMirrorList() {
         final Long timestamp = System.currentTimeMillis() / 1000L;
         final JsonBuilder builderMirror = new JsonBuilder();
         if (this.SPLList.isEmpty()) {
             System.out.println("alright empty list");
-            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp),Integer.toString(0));
-            Thread thread = new Thread(new Runnable() {
-                public void run() {
-                    builderMirror.execute("SPLToMirror", clientID, Long.toString(timestamp),"-1");
-                }
-            });
-            thread.start();
-        }
-        else {
-            builderMirror.execute("SPLToMirror",this.clientID,Long.toString(timestamp),Integer.toString(this.SPLList.size()),mirrorList(this.SPLList));
+            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), Integer.toString(0));
+
+            JsonBuilder builder = new JsonBuilder();
+            builder.execute("SPLToMirror", clientID, Long.toString(timestamp), "-1");
+
+        } else {
+            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), Integer.toString(this.SPLList.size()), mirrorList(this.SPLList));
         }
     }
+
     public void updateList(String requestType, String item) {
         if (requestType == "add") {
             JsonBuilder builder = new JsonBuilder();
@@ -198,18 +193,19 @@ public class ShoppingHandler implements Observer {
             builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType, item); // The client id here is the one we should be using.
             tempType = requestType;
             tempItem = item;
-        }
-        else if (requestType == "delete-list"){
+        } else if (requestType == "delete-list") {
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType);
+            builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType);
             tempType = requestType;
         }
     }
+
     @Override
     public void update(Observable observable, final Object obj) {
         if (obj instanceof MqttMessage) {
             Thread thread = new Thread(new Runnable() {
                 Object o = obj;
+
                 @Override
                 public void run() {
                     String str = o.toString();
@@ -222,28 +218,32 @@ public class ShoppingHandler implements Observer {
         }
     }
 
-    public String mirrorList(LinkedList shoppingList){
+    public String mirrorList(LinkedList shoppingList) {
         String list = "";
-        for (int i = 0; i < shoppingList.size(); i++){
-                list += shoppingList.get(i).toString() + ",";
-            }
+        for (int i = 0; i < shoppingList.size(); i++) {
+            list += shoppingList.get(i).toString() + ",";
+        }
         System.out.println("the mirror list is " + list);
         return list;
     }
-    public void toastMessage(final String msg){
+
+    public void toastMessage(final String msg) {
         parent.runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(parent.getBaseContext(), msg, Toast.LENGTH_LONG).show();
             }
         });
     }
-    public boolean getBoolean(){
+
+    public boolean getBoolean() {
         return this.value;
     }
-    public void setBooleanFalse(){
+
+    public void setBooleanFalse() {
         this.value = false;
     }
-    public LinkedList<String> getShoppingList(){
+
+    public LinkedList<String> getShoppingList() {
         return this.SPLList;
     }
 
