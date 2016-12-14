@@ -98,6 +98,7 @@ public class NavigationActivity extends AppCompatActivity
         //if no mirror is chosen we call this method
         if (presenter.getMirror().equals("No mirror chosen")) {
             presenter.notPaired();
+
         }
         //here we just get the user that logged in from before using a bundle
         Bundle extras = getIntent().getExtras();
@@ -164,6 +165,7 @@ public class NavigationActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Settings");
+
         }
         if (id == R.id.pairmirror) {
             //since pairmirror uses a back button we save the original listener which is a drawer
@@ -188,6 +190,7 @@ public class NavigationActivity extends AppCompatActivity
                         getSupportActionBar().setTitle("Mirror ID");
                         //switch screen to QrCodeView2 frame
                         getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView()).addToBackStack(null).commit();
+                        toggleDrawerUse(false);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
