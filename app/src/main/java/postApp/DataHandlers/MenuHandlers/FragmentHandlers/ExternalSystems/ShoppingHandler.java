@@ -168,8 +168,7 @@ public class ShoppingHandler implements Observer {
                 copyList.add(SPLList.get(i).toString());
             }
             copyList.add(item);
-            System.out.println(copyList.toString());
-            builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),mirrorList(copyList));
+            builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(copyList.size()),mirrorList(copyList));
 
         } else if (requestType == "delete"){
             JsonBuilder builder = new JsonBuilder();
@@ -185,7 +184,7 @@ public class ShoppingHandler implements Observer {
                     copyList.add(SPLList.get(i).toString());
                 }
                 copyList.remove(item);
-                builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(SPLList.size()),mirrorList(copyList));
+                builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(copyList.size()),mirrorList(copyList));
             }
 
         }else if (requestType == "delete-list"){
@@ -228,13 +227,9 @@ public class ShoppingHandler implements Observer {
     public String mirrorList(LinkedList<String> copyList){
         String list = "";
         for (int i = 0; i < copyList.size(); i++){
-            if (i == copyList.size()-1){
-                list = list + copyList.get(i);
+                list += copyList.get(i) + ",";
             }
-            else {
-                list = list + copyList.get(i) + ",";
-            }
-        }
+
         return list;
     }
     public boolean getBoolean(){

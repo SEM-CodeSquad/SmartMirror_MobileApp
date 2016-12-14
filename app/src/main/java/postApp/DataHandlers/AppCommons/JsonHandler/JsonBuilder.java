@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 
 import postApp.DataHandlers.MqTTHandler.HttpRequestSender;
 
@@ -179,6 +180,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 //Check how long the argument is and add item accordingly
 
                 if (!(args[3] == null)) {
+
                     JSONObject item = new JSONObject();
                     JSONArray jArray = new JSONArray();
                     String tmp = args[4];
