@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Intent intent = new Intent(this, LoginActivity.class);
         setContentView(R.layout.logo);
-        new CountDownTimer(5000,1000){
+        final Intent intent = new Intent(this, LoginActivity.class);
+        new CountDownTimer(4000,1000){
             @Override
             public void onTick(long millisUntilFinished){}
 
