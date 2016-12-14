@@ -25,6 +25,7 @@ import java.util.Observer;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.MqTTHandler.Echo;
 import postApp.DataHandlers.MqTTHandler.MQTTClient;
 import postApp.DataHandlers.MqTTHandler.MQTTSub;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
@@ -62,7 +63,6 @@ public class ShoppingHandler implements Observer {
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
 
-        makeToast("SOMETHING!0");
         if(this.clientID != "No mirror chosen"){
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");
@@ -102,13 +102,11 @@ public class ShoppingHandler implements Observer {
                         }
                     }
                 } else if (reply.equalsIgnoreCase("error")){
-                    toastMsg("Error updating List");
+                    toastMessage("Error updating List");
                 }
             }else if(json.containsKey("client_id")){
-                toastMsg("Shopping List fetched");
+                // TODO Can be used for something.
             }
-
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -159,11 +157,12 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
     }
-    public void updateMirrorList(){
+    private void updateMirrorList(){
         Long timestamp = System.currentTimeMillis() / 1000L;
         JsonBuilder builderMirror = new JsonBuilder();
         if (this.SPLList.isEmpty()) {
-            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp));
+            System.out.println("alright empty list");
+            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp),Integer.toString(0));
         }
         else {
             builderMirror.execute("SPLToMirror",this.clientID,Long.toString(timestamp),Integer.toString(this.SPLList.size()),mirrorList(this.SPLList));
@@ -212,7 +211,7 @@ public class ShoppingHandler implements Observer {
         System.out.println("the mirror list is " + list);
         return list;
     }
-    public void toastMsg(final String msg){
+    public void toastMessage(final String msg){
         parent.runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(parent.getBaseContext(), msg, Toast.LENGTH_LONG).show();

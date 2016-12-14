@@ -223,6 +223,8 @@ public class ShoppingView extends Fragment {
                     if (presenter.getBoolean()){
                         break;
                     }
+                }
+                if(!presenter.getBoolean()){
                     makeToast("Error removing item, please try again");
                 }
                 if (presenter.getBoolean()){
