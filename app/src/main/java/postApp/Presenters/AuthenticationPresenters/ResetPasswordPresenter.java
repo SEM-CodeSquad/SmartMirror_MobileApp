@@ -14,8 +14,8 @@ public class ResetPasswordPresenter {
     /**
      * Constructor that sets the views and starts a new interactor and injecting this presenter
      */
-    ResetPasswordInteractor ResetPasswordInteractor;
-    ResetPasswordActivity ResetPasswordActivity;
+    private ResetPasswordInteractor ResetPasswordInteractor;
+    private ResetPasswordActivity ResetPasswordActivity;
     public ResetPasswordPresenter(ResetPasswordActivity ResetPasswordActivity) {
         this.ResetPasswordActivity = ResetPasswordActivity;
         this.ResetPasswordInteractor = new ResetPasswordInteractor(this);
@@ -29,7 +29,7 @@ public class ResetPasswordPresenter {
      */
     public void CheckPasswords(String user, String pass, String confpass){
         ResetPasswordInteractor.CheckPasswords(user, pass, confpass);
-        loading();
+
     }
 
     /**
@@ -73,5 +73,9 @@ public class ResetPasswordPresenter {
     }
     public void DoneLoading(){
         ResetPasswordActivity.DoneLoading();
+    }
+
+    public void tooShortPassword() {
+        ResetPasswordActivity.TooShortPassword();
     }
 }

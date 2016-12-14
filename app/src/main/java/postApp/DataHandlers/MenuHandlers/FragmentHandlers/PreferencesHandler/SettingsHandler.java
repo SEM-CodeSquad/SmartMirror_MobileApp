@@ -1,3 +1,27 @@
+/*
+ * Copyright 2016 CodeHigh
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (C) 2016 CodeHigh.
+ *     Permission is granted to copy, distribute and/or modify this document
+ *     under the terms of the GNU Free Documentation License, Version 1.3
+ *     or any later version published by the Free Software Foundation;
+ *     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ *     A copy of the license is included in the section entitled "GNU
+ *     Free Documentation License".
+ */
+
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PreferencesHandler;
 
 import android.location.Address;
@@ -98,11 +122,13 @@ public class SettingsHandler implements Observer {
                 this.busID = BusID;
                 this.bus = Busname;
                 JsonBuilder R = new JsonBuilder();
-                try {
-                    R.execute(mirror, "config", User, News, Weather, BusID).get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                R.execute(mirror, "config", User, "newsedit", News);
+
+                JsonBuilder E = new JsonBuilder();
+                E.execute(mirror, "config", User, "weatheredit", Weather);
+
+                JsonBuilder P = new JsonBuilder();
+                P.execute(mirror, "config", User, "busedit", BusID);
             }
             else{
                 //If not all settings are chosen we call the presenters function
@@ -121,7 +147,11 @@ public class SettingsHandler implements Observer {
     public void SetLocalStop() {
         //the first two lines generete a authorization key for the Västtrafik API.
         GenerateAccessCode gen = new GenerateAccessCode();
-        auth = gen.getAccess();
+        try {
+            auth = gen.execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
 
         // if by location is chosen we use the SmartLocation lib once again to get the fixed location
         SmartLocation.with(SettingsView.getActivity()).location()
@@ -185,7 +215,7 @@ public class SettingsHandler implements Observer {
      * Function used to storesettings and add a observer
      */
     private void StoreSettings(){
-        StoreSettings set = new StoreSettings(user, news, bus + ":" + busID, weather);
+       new StoreSettings(user, news, bus + ":" + busID, weather);
     }
 
     /**
@@ -226,7 +256,6 @@ public class SettingsHandler implements Observer {
     @Override
     public void update(Observable observable, Object o) {
             echoed = true;
-             StoreSettings();
-
+            StoreSettings();
     }
 }

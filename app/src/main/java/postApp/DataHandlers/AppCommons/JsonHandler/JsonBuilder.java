@@ -54,9 +54,16 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 topic = "dit029/SmartMirror/" + args[0] + "/settings";
                 JSONArray jArray = new JSONArray();
                 JSONObject jOBJ = new JSONObject();
-                jOBJ.put("busStop", args[5]);
-                jOBJ.put("news", args[3]);
-                jOBJ.put("weather", args[4]);
+                if(args[3].equals("newsedit")){
+                    jOBJ.put("news", args[4]);
+                }
+                if(args[3].equals("busedit")){
+                    jOBJ.put("busStop", args[4]);
+                }
+                else if(args[3].equals("weatheredit")){
+                    jOBJ.put("weather", args[4]);
+                }
+
                 jArray.add(jOBJ);
                 sendthis.put("content", jArray);
 
@@ -66,7 +73,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             } else if (args[1].equals("pairing")) {
                 //TODO the actual content should be variables and put it in the sendthis object.
                 JSONObject sendthis = new JSONObject();
-                sendthis.put("messageFrom", "test");
+                sendthis.put("messageFrom", args[2]);
                 sendthis.put("timestamp", Long.toString(timestamp));
                 topic = "dit029/SmartMirror/" + args[0] + "/" + args[1];
                 sendthis.put("contentType", "pairing");
@@ -115,7 +122,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 test.put("device", args[7]);
                 test.put("greetings", args[8]);
                 test.put("postits", args[9]);
-                test.put("shoppingList", args[10]);
+                test.put("shoppinglist", args[10]);
                 jArray.add(test);
                 sendthis.put("content", jArray);
 

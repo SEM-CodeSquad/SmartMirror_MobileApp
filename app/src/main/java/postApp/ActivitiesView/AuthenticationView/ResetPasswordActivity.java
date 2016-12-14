@@ -1,3 +1,27 @@
+/*
+ * Copyright 2016 CodeHigh
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (C) 2016 CodeHigh.
+ *     Permission is granted to copy, distribute and/or modify this document
+ *     under the terms of the GNU Free Documentation License, Version 1.3
+ *     or any later version published by the Free Software Foundation;
+ *     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ *     A copy of the license is included in the section entitled "GNU
+ *     Free Documentation License".
+ */
+
 package postApp.ActivitiesView.AuthenticationView;
 
 import android.app.Activity;
@@ -29,7 +53,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     /**
      * When we switch to this screen this method happens automatically
-     * @param savedInstanceState
+     * @param savedInstanceState the savedinstance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +119,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Creating optionsmenu
-     * @param menu
-     * @return
+     * CreatingOptionsMenu, SuperClassMethod
+     * @param menu the menu
+     * @return true
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,7 +154,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     /**
      * Call this method to hide keyboard
-     * @param view
+     * @param view the view
      */
     public void HideKeyboard(View view){
         InputMethodManager inputMethodManager =(InputMethodManager)this.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -168,6 +192,18 @@ public class ResetPasswordActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Password Reset Failed")
                 .setMessage("Please try again")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .show();
+    }
+
+    public void TooShortPassword() {
+        new AlertDialog.Builder(this)
+                .setTitle("Password length is not larger than 5 numbers")
+                .setMessage("Please type again the passwords")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete

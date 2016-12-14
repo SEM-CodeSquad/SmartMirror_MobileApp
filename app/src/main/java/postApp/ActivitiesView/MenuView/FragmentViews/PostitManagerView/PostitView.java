@@ -1,3 +1,27 @@
+/*
+ * Copyright 2016 CodeHigh
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (C) 2016 CodeHigh.
+ *     Permission is granted to copy, distribute and/or modify this document
+ *     under the terms of the GNU Free Documentation License, Version 1.3
+ *     or any later version published by the Free Software Foundation;
+ *     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ *     A copy of the license is included in the section entitled "GNU
+ *     Free Documentation License".
+ */
+
 package postApp.ActivitiesView.MenuView.FragmentViews.PostitManagerView;
 
 import android.app.Activity;
@@ -5,12 +29,9 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +42,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.util.Calendar;
-
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PostitManagerPresenter.PostitPresenter;
@@ -66,24 +85,18 @@ public class PostitView extends Fragment {
 
 
         /**
-         * Set a onclicklistener for the datebutton that shows a datepicker
+         * Set a onclicklistener for the datebutton that shows a datepicker by calling the presenters function ShowCalender
          */
         datebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(getActivity(),
-                        new mDateSetListener(), mYear, mMonth, mDay);
-                dialog.show();
+                presenter.ShowCalender();
             }
         });
 
 
         /**
-         * when colorbutton is pressed in the UI we show the color builder.
+         * When colorbutton is pressed in the UI we show the color builder by calling the presenter function for showing colors
          */
         colorbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +106,7 @@ public class PostitView extends Fragment {
         });
 
         /**
-        This is used for posting a postit with starting the Retrieve data class with all the args we need.
+         * This is used for posting a postit with starting the Retrieve data class with all the args we need.
          */
         checkmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +123,7 @@ public class PostitView extends Fragment {
 
 
         /**
-        Remove focus from typedtext when clicked on a diffrent place meaning we will hide keyboard when not typing
+         * Remove focus from typedtext when clicked on a diffrent place meaning we will hide keyboard when not typing
          */
         typedtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -134,6 +147,18 @@ public class PostitView extends Fragment {
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Publish Postit");
     }
 
+    /**
+     *
+     */
+    public void ShowCalender(){
+        Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+                new mDateSetListener(), mYear, mMonth, mDay);
+        dialog.show();
+    }
     /**
      * A alertdialog builder displaying a choice of colors and calling the presenter to change colors according to this
      */
@@ -260,7 +285,7 @@ public class PostitView extends Fragment {
     }
 
     /**
-     * Method that shows a alertdialog that says fail.
+     * Method that shows a alertdialog that says failed to add postit
      */
     public void UnsuccessfulPublish(){
         //if user types wrong login we show a alertdialog some text
@@ -290,13 +315,10 @@ public class PostitView extends Fragment {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
             // getCalender();
-            int mYear = year;
-            int mMonth = monthOfYear;
-            int mDay = dayOfMonth;
             datebutton.setText(new StringBuilder()
                     // Month is 0 based so add 1
-                    .append(mMonth + 1).append("/").append(mDay).append("/")
-                    .append(mYear).append(" "));
+                    .append(monthOfYear + 1).append("/").append(dayOfMonth).append("/")
+                    .append(year).append(" "));
         }
     }
 

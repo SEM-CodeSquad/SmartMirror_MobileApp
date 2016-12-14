@@ -1,3 +1,27 @@
+/*
+ * Copyright 2016 CodeHigh
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (C) 2016 CodeHigh.
+ *     Permission is granted to copy, distribute and/or modify this document
+ *     under the terms of the GNU Free Documentation License, Version 1.3
+ *     or any later version published by the Free Software Foundation;
+ *     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ *     A copy of the license is included in the section entitled "GNU
+ *     Free Documentation License".
+ */
+
 package postApp.DataHandlers.AppCommons.JsonHandler;
 
 import org.json.simple.JSONArray;
@@ -39,25 +63,32 @@ public class ParseJson {
      * @param json the json string
      * @param search the name we search for
      * @return the list but we use the method to clean the nulls from it first
-     * @throws ParseException
+     * @throws ParseException the exception
      */
     public String[] parseSearch(String json, String search) throws ParseException {
         JSONParser parser = new JSONParser();
         SearchMap = new HashMap<>();
         String newlist[] = new String[20];
         JSONObject jsonObject = (JSONObject) parser.parse(json);
-        JSONObject obj = (JSONObject) jsonObject.get("LocationList");
-        JSONArray jsarr = (JSONArray) obj.get("StopLocation");
-        for (int i = 0; i < jsarr.size(); i++) {
+        if(jsonObject.size() > 0) {
+            JSONObject obj = (JSONObject) jsonObject.get("LocationList");
+            JSONArray jsarr = (JSONArray) obj.get("StopLocation");
+            int size = jsarr.size();
+            if(size > 20){
+                size = 20;
+            }
 
-            JSONObject finalobj = (JSONObject) jsarr.get(i);
-            String name;
-            name = finalobj.get("name").toString();
-            String busID;
-            busID = finalobj.get("id").toString();
-            if (search.toLowerCase().equals(name.substring(0, search.length()).toLowerCase())) {
-                newlist[i] = name;
-                SearchMap.put(name, busID);
+            for (int i = 0; i < size; i++) {
+
+                JSONObject finalobj = (JSONObject) jsarr.get(i);
+                String name;
+                name = finalobj.get("name").toString();
+                String busID;
+                busID = finalobj.get("id").toString();
+                if (search.toLowerCase().equals(name.substring(0, search.length()).toLowerCase())) {
+                    newlist[i] = name;
+                    SearchMap.put(name, busID);
+                }
             }
         }
         return clean(newlist);
