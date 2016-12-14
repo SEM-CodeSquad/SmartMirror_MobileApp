@@ -61,7 +61,6 @@ public class ShoppingHandler implements Observer {
         parent = view.getActivity();
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
-        makeToast("something here");
         if(this.clientID != "No mirror chosen"){
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");
@@ -89,15 +88,18 @@ public class ShoppingHandler implements Observer {
                             System.out.println("Adding boy");
                             SPLList.add(tempItem);
                             this.value = true;
+                            this.updateMirrorList();
                             System.out.println(SPLList.toString());
                         }
                         else if (tempType == "delete"){
                             SPLList.remove(tempItem);
                             this.value = true;
+                            this.updateMirrorList();
                         }
                         else if (tempType == "delete-list"){
                             SPLList.clear();
                             this.value = true;
+                            this.updateMirrorList();
                         }
                     }
                 } else if (reply.equalsIgnoreCase("error")){
@@ -161,45 +163,35 @@ public class ShoppingHandler implements Observer {
         }
     }
 
-    public void updateList(String requestType, String item){
+    public void updateMirrorList(){
+        toastMsg("sending to mirror");
         Long timestamp = System.currentTimeMillis() / 1000L;
-
-        if (requestType == "add"){
-            LinkedList<String> copyList = new LinkedList<>();
-            for (int i = 0; i<this.SPLList.size();i++){
-                copyList.add(SPLList.get(i).toString());
-            }
+        JsonBuilder builderMirror = new JsonBuilder();
+        if (SPLList.isEmpty()) {
+            System.out.println("empty list");
+            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp));
+        }
+        else {
+            System.out.println("sending some items");
+            builderMirror.execute("SPLToMirror",this.clientID,Long.toString(timestamp),mirrorList(SPLList));
+        }
+    }
+    public void updateList(String requestType, String item) {
+        if (requestType == "add") {
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType,item);
-            tempType = requestType; tempItem = item;
-            JsonBuilder builderMirror = new JsonBuilder();
-
-            copyList.add(item);
-            builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(copyList.size()),mirrorList(copyList));
-
-        } else if (requestType == "delete"){
-            LinkedList<String> copyList = new LinkedList<>();
-            for (int i = 0; i<this.SPLList.size();i++){
-                copyList.add(SPLList.get(i).toString());
+            builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType, item);
+            tempType = requestType;
+            tempItem = item;
+        } else if (requestType == "delete") {
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType,item); // The client id here is the one we should be using.
-            tempType = requestType; tempItem = item;
-            JsonBuilder builderMirror = new JsonBuilder();
-            if (copyList.size() == 1) {
-                builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
-            }
-            else {
-                copyList.remove(item);
-                builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp),Integer.toString(copyList.size()),mirrorList(copyList));
-                }
-            }
-
-        }else if (requestType == "delete-list"){
+            builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType, item); // The client id here is the one we should be using.
+            tempType = requestType;
+            tempItem = item;
+        }
+        else if (requestType == "delete-list"){
             JsonBuilder builder = new JsonBuilder();
             builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType);
             tempType = requestType;
-            JsonBuilder builderMirror = new JsonBuilder();
-            builderMirror.execute("SPLToMirror", this.clientID,Long.toString(timestamp));
         }
     }
 
@@ -227,16 +219,11 @@ public class ShoppingHandler implements Observer {
         }
     }
 
-    public void makeToast(String message){
-        presenter.makeToast(message);
-    }
-
-    public String mirrorList(LinkedList<String> copyList){
+    public String mirrorList(LinkedList shoppingList){
         String list = "";
-        for (int i = 0; i < copyList.size(); i++){
-                list += copyList.get(i) + ",";
+        for (int i = 0; i < shoppingList.size(); i++){
+                list += shoppingList.get(i).toString() + ",";
             }
-
         return list;
     }
     public void toastMsg(final String msg){
