@@ -191,4 +191,8 @@ public class NavigationPresenter {
     public void notPaired() {
         NavigationActivity.NotPaired();
     }
+
+    public void makeToast() {
+        NavigationActivity.NoMirror();
+    }
 }

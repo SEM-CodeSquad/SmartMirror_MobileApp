@@ -43,6 +43,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import adin.postApp.R;
 import postApp.ActivitiesView.AuthenticationView.LoginActivity;
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
@@ -109,6 +111,10 @@ public class NavigationActivity extends AppCompatActivity
             // /The key argument here must match that used in the other activity
         }
 
+        View header=navigationView.getHeaderView(0);
+        TextView usrnamenav = (TextView) header.findViewById(R.id.usernavdraw);
+        usrnamenav.setText(presenter.getUser());
+
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -146,8 +152,7 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        TextView usrnamenav = (TextView) findViewById(R.id.usernavdraw);
-        usrnamenav.setText(presenter.getUser());
+
         return true;
     }
 
@@ -167,7 +172,6 @@ public class NavigationActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Settings");
-
         }
         if (id == R.id.pairmirror) {
             //since pairmirror uses a back button we save the original listener which is a drawer
@@ -256,8 +260,13 @@ public class NavigationActivity extends AppCompatActivity
             fragment.beginTransaction().replace(R.id.content_frame, new PreferencesView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Preferences");
         } else if (id == R.id.nav_shoppinglist) {
-            fragment.beginTransaction().replace(R.id.content_frame, new ShoppingView()).addToBackStack(null).commit();
-            getSupportActionBar().setTitle("Shopping List");
+            if(!getMirror().equals("No mirror chosen")){
+                fragment.beginTransaction().replace(R.id.content_frame, new ShoppingView()).addToBackStack(null).commit();
+                getSupportActionBar().setTitle("Shopping List");
+            }
+            else{
+                presenter.makeToast();
+            }
         } else if (id == R.id.nav_filterpost) {
             fragment.beginTransaction().replace(R.id.content_frame, new HidePostitView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Filter Post-Its");
@@ -265,6 +274,9 @@ public class NavigationActivity extends AppCompatActivity
         // If logout is pressed we switch activiy to LoginActivity
         else if (id == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("user", getUser());
+            intent.putExtras(bundle);
             startActivity(intent);
         }
         else if (id == R.id.nav_help) {
@@ -277,6 +289,12 @@ public class NavigationActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void NoMirror(){
+        Toast.makeText(this, "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
+
+    }
+
 
     /**
      * @return Mirror ID

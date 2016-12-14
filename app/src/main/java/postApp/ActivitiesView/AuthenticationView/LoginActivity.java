@@ -65,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginscreen);
+
+
         progress = new ProgressDialog(this);
         //initilize the views
         Button login = (Button)findViewById(R.id.login);
@@ -74,7 +76,10 @@ public class LoginActivity extends AppCompatActivity {
         regi = (TextView)findViewById(R.id.regibtn);
         presenter = new LoginPresenter(this);
 
-
+        Intent intent = getIntent();
+        if(intent.hasExtra("user")){
+            usrname.setText(intent.getExtras().getString("user"));
+        }
         //set a onclicklistener to the register button that calls OnRegister
         regi.setOnClickListener(new View.OnClickListener() {
             @Override
