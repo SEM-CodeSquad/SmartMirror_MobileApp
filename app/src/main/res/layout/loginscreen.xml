@@ -112,12 +112,12 @@
         android:layout_height="48dp" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:srcCompat="@drawable/blackvers"
+        app:srcCompat="@drawable/login"
         android:id="@+id/imageView21"
-        android:layout_marginTop="29dp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/loginuser" />
+        android:layout_width="400dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="325dp" />
 
 </RelativeLayout>
