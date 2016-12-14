@@ -173,7 +173,7 @@ public class ShoppingHandler implements Observer {
         }
         else {
             System.out.println("sending some items");
-            builderMirror.execute("SPLToMirror",this.clientID,Long.toString(timestamp),mirrorList(SPLList));
+            builderMirror.execute("SPLToMirror",this.clientID,Long.toString(timestamp),Integer.toString(this.SPLList.size()),mirrorList(this.SPLList));
         }
     }
     public void updateList(String requestType, String item) {
@@ -224,6 +224,7 @@ public class ShoppingHandler implements Observer {
         for (int i = 0; i < shoppingList.size(); i++){
                 list += shoppingList.get(i).toString() + ",";
             }
+        System.out.println("the mirror list is " + list);
         return list;
     }
     public void toastMsg(final String msg){
