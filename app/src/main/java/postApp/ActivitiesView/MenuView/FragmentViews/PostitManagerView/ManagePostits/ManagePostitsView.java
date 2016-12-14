@@ -87,7 +87,7 @@ public class ManagePostitsView extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Manage Mirror postits");
+        ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Manage Mirror Post-Its");
     }
 
     /**
