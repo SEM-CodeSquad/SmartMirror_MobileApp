@@ -24,9 +24,67 @@
 
 package postApp.Presenters.MenuPresenters.FragmentPresenters.ExtraInfoPresenter;
 
+import android.view.View;
+
+import postApp.ActivitiesView.MenuView.FragmentViews.ExtraInfoView.ContactView;
+import postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExtraInfoHandler.ContactHandler;
+
 /**
- * Created by Emanuel on 19/11/2016.
+ * Class for interacting between the contact view and the contact handler
  */
 
 public class ContactPresenter {
+
+    private ContactView ContactView;
+    private ContactHandler ContactHandler;
+
+    /**
+     * The constructor that sets the view and instantiates a handler with this clas.
+     * @param ContactView the view
+     */
+    public ContactPresenter(ContactView ContactView){
+        this.ContactView = ContactView;
+        ContactHandler = new ContactHandler(this);
+    }
+
+    /**
+     * Calls the views method SentEmail()
+     */
+    public void SentEmail() {
+        ContactView.SentEmail();
+    }
+
+    /**
+     * Calls the views method Loading()
+     */
+    public void Loading() {
+        ContactView.ShowProgress();
+    }
+
+
+    /**
+     * Calls the handlers method SendEmail()
+     * @param recep The recepient of the email
+     * @param Subject The subject of the email
+     * @param Text The text of the email
+     */
+    public void SendEmail(String recep, String Subject, String Text) {
+        ContactHandler.SendEmail(recep, Subject, Text);
+    }
+
+    /**
+     * Calls the views method NotCorrect
+     * @param S the string S that should be shown
+     */
+    public void NotCorrect(String S) {
+        ContactView.NotCorrect(S);
+    }
+
+    /**
+     * Calls the view method for hiding keyboard
+     * @param v the view
+     */
+    public void hideKeyboard(View v) {
+        ContactView.HideKeyboard(v);
+    }
 }

@@ -35,7 +35,7 @@ import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 
 /**
- * Created by adinH on 2016-10-26.
+ * Class that is just used for switching to the about layout.
  */
 public class AboutView extends Fragment {
     View myView;
@@ -45,6 +45,10 @@ public class AboutView extends Fragment {
         myView = inflater.inflate(R.layout.about, container, false);
         return myView;
     }
+
+    /**
+     * On resume sets title to about
+     */
     @Override
     public void onResume(){
         super.onResume();

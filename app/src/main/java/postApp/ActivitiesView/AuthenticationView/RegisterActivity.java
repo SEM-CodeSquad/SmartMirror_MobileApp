@@ -173,7 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * A alertdialog method that shows that the name is not a email.
+     * A alertdialog method that shows that the string S.
      */
     public void NotCorrect(String S){
         new AlertDialog.Builder(this)
