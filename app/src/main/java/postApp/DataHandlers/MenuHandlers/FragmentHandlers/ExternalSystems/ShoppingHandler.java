@@ -79,17 +79,14 @@ public class ShoppingHandler implements Observer {
             if (json.containsKey("reply")) {
                 this.reply = json.get("reply").toString();
                 if(reply.equalsIgnoreCase("done")){
-                    System.out.println("got done boy");
                     if(json.get("data")!=null){
                         this.SPLList.clear();
                         parseItem(message);
                     } else {
                         if(tempType == "add"){
-                            System.out.println("Adding boy");
                             SPLList.add(tempItem);
                             this.value = true;
                             this.updateMirrorList();
-                            System.out.println(SPLList.toString());
                         }
                         else if (tempType == "delete"){
                             SPLList.remove(tempItem);
@@ -103,12 +100,10 @@ public class ShoppingHandler implements Observer {
                         }
                     }
                 } else if (reply.equalsIgnoreCase("error")){
-                    toastMsg("error with the list");
+                    toastMsg("Error updating List");
                 }
             }else if(json.containsKey("client_id")){
-                //this.replyID=json.get("client-id").toString();
-                System.out.println("hey man it works");
-
+                toastMsg("Shopping List fetched");
             }
 
 
@@ -162,17 +157,13 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
     }
-
     public void updateMirrorList(){
-        toastMsg("sending to mirror");
         Long timestamp = System.currentTimeMillis() / 1000L;
         JsonBuilder builderMirror = new JsonBuilder();
-        if (SPLList.isEmpty()) {
-            System.out.println("empty list");
+        if (this.SPLList.isEmpty()) {
             builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp));
         }
         else {
-            System.out.println("sending some items");
             builderMirror.execute("SPLToMirror",this.clientID,Long.toString(timestamp),Integer.toString(this.SPLList.size()),mirrorList(this.SPLList));
         }
     }
@@ -194,14 +185,6 @@ public class ShoppingHandler implements Observer {
             tempType = requestType;
         }
     }
-
-    public LinkedList<String> getShoppingList(){
-        return this.SPLList;
-    }
-    public String getReply(){
-        return reply;
-    }
-
     @Override
     public void update(Observable observable, final Object obj) {
         if (obj instanceof MqttMessage) {
@@ -239,6 +222,9 @@ public class ShoppingHandler implements Observer {
     }
     public void setBooleanFalse(){
         this.value = false;
+    }
+    public LinkedList<String> getShoppingList(){
+        return this.SPLList;
     }
 
 }
