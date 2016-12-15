@@ -26,6 +26,8 @@ package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PostitManagerHandler;
 
 import android.os.Handler;
 
+import com.vdurmont.emoji.EmojiParser;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -157,7 +159,8 @@ public class PostitHandler implements Observer {
      * Method for storing postits in the database
      */
     private void StorePost() {
-        new StorePostits(user, idOne, color, text, timestamp);
+        String string = EmojiParser.parseToAliases(text);
+        new StorePostits(user, idOne, color, string, timestamp);
     }
 
     /**

@@ -131,7 +131,7 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("messageFrom", args[5]);
                 sendthis.put("timestamp", Long.toString(timestamp));
                 topic = "dit029/SmartMirror/" + args[0] + "/postit";
-                sendthis.put("contentType", args[1]);
+                sendthis.put("contentType", "post-it action");
 
                 JSONArray jArray = new JSONArray();
                 JSONObject theobj = new JSONObject();
