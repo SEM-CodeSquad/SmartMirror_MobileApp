@@ -40,26 +40,45 @@ import postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems.Shoppi
  * the ShoppingHandler class.
  */
 public class ShoppingPresenter {
-    ShoppingHandler handler;
-    ShoppingView view;
-    String uuid;
+    private ShoppingHandler handler;
+    private ShoppingView view;
+
+    /**
+     * The Shopping presenter interacting with the handler for the data and logic. Instantiates a handler.
+     * @param shoppingView the view
+     * @param uuid the UUID
+     */
     public ShoppingPresenter(ShoppingView shoppingView, String uuid){
-        this.uuid = uuid;
         this.view = shoppingView;
         this.handler = new ShoppingHandler(this.view, this,uuid);
     }
+
+    /**
+     * Method that calls the handler update list function
+     * @param requestType the Requuest type
+     * @param item The item
+     */
     public void updateList(String requestType, String item){
         handler.updateList(requestType, item);
     }
+
+    /**
+     * @return a linkedlist from the handler that is the shopping list
+     */
     public LinkedList<String> getShoppingList(){
         return handler.getShoppingList();
     }
-    public void makeToast(String message){
-        view.makeToast(message);
-    }
+
+    /**
+     * @return true or false
+     */
     public boolean getBoolean(){
        return handler.getBoolean();
     }
+
+    /**
+     * Sets the boolean to false
+     */
     public void setBooleanFalse(){
         handler.setBooleanFalse();
     }

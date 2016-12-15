@@ -159,9 +159,15 @@ public class PageFragmentPresenter {
         PageFragment.DoneLoading();
     }
 
+    /**
+     * Show edit alertdialog
+     */
     public void showEdit() {
         PageFragment.ShowEdit();
     }
+    /**
+     * Show edit alertdialog
+     */
     public void showDelete() {
         PageFragment.ShowDelete();
     }
