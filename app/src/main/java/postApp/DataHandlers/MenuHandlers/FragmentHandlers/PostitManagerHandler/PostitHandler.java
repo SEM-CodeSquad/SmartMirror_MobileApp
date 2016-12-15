@@ -168,7 +168,7 @@ public class PostitHandler implements Observer {
     @Override
     public void update(Observable observable, Object data) {
         stored = true;
-            StorePost();
+        StorePost();
         echo.deleteObserver(this);
 
     }

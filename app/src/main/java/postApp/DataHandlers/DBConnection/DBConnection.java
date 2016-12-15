@@ -68,10 +68,8 @@ public class DBConnection extends Observable {
                 String URL = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7143433";
                 Conn = DriverManager.getConnection(URL, Username, Password);
                 System.err.println("Connected!");
-            } catch (ClassNotFoundException ex) {
-                System.err.println("\n" + "Could not load driver..." + "\n");
-            } catch (InstantiationException | IllegalAccessException | SQLException e) {
-                e.printStackTrace();
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
+                ex.printStackTrace();
             }
             return null;
         }

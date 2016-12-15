@@ -109,7 +109,8 @@ public class QrCodeView extends Fragment  {
             {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
-                    mScannerView.startCamera();
+                    //switch screen to QrCodeView frame
+                    getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView(), "QRFRAG").addToBackStack(null).commit();
                 }
                 else
                 {
@@ -156,7 +157,7 @@ public class QrCodeView extends Fragment  {
      * Method to switch activity to settings
      */
     public void SwitchActivity() {
-        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).addToBackStack(null).commit();
     }
 
 
