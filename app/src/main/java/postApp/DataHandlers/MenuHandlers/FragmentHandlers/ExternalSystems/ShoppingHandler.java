@@ -104,6 +104,8 @@ public class ShoppingHandler implements Observer {
                             this.updateMirrorList();
                         }
                     }
+                }else if (reply.equalsIgnoreCase("alive")){
+                    //TODO Nimish  put your echo part of the codes here!
                 } else if (reply.equalsIgnoreCase("error")) {
                     toastMessage("Error updating List");
                 }
