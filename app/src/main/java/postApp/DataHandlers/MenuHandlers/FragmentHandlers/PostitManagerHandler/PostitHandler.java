@@ -28,6 +28,10 @@ import android.os.Handler;
 
 import com.vdurmont.emoji.EmojiParser;
 
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -55,6 +59,9 @@ public class PostitHandler implements Observer {
     private String user;
     private long timestamp;
     private boolean stored = false;
+    private boolean paired = false;
+    private String noPairMessage;
+    private String message;
 
     /**
      * We set the postitpresenter, set the topic we are posting too. Instantiate a Echo Class that we observe
@@ -62,6 +69,8 @@ public class PostitHandler implements Observer {
      * @param mirror the mirror id
      */
     public PostitHandler(PostitPresenter PostitPresenter, String mirror, String user) {
+        message = "";
+        noPairMessage = "No answer received, please try to pair with the mirror again";
         this.PostitPresenter = PostitPresenter;
         String echotopic = "dit029/SmartMirror/" + mirror + "/echo";
         echo = new Echo(echotopic, user);
@@ -140,11 +149,15 @@ public class PostitHandler implements Observer {
                 if (stored) {
                     PostitPresenter.DoneLoading();
                     stored = false;
+                } else if (!paired){
+                    PostitPresenter.NoEcho(noPairMessage);
+                    PostitPresenter.DoneLoading();
                 } else {
-                    PostitPresenter.NoEcho();
+                    PostitPresenter.NoEcho(message);
                     PostitPresenter.DoneLoading();
                 }
                 Disc();
+                paired = false;
             }
         }, 2000); // 2000 milliseconds delay
     }
@@ -170,9 +183,26 @@ public class PostitHandler implements Observer {
      */
     @Override
     public void update(Observable observable, Object data) {
-        stored = true;
-        StorePost();
-        echo.deleteObserver(this);
+        if (data instanceof MqttMessage) {
+            try {
+                if (data.toString().contains("Post-it successfully added to the table ")) {
+                    stored = true;
+                    paired = true;
+                    StorePost();
+                    echo.deleteObserver(this);
+                } else {
+                    paired = true;
+                    JSONParser parser = new JSONParser();
+                    JSONObject object = (JSONObject) parser.parse(data.toString());
+                    if (object.containsKey("content"))
+                    {
+                        this.message = object.get("content").toString();
+                    }
+                }
+            } catch (org.json.simple.parser.ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }
