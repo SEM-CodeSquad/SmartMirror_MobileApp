@@ -26,6 +26,8 @@ package postApp.DataHandlers.AppCommons.JsonHandler;
 
 import android.os.AsyncTask;
 
+import com.vdurmont.emoji.EmojiParser;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -64,7 +66,9 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 sendthis.put("timestamp", Long.toString(timestamp));
                 sendthis.put("contentType", "post-it");
                 item.put("postItID", args[5]);
-                item.put("body", args[2]);
+                String text = EmojiParser.parseToAliases(args[2]);
+                System.out.println(text);
+                item.put("body", text);
                 item.put("senderStyle", args[3]);
                 item.put("expiresAt", args[4]);
                 jArray.add(0, item);
@@ -132,7 +136,9 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 JSONObject theobj = new JSONObject();
                 theobj.put("postItID", args[2]);
                 theobj.put("action", args[3]);
-                theobj.put("modification", args[4]);
+                String text = EmojiParser.parseToAliases(args[4]);
+                System.out.println(text);
+                theobj.put("modification", text);
                 jArray.add(theobj);
                 sendthis.put("content", jArray);
 
