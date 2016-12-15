@@ -25,17 +25,15 @@
 package postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems;
 
 
-import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 
 import postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem.ShoppingView;
 import postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems.ShoppingHandler;
 
 
-/*
+
+/**
+ *
  * The shopping presenter acts as a controller for the view class as well as handing over data to
  * the ShoppingHandler class.
  */
@@ -45,8 +43,9 @@ public class ShoppingPresenter {
 
     /**
      * The Shopping presenter interacting with the handler for the data and logic. Instantiates a handler.
-     * @param shoppingView the view
-     * @param uuid the UUID
+     *
+     * @param shoppingView the Shopping List view
+     * @param uuid the UUID of the Smart Mirror that is connected to the android phone.
      */
     public ShoppingPresenter(ShoppingView shoppingView, String uuid){
         this.view = shoppingView;
@@ -55,25 +54,30 @@ public class ShoppingPresenter {
 
     /**
      * Method that calls the handler update list function
+     *
      * @param requestType the Request type
      * @param item The item
      */
     public void updateList(String requestType, String item){
         handler.updateList(requestType, item);
     }
+
+    /**
+     * Method that tells the view to update the list.
+     */
     public void updateListView(){
         view.updateListView();
     }
 
     /**
-     * @return a linkedlist from the handler that is the shopping list
+     * @return a ShoppingList from the handler which acts as the Shopping List.
      */
     public LinkedList<String> getShoppingList(){
         return handler.getShoppingList();
     }
 
     /**
-     * @return true or false
+     * @return true or false from the handler class.
      */
     public boolean getBoolean(){
        return handler.getBoolean();

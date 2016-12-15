@@ -23,7 +23,7 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.Shop
 
 
 
-/*
+/**
  * This class here initiates the shopping.xml which is the fragment view for the Shopping List
  * RFC that we are implementing. For consistency purposes, the list that holds the shopping
  * list items will be mentioned as 'shopping list'.
@@ -35,6 +35,15 @@ public class ShoppingView extends Fragment {
     ListView listView = null;
     String uuid;
 
+    /**
+     * onCreateView applies the shopping.xml layout and displays it on the screen using the below
+     * mentioned parameters.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return returns the view inflated on the screen.
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,18 +54,7 @@ public class ShoppingView extends Fragment {
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
 
-        /*
-         * The below sleep method is required for the list to be properly fetched otherwise the view is updated
-         * before the fetch method.
-         */
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        listView.setAdapter(adapter);
-
-        /*
+        /**
          * This function sets each row of a listView(each item of a shopping list) a clickable item which will open
          * a dialog box that prompts the user whether or not he/she wants to delete the item.
          */
@@ -81,8 +79,11 @@ public class ShoppingView extends Fragment {
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Shopping List");
     }
 
-    /*
+    /**
      * This method uses a menu resource file to add 2 buttons to the app bar (add Item & delete list).
+     *
+     * @param menu the menu xml layout that is applied when creating the options menu
+     * @param inflater inflates the menu on the view.
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -90,20 +91,24 @@ public class ShoppingView extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    /*
+    /**
      * The app bar items(buttons in our case) are handled here. Appropriate methods are called
      * and published to the RFC topic using the id of each button.
      * Upon completion of each list update, the updateList method is called which updates the
      * shoppingList item linkedList with the shopping List received by fetch calls made to the RFC topic.
+     *
+     * @param item the MenuItem instance that has been tapped by the user.
+     * @return true after the MenuItem is tapped.
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        /*
-         * Menu button to add an item to the list.
+        /**
+         * If the MenuItem tapped has the id "add", an Alert Dialog is shown to the user
+         * which prompts the user to type in the item name and add it to the list.
          */
         if (id == R.id.action_add) {
-            if (uuid == "No mirror chosen") {
+            if (uuid.equals("No mirror chosen")) {
                 makeToast("Please choose a mirror first");
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -115,8 +120,8 @@ public class ShoppingView extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         presenter.updateList("add", input.getText().toString());
 
-                        /*
-                         * The below method stops the thread for 5 seconds but at interval of each half
+                        /**
+                         * The below for loop stops the thread for 5 seconds but at interval of each half
                          * a second, checks whether the phone has received a "done" message after
                          * adding an element to the list. If it does receive the "done" reply,
                          * the method then updates the list view adapter to display the added
@@ -147,7 +152,6 @@ public class ShoppingView extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        System.out.println("The list is " + presenter.getShoppingList().toString());
                     }
                 });
                 builder.show();
@@ -155,11 +159,11 @@ public class ShoppingView extends Fragment {
             }
         }
 
-        /*
+        /**
          * Menu button to clear all list items.
          */
         if (id == R.id.action_clear) {
-            if (uuid == "No mirror chosen") {
+            if (uuid.equals("No mirror chosen")) {
                 makeToast("Please choose a mirror first");
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -169,8 +173,8 @@ public class ShoppingView extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         presenter.updateList("delete-list", "empty");
 
-                        /*
-                         * This method here is used in the same way as described in the previous comment,
+                        /**
+                         * This for loop here is used in the same way as described in the previous comment,
                          * except the fact that this is used to clear all the items in a list.
                          */
                         for (int i = 0; i < 10; i++) {
@@ -207,8 +211,10 @@ public class ShoppingView extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
+    /**
      * This method here specifically deals with deletion of items from the shopping list.
+     *
+     * @param selectedItem is the item in the list that has been selected by the user.
      */
     public void removeElement(final String selectedItem) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -218,8 +224,8 @@ public class ShoppingView extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 presenter.updateList("delete", selectedItem);
 
-                /*
-                 * This method here is used in the same way as described in the previous comment,
+                /**
+                 * This for loop here is used in the same way as described in the previous comment,
                  * except the fact that this is used to clear an item from the list.
                  */
                 for (int i = 0; i < 10; i++) {
@@ -252,13 +258,18 @@ public class ShoppingView extends Fragment {
         builder.show();
     }
 
-    /*
-     * Method used to display toast messages.
+    /**
+     *  Method used to display toast messages.
+     *
+     * @param message the message that will be displayed in the toast.
      */
     public void makeToast(String message) {
         Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Updates the List view with the updated list.
+     */
     public void updateListView(){
         listView.setAdapter(adapter);
     }
