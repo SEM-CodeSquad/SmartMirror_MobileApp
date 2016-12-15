@@ -39,7 +39,6 @@ public class RegisterInteractor implements Observer {
     private Registration reg;
     /**
      * Constructor for class
-     *
      * @param RegisterPresenter is passed as a presenter
      */
     public RegisterInteractor(RegisterPresenter RegisterPresenter) {
@@ -48,7 +47,7 @@ public class RegisterInteractor implements Observer {
 
     /**
      * method that is called when registring, checks if its a email, the password is bigger then 5 letter,
-     * and if the secret question is not emty
+     * and if the secret question is not empty
      *
      * @param User   Username
      * @param Pass   Password
