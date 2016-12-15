@@ -53,7 +53,7 @@ public class ShoppingPresenter {
     }
 
     /**
-     * Method that calls the handler update list function
+     * Method that calls the handler update list function.
      *
      * @param requestType the Request type
      * @param item The item
