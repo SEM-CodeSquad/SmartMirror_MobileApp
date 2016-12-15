@@ -112,6 +112,7 @@ public class ShoppingHandler implements Observer {
                         }
                     }
                 } else if (reply.equalsIgnoreCase("alive")) {
+                    System.err.println("ALIVE");
                     this.connected = true;
                 } else if (reply.equalsIgnoreCase("error")) {
                     toastMessage("Error updating List");
@@ -222,14 +223,14 @@ public class ShoppingHandler implements Observer {
      * @param obj        the object, in this case we are checking for a MqttMessage
      */
     @Override
-    public void update(Observable observable, final Object obj) {
+    public void update(Observable observable, Object obj) {
         if (obj instanceof MqttMessage) {
+            final MqttMessage mqttMessage = (MqttMessage) obj;
+            System.err.println(mqttMessage);
             Thread thread = new Thread(new Runnable() {
-                Object o = obj;
-
                 @Override
                 public void run() {
-                    String str = o.toString();
+                    String str = mqttMessage.toString();
                     parseMessage(str);
                 }
             });
@@ -268,6 +269,7 @@ public class ShoppingHandler implements Observer {
         this.connected = false;
         final Long timestamp = System.currentTimeMillis() / 1000L;
         final Echo echo = new Echo("dit029/SmartMirror/" + this.clientID + "/echo", "smartMirror");
+        echo.addObserver(this);
         JsonBuilder echoBuilder = new JsonBuilder();
         echoBuilder.execute("SPLToMirror",this.clientID,Long.toString(timestamp),"-2");
 
