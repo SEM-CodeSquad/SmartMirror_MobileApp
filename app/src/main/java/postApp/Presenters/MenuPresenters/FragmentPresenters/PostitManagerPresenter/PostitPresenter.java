@@ -132,8 +132,8 @@ public class PostitPresenter {
     /**
      * Method that calls the views UnsuccessfulPublish method
      */
-    public void NoEcho(){
-        PostitView.UnsuccessfulPublish();
+    public void NoEcho(String st){
+        PostitView.UnsuccessfulPublish(st);
     }
 
     /**

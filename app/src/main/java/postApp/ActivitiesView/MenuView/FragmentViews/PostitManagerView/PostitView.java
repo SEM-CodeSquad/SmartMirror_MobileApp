@@ -289,11 +289,11 @@ public class PostitView extends Fragment {
     /**
      * Method that shows a alertdialog that says failed to add postit
      */
-    public void UnsuccessfulPublish(){
+    public void UnsuccessfulPublish(String st){
         //if user types wrong login we show a alertdialog some text
         new AlertDialog.Builder(getActivity())
                 .setTitle("Failed to add Postit")
-                .setMessage("No answer received, please try to pair with the mirror again")
+                .setMessage(st)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
