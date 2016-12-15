@@ -238,6 +238,9 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                 }else if(args[3].equals("-1")){
                     sendthis.put("contentType", "Create list");
                     sendthis.put("content", "Create new list "+args[1]);
+                }else if(args[3].equals("-2")){
+                    sendthis.put("contentType","echo");
+                    sendthis.put("content","alive");
                 }
 
                 topic = "dit029/SmartMirror/" + args[1] + "/shoppingList";
