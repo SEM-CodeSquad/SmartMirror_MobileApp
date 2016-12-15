@@ -4,15 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,17 +17,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.concurrent.CountDownLatch;
-
-
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
 
-import static android.R.id.message;
+
 
 /*
  * This class here initiates the shopping.xml which is the fragment view for the Shopping List
@@ -48,11 +34,12 @@ public class ShoppingView extends Fragment {
     ArrayAdapter<String> adapter = null;          /* A way to handle a list or array of objects and map them to a row */
     ListView listView = null;
     String uuid;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.uuid = ((NavigationActivity) getActivity()).getMirror();
-        presenter = new ShoppingPresenter(this,uuid);
+        presenter = new ShoppingPresenter(this, uuid);
         setHasOptionsMenu(true);
         myView = inflater.inflate(R.layout.shopping, container, false);
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
@@ -79,15 +66,17 @@ public class ShoppingView extends Fragment {
                 if (selectedItem.trim().equals(presenter.getShoppingList().get(position).trim())) {     /*A check done for integrity purposes*/
                     removeElement(selectedItem);
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(),"Error Removing Element", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Error Removing Element", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
         return myView;
     }
+
+    @SuppressWarnings("ConstantConditions")
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Shopping List");
     }
@@ -143,10 +132,9 @@ public class ShoppingView extends Fragment {
                                 break;
                             }
                         }
-                        if (!presenter.getBoolean()){
+                        if (!presenter.getBoolean()) {
                             makeToast("Error adding item, please try again");
-                        }
-                        else if (presenter.getBoolean()) {
+                        } else if (presenter.getBoolean()) {
                             makeToast(input.getText().toString() + " added");
                             presenter.setBooleanFalse();
                             adapter.notifyDataSetChanged();
@@ -195,10 +183,9 @@ public class ShoppingView extends Fragment {
                                 break;
                             }
                         }
-                        if(!presenter.getBoolean()){
+                        if (!presenter.getBoolean()) {
                             makeToast("Error deleting list, please try again");
-                        }
-                        else if (presenter.getBoolean()) {
+                        } else if (presenter.getBoolean()) {
                             makeToast("List Deleted");
                             presenter.setBooleanFalse();
                             adapter.notifyDataSetChanged();
@@ -223,7 +210,7 @@ public class ShoppingView extends Fragment {
     /*
      * This method here specifically deals with deletion of items from the shopping list.
      */
-    public void removeElement(final String selectedItem){
+    public void removeElement(final String selectedItem) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Remove " + selectedItem + "?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -235,21 +222,21 @@ public class ShoppingView extends Fragment {
                  * This method here is used in the same way as described in the previous comment,
                  * except the fact that this is used to clear an item from the list.
                  */
-                for (int i=0; i<10; i++){
+                for (int i = 0; i < 10; i++) {
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (presenter.getBoolean()){
+                    if (presenter.getBoolean()) {
                         break;
                     }
                 }
-                if(!presenter.getBoolean()){
+                if (!presenter.getBoolean()) {
                     makeToast("Error removing item, please try again");
                 }
-                if (presenter.getBoolean()){
-                    makeToast(selectedItem +" Removed");
+                if (presenter.getBoolean()) {
+                    makeToast(selectedItem + " Removed");
                     presenter.setBooleanFalse();
                     adapter.notifyDataSetChanged();
                     listView.setAdapter(adapter);
@@ -268,7 +255,7 @@ public class ShoppingView extends Fragment {
     /*
      * Method used to display toast messages.
      */
-    public void makeToast(String message){
+    public void makeToast(String message) {
         Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 

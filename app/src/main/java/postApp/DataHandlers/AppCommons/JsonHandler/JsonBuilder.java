@@ -39,6 +39,7 @@ import postApp.DataHandlers.MqTTHandler.HttpRequestSender;
 /**
  * Class for used for building a json object and then starting a httprequestparser with this fully build json message and url.
  */
+@SuppressWarnings("unchecked")
 public class JsonBuilder extends AsyncTask<String, Void, String> {
     private HttpRequestSender post;
 
