@@ -27,8 +27,10 @@ package postApp.ActivitiesView.AuthenticationView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +38,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +59,9 @@ public class LoginActivity extends AppCompatActivity {
     private LoginPresenter presenter;
     ProgressDialog progress;
     private Boolean exit = false;
+    SharedPreferences preferences;
+    private CheckBox checkboxsave;
+    private String logedin;
     /**
      * This method is ran when activity is created. We set onclicklisteners and
      * Initialize the views
@@ -65,7 +71,17 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginscreen);
+        checkboxsave = (CheckBox)findViewById(R.id.saveusername);
+        preferences = getSharedPreferences("App", Context.MODE_PRIVATE);
 
+        //Checks if user is already loged in
+        if(preferences.contains("Login")){
+            logedin = preferences.getString("Login", "");
+            if(logedin.equals("true")){
+                SuccessfulLogin(preferences.getString("User", ""), preferences.getString("Bus", ""), preferences.getString("BusID", ""),
+                        preferences.getString("News", ""), preferences.getString("Weather", ""));
+            }
+        }
 
         progress = new ProgressDialog(this);
         //initilize the views
@@ -76,9 +92,10 @@ public class LoginActivity extends AppCompatActivity {
         regi = (TextView)findViewById(R.id.regibtn);
         presenter = new LoginPresenter(this);
 
-        Intent intent = getIntent();
-        if(intent.hasExtra("user")){
-            usrname.setText(intent.getExtras().getString("user"));
+        if(preferences.contains("Login")) {
+            if (preferences.getString("Save", "").equals("true")) {
+                usrname.setText(preferences.getString("User", ""));
+            }
         }
         //set a onclicklistener to the register button that calls OnRegister
         regi.setOnClickListener(new View.OnClickListener() {
@@ -212,8 +229,44 @@ public class LoginActivity extends AppCompatActivity {
      * @param news Puts in the intent news which is the news String
      */
     public void SuccessfulLogin(String User, String bus, String busid, String news, String weather){
-        //if we log in we swithc to navigationActivity
+        //if we log in we switch to navigationActivity
         Intent intent = new Intent(this, NavigationActivity.class);
+
+        //If preferences are there but login is set to false, we set it to true and add the preferences
+        if(preferences.contains("Login")){
+            if(!logedin.equals("true")){
+                if(checkboxsave.isChecked()){
+                    preferences.edit().putString("Save", "true").apply();
+                    preferences.edit().putString("User", User).apply();
+                }
+                else{
+                    preferences.edit().putString("Save", "false").apply();
+                }
+                preferences.edit().putString("Login", "true").apply();
+                preferences.edit().putString("User", User).apply();
+                preferences.edit().putString("Bus", bus).apply();
+                preferences.edit().putString("BusID", busid).apply();
+                preferences.edit().putString("News", news).apply();
+                preferences.edit().putString("Weather", weather).apply();
+            }
+        }
+        //If There isnt a login preference we know there isnt any added, so we add them all.
+        if(!preferences.contains("Login")){
+            if(checkboxsave.isChecked()){
+                preferences.edit().putString("Save", "true").apply();
+                preferences.edit().putString("User", User).apply();
+            }
+            else{
+                preferences.edit().putString("Save", "false").apply();
+            }
+            preferences.edit().putString("Login", "true").apply();
+                preferences.edit().putString("Bus", bus).apply();
+                preferences.edit().putString("BusID", busid).apply();
+                preferences.edit().putString("News", news).apply();
+                preferences.edit().putString("Weather", weather).apply();
+                preferences.edit().putString("User", User).apply();
+        }
+
         //we add in a fetchable user when we start the activity
         intent.putExtra("user", User);
         intent.putExtra("bus", bus);

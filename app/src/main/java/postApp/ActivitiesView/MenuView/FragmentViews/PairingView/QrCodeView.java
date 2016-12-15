@@ -25,9 +25,15 @@ package postApp.ActivitiesView.MenuView.FragmentViews.PairingView;
  */
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -52,7 +58,7 @@ public class QrCodeView extends Fragment  {
     private ZXingScannerView mScannerView;
     private QrCodePresenter qrPres;
     public static final int PERMISSION_REQUEST_CAMERA = 1;
-
+    private ProgressDialog progress;
     /**
      * When fragment is created this function is ran that starts the camera and sets the presenter
      * @param inflater the inflater
@@ -64,7 +70,7 @@ public class QrCodeView extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mScannerView = new ZXingScannerView(getActivity());   // Programmatically initialize the scanner view
-
+        progress = new ProgressDialog(getActivity());
         /**
          * Checks if you have camera permission, if you have you start camera and if you dont you ask for the permission
          */
@@ -146,7 +152,55 @@ public class QrCodeView extends Fragment  {
         return this.mScannerView;
     }
 
+    /**
+     * Method to switch activity to settings
+     */
     public void SwitchActivity() {
         getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsView()).commit();
+    }
+
+
+    /**
+     * Method that shows a alertdialog that says wrong username or password.
+     */
+    public void UnsuccessfulPublish(){
+        //if user types wrong login we show a alertdialog some text
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Failed to pair")
+                .setMessage("Check connectivity on mirror and phone")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+    }
+
+    /**
+     * Loading method that shows a progressdialog
+     */
+    public void Loading(){
+        progress.setMessage("Pairing");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+    }
+
+    /**
+     * method that dismisses the progressbar
+     */
+    public void DoneLoading(){
+        progress.dismiss();
+    }
+
+    /**
+     * Method to store the qrcode in the shared prefs
+     * @param qrcode the code
+     */
+    public void UpdateSharedPrefs(String qrcode) {
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("App", Context.MODE_PRIVATE);
+        prefs.edit().putString("Qrcode", qrcode).apply();
     }
 }

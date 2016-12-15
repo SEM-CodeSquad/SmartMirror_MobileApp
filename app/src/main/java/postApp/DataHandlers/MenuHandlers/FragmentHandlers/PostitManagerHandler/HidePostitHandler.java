@@ -130,7 +130,7 @@ public class HidePostitHandler implements Observer {
         echo.disconnect();
     }
     /**
-     * Just a observable that waits for a notification from the echo class.
+     * Just a observable that waits for a notification from the echo class and sets echoed to true.
      * @param observable The observable
      * @param o The object
      */

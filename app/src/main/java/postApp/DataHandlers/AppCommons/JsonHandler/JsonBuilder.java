@@ -186,7 +186,10 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
                 String message = sendthis.toJSONString();
                 post = new HttpRequestSender("54.154.153.243", topic, message, "0", "false");
-            } else if (args[0].equals("shoppinglist")) {
+            }
+            //If args[0] equals shoppinglist we make a string instead of a jsonobject since the group we are cooperating with
+            //wanted the order in a specific order
+            else if (args[0].equals("shoppinglist")) {
                 String send = "";
                 if (args.length == 3) {
                     send = "{\"client_id\":\"" + args[1] + "\"," +
@@ -204,7 +207,9 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
 
                 post = new HttpRequestSender("54.154.153.243", topic, send, "1", "false");
 
-            } else if (args[0].equals("SPLToMirror")) {
+            }
+            //If the args[0] equals spltomirror we construct a json object that is sent to the smartmirror
+            else if (args[0].equals("SPLToMirror")) {
 
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", args[1]);

@@ -42,7 +42,7 @@ public class QrCodePresenter {
     public QrCodePresenter(QrCodeView qrCodeView) {
         this.qrView = qrCodeView;
         ZXingScannerView scannerView = qrView.getScannerView();
-        new QrCodeHandler(scannerView,this);
+        new QrCodeHandler(scannerView,this, getUser());
     }
 
     /**
@@ -71,15 +71,35 @@ public class QrCodePresenter {
         ((NavigationActivity) qrView.getActivity()).setMirror(text);
     }
     /**
-     * Gets the User
-     */
-    public String getMirrorID() {
-        return ((NavigationActivity) qrView.getActivity()).getMirror();
-    }
-    /**
      * Gets the mirror id
      */
     public String getUser() {
         return ((NavigationActivity) qrView.getActivity()).getUser();
+    }
+
+    public void Loading() {
+        qrView.Loading();
+    }
+
+    /**
+     * Call the views function when we receive no echo
+     */
+    public void NoEcho(){
+        qrView.UnsuccessfulPublish();
+    }
+
+    /**
+     * Call the views function when we are done loading
+     */
+    public void DoneLoading() {
+        qrView.DoneLoading();
+    }
+
+    /**
+     * Calls the method in the view to update SharedPreferences
+     * @param qrcode the code to store
+     */
+    public void UpdateSharedPrefs(String qrcode) {
+        qrView.UpdateSharedPrefs(qrcode);
     }
 }

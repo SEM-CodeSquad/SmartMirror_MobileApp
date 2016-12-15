@@ -36,15 +36,9 @@ import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.Shop
  * takes place (addition,deletion,parsing etc.).
  */
 public class ShoppingHandler implements Observer {
-    ShoppingPresenter presenter;
-    ShoppingView view;
-
+    private ShoppingPresenter presenter;
+    private ShoppingView view;
     private static Activity parent;
-
-    private String message;
-    private String reply;
-    private String replyID;
-    private String preData;
     private LinkedList SPLList;
     private String clientID;
     private MQTTClient mqttClient;
@@ -52,6 +46,12 @@ public class ShoppingHandler implements Observer {
     private String tempItem = "";
     private boolean value;
 
+    /**
+     * Constructor for the shoppinghandler class, that start a mqtt client, listens to a subscription. The presenter, view and clientID is set in this method.
+     * @param ShoppingView The view
+     * @param ShoppingPresenter The presenter
+     * @param clientID The clientID
+     */
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter, String clientID) {
         this.value = false;
         MemoryPersistence persistence = new MemoryPersistence();
@@ -63,7 +63,7 @@ public class ShoppingHandler implements Observer {
         this.SPLList = new LinkedList<>();
 
 
-        if (this.clientID != "No mirror chosen") {
+        if (!this.clientID.equals("No mirror chosen")) {
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
             listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");
             JsonBuilder builder = new JsonBuilder();
@@ -77,25 +77,24 @@ public class ShoppingHandler implements Observer {
      *
      * @param message A String containing the content of the MQTT message from the broker.
      */
-    public void parseMessage(String message) {
+    private void parseMessage(String message) {
 
         try {
-            this.message = message;
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(message);
 
             if (json.containsKey("reply")) {
-                this.reply = json.get("reply").toString();
+                String reply = json.get("reply").toString();
                 if (reply.equalsIgnoreCase("done")) {
                     if (json.get("data") != null) {
                         this.SPLList.clear();
                         parseItem(message);
                     } else {
-                        if (tempType == "add") {
+                        if (tempType.equals("add")) {
                             SPLList.add(tempItem);
                             this.value = true;
                             this.updateMirrorList();
-                        } else if (tempType == "delete") {
+                        } else if (tempType.equals("delete")) {
                             SPLList.remove(tempItem);
                             this.value = true;
                             this.updateMirrorList();
@@ -109,7 +108,6 @@ public class ShoppingHandler implements Observer {
                     toastMessage("Error updating List");
                 }
             } else if (json.containsKey("client_id")) {
-                // TODO Can be used for something.
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -130,7 +128,6 @@ public class ShoppingHandler implements Observer {
             } else if (!(jsonOBJ.get("data").equals("[]"))) {
 
                 JSONArray jary = (JSONArray) jsonOBJ.get("data");
-                System.out.println(jary);
                 for (Object o : jary) {
                     if (o instanceof JSONObject) {
                         System.out.println(((JSONObject) o).get("item"));
@@ -145,11 +142,16 @@ public class ShoppingHandler implements Observer {
             e.printStackTrace();
         }
     }
-    public void addClassObserver(MQTTSub sub) {
+
+    /**
+     * Method to add a observer
+     * @param sub the Mqtt sub we add a observer to
+     */
+    private void addClassObserver(MQTTSub sub) {
         sub.addObserver(this);
     }
 
-    public void listenSubscription(final String topic) {
+    private void listenSubscription(final String topic) {
         try {
             Thread thread = new Thread(new Runnable() {
                 @Override
@@ -159,17 +161,18 @@ public class ShoppingHandler implements Observer {
                 }
             });
             thread.start();
-            System.out.println("listening to this topic " + topic);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * a method to update the mirror list. Creates a json builder that executes a HttpRequest with the updated list
+     */
     private void updateMirrorList() {
         final Long timestamp = System.currentTimeMillis() / 1000L;
         final JsonBuilder builderMirror = new JsonBuilder();
         if (this.SPLList.isEmpty()) {
-            System.out.println("alright empty list");
             builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), "0");
             JsonBuilder builder = new JsonBuilder();
             builder.execute("SPLToMirror", clientID, Long.toString(timestamp), "-1");
@@ -178,18 +181,23 @@ public class ShoppingHandler implements Observer {
         }
     }
 
+    /**
+     * Depending on requesttype we execute the jsonbuilder with a diffrent values.
+     * @param requestType The requesttype
+     * @param item The item
+     */
     public void updateList(String requestType, String item) {
-        if (requestType == "add") {
+        if (requestType.equals("add")) {
             JsonBuilder builder = new JsonBuilder();
             builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType, item);
             tempType = requestType;
             tempItem = item;
-        } else if (requestType == "delete") {
+        } else if (requestType.equals("delete")) {
             JsonBuilder builder = new JsonBuilder();
             builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType, item); // The client id here is the one we should be using.
             tempType = requestType;
             tempItem = item;
-        } else if (requestType == "delete-list") {
+        } else if (requestType.equals("delete-list")) {
             JsonBuilder builder = new JsonBuilder();
             builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType);
             tempType = requestType;
@@ -197,6 +205,11 @@ public class ShoppingHandler implements Observer {
         }
     }
 
+    /**
+     * Method to that listens to a class and then if we receive a message we start a new thread to parse the message
+     * @param observable the observable
+     * @param obj the object, in this case we are checking for a MqttMessage
+     */
     @Override
     public void update(Observable observable, final Object obj) {
         if (obj instanceof MqttMessage) {
@@ -206,8 +219,6 @@ public class ShoppingHandler implements Observer {
                 @Override
                 public void run() {
                     String str = o.toString();
-                    System.out.println("The received message is " + str);
-
                     parseMessage(str);
                 }
             });
@@ -215,16 +226,24 @@ public class ShoppingHandler implements Observer {
         }
     }
 
-    public String mirrorList(LinkedList shoppingList) {
+    /**
+     * In this method each element in the LinkedList to the string list.
+     * @param shoppingList the shoppinglist we take each element from and add it to the string list
+     * @return the list
+     */
+    private String mirrorList(LinkedList shoppingList) {
         String list = "";
         for (int i = 0; i < shoppingList.size(); i++) {
             list += shoppingList.get(i).toString() + ",";
         }
-        System.out.println("the mirror list is " + list);
         return list;
     }
 
-    public void toastMessage(final String msg) {
+    /**
+     * A method for making a Ui thread that makes a toast with a message.
+     * @param msg the message
+     */
+    private void toastMessage(final String msg) {
         parent.runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(parent.getBaseContext(), msg, Toast.LENGTH_LONG).show();
@@ -232,14 +251,23 @@ public class ShoppingHandler implements Observer {
         });
     }
 
+    /**
+     * @return the value
+     */
     public boolean getBoolean() {
         return this.value;
     }
 
+    /**
+     * Sets value to false
+     */
     public void setBooleanFalse() {
         this.value = false;
     }
 
+    /**
+     * @return The linked list shoppinglist
+     */
     public LinkedList<String> getShoppingList() {
         return this.SPLList;
     }

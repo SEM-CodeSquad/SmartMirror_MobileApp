@@ -30,7 +30,9 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -71,10 +73,15 @@ public class NavigationActivity extends AppCompatActivity
     FragmentManager fragment;
     private NavigationPresenter presenter;
     View.OnClickListener mOriginalListener;
+    SharedPreferences preferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferences = this.getSharedPreferences("App", Context.MODE_PRIVATE);
+
         //set the layout
         setContentView(R.layout.activity_main);
         //initilize the toolbar and then set it and then set title.
@@ -99,7 +106,11 @@ public class NavigationActivity extends AppCompatActivity
         // check if the DrawerLayout is open or closed after the instance state of the DrawerLayout has been restored.
         toggle.syncState();
         presenter = new NavigationPresenter(this, mOriginalListener);
-
+        //checks if a qrcode is stored in the android sharedpreferences
+        if(preferences.contains("Qrcode")){
+            String name = preferences.getString("Qrcode", "No mirror is chosen");
+            setMirror(name);
+        }
         //if no mirror is chosen we call this method
         if (presenter.getMirror().equals("No mirror chosen")) {
             presenter.notPaired();
@@ -282,12 +293,10 @@ public class NavigationActivity extends AppCompatActivity
             fragment.beginTransaction().replace(R.id.content_frame, new HidePostitView()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Filter Post-Its");
         }
-        // If logout is pressed we switch activiy to LoginActivity. We also add the current user to the bundle so he doesnt have to type in his username again
+        // If logout is pressed we switch activiy to LoginActivity. We set login in the preference to false aswell
         else if (id == R.id.nav_logout) {
+            preferences.edit().putString("Login", "false").apply();
             Intent intent = new Intent(this, LoginActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("user", getUser());
-            intent.putExtras(bundle);
             startActivity(intent);
         }
         else if (id == R.id.nav_help) {

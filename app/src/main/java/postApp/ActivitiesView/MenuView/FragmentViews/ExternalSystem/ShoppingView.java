@@ -1,18 +1,34 @@
+/*
+ * Copyright 2016 CodeHigh
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (C) 2016 CodeHigh.
+ *     Permission is granted to copy, distribute and/or modify this document
+ *     under the terms of the GNU Free Documentation License, Version 1.3
+ *     or any later version published by the Free Software Foundation;
+ *     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ *     A copy of the license is included in the section entitled "GNU
+ *     Free Documentation License".
+ */
+
 package postApp.ActivitiesView.MenuView.FragmentViews.ExternalSystem;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,17 +41,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.concurrent.CountDownLatch;
-
-
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.NavigationActivity;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.ExternalSystems.ShoppingPresenter;
-
-import static android.R.id.message;
 
 /*
  * This class here initiates the shopping.xml which is the fragment view for the Shopping List
@@ -56,7 +64,6 @@ public class ShoppingView extends Fragment {
         presenter = new ShoppingPresenter(this,uuid);
         setHasOptionsMenu(true);
         myView = inflater.inflate(R.layout.shopping, container, false);
-        System.out.println("The list is " + presenter.getShoppingList().toString());
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, presenter.getShoppingList());
         listView = (ListView) myView.findViewById(R.id.listView);
         try {

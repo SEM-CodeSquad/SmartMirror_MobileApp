@@ -24,29 +24,41 @@
 
 package postApp.DataHandlers.MenuHandlers.FragmentHandlers.PairingHandler;
 
+import android.os.CountDownTimer;
+import android.os.Handler;
+
 import com.google.zxing.Result;
+
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import postApp.DataHandlers.AppCommons.JsonHandler.JsonBuilder;
+import postApp.DataHandlers.MqTTHandler.Echo;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PairingPresenter.QrCodePresenter;
 
 /**
  * The QrCodeHandler is responsible for the logic and result handling of the QrCodeView
  */
 
-public class QrCodeHandler implements ZXingScannerView.ResultHandler{
+public class QrCodeHandler implements ZXingScannerView.ResultHandler, Observer {
     private ZXingScannerView scannerView;
     private QrCodePresenter qrPres;
+    private Boolean echoed = false;
+    private Echo echo;
+    private String user;
+    private String qrcode;
 
     /**
      * Constructor that sets scannerview and presenter. Sets this class as handler aswell
      * @param scannerView the view
      * @param qrPres the presenter
      */
-    public QrCodeHandler(ZXingScannerView scannerView, QrCodePresenter qrPres){
+    public QrCodeHandler(ZXingScannerView scannerView, QrCodePresenter qrPres, String user){
         this.scannerView = scannerView;
         this.qrPres = qrPres;
         this.setHandler();
+        this.user = user;
     }
 
     /**
@@ -57,29 +69,79 @@ public class QrCodeHandler implements ZXingScannerView.ResultHandler{
     }
 
     /*
-    When we get result we handle it here, and set the mirror id with SetMirror, to the Id we get.
-    Then we switch back fragment when done.
+    When we get result we handle it here, we start a echo and call echo for a result. We also execute a httprequest to pair with the mirror
      */
     @Override
     public void handleResult(Result rawResult) {
-
-        //set new mirror
-        qrPres.setMirror(rawResult.getText());
+        qrcode = rawResult.getText();
+        qrPres.Loading();
+        echo = new Echo("dit029/SmartMirror/" + qrcode + "/echo", user);
+        echo.addObserver(this);
+        AwaitEcho();
         //Use retrieve data class to execute the pairing publishing
         JsonBuilder Ret = new JsonBuilder();
-        String topic = qrPres.getMirrorID();
-        String user = qrPres.getUser();
         try {
-            Ret.execute(topic, "pairing", user).get();
+            Ret.execute(qrcode, "pairing", user).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        //switch back to drawer from backbutton
-        qrPres.toggledrawer();
-        // switch activity back to settings
-        qrPres.SwitchActivity();
 
     }
+    /**
+     * Method used for awaiting a echo. if echoed is true after 2 seconds we know we got a echo. If we get it we set the qrcode in the activity.
+     * Else we tell the user pairing failed by calling the presenter method for no echo. If it succeed we store the qr code aswell in the shared preferences
+     */
+    private void AwaitEcho() {
+        echo.connect();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if (echoed) {
+                    qrPres.UpdateSharedPrefs(qrcode);
+                    qrPres.DoneLoading();
+                    //set new mirror
+                    qrPres.setMirror(qrcode);
+                    //switch back to drawer from backbutton
+                    qrPres.toggledrawer();
+                    // switch activity back to settings
+                    qrPres.SwitchActivity();
+                    echoed = false;
+                } else {
+                    qrPres.DoneLoading();
+                    qrPres.NoEcho();
+                    //after 0.5 seconds we switch to settingsactivity by calling the qrpres method
+                    new CountDownTimer(1500,1000){
+                        @Override
+                        public void onTick(long millisUntilFinished){}
 
+                        @Override
+                        public void onFinish(){
+                            qrPres.toggledrawer();
+                            // switch activity back to settings
+                            qrPres.SwitchActivity();
+                        }
+                    }.start();
+                }
+                Disc();
+            }
+        }, 3000); // 2000 milliseconds delay
+    }
 
+    /**
+     * Method for removing observer and disconnecting
+     */
+    private void Disc() {
+        echo.disconnect();
+    }
+
+    /**
+     * Just a observable that waits for a notification from the echo class and sets echoed to true.
+     * @param observable The observable
+     * @param o The object
+     */
+    @Override
+    public void update(Observable observable, Object o) {
+        echoed = true;
+        echo.deleteObserver(this);
+    }
 }

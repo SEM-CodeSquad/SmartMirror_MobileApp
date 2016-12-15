@@ -22,7 +22,7 @@
             android:layout_marginLeft="16dp" />
 
         <TextView
-            android:text="This application was developed by a group of student at Gothenburg University at the computer science program Software Engineering and Management. The application is made for home usage. The purpose of the application was to be to make your day easier by viewing important information on the mirror and at the same time being able to control it."
+            android:text="This application was developed by a group of students at Gothenburg University at the computer science program Software Engineering and Management. The application is made for home usage. The purpose of the application is to be to make your day easier by viewing important information on the mirror and at the same time being able to control it."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView9"
@@ -76,7 +76,7 @@
             android:layout_marginTop="6dp" />
 
         <TextView
-            android:text="Michael Palka, Professor at Gothenburg University"
+            android:text="Michał Pałka, Professor at Gothenburg University"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView20"
@@ -108,7 +108,7 @@
             android:layout_marginTop="6dp" />
 
         <TextView
-            android:text="Enrique 'KikeDaddy' Cordero, Teachers Assistant"
+            android:text="Enrique 'KikeDaddy' Cordero, Teacher's Assistant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView22"
@@ -130,7 +130,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:text="Geoffrey Chen"
+            android:text="Geoffrey Chen, 	guschenge@student.gu.se"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView27"
@@ -140,7 +140,7 @@
             android:textStyle="normal|bold" />
 
         <TextView
-            android:text="Emanuel Marcos"
+            android:text="Emanuel Marcos, guslouem@student.gu.se"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView27"
@@ -150,7 +150,7 @@
             android:layout_marginTop="6dp" />
 
         <TextView
-            android:text="Raphael Puccinelli"
+            android:text="Raphael Puccinelli, guspucra@student.gu.se"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView28"
@@ -160,7 +160,7 @@
             android:textStyle="normal|bold" />
 
         <TextView
-            android:text="Adin Hodovic, hodovicadin@gmail.com"
+            android:text="Adin Hodovic, gushodoad@gu.se"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView29"
@@ -170,7 +170,7 @@
             android:layout_marginTop="6dp" />
 
         <TextView
-            android:text="Nimish Krashnak"
+            android:text="Nimish Krashak, guskrasni@student.gu.se"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView30"
@@ -180,7 +180,7 @@
             android:textStyle="normal|bold" />
 
         <TextView
-            android:text="Axel Verner"
+            android:text="Axel Verner, gusvernax@student.gu.se"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView31"

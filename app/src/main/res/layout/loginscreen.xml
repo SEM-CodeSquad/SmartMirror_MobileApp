@@ -74,17 +74,6 @@
         android:layout_alignStart="@+id/textView7"
         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forgot your password?"
-        android:id="@+id/fgtpass"
-        android:layout_gravity="right"
-        android:clickable="true"
-        android:layout_below="@+id/login"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:layout_alignStart="@+id/edittext5" />
-
     <EditText
         android:layout_width="wrap_content"
         android:inputType="textPersonName"
@@ -144,5 +133,30 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:textSize="12sp" />
+
+    <CheckBox
+        android:text="Save username"
+        android:buttonTint="@color/common_google_signin_btn_text_dark_focused"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login"
+        android:id="@+id/saveusername"
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColorLink="@color/common_google_signin_btn_text_dark_focused"
+        android:layout_alignStart="@+id/login"
+        android:paddingLeft="5dp"
+        android:layout_marginLeft="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot your password?"
+        android:id="@+id/fgtpass"
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:layout_below="@+id/saveusername"
+        android:layout_alignStart="@+id/edittext5" />
 
 </RelativeLayout>
