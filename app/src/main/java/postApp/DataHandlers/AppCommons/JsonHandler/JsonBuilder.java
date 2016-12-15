@@ -211,13 +211,27 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
             }
             //If the args[0] equals spltomirror we construct a json object that is sent to the smartmirror
             else if (args[0].equals("SPLToMirror")) {
-
                 JSONObject sendthis = new JSONObject();
                 sendthis.put("messageFrom", args[1]);
                 sendthis.put("timestamp", args[2]);
 
+                if (args[3].equals("0")) {
+                    sendthis.put("contentType", "shoppingList");
+                    JSONObject item = new JSONObject();
+                    JSONArray jArray = new JSONArray();
+                    item.put("item", "empty");
+                    jArray.add(0, item);
+                    sendthis.put("content", jArray);
 
-                if ((!(args[3].equals("0")))&&(!(args[3].equals("-1")))){
+                } else if (args[3].equals("-1")) {
+                    sendthis.put("contentType", "Create list");
+                    sendthis.put("content", "Create new list " + args[1]);
+
+                } else if (args[3].equals("-2")) {
+                    sendthis.put("contentType", "echo");
+                    sendthis.put("content", "alive");
+
+                } else if ((!(args[3].equals("0")))&&(!(args[3].equals("-1")))){
                     sendthis.put("contentType", "shoppingList");
                     JSONObject item = new JSONObject();
                     JSONArray jArray = new JSONArray();
@@ -228,23 +242,11 @@ public class JsonBuilder extends AsyncTask<String, Void, String> {
                     }
                     jArray.add(0, item);
                     sendthis.put("content", jArray);
-                } else if (args[3].equals("0")) {
-                    sendthis.put("contentType", "shoppingList");
-                    JSONObject item = new JSONObject();
-                    JSONArray jArray = new JSONArray();
-                    item.put("item", "empty");
-                    jArray.add(0, item);
-                    sendthis.put("content", jArray);
-                }else if(args[3].equals("-1")){
-                    sendthis.put("contentType", "Create list");
-                    sendthis.put("content", "Create new list "+args[1]);
-                }else if(args[3].equals("-2")){
-                    sendthis.put("contentType","echo");
-                    sendthis.put("content","alive");
                 }
 
                 topic = "dit029/SmartMirror/" + args[1] + "/shoppingList";
                 String messageString = sendthis.toJSONString();
+                System.out.println("The message to mirror is "+ messageString);
                 post = new HttpRequestSender("54.154.153.243", topic, messageString, "0", "false");
             }
 

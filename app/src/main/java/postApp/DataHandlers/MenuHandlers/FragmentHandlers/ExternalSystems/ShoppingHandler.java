@@ -184,9 +184,9 @@ public class ShoppingHandler implements Observer {
         if (this.SPLList.isEmpty()) {
             builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), "0");
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("SPLToMirror", clientID, Long.toString(timestamp), "-1");
+            builder.execute("SPLToMirror",this.clientID,Long.toString(timestamp),"-1");
         } else {
-            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), Integer.toString(this.SPLList.size()), mirrorList(this.SPLList));
+            builderMirror.execute("SPLToMirror",this.clientID, Long.toString(timestamp), Integer.toString(this.SPLList.size()), mirrorList(this.SPLList));
         }
     }
 
@@ -204,12 +204,12 @@ public class ShoppingHandler implements Observer {
             tempItem = item;
         } else if (requestType.equals("delete")) {
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType, item); // The client id here is the one we should be using.
+            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType,item); // The client id here is the one we should be using.
             tempType = requestType;
             tempItem = item;
         } else if (requestType.equals("delete-list")) {
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType);
+            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType);
             tempType = requestType;
             tempItem = item;
         }
@@ -266,10 +266,10 @@ public class ShoppingHandler implements Observer {
 
     public void publishEchoMessage() {
         this.connected = false;
-        final Long timeStamp = System.currentTimeMillis() / 1000L;
-        final Echo echo = new Echo("dit029/SmartMirror/" + this.clientID + "/shoppingList", "smartMirror");
+        final Long timestamp = System.currentTimeMillis() / 1000L;
+        final Echo echo = new Echo("dit029/SmartMirror/" + this.clientID + "/echo", "smartMirror");
         JsonBuilder echoBuilder = new JsonBuilder();
-        echoBuilder.execute("SPLToMirror", this.clientID, Long.toString(timeStamp), "-2");
+        echoBuilder.execute("SPLToMirror",this.clientID,Long.toString(timestamp),"-2");
 
         final ProgressDialog dialog = new ProgressDialog(parent);
         dialog.setTitle("Shopping List");
