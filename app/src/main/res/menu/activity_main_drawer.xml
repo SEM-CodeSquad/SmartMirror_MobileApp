@@ -11,11 +11,11 @@
                     android:title="Add Post-It" />
                 <item
                     android:id="@+id/nav_mirror"
-                    android:icon="@drawable/manage"
+                    android:icon="@drawable/wrench"
                     android:title="Manage Post-its" />
                 <item
                     android:id="@+id/nav_filterpost"
-                    android:icon="@mipmap/post_it_"
+                    android:icon="@drawable/filter"
                     android:title="Filter Post-its" />
             </menu>
         </item>
@@ -33,7 +33,7 @@
         <menu>
             <item
                 android:id="@+id/nav_preferences"
-                android:icon="@drawable/preferences"
+                android:icon="@drawable/settings"
                 android:title="Mirror Preferences" />
         </menu>
     </item>

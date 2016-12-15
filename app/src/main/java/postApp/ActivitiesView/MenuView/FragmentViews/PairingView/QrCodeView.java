@@ -32,10 +32,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v13.app.FragmentCompat;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -67,17 +70,19 @@ public class QrCodeView extends Fragment  {
      * @return the view
      */
     @Nullable
+    @RequiresApi(api= Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mScannerView = new ZXingScannerView(getActivity());   // Programmatically initialize the scanner view
         progress = new ProgressDialog(getActivity());
+
+
         /**
          * Checks if you have camera permission, if you have you start camera and if you dont you ask for the permission
          */
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(),
+                != PackageManager.PERMISSION_GRANTED) { requestPermissions(
                         new String[]{Manifest.permission.CAMERA},
                         PERMISSION_REQUEST_CAMERA);
 
@@ -97,8 +102,9 @@ public class QrCodeView extends Fragment  {
      * @param grantResults the result
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
     {
+
         // This is because the dialog was cancelled when we recreated the activity.
         if (permissions.length == 0 || grantResults.length == 0)
             return;
@@ -110,7 +116,7 @@ public class QrCodeView extends Fragment  {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
                     //switch screen to QrCodeView frame
-                    getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView(), "QRFRAG").addToBackStack(null).commit();
+                    mScannerView.startCamera();
                 }
                 else
                 {

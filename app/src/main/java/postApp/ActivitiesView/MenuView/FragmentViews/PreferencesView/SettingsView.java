@@ -31,8 +31,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v13.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +43,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import adin.postApp.R;
 import postApp.ActivitiesView.MenuView.FragmentViews.PairingView.QrCodeView;
 import postApp.Presenters.MenuPresenters.FragmentPresenters.PreferencesPresenter.SettingsPresenter;
@@ -65,12 +68,14 @@ public class SettingsView extends Fragment {
 
     /**
      * Method that is called when this fragment is created.
-     * @param inflater the inflater
-     * @param container the viewgroup container
+     *
+     * @param inflater           the inflater
+     * @param container          the viewgroup container
      * @param savedInstanceState the saved instance
      * @return the view we inflate
      */
     @Nullable
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.settings, container, false);
@@ -88,7 +93,7 @@ public class SettingsView extends Fragment {
         weathertext = (EditText) myView.findViewById(R.id.citytext);
         username = (TextView) myView.findViewById(R.id.usernameSett);
 
-        user =  (((NavigationActivity) getActivity()).getUser());
+        user = (((NavigationActivity) getActivity()).getUser());
         //initialize the progressdialog progress
         progress = new ProgressDialog(getActivity());
         //the presenter is initialize with this view and mirror id and user
@@ -133,16 +138,15 @@ public class SettingsView extends Fragment {
         weatherbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hasPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+                if (hasPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
                     //this is if permission is already granted
                     presenter.WeatherOnLoc();
-                }
-                else {
+                } else {
                     //setting perm to "bus" to make it clear for the onRequestPermissionResult method what function to call in the presenter if
                     // the app is given permission
                     perm = "weather";
                     //request permission
-                    ActivityCompat.requestPermissions(getActivity(),
+                    requestPermissions(
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                             1);
                 }
@@ -157,53 +161,60 @@ public class SettingsView extends Fragment {
      * On resume we set the title to settings
      */
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Settings");
     }
+
     /**
      * Sets the news textview
+     *
      * @param news the news source
      */
-    public void SetNews(String news){
+    public void SetNews(String news) {
         newstext.setText(news);
     }
+
     /**
      * Sets the uuid textview which is the mirror UUID
+     *
      * @param id the ID
      */
-    public void SetUUID(String id){
+    public void SetUUID(String id) {
         UUID.setText(id);
     }
 
     /**
      * Sets the username textview
+     *
      * @param user the usernamme
      */
-    public void SetUser(String user){
+    public void SetUser(String user) {
         username.setText(user);
     }
 
     /**
      * Sets the bustext textview
+     *
      * @param bus the bustation
      */
-    public void SetBus(String bus){
+    public void SetBus(String bus) {
         bustext.setText(bus);
     }
 
     /**
      * Sets the weathertext textview
+     *
      * @param weather the weather
      */
-    public void SetWeather(String weather){
+    public void SetWeather(String weather) {
         weathertext.setText(weather);
     }
 
     /**
      * Method that changes to QR fragment and changes the drawer to a back button and sets title of the actionbar
      */
-    public void ChangeToQR(){
+    public void ChangeToQR() {
         ((NavigationActivity) getActivity()).toggleDrawerUse(false);
         ((NavigationActivity) getActivity()).getSupportActionBar().setTitle("Mirror Code");
         getActivity().getFragmentManager().beginTransaction().replace(R.id.content_frame, new QrCodeView(), "QRFRAG").addToBackStack(null).commit();
@@ -212,21 +223,21 @@ public class SettingsView extends Fragment {
     /**
      * Method the shows the bus dialog
      */
-    public void ShowBus(){
-            busbuilt.show();
+    public void ShowBus() {
+        busbuilt.show();
     }
 
     /**
      * Method the shows the news dialog
      */
-    public void ShowNews(){
+    public void ShowNews() {
         newsbuilt.show();
     }
 
     /**
      * Method that shows a alertdialog that says not all settings are chosen.
      */
-    public void ChoseAllSettings(){
+    public void ChoseAllSettings() {
         //if user types wrong login we show a alertdialog some text
         new AlertDialog.Builder(getActivity())
                 .setTitle("Not all settings are chosen")
@@ -237,7 +248,8 @@ public class SettingsView extends Fragment {
                 })
                 .show();
     }
-    public void NoMirrorChosen(){
+
+    public void NoMirrorChosen() {
         // if no mirror is chosen a.k.a topic is null we display a toast with chose a mirror
         Toast.makeText(getActivity(), "Please chose a mirror first.", Toast.LENGTH_SHORT).show();
     }
@@ -245,7 +257,7 @@ public class SettingsView extends Fragment {
     /**
      * This function is used for changing screen to the BusStopSearcher Fragment view
      */
-    public void ChangeToSearch(){
+    public void ChangeToSearch() {
 
         //we set the drawer to false and it becomes a back button
         ((NavigationActivity) getActivity()).toggleDrawerUse(false);
@@ -294,7 +306,7 @@ public class SettingsView extends Fragment {
                                 presenter.SetNews("ABC");
                                 break;
                         }
-     }
+                    }
                 });
         //and we create it with all the above options.
         newsbuilt.create();
@@ -303,6 +315,7 @@ public class SettingsView extends Fragment {
     /**
      * Method to build a alertdialog for chosing location or search
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void Buildstop() {
 
         //we build our bus alertdialog
@@ -311,16 +324,14 @@ public class SettingsView extends Fragment {
         busbuilt.setMessage("Choose One Option")
                 .setPositiveButton("By Location", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if(hasPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        if (hasPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
                             // if by location is chosen we use the SmartLocation lib once again to get the fixed location
                             presenter.BusByLoc();
-                        }
-                        else {
+                        } else {
                             //setting perm to "bus" to make it clear for the onRequestPermissionResult method what function to call in the presenter if
                             // the app is given permission
                             perm = "bus";
-                            ActivityCompat.requestPermissions(getActivity(),
-                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                     1);
                         }
                     }
@@ -338,7 +349,7 @@ public class SettingsView extends Fragment {
     /**
      * Loading method that shows a progressdialog
      */
-    public void Loading(){
+    public void Loading() {
         progress.setMessage("Updating settings");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
@@ -351,14 +362,14 @@ public class SettingsView extends Fragment {
     /**
      * method that dismisses the progressbar
      */
-    public void DoneLoading(){
+    public void DoneLoading() {
         progress.dismiss();
     }
 
     /**
      * Method that shows a alert dialog that says fail to edit settings.
      */
-    public void UnsuccessfulPublish(){
+    public void UnsuccessfulPublish() {
         //if user types wrong login we show a alert dialog some text
         new AlertDialog.Builder(getActivity())
                 .setTitle("Failed to edit settings")
@@ -369,8 +380,11 @@ public class SettingsView extends Fragment {
                 })
                 .show();
     }
-    /** Determines if the context calling has the required permission
-     * @param context - the IPC context
+
+    /**
+     * Determines if the context calling has the required permission
+     *
+     * @param context    - the IPC context
      * @param permission - The permissions to check
      * @return true if the IPC has the granted permission
      */
@@ -384,8 +398,9 @@ public class SettingsView extends Fragment {
     /**
      * Handles Request permission results, if the permission is given we wither Call the bus stop by location functionality in the presenter
      * or we call the weather on location functionality depending on the string perm.
-     * @param requestCode the requestcode
-     * @param permissions the permission
+     *
+     * @param requestCode  the requestcode
+     * @param permissions  the permission
      * @param grantResults the granted result
      */
     @Override
@@ -398,11 +413,11 @@ public class SettingsView extends Fragment {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //If perm is bus we know we are supposed to set bus by location
-                    if(perm.equals("bus")) {
+                    if (perm.equals("bus")) {
                         presenter.BusByLoc();
                     }
                     //Else weather by location
-                    else{
+                    else {
                         presenter.WeatherOnLoc();
                     }
                 } else {

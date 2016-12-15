@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SmartMirror_MobileApp.iml" filepath="$PROJECT_DIR$/SmartMirror_MobileApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Term 2 Project.iml" filepath="$PROJECT_DIR$/Term 2 Project.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
