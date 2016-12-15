@@ -71,7 +71,7 @@ public class ShoppingHandler implements Observer {
         publishEchoMessage();
     }
 
-    public void initList(){
+    public void initList() {
         listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
         listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");
         JsonBuilder builder = new JsonBuilder();
@@ -111,13 +111,20 @@ public class ShoppingHandler implements Observer {
                             this.updateMirrorList();
                         }
                     }
-                } else if (reply.equalsIgnoreCase("alive")) {
-                    System.err.println("ALIVE");
-                    this.connected = true;
                 } else if (reply.equalsIgnoreCase("error")) {
                     toastMessage("Error updating List");
                 }
             } else if (json.containsKey("client_id")) {
+            } else if (json.containsKey("content")) {
+                String content = json.get("content").toString();
+                JSONParser jsonParser = new JSONParser();
+                JSONObject object = (JSONObject) jsonParser.parse(content);
+                if (object.containsKey("reply")){
+                    if (object.get("reply").toString().equals("alive")) {
+                        System.err.println("ALIVE");
+                        this.connected = true;
+                    }
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -185,9 +192,9 @@ public class ShoppingHandler implements Observer {
         if (this.SPLList.isEmpty()) {
             builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), "0");
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("SPLToMirror",this.clientID,Long.toString(timestamp),"-1");
+            builder.execute("SPLToMirror", this.clientID, Long.toString(timestamp), "-1");
         } else {
-            builderMirror.execute("SPLToMirror",this.clientID, Long.toString(timestamp), Integer.toString(this.SPLList.size()), mirrorList(this.SPLList));
+            builderMirror.execute("SPLToMirror", this.clientID, Long.toString(timestamp), Integer.toString(this.SPLList.size()), mirrorList(this.SPLList));
         }
     }
 
@@ -205,12 +212,12 @@ public class ShoppingHandler implements Observer {
             tempItem = item;
         } else if (requestType.equals("delete")) {
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType,item); // The client id here is the one we should be using.
+            builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType, item); // The client id here is the one we should be using.
             tempType = requestType;
             tempItem = item;
         } else if (requestType.equals("delete-list")) {
             JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist",this.clientID + "@smartmirror.com",requestType);
+            builder.execute("shoppinglist", this.clientID + "@smartmirror.com", requestType);
             tempType = requestType;
             tempItem = item;
         }
@@ -271,23 +278,23 @@ public class ShoppingHandler implements Observer {
         final Echo echo = new Echo("dit029/SmartMirror/" + this.clientID + "/echo", "smartMirror");
         echo.addObserver(this);
         JsonBuilder echoBuilder = new JsonBuilder();
-        echoBuilder.execute("SPLToMirror",this.clientID,Long.toString(timestamp),"-2");
+        echoBuilder.execute("SPLToMirror", this.clientID, Long.toString(timestamp), "-2");
 
         final ProgressDialog dialog = new ProgressDialog(parent);
         dialog.setTitle("Shopping List");
         dialog.setMessage("Checking for your SmartMirror...");
         dialog.setCancelable(false);
         dialog.show();
-       final Thread echoThread = new Thread(new Runnable() {
+        final Thread echoThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 10; i++){
+                for (int i = 0; i < 10; i++) {
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (connected){
+                    if (connected) {
                         break;
                     }
                 }
@@ -323,14 +330,15 @@ public class ShoppingHandler implements Observer {
         echoThread.start();
     }
 
-        /**
-         * @return the value
-         */
+    /**
+     * @return the value
+     */
 
     public boolean getBoolean() {
         return this.value;
     }
-    public boolean getConnectedBoolean(){
+
+    public boolean getConnectedBoolean() {
         return this.connected;
     }
 
@@ -341,7 +349,7 @@ public class ShoppingHandler implements Observer {
         this.value = false;
     }
 
-    public void updateListView(){
+    public void updateListView() {
         presenter.updateListView();
     }
 
