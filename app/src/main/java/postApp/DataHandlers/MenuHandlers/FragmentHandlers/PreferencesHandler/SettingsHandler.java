@@ -75,7 +75,6 @@ public class SettingsHandler implements Observer {
         this.SettingsPresenter = SettingsPresenter;
         this.SettingsView = SettingsView;
         echo = new Echo("dit029/SmartMirror/" + mirror + "/echo", user);
-        echo.addObserver(this);
         echo.disconnect();
     }
 
@@ -225,6 +224,7 @@ public class SettingsHandler implements Observer {
      */
     private void AwaitEcho() {
         echo.connect();
+        echo.addObserver(this);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -255,6 +255,7 @@ public class SettingsHandler implements Observer {
      */
     @Override
     public void update(Observable observable, Object o) {
+            echo.deleteObserver(this);
             echoed = true;
             StoreSettings();
     }

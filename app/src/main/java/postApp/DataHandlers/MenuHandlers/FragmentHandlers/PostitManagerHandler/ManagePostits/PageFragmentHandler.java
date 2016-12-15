@@ -156,6 +156,7 @@ public class PageFragmentHandler implements Observer {
      */
     private void AwaitEcho() {
         echo.connect();
+        echo.addObserver(this);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -191,10 +192,12 @@ public class PageFragmentHandler implements Observer {
             if(editordelete.equals("edit")){
                 echoed = true;
                 EditPost();
+                echo.deleteObserver(this);
             }
             else if(editordelete.equals("delete")){
                 echoed = true;
                 RemovePost();
+                echo.deleteObserver(this);
             }
     }
 }

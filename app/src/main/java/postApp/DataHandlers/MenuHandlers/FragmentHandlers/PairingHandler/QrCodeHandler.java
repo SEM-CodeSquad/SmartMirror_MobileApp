@@ -93,6 +93,7 @@ public class QrCodeHandler implements ZXingScannerView.ResultHandler, Observer {
      */
     private void AwaitEcho() {
         echo.connect();
+        echo.addObserver(this);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {

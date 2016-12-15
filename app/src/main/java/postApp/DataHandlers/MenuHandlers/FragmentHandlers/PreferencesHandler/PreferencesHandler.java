@@ -50,7 +50,6 @@ public class PreferencesHandler implements Observer {
         this.PreferencesPresenter = PreferencesPresenter;
         String topic123 = "dit029/SmartMirror/" + mirror + "/echo";
         echo = new Echo(topic123, user);
-        echo.addObserver(this);
         echo.disconnect();
     }
 
@@ -88,6 +87,7 @@ public class PreferencesHandler implements Observer {
      */
     private void AwaitEcho() {
         echo.connect();
+        echo.addObserver(this);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -109,6 +109,7 @@ public class PreferencesHandler implements Observer {
      */
     @Override
     public void update(Observable observable, Object o) {
+            echo.deleteObserver(this);
             echoed = true;
     }
 }

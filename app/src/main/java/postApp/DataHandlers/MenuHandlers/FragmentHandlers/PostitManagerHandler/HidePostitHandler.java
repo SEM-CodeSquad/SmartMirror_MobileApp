@@ -55,7 +55,6 @@ public class HidePostitHandler implements Observer {
         this.HidePostitPresenter = HidePostitPresenter;
         String topic123 = "dit029/SmartMirror/" + topic + "/echo";
         echo = new Echo(topic123, user);
-        echo.addObserver(this);
         echo.disconnect();
     }
 
@@ -108,6 +107,7 @@ public class HidePostitHandler implements Observer {
      */
     private void AwaitEcho() {
         echo.connect();
+        echo.addObserver(this);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -137,5 +137,6 @@ public class HidePostitHandler implements Observer {
     @Override
     public void update(Observable observable, Object o) {
         echoed = true;
+        echo.deleteObserver(this);
     }
 }

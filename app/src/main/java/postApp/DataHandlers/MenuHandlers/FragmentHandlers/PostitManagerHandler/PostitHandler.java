@@ -131,6 +131,7 @@ public class PostitHandler implements Observer {
      */
     private void AwaitEcho() {
         echo.connect();
+        echo.addObserver(this);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -166,7 +167,9 @@ public class PostitHandler implements Observer {
      */
     @Override
     public void update(Observable observable, Object data) {
-            stored = true;
+        stored = true;
             StorePost();
+        echo.deleteObserver(this);
+
     }
 }
