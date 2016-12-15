@@ -55,7 +55,7 @@ public class ShoppingPresenter {
 
     /**
      * Method that calls the handler update list function
-     * @param requestType the Requuest type
+     * @param requestType the Request type
      * @param item The item
      */
     public void updateList(String requestType, String item){
