@@ -61,6 +61,9 @@ public class ShoppingPresenter {
     public void updateList(String requestType, String item){
         handler.updateList(requestType, item);
     }
+    public void updateListView(){
+        view.updateListView();
+    }
 
     /**
      * @return a linkedlist from the handler that is the shopping list

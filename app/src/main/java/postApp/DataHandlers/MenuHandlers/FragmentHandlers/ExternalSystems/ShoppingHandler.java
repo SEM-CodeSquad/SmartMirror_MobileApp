@@ -2,9 +2,13 @@ package postApp.DataHandlers.MenuHandlers.FragmentHandlers.ExternalSystems;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -45,30 +49,33 @@ public class ShoppingHandler implements Observer {
     private String tempType = "";
     private String tempItem = "";
     private boolean value;
+    private boolean connected;
 
     /**
      * Constructor for the shoppinghandler class, that start a mqtt client, listens to a subscription. The presenter, view and clientID is set in this method.
-     * @param ShoppingView The view
+     *
+     * @param ShoppingView      The view
      * @param ShoppingPresenter The presenter
-     * @param clientID The clientID
+     * @param clientID          The clientID
      */
     public ShoppingHandler(ShoppingView ShoppingView, ShoppingPresenter ShoppingPresenter, String clientID) {
         this.value = false;
-        MemoryPersistence persistence = new MemoryPersistence();
+        this.connected = false;
         this.clientID = clientID;
-        this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com", this.clientID + "@codehigh.com", persistence);
         this.view = ShoppingView;
         parent = view.getActivity();
         this.presenter = ShoppingPresenter;
         this.SPLList = new LinkedList<>();
+        MemoryPersistence persistence = new MemoryPersistence();
+        this.mqttClient = new MQTTClient("tcp://prata.technocreatives.com", this.clientID + "@codehigh.com", persistence);
+        publishEchoMessage();
+    }
 
-
-        if (!this.clientID.equals("No mirror chosen")) {
-            listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
-            listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");
-            JsonBuilder builder = new JsonBuilder();
-            builder.execute("shoppinglist", this.clientID + "@smartmirror.com", "fetch");
-        }
+    public void initList(){
+        listenSubscription("Gro/" + this.clientID + "@smartmirror.com");
+        listenSubscription("Gro/" + this.clientID + "@smartmirror.com/fetch");
+        JsonBuilder builder = new JsonBuilder();
+        builder.execute("shoppinglist", this.clientID + "@smartmirror.com", "fetch");
     }
 
 
@@ -104,8 +111,8 @@ public class ShoppingHandler implements Observer {
                             this.updateMirrorList();
                         }
                     }
-                }else if (reply.equalsIgnoreCase("alive")){
-                    //TODO Nimish  put your echo part of the codes here!
+                } else if (reply.equalsIgnoreCase("alive")) {
+                    this.connected = true;
                 } else if (reply.equalsIgnoreCase("error")) {
                     toastMessage("Error updating List");
                 }
@@ -134,11 +141,10 @@ public class ShoppingHandler implements Observer {
                     if (o instanceof JSONObject) {
                         System.out.println(((JSONObject) o).get("item"));
                         this.SPLList.addLast(((JSONObject) o).get("item"));
-
                     }
-
                 }
             }
+            presenter.updateListView();
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -147,6 +153,7 @@ public class ShoppingHandler implements Observer {
 
     /**
      * Method to add a observer
+     *
      * @param sub the Mqtt sub we add a observer to
      */
     private void addClassObserver(MQTTSub sub) {
@@ -185,8 +192,9 @@ public class ShoppingHandler implements Observer {
 
     /**
      * Depending on requesttype we execute the jsonbuilder with a diffrent values.
+     *
      * @param requestType The requesttype
-     * @param item The item
+     * @param item        The item
      */
     public void updateList(String requestType, String item) {
         if (requestType.equals("add")) {
@@ -209,8 +217,9 @@ public class ShoppingHandler implements Observer {
 
     /**
      * Method to that listens to a class and then if we receive a message we start a new thread to parse the message
+     *
      * @param observable the observable
-     * @param obj the object, in this case we are checking for a MqttMessage
+     * @param obj        the object, in this case we are checking for a MqttMessage
      */
     @Override
     public void update(Observable observable, final Object obj) {
@@ -230,6 +239,7 @@ public class ShoppingHandler implements Observer {
 
     /**
      * In this method each element in the LinkedList to the string list.
+     *
      * @param shoppingList the shoppinglist we take each element from and add it to the string list
      * @return the list
      */
@@ -243,6 +253,7 @@ public class ShoppingHandler implements Observer {
 
     /**
      * A method for making a Ui thread that makes a toast with a message.
+     *
      * @param msg the message
      */
     private void toastMessage(final String msg) {
@@ -253,11 +264,72 @@ public class ShoppingHandler implements Observer {
         });
     }
 
-    /**
-     * @return the value
-     */
+    public void publishEchoMessage() {
+        this.connected = false;
+        final Long timeStamp = System.currentTimeMillis() / 1000L;
+        final Echo echo = new Echo("dit029/SmartMirror/" + this.clientID + "/shoppingList", "smartMirror");
+        JsonBuilder echoBuilder = new JsonBuilder();
+        echoBuilder.execute("SPLToMirror", this.clientID, Long.toString(timeStamp), "-2");
+
+        final ProgressDialog dialog = new ProgressDialog(parent);
+        dialog.setTitle("Shopping List");
+        dialog.setMessage("Checking for your SmartMirror...");
+        dialog.setCancelable(false);
+        dialog.show();
+       final Thread echoThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 10; i++){
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (connected){
+                        break;
+                    }
+                }
+                dialog.cancel();
+                echo.disconnect();
+                if (!connected) {
+                    parent.runOnUiThread(new Runnable() {
+                        public void run() {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+                            builder.setTitle("Problem Occurred");
+                            builder.setMessage("Retry searching for mirror?");
+                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    publishEchoMessage();
+                                }
+                            });
+                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            builder.show();
+                        }
+                    });
+                } else if (connected) {
+                    initList();
+                    toastMessage("Connected");
+                }
+            }
+        });
+        echoThread.start();
+    }
+
+        /**
+         * @return the value
+         */
+
     public boolean getBoolean() {
         return this.value;
+    }
+    public boolean getConnectedBoolean(){
+        return this.connected;
     }
 
     /**
@@ -265,6 +337,10 @@ public class ShoppingHandler implements Observer {
      */
     public void setBooleanFalse() {
         this.value = false;
+    }
+
+    public void updateListView(){
+        presenter.updateListView();
     }
 
     /**

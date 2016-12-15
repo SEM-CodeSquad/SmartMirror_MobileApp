@@ -259,6 +259,10 @@ public class ShoppingView extends Fragment {
         Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    public void updateListView(){
+        listView.setAdapter(adapter);
+    }
+
 
 }
 
