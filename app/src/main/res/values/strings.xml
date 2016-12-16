@@ -6,4 +6,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_add">Add Item</string>
     <string name="action_clear">Clear List</string>
+    <string name="shopping_list">Shopping List</string>
+    <string name="preferences">Preferences</string>
 </resources>

@@ -84,6 +84,7 @@ public class ManagePostitsView extends Fragment {
     /**
      * Sets title on the actionbar on resume
      */
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onResume(){
         super.onResume();

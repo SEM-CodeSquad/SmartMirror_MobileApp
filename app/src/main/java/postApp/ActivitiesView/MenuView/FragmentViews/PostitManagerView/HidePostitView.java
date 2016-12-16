@@ -144,7 +144,4 @@ public class HidePostitView extends Fragment {
                 })
                 .show();
     }
-
-
-
 }

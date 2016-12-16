@@ -70,6 +70,7 @@ public class FAQView extends Fragment {
     /**
      * On resume sets title to to FAQ
      */
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onResume(){
         super.onResume();

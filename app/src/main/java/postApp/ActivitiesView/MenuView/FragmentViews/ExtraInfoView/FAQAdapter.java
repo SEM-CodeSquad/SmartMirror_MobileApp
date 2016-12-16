@@ -61,8 +61,8 @@ class FAQAdapter extends BaseExpandableListAdapter {
     /**
      * Gets item at the index of parent and child
      * @param parent the parent
-     * @param child
-     * @return
+     * @param child the child
+     * @return Child Object
      */
         @Override
         public Object getChild(int parent, int child) {

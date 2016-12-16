@@ -26,6 +26,8 @@ package postApp.DataHandlers.AppCommons.Postits;
 
 import android.os.AsyncTask;
 
+import com.vdurmont.emoji.EmojiParser;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
@@ -96,7 +98,8 @@ public class ReadPostits extends Observable implements Observer {
                     String color = rs.getString("Color");
                     postitJson.put("Color", color);
                     String text = rs.getString("Postit");
-                    postitJson.put("Text", text);
+                    String string = EmojiParser.parseToUnicode(text);
+                    postitJson.put("Text", string);
                     String timeStamp = rs.getString("Timestamp");
                     postitJson.put("Timestamp", timeStamp);
                     postArray.add(count, postitJson);
