@@ -271,9 +271,12 @@ public class ShoppingView extends Fragment {
      * Updates the List view with the updated list.
      */
     public void updateListView(){
-        listView.setAdapter(adapter);
+        this.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                listView.setAdapter(adapter);
+            }
+        });
     }
-
-
 }
 
