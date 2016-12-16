@@ -69,7 +69,7 @@ public class FAQHandler {
         NewsOutlet.add("Currently we support only those six news sources. In the future we plan to expand to the customers needs.");
 
         List<String> DatePick = new ArrayList<>();
-        DatePick.add("If you do not pick a date the post-it will expand in 5 days as that is our standard value.");
+        DatePick.add("If you do not pick a date the post-it will expire in 5 days as that is our standard value.");
 
         List<String> NoAnswer = new ArrayList<>();
         NoAnswer.add("If you can not find a answer for your question here. Please send us a email.");
